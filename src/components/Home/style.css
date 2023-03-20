@@ -1,0 +1,26 @@
+.home {
+    color: white;
+}
+
+.meetup {
+    height: 50%;
+    width: 50%; 
+}
+
+.links {
+    justify-content: space-between;
+    color: white;
+
+}
+
+.chat-input-textarea {
+background-color: gray;
+width: 100%;
+padding: 12px;
+border-radius:5px;
+border: none;
+margin:12px;
+outline: none;
+color: white;
+box-shadow: 0 8px 0 rgba(0,0,0,0.5);
+}
