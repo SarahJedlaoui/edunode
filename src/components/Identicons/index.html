@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Identicon</title>
+
+    <style type="text/css">
+        body {
+            max-width: 550px;
+        }
+
+        .icon-wrapper {
+            padding: 20px;
+            background-color: #1b8da0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .stellar-identicon {
+            display: inline-block;
+            margin: 15px;
+            padding: 17px;
+            background: #ffffff;
+            border-radius: 100%;
+            width: 80px;
+            height: 80px;
+        }
+
+        .stellar-identicon canvas,
+        .stellar-identicon img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        button {
+            height: 38px;
+            width: 100px;
+            border-width: 1px;
+        }
+
+        .stellar-address-input {
+            width: 450px;
+        }
+
+        .form-group {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+        }
+
+        .form-group input {
+            height: 32px;
+            padding: 2px;
+            border: solid 1px gray;
+        }
+
+        form {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .example {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .example .description {
+            background-color: #FFFFFF;
+            padding: 7px;
+        }
+
+        .invalid-feedback {
+            color: red;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            font-size: 14px;
+
+            display: none;
+        }
+
+        .has-error .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <form>
+        <div class="form-group">
+            <label for="stellar_address">Stellar Address</label>
+            <input type="text" class="stellar-address-input" name="stellar_address" maxlength="56">
+            <span class="invalid-feedback">Invalid stellar address</span>
+        </div>
+        <div class="form-group">
+            <button id="random-address" type="button">Generate Random</button>
+        </div>
+    </form>
+
+    <div class="icon-wrapper">
+        <div class="example">
+            <div class="stellar-identicon">
+                <canvas id="existing-canvas" height="210px" width="210px"></canvas>
+            </div>
+            <div class="description">Identicon generated locally with JS</div>
+        </div>
+
+        <div class="example">
+            <div class="stellar-identicon">
+                <img id="image" src="">
+            </div>
+            <div class="description">Identicon loaded from id.lobstr.co</div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stellar-sdk/0.8.2/stellar-sdk.js"
+        integrity="sha256-DT+CIy1kuyZqFrH+TenEFppT5Vu/GJc8K7XX+lE6/1U= sha384-n/m29elbtFyTkuPHYSa9oFTmPTYMjdW9I7NyYJLVxEkoJlaC3RqmDTJYVJH8RYqO sha512-Qlp70K2Jivs0adOYBx8eYFzrRZFqBg9Uhg01nimbl2MMNy6gYWSpVhdNrXShrKdrh/2e+Yt/YSbfPMVAR+oIOg=="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./demo.js"></script>
+</body>
+</html>

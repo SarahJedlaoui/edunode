@@ -1,0 +1,38 @@
+#form {
+    width: 100%;
+    max-width: 500px;
+    padding: 60px;
+    margin: auto;
+    height: 100%;
+    border: grey;
+}
+
+#firstName {
+    width: 300px;
+    margin: auto;
+}
+
+#secondName {
+    width: 300px;
+    margin: auto;
+}
+
+#email {
+    width: 300px;
+    margin: auto;
+}
+
+#password {
+    width: 300px;
+    margin: auto;
+}
+
+#confirmPassword {
+    width: 300px;
+    margin: auto;
+}
+
+#button {
+    width: 300px;
+    margin: auto;
+}

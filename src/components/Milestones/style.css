@@ -1,0 +1,24 @@
+.aboutus {
+    color: black;
+}
+.meetup {
+    height: 40%;
+    width: 40%; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img {
+    height: 300px;
+    width: 500px; 
+}
+.users {
+    height: 300px;
+    width: 300px; 
+}
+
+.ws {
+    height: 350px;
+    width: 250px; 
+}

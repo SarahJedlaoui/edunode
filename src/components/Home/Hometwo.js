@@ -3,7 +3,7 @@ import { Card } from '@mui/material';
 import { CardMedia } from '@mui/material';
 import { Grid } from '@mui/material';
 import {Typography} from '@mui/material';
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from '@material-ui/core';
 import {Container} from '@mui/material';
 import Complex from "./Complex"
 import "./style.css";

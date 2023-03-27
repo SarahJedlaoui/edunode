@@ -1,0 +1,14 @@
+#form {
+    width: 100%;
+    max-width: 500px;
+    padding: 60px;
+    margin: auto;
+    height: 100%;
+    border: grey;
+    background-color: white
+}
+
+#code {
+    width: 300px;
+    margin: auto;
+}

@@ -1,0 +1,10 @@
+.meetups {
+    color: black;
+}
+.meetup {
+    height: 350px;
+    width: 450px; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

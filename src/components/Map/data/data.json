@@ -1,0 +1,190 @@
+{
+    "type": "FeatureCollection",
+    "crs": {
+      "type": "name",
+      "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+    },
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 1,
+          "FACILITYID": 28014,
+          "NAME": "Stellar AT",
+          "KEYBASE": "https://keybase.io/team/stellar_at",
+          "TWITTER": "https://twitter.com/Stellar_at",
+          "DESCRIPTIO": "Stellar Community in Austria"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [16.35773919725817, 48.215052869953944]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 2,
+          "FACILITYID": 28014,
+          "NAME": "Stellar IE",
+          "KEYBASE": "https://keybase.io/team/stellar_ie",
+          "TWITTER": "https://twitter.com/Stellar_ie",
+          "DESCRIPTIO": "Stellar Community in Ireland"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-8.4705806, 51.8979282]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 3,
+          "FACILITYID": 28014,
+          "NAME": "Stellar KR",
+          "KEYBASE": "https://keybase.io/team/stellar_kr",
+          "DESCRIPTIO": "Stellar Community in Korea"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [127.33761000845239, 37.36147929566201]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 4,
+          "FACILITYID": 28014,
+          "NAME": "Stellar Munich",
+          "KEYBASE": "https://keybase.io/team/stellar_munich",
+          "DESCRIPTIO": "Stellar Community in Munich"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [11.61690327737138, 48.141698436470094]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 5,
+          "FACILITYID": 28014,
+          "NAME": "Stellar NY",
+          "KEYBASE": "https://keybase.io/team/shopnyc",
+          "DESCRIPTIO": "Stellar Community in New York"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-74.01763257172301, 40.702901887548066]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 6,
+          "FACILITYID": 28014,
+          "NAME": "Stellar TR",
+          "KEYBASE": "https://twitter.com/StellarXLMTR",
+          "DESCRIPTIO": "Stellar Community in Turkey"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [34.9249653, 38.9597594]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 7,
+          "FACILITYID": 28014,
+          "NAME": "Stellar LATAM",
+          "KEYBASE": "https://keybase.io/team/soylatino",
+          "DESCRIPTIO": "Stellar Community in LATAM"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-79.6768382607222, 4.6966211971715905]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 8,
+          "FACILITYID": 28014,
+          "NAME": "Stellar Global",
+          "KEYBASE": "https://keybase.io/team/stellar_global",
+          "DESCRIPTIO": "Stellar Global Community"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-40.97883308973187, 30.63234554476146]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 9,
+          "FACILITYID": 28014,
+          "NAME": "Stellar Berlin",
+          "DESCRIPTIO": "Stellar Community in Berlin"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [13.3888599, 52.5170365]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 10,
+          "FACILITYID": 28014,
+          "NAME": "Stellar Japan",
+          "KEYBASE": "https://twitter.com/stellarjpn",
+          "DESCRIPTIO": "Stellar Community in Japan"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [139.2394179, 36.5748441]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 11,
+          "FACILITYID": 28014,
+          "NAME": "Stellar Berlin",
+          "DESCRIPTIO": "Stellar Community in Berlin"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [13.3888599, 52.5170365]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 12,
+          "FACILITYID": 28014,
+          "NAME": "Stellar SF",
+          "DESCRIPTIO": "Stellar Community in San Francisco"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.4199061, 37.7790262]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "PARK_ID": 13,
+          "FACILITYID": 28014,
+          "NAME": "Stellar Italia",
+          "KEYBASE": "https://keybase.io/team/stellar_italia",
+          "DESCRIPTIO": "Stellar Community in Italy"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [12.674297, 42.6384261]
+        }
+      }
+    ]
+  }

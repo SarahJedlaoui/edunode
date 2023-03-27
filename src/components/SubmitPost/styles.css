@@ -1,0 +1,31 @@
+body {
+    font-family: sans-serif;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 20px;
+  }
+
+  .Card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    
+    .centered {
+        height: 10vh; /* Magic here */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+
+#title {
+  width: 300px;
+
+}
+
+#link {
+  width: 300px;
+}

@@ -6,14 +6,14 @@ import {Card} from '@mui/material';
 import {CardActions} from '@mui/material';
 import {CardContent} from '@mui/material';
 import {CardMedia} from '@mui/material';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import {Grid} from '@mui/material';
-import Toolbar from '@material-ui/core/Toolbar';
+import Toolbar from '@mui/material/Toolbar';
 import {Typography} from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import {Container} from '@mui/material';
 import PublishIcon from '@mui/icons-material/Publish';
-import Link from '@material-ui/core/Link';
+import Link from '@mui/material/Link';
 import Footer from "../Footer";
 import NavBar from "../NavBar";
 import kicon from "./keybaseicon.png"

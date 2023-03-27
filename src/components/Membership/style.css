@@ -1,0 +1,12 @@
+.sidebar-section img {
+    width: 100%;
+    margin-bottom: 2em;
+  }
+
+
+  .centered {
+    height: 10vh; /* Magic here */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

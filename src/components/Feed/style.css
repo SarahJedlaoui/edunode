@@ -1,0 +1,28 @@
+.sidebar-section img {
+    width: 100%;
+    margin-bottom: 2em;
+  }
+
+
+  .centered {
+    height: 10vh; /* Magic here */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .counter {
+    color: white;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    border-radius: 80%;
+    padding: 5px;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -5px;
+    right: -5px;
+  }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from '@material-ui/core';
 import { ButtonBase } from '@mui/material';
 import {Typography} from '@mui/material';
 import image1 from "./stellarbg.JPG"
