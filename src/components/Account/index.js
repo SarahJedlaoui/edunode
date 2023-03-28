@@ -6,11 +6,11 @@ import { reduxForm, Field } from "redux-form";
 import Sidebar from "../Dashboard/Sidebar";
 import Topbar from "../Dashboard/Topbar";
 import Box from '@mui/material/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import Grid from '@@mui/material/Grid';
+import Paper from '@@mui/material/Paper';
 import Footer from '../Footer';
 import { styled } from '@mui/material/styles';
-import { TextField } from '@material-ui/core';
+import { TextField } from '@@mui/material';
 import PropTypes from 'prop-types'
 
 
