@@ -140,7 +140,7 @@ class Account extends Component {
   render() {
     const { isAuthenticated ,history} = this.props.auth
     if (!isAuthenticated) {
-      history.push('/');
+      return <div>Please log in to view this page.</div>;
     }
 
     return (

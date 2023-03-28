@@ -98,8 +98,8 @@ function Ediploma(props) {
 
       </div>
       {/* <Diploma /> */}
-      <div id="downloadWrapper" ref={this.certificateWrapper}>
-          <div id="certificateWrapper" ref={this.certificate}>
+      <div id="downloadWrapper" ref={certificateWrapper}>
+          <div id="certificateWrapper" ref={certificate}>
             <p>{this.state.Name}</p>
             <img src="https://i.imgur.com/MxzEwin.png" alt="eCertificate" />
           </div>

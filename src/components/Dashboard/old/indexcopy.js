@@ -45,7 +45,7 @@ class Dashboard extends Component {
     }
     if (isAuthenticated && !isVerified) {
       //  <p class="loading">Loading...</p> <CircularProgress color="secondary" />
-      history.push('/verifyemail');
+      history.push('/VerifyEmail');
     }
    
       return (
@@ -67,7 +67,7 @@ Dashboard = connect(
   )(Dashboard);
 
 export default Dashboard = reduxForm({
-  form: "verifyEmailForm",
+  form: "VerifyEmailForm",
   fields: ["confirmationCode"],
   validate,
   clearErrors,

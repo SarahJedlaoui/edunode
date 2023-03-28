@@ -146,7 +146,7 @@ class SubmitPost extends Component {
         userName,
       };
       try {
-        await axios.post('/api/posts', post);
+        await axios.post('localhost:5001/api/posts', post);
         this.props.history.push('/dashboard');
       } catch (error) {
         console.log(error);

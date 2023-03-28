@@ -31,12 +31,13 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Chat from "./components/Chat";
 import Blog from "./components/Blog";
-import verifyEmail from "./components/VerifyEmail";
+import VerifyEmail from "./components/VerifyEmail";
 import Stellarnomics from "./components/Blog/Articles/Stellarnomics";
 import Projects from "./components/Projects";
 import Seguridad from "./components/Blog/Articles/Seguridad";
 import Blockchain from "./components/Blog/Articles/Blockchain";
 import Contracts from './components/Blog/Articles/Contracts';
+import Docker from './components/Blog/Articles/Docker';
 import AMM from './components/Blog/Articles/AMM/AMM';
 import Kelp from "./components/Blog/Articles/Kelp";
 import Albedo from "./components/Blog/Articles/Albedo";
@@ -71,7 +72,7 @@ function App(props) {
       <Routes location={location} navigate={navigate}>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<AboutUs/>} />
-        <Route exact path="/account/" element={<Account/>} />
+        <Route exact path="/account" element={<Account/>} />
         <Route exact path="/resources" element={<Resources/>} />
         <Route exact path="/community" element={<Community/>} />
         <Route exact path="/milestones" element={<Milestones/>} />
@@ -125,9 +126,8 @@ function App(props) {
         <Route exact path="/privacy" element={<Privacy/>} />
         <Route exact path="/submitpost" element={<SubmitPost/>} />
         <Route exact path="/dashboard" element={<Dashboard/>} />
-        
-        <Route exact path="/verifyEmail" element={<verifyEmail/>} />
-
+        <Route exact path="/VerifyEmail" element={<VerifyEmail/>} />
+        <Route exact path="/blog/docker" element={<Docker/>} />
 
       </Routes>
     </Provider>

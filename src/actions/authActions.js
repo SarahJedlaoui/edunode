@@ -36,7 +36,7 @@ export const loadUser = () => (dispatch, getState) => {
 
     axios
       .get(
-        'http://localhost:3000/api/auth/user',
+        'http://localhost:5001/api/auth/user',
         tokenConfig(getState),
         config,
       )
@@ -66,7 +66,7 @@ export const register = ({ email, password, confirmationCode }) => async dispatc
 
     const body = JSON.stringify({ email, password, confirmationCode });
 
-fetch('http://localhost:3000/api/emailauth/', {
+fetch('http://localhost:5001/api/emailauth/', {
 method: 'POST', 
 headers: {
 'Access-Control-Allow-Origin': '*',
@@ -113,7 +113,7 @@ console.log(email)
     const body = JSON.stringify({ email, password });
  
 
-    fetch('http://localhost:3000/api/emaillogin/', {
+    fetch('http://localhost:5001/api/emaillogin/', {
       method: 'POST', 
       headers: {
   'Access-Control-Allow-Origin': '*',
@@ -158,7 +158,7 @@ export const confirm = ({email, confirmationCode}) => (dispatch) => {
 
     const body = JSON.stringify({email, confirmationCode});
 
-    fetch('http://localhost:3000/api/confirm', {
+    fetch('http://localhost:5001/api/confirm', {
       method: 'POST', 
       headers: {
   'Access-Control-Allow-Origin': '*',
@@ -186,7 +186,7 @@ export const resend = (email) => {
 
     const body = JSON.stringify({ email });
 
-    axios.post('http://localhost:3000/api/resend', body, config);
+    axios.post('http://localhost:5001/api/resend', body, config);
 
 }
 
@@ -237,8 +237,8 @@ export const verifyCode = ({ email, inputcode, id, next }) => async dispatch => 
     const body = JSON.stringify({ email, inputcode, id });
   
     // axios
-    // .put('http://localhost:3000/api/users/username', body, config)
-     await fetch('http://localhost:3000/api/verifycode', {
+    // .put('http://localhost:5001/api/users/username', body, config)
+     await fetch('http://localhost:5001/api/verifycode', {
       method: 'POST', 
       headers: {
   'Access-Control-Allow-Origin': '*',
@@ -283,7 +283,7 @@ export const saveUsername = ({ email, username }) => dispatch => {
     const body = JSON.stringify({ email, username });
 
     axios
-      .put('http://localhost:3000/api/users/username', body, config)
+      .put('http://localhost:5001/api/users/username', body, config)
       .then((res) => {
         dispatch({
           type: HAS_USERNAME,
@@ -319,7 +319,7 @@ export const updateAccount = ({ email,
   });
 
   axios
-    .put('http://localhost:3000/api/users/useraccount', body, config)
+    .put('http://localhost:5001/api/users/useraccount', body, config)
     .then((res) => {
       dispatch({
         type: UPDATED_ACCOUNT,
@@ -356,7 +356,7 @@ export const verifyGoogleUser = ({ email, lastName, fistName, googleId, googlePr
     });
 
     axios
-      .post('http://localhost:3000/api/users/google', body, config)
+      .post('http://localhost:5001/api/users/google', body, config)
 
       .then((res) => {
         console.log(res.data.user.courseOneDone);
@@ -404,7 +404,7 @@ console.log("hi")
   });
 
   axios
-    .post('http://localhost:3000/api/users/twitter', body, config)
+    .post('http://localhost:5001/api/users/twitter', body, config)
 
     .then((res) => {
       console.log(res.data.user.courseOneDone);
@@ -481,7 +481,7 @@ export const saveUsernameAlbedo = ({ pubkey, userName }) => dispatch => {
     const body = JSON.stringify({ pubkey, userName });
 
     axios
-      .put('http://localhost:3000/api/albedo/username', body, config)
+      .put('http://localhost:5001/api/albedo/username', body, config)
       .then((res) => {
         dispatch({
           type: HAS_USERNAME,
@@ -507,7 +507,7 @@ export const setCourseOne = ({ email, courseOneDone }) => (dispatch) => {
   const body = JSON.stringify({ email, courseOneDone });
 
   axios
-    .put('http://localhost:3000/api/users/courses', body, config)
+    .put('http://localhost:5001/api/users/courses', body, config)
     .then((res) => {
       dispatch({
         type: FIRST_COURSE_DONE,
@@ -533,7 +533,7 @@ export const setCourseOneGoogle = ({ email, courseOneDone }) => (
   const body = JSON.stringify({ email, courseOneDone });
 
   axios
-    .put('http://localhost:3000/api/users/google', body, config)
+    .put('http://localhost:5001/api/users/google', body, config)
     .then((res) => {
       dispatch({
         type: FIRST_COURSE_DONE,
@@ -559,7 +559,7 @@ export const pkeyGoogleUser = ({ email, pkey }) => (
   const body = JSON.stringify({ email, pkey });
 
   axios
-    .put('http://localhost:3000/api/users/googlepk', body, config)
+    .put('http://localhost:5001/api/users/googlepk', body, config)
     .then((res) => {
       console.log(res)
       dispatch({
@@ -596,7 +596,7 @@ export const webThreeAuth = ({
 });
 
       axios
-        .post('http://localhost:3000/api/web3auth', body, config)
+        .post('http://localhost:5001/api/web3auth', body, config)
         .then((res) => {
           dispatch({
             type: VERIFICATION_SUCCESS,
@@ -628,7 +628,7 @@ export const freighterAuth = ( pkey) => dispatch => {
 });
 
       axios
-        .post('http://localhost:3000/api/freighter', body, config)
+        .post('http://localhost:5001/api/freighter', body, config)
         .then((res) => {
           dispatch({
             type: VERIFICATION_SUCCESS,
@@ -659,7 +659,7 @@ export const freighterSign = (pkey) => dispatch => {
  });
  
        axios
-         .post('http://localhost:3000/api/freighternft', body, config)
+         .post('http://localhost:5001/api/freighternft', body, config)
          .then((res) => {
            dispatch({
              type: VERIFICATION_SUCCESS,
@@ -687,7 +687,7 @@ export const metamaskAuth = (accounts) => dispatch => {
  });
  
        axios
-         .post('http://localhost:3000/api/metamasklogin', body, config)
+         .post('http://localhost:5001/api/metamasklogin', body, config)
          .then((res) => {
            if (res.isVerified = true) {
             dispatch({
@@ -726,7 +726,7 @@ export const mozartAuth = (email, pkey, amount, currency) => dispatch => {
 });
 
       axios
-        .post('http://localhost:3000/api/mozart', body, config)
+        .post('http://localhost:5001/api/mozart', body, config)
         .then((res) => {
           dispatch({
             type: VERIFICATION_SUCCESS,

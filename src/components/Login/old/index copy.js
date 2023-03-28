@@ -145,7 +145,7 @@ try {
     }
     if (isAuthenticated && !isVerified) {
       //  <p class="loading">Lding...</p> <CircularProgress color="secondary" />
-      return <Redirect to="/verifyemail" />
+      return <Redirect to="/VerifyEmail" />
       
     }
     if (isAuthenticated && isVerified) {

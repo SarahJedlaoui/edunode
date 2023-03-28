@@ -19,7 +19,7 @@ const validate = values => {
 }
 
 
-class verifyEmail extends Component {
+class VerifyEmail extends Component {
 
   static propTypes = {
     isAuthenticated: PropTypes.bool,
@@ -90,15 +90,15 @@ const mapStateToProps = state => ({
 })
 
 
-// verifyEmail = connect(mapStateToProps, { clearErrors })(verifyEmail)
+// VerifyEmail = connect(mapStateToProps, { clearErrors })(VerifyEmail)
 
-verifyEmail = connect(
+VerifyEmail = connect(
   mapStateToProps, { clearErrors }
-)(verifyEmail)
+)(VerifyEmail)
 
-export default verifyEmail = reduxForm({
+export default VerifyEmail = reduxForm({
   form: "RegisterReduxForm",
   fields: ['confirmationCode'],
   validate,
   clearErrors
-})(verifyEmail)
+})(VerifyEmail)

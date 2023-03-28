@@ -19,7 +19,6 @@ import flogo from "./img/flogo.png"
 import { clearErrors } from "../../actions/errorActions";
 import { register, confirm, webThreeAuth } from "../../actions/authActions";
 
-
 const validate = values => {
   const errors = {}
   const requiredFields = [
@@ -224,12 +223,12 @@ albedo.publicKey({
     }
     if (isAuthenticated && !isVerified) {
 
-      history.push('/verifyemail');
+     
       
     }
     if (isAuthenticated && isVerified) {
       //  <p class="loading">Lding...</p> <CircularProgress color="secondary" />
-      history.push('/dashboard');
+     
     }
     return (
       <div>

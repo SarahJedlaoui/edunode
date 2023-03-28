@@ -26,7 +26,7 @@ class Home extends Component {
     const {  isAuthenticated, isVerified } = this.props.auth
     if (isAuthenticated && !isVerified) {
 
-      return <Navigate to="/verifyemail" />
+      return <Navigate to="/VerifyEmail" />
     }
     if (isVerified) {
 

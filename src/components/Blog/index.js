@@ -7,7 +7,6 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
-import Main from './Main';
 import Sidebar from './Sidebar';
 import Footer from '../Footer';
 import mb from "./mainblog.png"
@@ -15,8 +14,6 @@ import sa from "./stellarassets.png"
 import ek from "./keybase_icon_132271.png"
 import ec from "./economics.png"
 import NavBar from "../NavBar"
-import kicon from "./keybaseicon.png"
-import kelp from "./img/kelp.png"
 import kelpword from "./img/kelpword.png"
 import albedologo from "./albedologo.png"
 import security from './cyber-security.png';
@@ -25,7 +22,7 @@ import sc from "./smartcontract.png"
 import amm from "./Articles/AMM/AMMs.png"
 import suave from "./suave.gif"
 import creator from "./Articles/Web3/creator.png"
-
+import docker from "./docker1.png"
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -162,6 +159,15 @@ const featuredPosts = [
     image: creator,
     imageText: 'Learn about Blockchain and how to apply it to your day-to-day business life',
     link: '/blog/the-web3-revolution',
+  },
+  {
+    title: 'Learn about Docker',
+    date: '28/03/2023',
+    description:
+      'Learn about Docker, what are the most popular applications, and how you can apply it in Blockchain .',
+    image: docker,
+    imageText: 'Learn about Docker and how to apply it in Blockchain',
+    link: '/blog/Docker',
   }
 ];
 

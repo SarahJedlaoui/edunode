@@ -236,7 +236,7 @@ albedo.publicKey({
     }
     if (isAuthenticated && !isVerified) {
       //  <p class="loading">Loading...</p> <CircularProgress color="secondary" />
-      history.push('/verifyemail');
+      history.push('/');
 
     }
     if (isAuthenticated && isVerified) {

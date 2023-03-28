@@ -327,7 +327,7 @@ class Certificate extends Component {
   }
   console.log(this.props.auth)
   
-  this.props.history.push("/")
+  //this.props.history.push("/")
 }
 
 }

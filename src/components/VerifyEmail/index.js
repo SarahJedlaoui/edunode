@@ -36,7 +36,7 @@ const validate = values => {
   return errors;
 };
 
-class verifyEmail extends Component {
+class VerifyEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -314,14 +314,14 @@ const mapStateToProps = (state) => ({
   error: state.error,
 });
 
-verifyEmail = connect(
+VerifyEmail = connect(
   mapStateToProps, { verifyCode, clearErrors }
-  )(verifyEmail);
+  )(VerifyEmail);
 
-export default verifyEmail = reduxForm({
-  form: "verifyEmailForm",
+export default VerifyEmail = reduxForm({
+  form: "VerifyEmailForm",
   fields: ["confirmationCode"],
   validate,
   clearErrors,
   verifyCode
-})(withRouter(verifyEmail));
+})(withRouter(VerifyEmail));
