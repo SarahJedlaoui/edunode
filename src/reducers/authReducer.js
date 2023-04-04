@@ -38,6 +38,7 @@ import {
             ...state,
             ...action.payload,
             isLoading: false,
+          
           };
         case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:

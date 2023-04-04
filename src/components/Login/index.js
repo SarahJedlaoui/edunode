@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from "@material-ui/core/CircularProgress"
-import {  Link } from "react-router-dom"
+import {  Link} from "react-router-dom"
 import { clearErrors } from "../../actions/errorActions";
 import "./style.css";
 import albedologo from "./albedo.png"
@@ -18,6 +18,8 @@ import { isConnected, getPublicKey } from "@stellar/freighter-api";
 import flogo from "./flogo.png"
 import mlogo from "./metamask.png"
 import mozartlogo from "./mozartlogo.png"
+
+import { Navigate } from "react-router-dom";
 
 
 const validate = values => {
@@ -51,12 +53,14 @@ class Login extends Component {
       password: "",
       isLoading: false,
       errors: {}
+      
     }
 
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
 
   }
+ 
 
   static propTypes = {
     isAuthenticated: PropTypes.bool,
@@ -90,7 +94,7 @@ class Login extends Component {
 
     const email = values.email
     const password = values.password
-
+    
     // create user object
     const newUser = {
       email,
@@ -103,8 +107,9 @@ class Login extends Component {
       await this.props.login(newUser)
 
       if (this.props.auth.user) {
-
-        this.props.history.push("/dashboard")
+        return (
+          <Navigate to="/dashboard" />
+        );
       }
 
 
@@ -161,7 +166,10 @@ albedo.publicKey({
         console.log(accounts)
         if(accounts !== undefined){
  await this.props.metamaskAuth(accounts)
- this.props.history.push("/dashboard")
+ 
+ return (
+  <Navigate to="/dashboard" />
+);
         }
         
       } else {     
@@ -219,7 +227,7 @@ albedo.publicKey({
 
    
     const { pristine, submitting } = this.props
-    const { isLoading, isAuthenticated, isVerified,history } = this.props.auth
+    const { isLoading, isAuthenticated, isVerified } = this.props.auth
 
     if (isLoading) {
       return <div style={{
@@ -236,12 +244,17 @@ albedo.publicKey({
     }
     if (isAuthenticated && !isVerified) {
       //  <p class="loading">Loading...</p> <CircularProgress color="secondary" />
-      history.push('/');
-
+      
+      return (
+        <Navigate to="/" />
+      );
     }
     if (isAuthenticated && isVerified) {
       //  <p class="loading">Lding...</p> <CircularProgress color="secondary" />
-      history.push('/dashboard');
+     
+      return (
+        <Navigate to="/dashboard" />
+      );
     }
 
     return (
@@ -264,7 +277,7 @@ onClick={handleMetamask}
 variant="outlined"
 >
 
-  {" "}Login with <Image style={{ width: '75px' ,display: "inline-block",margin: "10px 40px", width: '25px' }} src={mlogo} /> 
+  {" "}Login with <Image style={{ width: '75px' ,display: "inline-block",margin: "10px 40px" }} src={mlogo} /> 
 </Button>
 
 </div>
@@ -278,7 +291,7 @@ style={{ width: '300px' }}
 onClick={freighterHandler}
 variant="outlined"
 >
-  Login with <Image style={{ width: '75px' ,display: "inline-block",margin: "5px 5px", width: '65px' }} src={flogo} /> 
+  Login with <Image style={{ width: '75px' ,display: "inline-block",margin: "5px 5px"}} src={flogo} /> 
 </Button>
           </div>
           <br></br>
@@ -288,7 +301,7 @@ style={{ width: '300px' }}
 onClick={albedoHandler}
 variant="outlined"
 >
-Login with <Image style={{ width: '45px' ,display: "inline-block",margin: "5px 5px", width: '55px' }} src={albedologo} /> 
+Login with <Image style={{ width: '45px' ,display: "inline-block",margin: "5px 5px",}} src={albedologo} /> 
    
 </Button>
           </div>

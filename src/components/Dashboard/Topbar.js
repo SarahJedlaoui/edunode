@@ -5,7 +5,7 @@ import {Link} from "@mui/material"
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-//import Logout from "../auth/Logout";
+import Logout from "../auth/Logout";
 //import SubmitPost from "../SubmitPost/" 
 import { Button, Modal } from "react-bootstrap";
 
@@ -38,7 +38,7 @@ export default function Topbar(props) {
                 </NavDropdown.Item>
               
                 <NavDropdown.Item>
-                 {/* <Logout />*/ }
+                  <Logout />
                 </NavDropdown.Item>
             
                  <NavDropdown.Divider /> 

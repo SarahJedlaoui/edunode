@@ -13,7 +13,8 @@ import MyEditor from "./myEditor";
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
- 
+import { Navigate } from "react-router-dom";
+
 function Tags() {
 
   return (
@@ -121,7 +122,9 @@ class SubmitPost extends Component {
 
    
     handleClose = e => {
-      this.props.history.push("/dashboard")
+      
+        <Navigate to="/dashboard" />
+      
     }
     handleSave = async values => {
       console.log(this.state.title)
@@ -146,8 +149,10 @@ class SubmitPost extends Component {
         userName,
       };
       try {
-        await axios.post('localhost:5001/api/posts', post);
-        this.props.history.push('/dashboard');
+        await axios.post('https://edunode.herokuapp.com/api/post', post);
+        return (
+          <Navigate to="/dashboard" />
+        );
       } catch (error) {
         console.log(error);
       }   
@@ -167,7 +172,9 @@ class SubmitPost extends Component {
        
         if (this.props.auth.user) {
    
-          this.props.history.push("/dashboard")
+          return (
+            <Navigate to="/dashboard" />
+          );
         }
   
   

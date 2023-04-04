@@ -61,7 +61,9 @@ import Privacy from './components/Privacy';
 import SubmitPost from "./components/SubmitPost"
 import Dashboard from "./components/Dashboard";
 import Main from "./components/Dashboard/Main";
-
+import Settings from "./components/Settings";
+import Profile from "./components/Profile";
+import Post from "./components/Posts/Post";
 
 function App(props) {
   const location = useLocation();
@@ -128,6 +130,10 @@ function App(props) {
         <Route exact path="/dashboard" element={<Dashboard/>} />
         <Route exact path="/VerifyEmail" element={<VerifyEmail/>} />
         <Route exact path="/blog/docker" element={<Docker/>} />
+        <Route exact path="/dashboard/settings" element={<Settings/>} />
+        <Route exact path="/profile" element={<Profile/>} />
+        <Route exact path="/post" element={<Post/>} />
+
 
       </Routes>
     </Provider>

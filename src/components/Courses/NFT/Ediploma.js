@@ -8,57 +8,97 @@ import albedo from '@albedo-link/intent'
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { isConnected, getPublicKey } from "@stellar/freighter-api";
-
-
+import axios from "axios";
+import html2canvas from 'html2canvas';
+import dep from "./newediploma.png"
 function Ediploma(props) {
-  const certificate = useRef(null);
   const certificateWrapper = useRef(null);
   const [Name, setName] = useState("");
-  
+
   const albedoHandler = () => {
 
     albedo.publicKey({
-    
+
     })
-              .then(res => {
-                const intent = res.intent
-                const pubkey = res.pubkey
-                const signature = res.signature
-                const signed_message = res.signed_message
-                const userName = ""
-                const newAlbedoUser = {
-                  intent,
-                  pubkey,
-                  signature,
-                  signed_message,
-                  userName,
-    
-                }
-    
-                // this.props.albedoSign(newAlbedoUser)
-    
-              })
+      .then(res => {
+        const intent = res.intent
+        const pubkey = res.pubkey
+        const signature = res.signature
+        const signed_message = res.signed_message
+        const userName = ""
+        const newAlbedoUser = {
+          intent,
+          pubkey,
+          signature,
+          signed_message,
+          userName,
+
+        }
+
+        // this.props.albedoSign(newAlbedoUser)
+
+      })
   }
 
   const freighterHandler = async () => {
-    
+
     if (isConnected()) {
       const name = Name;
       const pkey = await getPublicKey();
       // await this.props.freighterSign(pkey, name)
     }
-    
+
     alert("not conected")
-    
+
+  }
+
+ {/* */} async function sendImageToServer(base64Image) {
+    try {
+      const response = await axios.post("https://edunode.herokuapp.com/api/certificates", {
+        image: base64Image,
+        email: this.props.auth.user.email,
+        name: Name
+      });
+      console.log(response.data); // Check if the image was saved successfully
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+  async function getCertificateBase64() {
+    const canvas = await html2canvas(certificateWrapper.current, {
+      backgroundColor: `url(${dep})`,
+    });
+    const base64Image = canvas.toDataURL("image/png");
+    return base64Image;
   }
 
   const navigate = useNavigate();
 
+  const handleConfirmDownload = async (e) => {
+    e.preventDefault();
+
+    const base64Image = await getCertificateBase64();
+    await sendImageToServer(base64Image);
+    console.log(base64Image); // This will log the base64 string of the image in the console
+    // TODO: Send the base64Image to your server using an API
+    exportComponentAsPNG(certificateWrapper, {
+      html2CanvasOptions: {  backgroundColor: `url(${dep})`,},
+    });
+    setTimeout(function () {
+      try {
+      //  window.location.href = "/";
+      } catch (error) {
+        console.log(error);
+      }
+    }, 3000);
+  }
+
   return (
     <div className="App">
-       
       <div className="Meta">
-      <h1>EduNode eCertificate</h1>
+        <h1>EduNode eCertificate</h1>
         <p>Please enter your name.</p>
         <input
           type="text"
@@ -68,46 +108,19 @@ function Ediploma(props) {
             setName(e.target.value);
           }}
         />
-        <button
-          onClick={(e) => {
-            
-            e.preventDefault();
-            // var img = new Image();
-            // img.src = urlImg;
-            // img.crossOrigin = 'Anonymous';
-            //ipfs upload
-            // freighterHandler()
-            exportComponentAsPNG(certificateWrapper.current, {
-              html2CanvasOptions: { backgroundColor: null }
-            })
-            setTimeout(function () {
-              try {
-                navigate('/');
-              } catch (error) {
-                console.log(error);
-              }
-            }, 3000);
-            // const exported = exportComponentAsPNG()
-            // console.log(exported)
-           
-          }}
-        >
+        <button onClick={handleConfirmDownload}>
           Confirm and Download
         </button>
-      
-
       </div>
-      {/* <Diploma /> */}
-      <div id="downloadWrapper" ref={certificateWrapper}>
-          <div id="certificateWrapper" ref={certificate}>
-            <p>{this.state.Name}</p>
-            <img src="https://i.imgur.com/MxzEwin.png" alt="eCertificate" />
-          </div>
-  
+      <div id="downloadWrapper">
+        <div id="certificateWrapper" ref={certificateWrapper}>
+          <p>{Name}</p>
+          <img src="https://i.imgur.com/MxzEwin.png" alt="eCertificate" />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 
 const mapStateToProps = (state) => ({

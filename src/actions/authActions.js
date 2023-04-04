@@ -36,7 +36,7 @@ export const loadUser = () => (dispatch, getState) => {
 
     axios
       .get(
-        'http://localhost:5001/api/auth/user',
+        'https://edunode.herokuapp.com/api/auth/user',
         tokenConfig(getState),
         config,
       )
@@ -66,7 +66,7 @@ export const register = ({ email, password, confirmationCode }) => async dispatc
 
     const body = JSON.stringify({ email, password, confirmationCode });
 
-fetch('http://localhost:5001/api/emailauth/', {
+fetch('https://edunode.herokuapp.com/api/emailauth/', {
 method: 'POST', 
 headers: {
 'Access-Control-Allow-Origin': '*',
@@ -77,16 +77,17 @@ body
 .then(response => response.json())
 .then((res) => {
 console.log(res)
+
 if (res.user.isVerified === true) {
-  dispatch({
-    type: VERIFICATION_SUCCESS,
-    payload: res.data,
-  });
+ dispatch({
+   type: VERIFICATION_SUCCESS,
+  payload: res.data,
+ });
 }
-  if (res.user.email) {
-          dispatch({
-            type: REGISTER_SUCCESS,
-            payload: res.data,
+ if (res.user.email) {
+         dispatch({
+           type: REGISTER_SUCCESS,
+           payload: res.data,
 });
 }
 })
@@ -113,7 +114,7 @@ console.log(email)
     const body = JSON.stringify({ email, password });
  
 
-    fetch('http://localhost:5001/api/emaillogin/', {
+    fetch('https://edunode.herokuapp.com/api/emaillogin', {
       method: 'POST', 
       headers: {
   'Access-Control-Allow-Origin': '*',
@@ -128,13 +129,14 @@ body
     type: LOGIN_SUCCESS,
     payload: data,
   });
+  if (data.user.isVerified === true) {
+    dispatch({
+      type: VERIFICATION_SUCCESS,
+      payload: data,
+    });
+  }
 } 
- if (data.user.isVerified === true) {
-  dispatch({
-    type: VERIFICATION_SUCCESS,
-    payload: data,
-  });
-}
+ 
 
 })
       .catch((err) => {
@@ -158,7 +160,7 @@ export const confirm = ({email, confirmationCode}) => (dispatch) => {
 
     const body = JSON.stringify({email, confirmationCode});
 
-    fetch('http://localhost:5001/api/confirm', {
+    fetch('https://edunode.herokuapp.com/api/confirm', {
       method: 'POST', 
       headers: {
   'Access-Control-Allow-Origin': '*',
@@ -186,7 +188,7 @@ export const resend = (email) => {
 
     const body = JSON.stringify({ email });
 
-    axios.post('http://localhost:5001/api/resend', body, config);
+    axios.post('https://edunode.herokuapp.com/api/resend', body, config);
 
 }
 
@@ -237,8 +239,8 @@ export const verifyCode = ({ email, inputcode, id, next }) => async dispatch => 
     const body = JSON.stringify({ email, inputcode, id });
   
     // axios
-    // .put('http://localhost:5001/api/users/username', body, config)
-     await fetch('http://localhost:5001/api/verifycode', {
+    // .put('https://edunode.herokuapp.com/api/users/username', body, config)
+     await fetch('https://edunode.herokuapp.com/api/verifycode', {
       method: 'POST', 
       headers: {
   'Access-Control-Allow-Origin': '*',
@@ -283,7 +285,7 @@ export const saveUsername = ({ email, username }) => dispatch => {
     const body = JSON.stringify({ email, username });
 
     axios
-      .put('http://localhost:5001/api/users/username', body, config)
+      .put('https://edunode.herokuapp.com/api/users/username', body, config)
       .then((res) => {
         dispatch({
           type: HAS_USERNAME,
@@ -319,7 +321,7 @@ export const updateAccount = ({ email,
   });
 
   axios
-    .put('http://localhost:5001/api/users/useraccount', body, config)
+    .put('https://edunode.herokuapp.com/api/users/useraccount', body, config)
     .then((res) => {
       dispatch({
         type: UPDATED_ACCOUNT,
@@ -356,7 +358,7 @@ export const verifyGoogleUser = ({ email, lastName, fistName, googleId, googlePr
     });
 
     axios
-      .post('http://localhost:5001/api/users/google', body, config)
+      .post('https://edunode.herokuapp.com/api/users/google', body, config)
 
       .then((res) => {
         console.log(res.data.user.courseOneDone);
@@ -404,7 +406,7 @@ console.log("hi")
   });
 
   axios
-    .post('http://localhost:5001/api/users/twitter', body, config)
+    .post('https://edunode.herokuapp.com/api/users/twitter', body, config)
 
     .then((res) => {
       console.log(res.data.user.courseOneDone);
@@ -481,7 +483,7 @@ export const saveUsernameAlbedo = ({ pubkey, userName }) => dispatch => {
     const body = JSON.stringify({ pubkey, userName });
 
     axios
-      .put('http://localhost:5001/api/albedo/username', body, config)
+      .put('https://edunode.herokuapp.com/api/albedo/username', body, config)
       .then((res) => {
         dispatch({
           type: HAS_USERNAME,
@@ -507,7 +509,7 @@ export const setCourseOne = ({ email, courseOneDone }) => (dispatch) => {
   const body = JSON.stringify({ email, courseOneDone });
 
   axios
-    .put('http://localhost:5001/api/users/courses', body, config)
+    .put('https://edunode.herokuapp.com/api/users/courses', body, config)
     .then((res) => {
       dispatch({
         type: FIRST_COURSE_DONE,
@@ -533,7 +535,7 @@ export const setCourseOneGoogle = ({ email, courseOneDone }) => (
   const body = JSON.stringify({ email, courseOneDone });
 
   axios
-    .put('http://localhost:5001/api/users/google', body, config)
+    .put('https://edunode.herokuapp.com/api/users/google', body, config)
     .then((res) => {
       dispatch({
         type: FIRST_COURSE_DONE,
@@ -559,7 +561,7 @@ export const pkeyGoogleUser = ({ email, pkey }) => (
   const body = JSON.stringify({ email, pkey });
 
   axios
-    .put('http://localhost:5001/api/users/googlepk', body, config)
+    .put('https://edunode.herokuapp.com/api/users/googlepk', body, config)
     .then((res) => {
       console.log(res)
       dispatch({
@@ -596,7 +598,7 @@ export const webThreeAuth = ({
 });
 
       axios
-        .post('http://localhost:5001/api/web3auth', body, config)
+        .post('https://edunode.herokuapp.com/api/web3auth', body, config)
         .then((res) => {
           dispatch({
             type: VERIFICATION_SUCCESS,
@@ -628,7 +630,7 @@ export const freighterAuth = ( pkey) => dispatch => {
 });
 
       axios
-        .post('http://localhost:5001/api/freighter', body, config)
+        .post('https://edunode.herokuapp.com/api/freighter', body, config)
         .then((res) => {
           dispatch({
             type: VERIFICATION_SUCCESS,
@@ -659,7 +661,7 @@ export const freighterSign = (pkey) => dispatch => {
  });
  
        axios
-         .post('http://localhost:5001/api/freighternft', body, config)
+         .post('https://edunode.herokuapp.com/api/freighternft', body, config)
          .then((res) => {
            dispatch({
              type: VERIFICATION_SUCCESS,
@@ -687,7 +689,7 @@ export const metamaskAuth = (accounts) => dispatch => {
  });
  
        axios
-         .post('http://localhost:5001/api/metamasklogin', body, config)
+         .post('https://edunode.herokuapp.com/api/metamasklogin', body, config)
          .then((res) => {
            if (res.isVerified = true) {
             dispatch({
@@ -726,7 +728,7 @@ export const mozartAuth = (email, pkey, amount, currency) => dispatch => {
 });
 
       axios
-        .post('http://localhost:5001/api/mozart', body, config)
+        .post('https://edunode.herokuapp.com/api/mozart', body, config)
         .then((res) => {
           dispatch({
             type: VERIFICATION_SUCCESS,
@@ -734,4 +736,49 @@ export const mozartAuth = (email, pkey, amount, currency) => dispatch => {
           });
         })
         .catch((err) => console.log(err));
+}
+
+//  user new post
+export const newPost = ({ email, tags, title, link, description }) => async dispatch => {
+
+  dispatch({ type: USER_LOADING });
+
+  // request body
+
+  const body = JSON.stringify({ email, tags, title, link, description });
+
+fetch('https://edunode.herokuapp.com/api/post/', {
+method: 'POST', 
+headers: {
+'Access-Control-Allow-Origin': '*',
+'Content-Type': 'application/json'
+},
+body
+})
+.then(response => response.json())
+.then((res) => {
+console.log(res)
+
+if (res.user.isVerified === true) {
+dispatch({
+ type: VERIFICATION_SUCCESS,
+payload: res.data,
+});
+}
+if (res.user.email) {
+       dispatch({
+         type: REGISTER_SUCCESS,
+         payload: res.data,
+});
+}
+})
+    .catch(
+      (err) => {
+      console.log("register failed", err)
+
+      dispatch({
+        type: REGISTER_FAIL,
+       
+      })
+    });
 }

@@ -86,7 +86,7 @@ Certificates
           <ul className="sidebarList">
           <li className="sidebarListItem">
               <PublishIcon className="sidebarIcon" />
-              <Link to="/submitpost">New Post</Link>
+              <Link to="/post">New Post</Link>
             </li>
             <li className="sidebarListItem">
               <MailOutline className="sidebarIcon" />

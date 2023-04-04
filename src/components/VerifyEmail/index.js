@@ -20,6 +20,7 @@ import Grid from '@mui/material/Grid';
 import Footer from '../Footer';
 import Paper from '@mui/material/Paper';
 import Topbar from "../Dashboard/Topbar";
+import { Navigate } from "react-router-dom";
 
 const validate = values => {
   const errors = {};
@@ -88,8 +89,8 @@ class VerifyEmail extends Component {
 
 resendEmail = () => {
     // alert("clicked")
-    // e.preventDefault();
-let email = this.props.auth.user.email;
+    //e.preventDefault();
+    const email = this.props.auth.user ? this.props.auth.user.email : '';
      resend(email);
 alert(`A confirmation code has be sent to ${email}, please also check your spam folder`);
 //   };
@@ -99,33 +100,37 @@ alert(`A confirmation code has be sent to ${email}, please also check your spam 
   };
 
 
-onSubmit = async (values) => {
-const email = this.props.auth.user.email;
-const vCode = this.props.auth.user.confirmationCode
- const id = this.props.auth.user.id;
- const inputcode = values.confirmationCode;
-// const { isLoading, isVerified } = this.props.auth;
-const verifyUser = {
-  email,
-  inputcode,
-  id
-}
-console.log(verifyUser.email)
-
-try {
-await this.props.verifyCode(verifyUser)
-//   if (inputcode === vCode){
-// alert("they match")
-//   }
-//   alert("no match")
-} catch (error) {
-  console.log("no match", error)
-}
-
-// this.props.clearErrors()
+  onSubmit = async (values) => {
+    const user = this.props.auth.user;
+    if (!user || !user.email || !user.confirmationCode || !user.id) {
+      console.log("Invalid user object:", user);
+      return;
+    }
+    const email = user.email;
+    const vCode = user.confirmationCode;
+    const id = user.id;
+    const inputcode = values.confirmationCode;
+    const verifyUser = {
+      email,
+      inputcode,
+      id
+    };
+    console.log("Verify user:", verifyUser);
+  
+    try {
+      await this.props.verifyCode(verifyUser);
+      if (inputcode === vCode) {
+        alert("Verification successful");
+      } else {
+        alert("Verification failed: invalid code");
+      }
+    } catch (error) {
+      console.log("Verification failed:", error);
+    }
   };
   
   render() {
+    
 console.log(this.props)
     const Item = styled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
@@ -135,7 +140,7 @@ console.log(this.props)
     }));
     const { pristine, submitting } = this.props;
     const { isLoading, isVerified, isAuthenticated,history } = this.props.auth
-
+    const email = this.props.auth.user ? this.props.auth.user.email : '';
     if (isLoading) {
 
       return <div style={{
@@ -147,12 +152,15 @@ console.log(this.props)
           </div>
     }
     if (isVerified) {
-
-      history.push('/dashbord')
+      return (
+        <Navigate to="/dashboard" />
+      );
     }
     if (!isAuthenticated && !isVerified) {
 
-      history.push('/')
+      return (
+        <Navigate to="/" />
+      );
     }
     if (isAuthenticated && !isVerified) {
 
@@ -161,10 +169,10 @@ console.log(this.props)
           <div>
               <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid xs={5} sm={3.5} md={2}>
+          <Grid item={true} xs={5} sm={3.5} md={2}>
             <Item><Sidebar /></Item>
           </Grid>
-          <Grid xs={7} sm={8.5} md={10}>
+          <Grid item={true} xs={7} sm={8.5} md={10}>
             <Item><Topbar /></Item>
             <div>
             <div  className="centered">

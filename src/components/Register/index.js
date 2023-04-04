@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
-import {TextField} from '@mui/material'
+import {Alert, TextField} from '@mui/material'
 import {Button} from "@mui/material"
 import {CircularProgress} from "@mui/material"
 import "./style.css";
@@ -18,6 +18,13 @@ import flogo from "./img/flogo.png"
 //import { ConstructionOutlined } from '@mui/icons-material'
 import { clearErrors } from "../../actions/errorActions";
 import { register, confirm, webThreeAuth } from "../../actions/authActions";
+import { Navigate } from "react-router-dom";
+
+
+
+
+
+
 
 const validate = values => {
   const errors = {}
@@ -54,7 +61,8 @@ export class Register extends Component {
       password: "",
       confirmPassword: "",
       isLoading: false,
-      errors: {}
+      errors: {},
+      errorMsg: null
     }
     // this.handleEmailChange = this.handleEmailChange.bind(this)
     this.onChange = this.onChange.bind(this)
@@ -110,9 +118,10 @@ export class Register extends Component {
 
  onSubmit = async (values) => {
     this.setState({ errors: {}, isLoading: true })
+    
     const email = values.email
     const password = values.password
-
+   
     // create user object
     const newUser = {
       email,
@@ -122,11 +131,16 @@ export class Register extends Component {
     const confirmUser = {
       email,
     }
-console.log(newUser.password)
+     console.log(newUser.password)
      // attempt to register
-
+     const { error } = this.props;
      try {
        await this.props.register(newUser)
+       if (this.props.auth.user) {
+        return (
+          <Navigate to="/dashboard" />
+        );
+      }
       // await this.props.confirm(confirmUser)
       // if (this.props.auth) {
       //   console.log(this.props.auth)
@@ -135,10 +149,21 @@ console.log(newUser.password)
       // } else {
       //   alert("oops something went wrong")
       // }
+      
      } catch (error) {
-       console.log(error)
-     }
-
+      
+      this.setState({ errorMsg: error.response.data.msg });
+       console.log(error);
+       
+     }finally {
+      this.setState({ isLoading: false });
+    }
+    if (this.state.errorMsg) {
+      alert(this.state.errorMsg);
+      alert(this.state.errorMsg);
+    
+      ;
+    }
     // this.setState({ isLoading: false })
     // console.log(this.props)
 
@@ -210,7 +235,7 @@ albedo.publicKey({
 }
 
     const { pristine, submitting } = this.props
-    const { isLoading, isAuthenticated, isVerified  ,history } = this.props.auth
+    const { isLoading, isAuthenticated, isVerified   } = this.props.auth
     if (isLoading) {
 
       return <div style={{
@@ -223,11 +248,16 @@ albedo.publicKey({
     }
     if (isAuthenticated && !isVerified) {
 
-     
+     return (
+        <Navigate to="/login" />
+      );
       
     }
     if (isAuthenticated && isVerified) {
-      //  <p class="loading">Lding...</p> <CircularProgress color="secondary" />
+      return (
+        <Navigate to="/login" />
+        
+      );
      
     }
     return (
@@ -257,7 +287,7 @@ style={{ width: '300px' }}
 onClick={albedoHandler}
 variant="outlined"
 >
-Login with <Image style={{width: '45px' ,display: "inline-block",margin: "5px 5px", width: '55px' }} src={albedologo} /> 
+Login with <Image style={{width: '45px' ,display: "inline-block",margin: "5px 5px" }} src={albedologo} /> 
    
 </Button>
           </div>
@@ -268,7 +298,7 @@ style={{ width: '300px' }}
 onClick={freighterHandler}
 variant="outlined"
 >
-  Login with <Image style={{ width: '75px' ,display: "inline-block",margin: "5px 5px", width: '55px' }} src={flogo} /> 
+  Login with <Image style={{ width: '75px' ,display: "inline-block",margin: "5px 5px" }} src={flogo} /> 
 </Button>
           </div>
           <br></br>
@@ -311,8 +341,13 @@ variant="outlined"
             Register
         </Button>
         </div>
+       
+ {/**  <div className="alert alert-danger">{this.state.errorMsg}</div>*/}
+
         <div>
+        
         <p>{this.props.error.msg.msg}</p>
+        <p>{this.props.msg}</p>
         </div>
         <div>
       <Link to="/">

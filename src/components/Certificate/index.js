@@ -159,7 +159,7 @@ class Certificate extends Component {
 
         if (this.props.auth.user.googleProfilePic) {
    
-          // this.props.history.push("/dashboard")
+           this.props.history.push("/dashboard")
           alert("Your public key has been updated and will take effect of your next login")
         }
   
@@ -198,11 +198,11 @@ class Certificate extends Component {
       <div>
             <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid xs={5} sm={3.5} md={2}>
+        <Grid xs={5} sm={3.5} md={2} item={1} >
           <Item><Sidebar /></Item>
         </Grid>
      
-        <Grid xs={7} sm={8.5} md={10}>
+        <Grid xs={7} sm={8.5} md={10}item={1}>
           <Item><Topbar /></Item>
           <div>
            <p><h3>Welcome to your Certifications</h3></p> 

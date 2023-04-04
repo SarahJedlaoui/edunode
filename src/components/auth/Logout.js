@@ -7,7 +7,7 @@ import {
     Button,
     Form
 } from "reactstrap";
-import { withRouter } from "react-router-dom";
+import  withRouter  from "../../withRouter";
 
 
 
@@ -16,6 +16,7 @@ class LogoutModal extends Component {
     static propTypes = {
         logout: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired
+       
     }
     
 

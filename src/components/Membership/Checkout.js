@@ -4,7 +4,7 @@ import PayPal from "./paypal"
 export default function Checkout() {
     return (
         <div>
-             <PayPal />
+            hi
         </div>
     )
 }
