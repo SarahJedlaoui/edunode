@@ -188,7 +188,7 @@ console.log(this.props)
             <Row>
               <Alert className="text-center" severity="warning">
               
-                We have sent a verification a code to {this.props.auth.user.email}
+                We have sent a verification a code to 
                  , please check your inbox (or 
                 in spam folder) and enter the code below to verify your account or
                 click{" "}

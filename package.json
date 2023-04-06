@@ -48,6 +48,7 @@
     "react-screen-capture": "^1.0.1",
     "react-scripts": "5.0.1",
     "react-share": "^4.4.1",
+    "react-slick": "^0.29.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-twitter-embed": "^4.0.4",
     "reactstrap": "^9.1.8",
