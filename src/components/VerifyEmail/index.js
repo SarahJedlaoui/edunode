@@ -94,7 +94,7 @@ resendEmail = () => {
     const email = this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : '';
 
      resend(email);
-alert(`A confirmation code has be sent to ${email}, please also check your spam folder`);
+alert(`A confirmation code has be sent to your email ${email}, please also check your spam folder`);
 //   };
 }
   onChange = e => {
@@ -188,7 +188,7 @@ console.log(this.props)
             <Row>
               <Alert className="text-center" severity="warning">
               
-                We have sent a verification a code to 
+                We have sent a verification a code to your email
                  , please check your inbox (or 
                 in spam folder) and enter the code below to verify your account or
                 click{" "}
