@@ -126,25 +126,45 @@ class Post extends Component {
       title: "",
       link: "",
       description: "",
+      email: "",
       success: false,
+      isLoading: false,
+      errors: {}
     };
-
+    
+   
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    const { error } = this.props;
+    if (error !== prevProps.error) {
+      if (error.id === 'LOGIN_FAIL') {
+        this.setState({ msg: error.msg.msg });
+      } else {
+        this.setState({ msg: null });
+      }
+    }
+  }
+  static propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object.isRequired,
+    clearErrors: PropTypes.func.isRequired
+  }
+
   async handleSubmit(e) {
     e.preventDefault();
     const data = {
-      email: this.props.auth.user.email,
+      email : this.props.auth.user.email, // this.props.auth.user.email
       title: this.state.title,
       tags: this.state.tags,
       link: this.state.link,
       description: this.state.description,
     };
     try {
-    {/**   const response = await fetch("https://edunode.herokuapp.com/api/post", {
+       const response = await fetch("https://edunode.herokuapp.com/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -153,7 +173,7 @@ class Post extends Component {
       });
       const result = await response.json();
       console.log(result);
-      this.setState({ success: true }); // Set success state to true*/}
+      this.setState({ success: true }); // Set success state to true
 console.log(data)
       await this.props.newPost(data)
       if (this.props.auth.user) {

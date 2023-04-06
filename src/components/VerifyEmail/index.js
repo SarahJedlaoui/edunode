@@ -46,7 +46,8 @@ class VerifyEmail extends Component {
       errors: {},
       results: {},
       values: {},
-      isVerified: false
+      isVerified: false,
+      email: "",
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -90,7 +91,8 @@ class VerifyEmail extends Component {
 resendEmail = () => {
     // alert("clicked")
     //e.preventDefault();
-    const email = this.props.auth.user ? this.props.auth.user.email : '';
+    const email = this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : '';
+
      resend(email);
 alert(`A confirmation code has be sent to ${email}, please also check your spam folder`);
 //   };
@@ -102,7 +104,7 @@ alert(`A confirmation code has be sent to ${email}, please also check your spam 
 
   onSubmit = async (values) => {
     const user = this.props.auth.user;
-    if (!user || !user.email || !user.confirmationCode || !user.id) {
+    if (!user || !user.email || !user.confirmationCode ) {
       console.log("Invalid user object:", user);
       return;
     }
@@ -186,8 +188,8 @@ console.log(this.props)
             <Row>
               <Alert className="text-center" severity="warning">
               
-                We have sent a verification a code to{" "}
-                 <b>{this.props.auth.email}</b>, please check your inbox (or 
+                We have sent a verification a code to {this.props.auth.user.email}
+                 , please check your inbox (or 
                 in spam folder) and enter the code below to verify your account or
                 click{" "}
                 <Button onClick={this.resendEmail} type="submit">

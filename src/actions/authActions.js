@@ -115,6 +115,8 @@ console.log(email)
  
 
     fetch('https://edunode.herokuapp.com/api/emaillogin', {
+     
+     // mode: 'no-cors',
       method: 'POST', 
       headers: {
   'Access-Control-Allow-Origin': '*',
@@ -179,18 +181,19 @@ body
 // resend code
 
 export const resend = (email) => {
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     }
-
-    const body = JSON.stringify({ email });
-
-    axios.post('https://edunode.herokuapp.com/api/resend', body, config);
-
+  }
+  const body = JSON.stringify({ email });
+  return axios.post('https://edunode.herokuapp.com/api/resend', body, config)
+    .catch(error => {
+      console.error(error);
+    });
 }
+
 
 
 // logout User
@@ -740,45 +743,43 @@ export const mozartAuth = (email, pkey, amount, currency) => dispatch => {
 
 //  user new post
 export const newPost = ({ email, tags, title, link, description }) => async dispatch => {
-
   dispatch({ type: USER_LOADING });
 
   // request body
-
   const body = JSON.stringify({ email, tags, title, link, description });
 
-fetch('https://edunode.herokuapp.com/api/post/', {
-method: 'POST', 
-headers: {
-'Access-Control-Allow-Origin': '*',
-'Content-Type': 'application/json'
-},
-body
-})
-.then(response => response.json())
-.then((res) => {
-console.log(res)
-
-if (res.user.isVerified === true) {
-dispatch({
- type: VERIFICATION_SUCCESS,
-payload: res.data,
-});
-}
-if (res.user.email) {
-       dispatch({
-         type: REGISTER_SUCCESS,
-         payload: res.data,
-});
-}
-})
-    .catch(
-      (err) => {
-      console.log("register failed", err)
-
+  fetch('https://edunode.herokuapp.com/api/post/', {
+    method: 'POST', 
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+    },
+    body
+  })
+  .then(response => response.json())
+  .then((res) => {
+    console.log(res);
+//if (res.user.isVerified === true) {
+//dispatch({
+ //type: VERIFICATION_SUCCESS,
+//payload: res.data,
+//});
+//}
+    if (res.user && res.user.email) {
       dispatch({
-        type: REGISTER_FAIL,
-       
-      })
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      });
+    } else {
+      dispatch({
+        type: REGISTER_FAIL
+      });
+    }
+  })
+  .catch((err) => {
+    console.log("register failed", err)
+    dispatch({
+      type: REGISTER_FAIL
     });
-}
+  });
+};
