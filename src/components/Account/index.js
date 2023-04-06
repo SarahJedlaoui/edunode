@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import withRouter from '../../withRouter';
-import { reduxForm, Field } from "redux-form";
+import { reduxForm } from "redux-form";
 import Sidebar from "../Dashboard/Sidebar";
 import Topbar from "../Dashboard/Topbar";
 import Box from '@mui/material/Box';
@@ -13,6 +13,7 @@ import { TextField } from '@mui/material';
 import PropTypes from 'prop-types'
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios'; 
+import { Navigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -31,6 +32,7 @@ class Account extends Component {
       age: "",
       location: "",
       bio: "",
+      _id:"",
       isLoading: false,
       errors: {}
     }
@@ -55,8 +57,8 @@ class Account extends Component {
 
   static propTypes = {
     isAuthenticated: PropTypes.bool,
-    error: PropTypes.object.isRequired,
-    clearErrors: PropTypes.func.isRequired
+    error: PropTypes.object,
+    clearErrors: PropTypes.func
   }
 
   renderTextField = ({
@@ -83,41 +85,29 @@ class Account extends Component {
 
       console.log(values)
       console.log(this.props)
-  
+      const _id= this.props.auth.user._id
       const email = this.props.auth.user.email
       const name = values.name
       const age = values.age
       const bio = values.bio
       const location = values.location?.label ?? '';
       try {
-        await axios.post('https://edunode.herokuapp.com/api/profile', { email ,name, age, bio, location }, { headers: { Authorization: `Bearer ${localStorage.token}` } });
-        this.props.history.push('/dashboard');
+        const response = await fetch('https://edunode.herokuapp.com/api/profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },body: JSON.stringify(
+        {_id, email ,name, age, bio, location }, 
+        )});
+        const data = await response.json();
+         
+        
       } catch (error) {
         console.log(error);
       }
       // create user object
-      const updateAccount = {
-        email,
-        name,
-        age,
-        bio,
-        location
-
-      };
-
-      try {
-
-       await this.props.updateAccount(updateAccount)
-       
-        if (this.props.auth.user) {
-   
-          this.props.history.push("/dashboard")
-        }
-  
-  
-      } catch (error) {
-        console.log(error)
-      }
+      
+      
 
     }
 
@@ -132,6 +122,7 @@ class Account extends Component {
 <TextField name="age" type="number" placeholder="Age" fullWidth inputRef={input => this.ageInput = input} />
 <Country/>
 <TextField name="bio" multiline rows={4} placeholder="Bio" fullWidth inputRef={input => this.bioInput = input} />
+<TextField name="id"  fullWidth placeholder={this.props.auth.user._id} inputRef={input => this.idInput = input} />
 </div>
 
 </>
@@ -152,15 +143,16 @@ class Account extends Component {
        <>
        <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid xs={5} sm={3.5} md={2}>
+        <Grid item={true} xs={5} sm={3.5} md={2}>
           <Item><Sidebar /></Item>
         </Grid>
      
-        <Grid xs={7} sm={8.5} md={10}>
+        <Grid item={true} xs={7} sm={8.5} md={10}>
           <Item><Topbar /></Item>
-      <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+      <form  onSubmit={this.props.handleSubmit(this.onSubmit)}>
         {this.renderProfileFields()}
-        <button type="submit">Submit</button>
+        <button 
+        type="submit">Submit</button>
       </form>
       </Grid>
         
@@ -634,14 +626,6 @@ const countries = [
     />
   );
 }
-
-
-
-
-
-
-
-
 
 
 

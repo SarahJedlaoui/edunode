@@ -62,7 +62,7 @@ function Hometwo() {
             color="textPrimary"
             gutterBottom
           >
-            EduNode
+            EduNodeeeee
           </Typography>
           <Typography
             variant="h5"
@@ -107,11 +107,9 @@ function Hometwo() {
          <br></br>
          <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
          <h3>Partners</h3>
-         </Container>
-           <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
 
 
-<Grid item xs={12} sm={6} md={4}>
+         <Grid item xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -212,6 +210,12 @@ function Hometwo() {
                 </Card>
                
               </Grid>
+
+         </Container>
+           <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+
+
+
               
           </Container>
           <br></br>

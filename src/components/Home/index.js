@@ -43,8 +43,8 @@ class Home extends Component {
       </Helmet>
       <NavBar />
       {/* <SearchBar placeholder={"search"}/> */}
-      <Hometwo />
-      <Footer />
+      <Hometwo/>
+      <Footer/>
 
     </>
   );

@@ -60,11 +60,11 @@ import NewPost from "./components/NewPost";
 import Privacy from './components/Privacy';
 import SubmitPost from "./components/SubmitPost"
 import Dashboard from "./components/Dashboard";
-import Main from "./components/Dashboard/Main";
+//import Main from "./components/Dashboard/Main";
 import Settings from "./components/Settings";
 import Profile from "./components/Profile";
 import Post from "./components/Posts/Post";
-import Country from "./components/Account/contries"
+
 
 function App(props) {
   const location = useLocation();
@@ -134,7 +134,7 @@ function App(props) {
         <Route exact path="/dashboard/settings" element={<Settings/>} />
         <Route exact path="/profile" element={<Profile/>} />
         <Route exact path="/post" element={<Post/>} />
-        <Route exact path="/country" element={<Country/>} />
+        
 
       </Routes>
     </Provider>

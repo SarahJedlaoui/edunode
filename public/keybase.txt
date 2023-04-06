@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/olvis_experio
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://edunode.org
+  * I am olvis_experio (https://keybase.io/olvis_experio) on keybase.
+  * I have a public key ASAXdPgRGNaqGOYweH_CU1djH16wCco5AlPTOZ4xBBT1bwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120f7b37a0275c00fb4dc83bb91d38aec30fe98ddd44fe5b55da1522664940176140a",
+      "host": "keybase.io",
+      "kid": "01201774f81118d6aa18e630787fc25357631f5eb009ca390253d3399e310414f56f0a",
+      "uid": "a4e0eb56ee7fd5cc9e6610a8d444a019",
+      "username": "olvis_experio"
+    },
+    "merkle_root": {
+      "ctime": 1611755423,
+      "hash": "8672b1acd7feadb09e7bd1d98a2e4323dbf95e4ebe8f4c0809184f7f528b0d70c78fdaefead16577ecdc0387b4d2dcb33fe3bb9527e625120ef2c1057dc25e76",
+      "hash_meta": "5ad63688b39015bf02354bee33a6b4716fa86844541ff11e2bdb65deb3abe86a",
+      "seqno": 18922852
+    },
+    "service": {
+      "entropy": "FB4cC4qdbRSBLR+X6pIdmt3f",
+      "hostname": "edunode.org",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.6.0"
+  },
+  "ctime": 1611755497,
+  "expire_in": 504576000,
+  "prev": "04283faca6ba73574cc6eb5549620f157084270f4fde65cd058f8b946375090f",
+  "seqno": 126,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgF3T4ERjWqhjmMHh/wlNXYx9esAnKOQJT0zmeMQQU9W8Kp3BheWxvYWTESpcCfsQgBCg/rKa6c1dMxutVSWIPFXCEJw9P3mXNBY+LlGN1CQ/EIHjx9hhDvFux9KR7uX0GBd3NL9prqXZRqfu9cjy3FYtEAgHCo3NpZ8RAU3j/T4hKBZgSnqDCV5AZWaedwmPewMZvE45GicalNQOwqXCyiLLJnTQDaaVvgOQ3ZC+mqXEGyPzhuCJHBLRqBahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIHT0606TCa3t+23U6gG6q5+lOKZ5fUhomZU9RPKR+c1Po3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/olvis_experio
+
+==================================================================

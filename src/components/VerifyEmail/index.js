@@ -10,10 +10,10 @@ import Button from "@mui/material/Button";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@mui/material/CircularProgress"
 import withRouter from '../../withRouter'
-import { useNavigate, BrowserRouter } from "react-router-dom";
+//import { useNavigate, BrowserRouter } from "react-router-dom";
 import "./style.css";
 import { styled } from '@mui/material/styles';
-import NavBar from "../NavBar"
+//import NavBar from "../NavBar"
 import Sidebar from "../Dashboard/Sidebar";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -171,7 +171,7 @@ console.log(this.props)
           <div>
               <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid item={true} xs={5} sm={3.5} md={2}>
+          <Grid item={true}  xs={5} sm={3.5} md={2}>
             <Item><Sidebar /></Item>
           </Grid>
           <Grid item={true} xs={7} sm={8.5} md={10}>
