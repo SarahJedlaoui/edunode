@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
 import Footer from '../../Footer';
 import NavBar from '../../NavBar';
-import me from '../mepic.png';
+import me from '../sara.jpg';
 import sc from '../Dockerr.png';
 import Typography from '@material-ui/core/Typography';
 import {
@@ -312,12 +312,12 @@ Whether you're building a private blockchain network for enterprise applications
             <Col xs={12} sm={4} className="sidebar-section">
               <Card style={{ width: '9rem' }}>
                 <Card.Img variant="top" src={me} />
-                <Card.Title>Olvis E. Gil Ríos</Card.Title>
+                <Card.Title>Sarah Jedlaoui</Card.Title>
                 <Card.Body>
 
                   <Card.Text>
                     <p>
-                      Founder of <a href="https://edunode.org/">edunode.org</a>
+                     Software Developer Intern
                     </p>
                   </Card.Text>
                   

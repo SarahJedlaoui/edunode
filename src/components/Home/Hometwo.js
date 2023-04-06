@@ -124,11 +124,11 @@ function Hometwo() {
          <br></br>
        
          <br></br>
-         <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+        {/**  <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
          <h3>Partners</h3>
       
         
-        {/**  <Grid item xs={12} sm={6} md={4}>
+         <Grid item xs={12} sm={6} md={4}>
 
         
                 <Card  sx={{ maxWidth: 345 }}>
@@ -231,7 +231,7 @@ function Hometwo() {
                 </Card>
                
               </Grid>
-*/}
+
          </Container>
            <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
 
@@ -273,7 +273,7 @@ function Hometwo() {
 
           </Container> */}
         </Container>
-       
+      
         <CookieConsent>
           This website uses cookies to enhance the user experience.
         </CookieConsent>

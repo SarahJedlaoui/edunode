@@ -26,6 +26,7 @@ class Account extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       name: "",
       email: "",
@@ -34,14 +35,25 @@ class Account extends Component {
       bio: "",
       _id:"",
       isLoading: false,
-      errors: {}
-    }
-
-    this.onChange = this.onChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-
+      errors: {},
+    };
   }
 
+  handleNameChange = (event) => {
+    this.setState({ name: event.target.value });
+  };
+
+  handleAgeChange = (event) => {
+    this.setState({ age: event.target.value });
+  };
+
+  handleBioChange = (event) => {
+    this.setState({ bio: event.target.value });
+  };
+
+  handleLocationChange = (event) => {
+    this.setState({ location: event.target.value });
+  };
 
 
   componentDidUpdate(prevProps) {
@@ -77,29 +89,29 @@ class Account extends Component {
       />
     )
 
-    onChange = e => {
-      this.setState({ [e.target.name]: e.target.value });
- 
-    };
+    
     onSubmit = async values => {
 
       console.log(values)
       console.log(this.props)
-      const _id= this.props.auth.user._id
-      const email = this.props.auth.user.email
-      const name = values.name
-      const age = values.age
-      const bio = values.bio
-      const location = values.location?.label ?? '';
+
+      const formData = {
+        name: this.state.name,
+        age: this.state.age,
+        bio: this.state.bio,
+        _id: this.props.auth.user._id,
+        email: this.props.auth.user.email,
+        location: this.state.location,
+      };
       try {
-        const response = await fetch('https://edunode.herokuapp.com/api/profile', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },body: JSON.stringify(
-        {_id, email ,name, age, bio, location }, 
-        )});
-        const data = await response.json();
+
+        axios.post('https://edunode.herokuapp.com/api/profile', formData)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
          
         
       } catch (error) {
@@ -116,14 +128,17 @@ class Account extends Component {
   renderProfileFields() {
     return (
       <>
-<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-<TextField name="name" type="text" placeholder="Name" fullWidth inputRef={input => this.nameInput = input} />
-<TextField disabled name="email" type="email" placeholder={this.props.auth.user.email} fullWidth inputRef={input => this.emailInput = input} />
-<TextField name="age" type="number" placeholder="Age" fullWidth inputRef={input => this.ageInput = input} />
-<Country/>
-<TextField name="bio" multiline rows={4} placeholder="Bio" fullWidth inputRef={input => this.bioInput = input} />
-<TextField name="id"  fullWidth placeholder={this.props.auth.user._id} inputRef={input => this.idInput = input} />
-</div>
+  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      
+        <TextField name="name" type="text" placeholder="Name" fullWidth  onChange={this.handleNameChange}  />
+        <TextField disabled name="email" type="email" placeholder={this.props.auth.user.email} fullWidth inputRef={input => this.emailInput = input} />
+        <TextField name="age" type="number" placeholder="Age" fullWidth  onChange={this.handleAgeChange} />
+        <Country />
+        <TextField name="bio" multiline rows={4} placeholder="Bio" fullWidth  onChange={this.handleBioChange} />
+        <TextField name="id" fullWidth placeholder={this.props.auth.user._id}   />
+        
+      
+    </div> 
 
 </>
     )
@@ -617,6 +632,7 @@ const countries = [
         <TextField fullWidth
           {...params}
           label="location"
+         // onChange={this.handleLocationChange}
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill
