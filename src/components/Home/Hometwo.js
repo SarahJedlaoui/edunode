@@ -19,7 +19,7 @@ import StellarGlobal from "../Resources/stellarglobal.png";
 import TalentGarden from "./tag.png";
 import EdtechAustria from "./edtech.png";
 import WIFIWien from "./wifi.png";
-
+import Logos from "./logos.png";
 import Slider from "react-slick";
 
 
@@ -124,9 +124,9 @@ function Hometwo() {
          <br></br>
        
          <br></br>
-        {/**  <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+         <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
          <h3>Partners</h3>
-      
+      {/** 
         
          <Grid item xs={12} sm={6} md={4}>
 
@@ -270,8 +270,10 @@ function Hometwo() {
           </Container>
           <br></br>
           {/* <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-
-          </Container> */}
+ */}
+          </Container>
+           
+            <h3><img src={Logos}   alt="Partners"/></h3>
         </Container>
       
         <CookieConsent>

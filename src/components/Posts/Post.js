@@ -131,8 +131,8 @@ class Post extends Component {
       isLoading: false,
       errors: {}
     };
-    
-   
+
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
@@ -157,24 +157,24 @@ class Post extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const data = {
-      email : this.props.auth.user.email, // this.props.auth.user.email
+      email: this.props.auth.user.email, // this.props.auth.user.email
       title: this.state.title,
       tags: this.state.tags,
       link: this.state.link,
       description: this.state.description,
     };
     try {
-       const response = await fetch("https://edunode.herokuapp.com/api/post", {
+      {/*    const response = await fetch("https://edunode.herokuapp.com/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      console.log(result);
+      }); */}
+      //const result = await response.json();
+      //console.log(result);
       this.setState({ success: true }); // Set success state to true
-console.log(data)
+      console.log(data)
       await this.props.newPost(data)
       if (this.props.auth.user) {
         console.log("users?", this.props.auth.user)
@@ -204,7 +204,7 @@ console.log(data)
     const { tags, title, link, description, success } = this.state;
     return (
       <Container>
-        <Form onSubmit={this.handleSubmit()}>
+        <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label htmlFor="tags">Tags:</Label>
             <Select id="tags" onChange={this.handleTagSelect}>
@@ -253,7 +253,7 @@ console.log(data)
             ></Textarea>
           </FormGroup>
 
-          
+
           <SubmitButton type="submit">Submit</SubmitButton>
           {success && (
             <div
