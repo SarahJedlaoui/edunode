@@ -204,7 +204,7 @@ console.log(data)
     const { tags, title, link, description, success } = this.state;
     return (
       <Container>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit()}>
           <FormGroup>
             <Label htmlFor="tags">Tags:</Label>
             <Select id="tags" onChange={this.handleTagSelect}>
@@ -252,6 +252,8 @@ console.log(data)
               onChange={(e) => this.setState({ description: e.target.value })}
             ></Textarea>
           </FormGroup>
+
+          
           <SubmitButton type="submit">Submit</SubmitButton>
           {success && (
             <div

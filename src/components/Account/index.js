@@ -31,12 +31,14 @@ class Account extends Component {
       name: "",
       email: "",
       age: "",
-      location: "",
+      location: null,
       bio: "",
       _id:"",
       isLoading: false,
       errors: {},
+      isUpdated: false,
     };
+    this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
   handleNameChange = (event) => {
@@ -51,8 +53,9 @@ class Account extends Component {
     this.setState({ bio: event.target.value });
   };
 
-  handleLocationChange = (event) => {
-    this.setState({ location: event.target.value });
+  handleLocationChange = (event, newValue) => {
+    this.setState({ location: newValue ? newValue.label : null  });
+    console.log(newValue);
   };
 
 
@@ -108,6 +111,7 @@ class Account extends Component {
         axios.post('https://edunode.herokuapp.com/api/profile', formData)
         .then(response => {
           console.log(response.data);
+          this.setState({ isUpdated: true }); // set isUpdated to true if account is successfully updated
         })
         .catch(error => {
           console.error(error);
@@ -133,11 +137,40 @@ class Account extends Component {
         <TextField name="name" type="text" placeholder="Name" fullWidth  onChange={this.handleNameChange}  />
         <TextField disabled name="email" type="email" placeholder={this.props.auth.user.email} fullWidth inputRef={input => this.emailInput = input} />
         <TextField name="age" type="number" placeholder="Age" fullWidth  onChange={this.handleAgeChange} />
-        <Country />
-        <TextField name="bio" multiline rows={4} placeholder="Bio" fullWidth  onChange={this.handleBioChange} />
-        <TextField name="id" fullWidth placeholder={this.props.auth.user._id}   />
-        
-      
+        <Autocomplete
+      id="country-select-demo"
+      sx={{ width:1250 }}
+      options={countries}
+      autoHighlight
+      getOptionLabel={(option) => option.label}
+      renderOption={(props, option) => (
+        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+          <img
+            loading="lazy"
+            width="100"
+            src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+            srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+            alt=""
+          />
+          {option.label} ({option.code}) +{option.phone}
+        </Box>
+      )}
+      renderInput={(params) => (
+        <TextField fullWidth
+          {...params}
+          name='location'
+          label="location"
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: 'new-password', // disable autocomplete and autofill
+          }}
+         
+        />
+      )}
+      onChange={this.handleLocationChange}
+    />
+        <TextField name="bio" multiline rows={4} placeholder="My Web3 Journey" fullWidth  onChange={this.handleBioChange} />
+    
     </div> 
 
 </>
@@ -149,13 +182,18 @@ class Account extends Component {
   
 
   render() {
-    const { isAuthenticated ,history} = this.props.auth
+    const { isAuthenticated } = this.props.auth
     if (!isAuthenticated) {
       return <div>Please log in to view this page.</div>;
     }
-
+    const { isUpdated } = this.state; // get isUpdated from state
     return (
        <>
+        {isUpdated && ( // display alert message if isUpdated is true
+          <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
+            Account updated successfully!
+          </div>
+        )}
        <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item={true} xs={5} sm={3.5} md={2}>
@@ -607,41 +645,6 @@ const countries = [
   { code: 'ZM', label: 'Zambia', phone: '260' },
   { code: 'ZW', label: 'Zimbabwe', phone: '263' },
 ];
-
- function Country() {
-  return (
-    <Autocomplete
-      id="country-select-demo"
-      sx={{ width:1250 }}
-      options={countries}
-      autoHighlight
-      getOptionLabel={(option) => option.label}
-      renderOption={(props, option) => (
-        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-          <img
-            loading="lazy"
-            width="100"
-            src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-            srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-            alt=""
-          />
-          {option.label} ({option.code}) +{option.phone}
-        </Box>
-      )}
-      renderInput={(params) => (
-        <TextField fullWidth
-          {...params}
-          label="location"
-         // onChange={this.handleLocationChange}
-          inputProps={{
-            ...params.inputProps,
-            autoComplete: 'new-password', // disable autocomplete and autofill
-          }}
-        />
-      )}
-    />
-  );
-}
 
 
 

@@ -24,19 +24,7 @@ import Posts from "./Posts"
 import Card from "./Card"
 import { io } from "socket.io-client"
 import Tweets from './tweets';
-// const ENDPOINT = "http://localhost:5001/"
-
-
-
-
-
-
-//
-//  search twitter for all tweets containing the word 'banana' since July 11, 2011
-//
-
-
-
+import PostList from "./PostList";
 
 const style = {
   height: 30,
@@ -303,7 +291,7 @@ class Feed extends Component {
       </div>
          
 </div>
-<Comments />
+
           
         </Grid>
         
@@ -335,8 +323,7 @@ class Feed extends Component {
     <Grid xs={7} sm={8.5} md={10}>
       <Item><Topbar /></Item>
       <div>
-      <Tweets />
-      <Posts />
+      
 
       <div>
 
@@ -363,7 +350,7 @@ class Feed extends Component {
   </div>
      
 </div>
-<Comments />
+<PostList />
       
     </Grid>
     

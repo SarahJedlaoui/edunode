@@ -59,7 +59,7 @@ const tiers = [
     ],
     buttonText: 'Get in touch',
     buttonVariant: 'outlined',
-    buttonLink: "/membership/checkout"
+    buttonLink: 'mailto:hi@ogtechnologies.co?subject=Enterprise Membership Inquiry'
   },
 ];
 
@@ -182,7 +182,7 @@ function PricingContent() {
                 <CardActions>
                <Button onClick={
                  () => {
-                
+                  window.location.href = 'mailto:hi@ogtechnologies.co?subject=Enterprise Membership Inquiry';
                   
                 }} 
                   fullWidth variant={tier.buttonVariant}>
