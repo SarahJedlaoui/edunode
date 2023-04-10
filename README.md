@@ -1,6 +1,32 @@
-# Getting Started with Create React App
+# Getting Started with EduNode 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+EduNode is a comprehensive web application built using React.js for educational purposes. It offers a wide range of features and functionalities, including user authentication, content management, community engagement, courses, and more.
+
+Main features:
+
+User registration and login
+Dashboard for managing user settings and creating new posts
+Community chat and profile pages
+Blog with various articles and categories
+Course management, including course progress and completion
+Video playlist for learning
+Search functionality
+Code editor and code challenges
+Chess board for entertainment
+Hyperledger's integration for blockchain-related courses
+Key libraries and technologies used:
+
+React.js: A popular JavaScript library for building user interfaces, particularly for single-page applications.
+Redux: A predictable state container for JavaScript apps, used for managing the application state.
+React Router: A powerful library for handling navigation and routing within a React application.
+React Cookie Consent: A simple and customizable cookie consent bar for React applications.
+The application uses React Router for handling various routes and rendering the appropriate components, such as Login, Register, Dashboard, Settings, and other custom components. It also utilizes Redux to manage the application state and connect components to the Redux store.
+
+In addition, the application features a wide range of custom-built components, such as Home, AboutUs, ContactUs, Resources, Community, Blog, and more. These components cover various aspects of the application, providing users with an immersive and interactive learning experience.
+
+The app uses the BrowserRouter, Switch, Route, and Redirect components from React Router to manage the routing and navigation within the application. It also features a CookieConsent component to inform users about the use of cookies on the website.
+
+In conclusion, EduNode is a versatile and feature-rich educational web application built with React.js, Redux, and React Router. It offers a wide range of functionalities and content, making it a one-stop platform for learning and community engagement.
 
 ## Available Scripts
 
