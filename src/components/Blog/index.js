@@ -179,7 +179,7 @@ const sidebar = {
   description:
     "Welcome to EduNode's blog.",
   social: [
-    { name: "GitHub", icon: GitHubIcon, url: "https://github.com/Olvisgil/EduNode" },
+    { name: "GitHub", icon: GitHubIcon, url: "https://github.com/edunodeorg" },
     { name: '    Twitter', icon: TwitterIcon, url: "https://twitter.com/edunodeorg"}
   ],
 };
