@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
-import TextField from '@material-ui/core/TextField'
+import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CircularProgress from "@material-ui/core/CircularProgress"
+import CircularProgress from "@mui/material/CircularProgress"
 import {  Link} from "react-router-dom"
 import { clearErrors } from "../../actions/errorActions";
 import "./style.css";
