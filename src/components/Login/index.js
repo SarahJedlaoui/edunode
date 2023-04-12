@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
-import TextField from '@material-ui/core/TextField'
+import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CircularProgress from "@material-ui/core/CircularProgress"
+import CircularProgress from "@mui/material/CircularProgress"
 import {  Link} from "react-router-dom"
 import { clearErrors } from "../../actions/errorActions";
 import "./style.css";
@@ -17,6 +17,7 @@ import { Image } from 'react-bootstrap';
 import { isConnected, getPublicKey } from "@stellar/freighter-api";
 import flogo from "./flogo.png"
 import mlogo from "./metamask.png"
+import m2logo from "./metamask2.png"
 import mozartlogo from "./mozartlogo.png"
 
 import { Navigate } from "react-router-dom";
@@ -277,7 +278,7 @@ onClick={handleMetamask}
 variant="outlined"
 >
 
-  {" "}Login with <Image style={{ width: '75px' ,display: "inline-block",margin: "10px 40px" }} src={mlogo} /> 
+  {" "}Login with <Image style={{ width: '25px' ,display: "inline-block",margin: "20px 20px" }} src={mlogo} /> 
 </Button>
 
 </div>
@@ -291,7 +292,7 @@ style={{ width: '300px' }}
 onClick={freighterHandler}
 variant="outlined"
 >
-  Login with <Image style={{ width: '75px' ,display: "inline-block",margin: "5px 5px"}} src={flogo} /> 
+  Login with <Image style={{ width: '85px' ,display: "inline-block",margin: "5px 5px"}} src={flogo} /> 
 </Button>
           </div>
           <br></br>
@@ -301,7 +302,7 @@ style={{ width: '300px' }}
 onClick={albedoHandler}
 variant="outlined"
 >
-Login with <Image style={{ width: '45px' ,display: "inline-block",margin: "5px 5px",}} src={albedologo} /> 
+Login with <Image style={{ width: '95px' ,display: "inline-block",margin: "5px 5px",}} src={albedologo} /> 
    
 </Button>
           </div>

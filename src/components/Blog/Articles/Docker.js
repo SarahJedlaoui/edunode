@@ -317,7 +317,7 @@ Whether you're building a private blockchain network for enterprise applications
 
                   <Card.Text>
                     <p>
-                     Software Developer Intern
+                     Software Developer
                     </p>
                   </Card.Text>
                   
