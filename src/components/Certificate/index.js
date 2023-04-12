@@ -241,7 +241,7 @@ class Certificate extends Component {
                       <p>You currently have {certificateCount} certifications:</p>
                     )}
                     {certificateCount === 0 && (
-                      <p>You currently have 00000 certifications.</p>
+                      <p>You currently have 0 certifications.</p>
                     )}
                     {certificateUrls.length > 0 && (
                       <>
