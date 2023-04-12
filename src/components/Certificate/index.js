@@ -10,26 +10,28 @@ import Footer from '../Footer';
 import { styled } from '@mui/material/styles';
 import { connect } from 'react-redux';
 import React, { Component } from 'react'
-import { Field, reduxForm } from "redux-form";
-import { BrowserRouter } from "react-router-dom";
-import Button from "@mui/material/Button"
+import { reduxForm } from "redux-form";
 import TextField from '@mui/material/TextField'
 import PropTypes from 'prop-types'
-import "./style.css"
+import "./style.css";
+import axios from 'axios';
+
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
-import { isConnected, getPublicKey } from "@stellar/freighter-api";
+//import { isConnected, getPublicKey } from "@stellar/freighter-api";
 
 
 class Certificate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
+      email : '',
       userName: "",
       pkey: "",
       pubkey: "",
       isLoading: false,
-      errors: {}
+      errors: {},
+      certificateCount: 0,
+      certificateUrls: []
     }
 
     this.onChange = this.onChange.bind(this)
@@ -37,7 +39,29 @@ class Certificate extends Component {
 
   }
 
+  componentDidMount() {
+    const  email = this.props.auth.user.email;
 
+    axios.get(`https://edunode.herokuapp.com/api/certificates/count/${email}`)
+      .then(res => {
+        if (res.data.length > 0) {
+          this.setState({ certificateCount: res.data[0].count });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    axios.get(`https://edunode.herokuapp.com/api/certificates/${email}`)
+      .then(res => {
+        if (res.data.length > 0) {
+          this.setState({ certificateUrls: res.data });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
   componentDidUpdate(prevProps) {
     const { error } = this.props;
@@ -171,7 +195,7 @@ class Certificate extends Component {
     }
   
   render() {
-
+  
    console.log(this.props.auth.user)
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -191,135 +215,57 @@ class Certificate extends Component {
       isGranted,
       isFirstCourseSelected,
     courseOneDone,
+     
     } = this.props.auth;
+
+    const { certificateCount, certificateUrls } = this.state;
+    // Call the API to get the certificate count and URLs
+    
     if(this.props.auth.user) {
       return (
-      <>
-      <div>
-            <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid xs={5} sm={3.5} md={2} item={1} >
-          <Item><Sidebar /></Item>
-        </Grid>
-     
-        <Grid xs={7} sm={8.5} md={10}item={1}>
-          <Item><Topbar /></Item>
+        <>
           <div>
-           <p><h3>Welcome to your Certifications</h3></p> 
-        <br></br>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container spacing={2}>
+                <Grid xs={5} sm={3.5} md={2} item={1} >
+                  <Item><Sidebar /></Item>
+                </Grid>
 
-        
-      <p>You currently have 0 certifications.</p>
-        
-</div>
-          
-        </Grid>
-        
-      </Grid>
-      <Footer />
-    </Box>
-        </div>
-      </>
+                <Grid xs={7} sm={8.5} md={10} item={1}>
+                  <Item><Topbar /></Item>
+                  <div>
+                    <p><h3>Welcome to your Certifications</h3></p>
+                    <br></br>
+
+                    {certificateCount > 0 && (
+                      <p>You currently have {certificateCount} certifications:</p>
+                    )}
+                    {certificateCount === 0 && (
+                      <p>You currently have 00000 certifications.</p>
+                    )}
+                    {certificateUrls.length > 0 && (
+                      <>
+                        <p>Here are your certificates:</p>
+                        <ul>
+                          {certificateUrls.map(url => (
+                            <li key={url}> <a href={url} target="_blank" rel="noopener noreferrer"><img src={url} alt="Certificate" /></a></li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                  </div>
+
+                </Grid>
+
+              </Grid>
+              <Footer />
+            </Box>
+          </div>
+        </>
       )
 
     }
-//     if (this.props.auth.user.granted) {
 
-//       console.log(this.props.auth.user)
-//       let publickey = this.props.auth.user.pubkey;
-// let result = publickey.substring(50);
-    
-//     return (
-//       <div>
-//         <div>
-//             <Box sx={{ flexGrow: 1 }}>
-//       <Grid container spacing={2}>
-//         <Grid xs={5} sm={3.5} md={2}>
-//           <Item><Sidebar /></Item>
-//         </Grid>
-     
-//         <Grid xs={7} sm={8.5} md={10}>
-//           <Item><Topbar /></Item>
-//           <div>
-         
-//         <p><h3>Welcome to your Certifications</h3></p> 
-//         <br></br>
-
-        
-//         <p>You currently have 1 certification for the following course:</p>
-        
-        
-//         <p><b>Stellar Basics Course</b></p>
-        
-//         <br></br>
-// <p>Issuing Account <b>...{result}</b></p>
-//         <a href={'https://stellar.expert/explorer/testnet/account/' + this.props.auth.user.pubkey}><p>Check on Stellar Expert</p></a>
-//         <p>For CID <b>...7fm7m</b></p>
-//         <a href="https://bafybeib4n3x3f5wfe7lwyv4pry3pdnps6va7i6l4jmqfbymhd2dpg7fm7m.ipfs.dweb.link/leodiploma.png"><p>Check on IPFS</p></a>
-
-        
-// </div>
-          
-//         </Grid>
-        
-//       </Grid>
-//       <Footer />
-//     </Box>
-//         </div>
-        
-//       </div>
-//     )
-//   }
-
-//     if (this.props.auth.isAuthenticated) {
-
-//       console.log(this.props.auth.user)
-//       let publickey = this.props.auth.user.pkey;
-// let result = publickey.substring(50);
-    
-//     return (
-//       <div>
-//         <div>
-//             <Box sx={{ flexGrow: 1 }}>
-//       <Grid container spacing={2}>
-//         <Grid xs={5} sm={3.5} md={2}>
-//           <Item><Sidebar /></Item>
-//         </Grid>
-     
-//         <Grid xs={7} sm={8.5} md={10}>
-//           <Item><Topbar /></Item>
-//           <div>
-         
-//           <p><h3>Welcome to your Certifications</h3></p> 
-//         <br></br>
-
-        
-//         <p>You currently have 1 certification for the following course:</p>
-        
-        
-//         <p><b>Stellar Basics Course</b></p>
-        
-//         <br></br>
-// <p>For Stellar Account <b>...{result}</b></p>
-//         <a href={'https://stellar.expert/explorer/testnet/account/' + this.props.auth.user.pkey}><p>Check on Stellar Expert</p></a>
-//         <p>For Stellar Issuing Account <b>...{result}</b></p>
-// <a href={'https://stellar.expert/explorer/testnet/account/' + this.props.auth.user.pkey}><p>Check on Stellar Expert</p></a>
-//         <p>For CID <b>...7fm7m</b></p>
-//         <a href="https://bafybeib4n3x3f5wfe7lwyv4pry3pdnps6va7i6l4jmqfbymhd2dpg7fm7m.ipfs.dweb.link/leodiploma.png"><p>Check on IPFS</p></a>
-
-        
-// </div>
-          
-//         </Grid>
-        
-//       </Grid>
-//       <Footer />
-//     </Box>
-//         </div>
-        
-//       </div>
-//     )
-//   }
 
  
   if (!this.props.auth.isAuthenticated) {

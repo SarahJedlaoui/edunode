@@ -52,18 +52,19 @@ function Ediploma(props) {
 
   }
 
- {/* */} async function sendImageToServer(base64Image) {
-    try {
-      const response = await axios.post("https://edunode.herokuapp.com/api/certificates", {
-        image: base64Image,
-        email: this.props.auth.user.email,
-        name: Name
-      });
-      console.log(response.data); // Check if the image was saved successfully
-    } catch (error) {
-      console.error(error);
-    }
+ {/* */} async function sendImageToServer(base64Image, props) {
+  try {
+    const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+      image: base64Image,
+      email: props.auth.user.email,
+      name: Name
+    });
+    console.log(response.data); // Check if the image was saved successfully
+  } catch (error) {
+    console.error(error);
   }
+}
+
 
 
   async function getCertificateBase64() {
@@ -78,9 +79,9 @@ function Ediploma(props) {
 
   const handleConfirmDownload = async (e) => {
     e.preventDefault();
-
+  
     const base64Image = await getCertificateBase64();
-    await sendImageToServer(base64Image);
+    await sendImageToServer(base64Image, props);
     console.log(base64Image); // This will log the base64 string of the image in the console
     // TODO: Send the base64Image to your server using an API
     exportComponentAsPNG(certificateWrapper, {
@@ -94,6 +95,7 @@ function Ediploma(props) {
       }
     }, 3000);
   }
+  
 
   return (
     <div className="App">
