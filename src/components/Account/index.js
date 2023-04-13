@@ -28,11 +28,11 @@ class Account extends Component {
     super(props);
 
     this.state = {
-      name: "",
+      name: this.props.auth.user.name || "",
       email: "",
-      age: "",
-      location: null,
-      bio: "",
+      age: this.props.auth.user.age || "",
+      location: this.props.auth.user.location || "",
+      bio: this.props.auth.user.bio || "",
       _id:"",
       isLoading: false,
       errors: {},
@@ -134,9 +134,9 @@ class Account extends Component {
       <>
   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       
-        <TextField name="name" type="text" placeholder="Name" fullWidth  onChange={this.handleNameChange}  />
+        <TextField name="name" type="text" placeholder="Name" fullWidth value={this.state.name}  onChange={this.handleNameChange}   />
         <TextField disabled name="email" type="email" placeholder={this.props.auth.user.email} fullWidth inputRef={input => this.emailInput = input} />
-        <TextField name="age" type="number" placeholder="Age" fullWidth  onChange={this.handleAgeChange} />
+        <TextField name="age" type="number" placeholder="Age" fullWidth value={this.state.age}  onChange={this.handleAgeChange} />
         <Autocomplete
       id="country-select-demo"
       sx={{ width:1250 }}
@@ -164,12 +164,12 @@ class Account extends Component {
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill
           }}
-         
+          value={this.state.location}
         />
       )}
       onChange={this.handleLocationChange}
     />
-        <TextField name="bio" multiline rows={4} placeholder="My Web3 Journey" fullWidth  onChange={this.handleBioChange} />
+        <TextField name="bio" multiline rows={4} placeholder="My Web3 Journey" fullWidth value={this.state.bio} onChange={this.handleBioChange} />
     
     </div> 
 
