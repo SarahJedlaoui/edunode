@@ -4,6 +4,15 @@ import Footer from '../../Footer';
 import NavBar from '../../NavBar';
 import me from '../sara.jpg';
 import sc from '../IPFS.png';
+import one from './1.png';
+import two from './2.png';
+import three from './3.png';
+import four from './4.png';
+import five from './5.png';
+import six from './6.png';
+import seven from './7.png';
+import eight from './8.png';
+import nine from './9.png';
 import Typography from '@material-ui/core/Typography';
 import {
   FacebookShareCount,
@@ -87,14 +96,14 @@ export default class IPFS extends Component {
          <p></p>
             <Col xs={12} sm={8} className="main-section">
             <p>  
-            <h4>Introduction to IPFS</h4>
-              
+            <h4>Introduction to IPFS:</h4>
+            <br></br>
               <p>InterPlanetary File System (IPFS) is a distributed protocol and network for storing and sharing hypermedia in a peer-to-peer (P2P) fashion. IPFS is a decentralized alternative to the World Wide Web (WWW) and is built on top of it. The protocol was initially designed by Juan Benet, and it was first released in 2015.
 
 IPFS allows users to store and access files in a distributed and decentralized manner, which means that files are not stored on a central server. Instead, files are broken down into smaller pieces, and each piece is stored on different nodes on the network. This makes it much more difficult for any individual or organization to censor or control access to the data.</p>
 <br></br>
-<h4>What is IPFS used for?</h4>
-
+<h4>What is IPFS used for?:</h4>
+<br></br>
  <p>IPFS has several use cases, including:<br></br>
 
 *File sharing: IPFS can be used to share files between users in a decentralized and secure manner. This means that users can share files without relying on centralized servers.<br></br>
@@ -106,18 +115,52 @@ IPFS allows users to store and access files in a distributed and decentralized m
 *Permanent storage: IPFS can be used to store files permanently, ensuring that they are always available and cannot be deleted.</p>
 <br></br>
 
-<h4>Features of IPFS</h4>
-<p>Decentralization: IPFS is a decentralized protocol, which means that files are not stored on a central server. Instead, they are stored on multiple nodes on the network, making it much more difficult for any individual or organization to control access to the data.
-
-Distributed storage: IPFS uses a distributed storage system, which means that files are broken down into smaller pieces, and each piece is stored on different nodes on the network. This makes it much more difficult for any individual or organization to delete or tamper with the data.
-
-Content-addressed storage: IPFS uses content-addressed storage, which means that files are identified by their content rather than their location. This ensures that files can be accessed even if the location of the node storing them changes.
-
-Versioning: IPFS supports versioning, which means that different versions of a file can be stored and accessed. This is useful for applications that need to store historical data or for users who want to access older versions of a file. </p>
+<h4>How to Upload Images on IPFS?:</h4>
+<br></br>
+<p>Uploading images on IPFS is a simple process that can be done in a few steps.<br></br>
+*Step 1: Install IPFS<br></br>
+To upload images on IPFS, you need to have IPFS installed on your computer. You can download IPFS from the official website and follow the installation instructions.<br></br>
+*Step 2: Add Images to IPFS<br></br>
+After installing IPFS, you can add images to IPFS using the following command in the terminal:
+<Image src={one} fluid />
+This will add the image to IPFS and return a unique hash that identifies the image. You can use this hash to access the image later.<br></br>
+*Step 3: View Images on IPFS<br></br>
+To view images on IPFS, you can use the unique hash generated in the previous step and append it to the IPFS gateway URL. For example, if the hash is "QmZdCt8J9ZntrhZamTy2g1Wn8pjArdyAbmBCwzLxjDcE8f", you can view the image by accessing the following URL in your browser:
+<Image src={two} fluid />
+<br></br>
+And also you can use IPFS in your applications to store images in it and here are the steps:<br></br>
+Before we begin, you will need to have the following installed on your computer:<br></br>
+Node.js<br></br>
+IPFS<br></br>
+The ipfs-api Node.js library<br></br>
+*Step 1: Initialize IPFS<br></br>
+To begin, you need to initialize IPFS on your computer. Open a terminal window and run the following command:<br></br>
+<Image src={three} fluid />
+This will create the necessary configuration files for IPFS. Once you have initialized IPFS, start the daemon by running the following command:<br></br>
+<Image src={four} fluid />
+This will start the IPFS daemon, which will allow you to interact with the IPFS network from your Node.js application.<br></br>
+*Step 2: Install the ipfs-api Library<br></br>
+Next, you need to install the ipfs-api library. This is a Node.js library that provides a simple interface for interacting with IPFS from a Node.js application. To install the ipfs-api library, run the following command in your terminal:<br></br>
+<Image src={five} fluid />
+*Step 3: Set Up Your Node.js Application<br></br>
+Create a new Node.js application and navigate to the project directory in your terminal. Next, create a new file called index.js and add the following code:<br></br>
+<Image src={six} fluid />
+This code sets up a connection to the local IPFS node using the ipfs-api library, and then retrieves a file from IPFS by its hash. Replace the 'fileHash' variable with the hash of the image file that you want to retrieve.<br></br>
+*Step 4: Add Images to IPFS<br></br>
+To add an image to IPFS, you first need to read the image file using the 'fs' module in Node.js. Add the following code to the 'index.js' file to read an image file:<br></br>
+<Image src={seven} fluid />
+Replace 'path/to/image.jpg' with the path to your image file.<br></br>
+Next, add the following code to add the image to IPFS:<br></br>
+<Image src={eight} fluid />
+This code adds the image file to IPFS and logs the result to the console. The res variable contains information about the added file, including its IPFS hash.<br></br>
+*Step 5: Retrieve Images from IPFS<br></br>
+To retrieve an image from IPFS, you can use the IPFS hash that was generated when the image was added. Replace the fileHash variable in the code from Step 3 with the hash of the image that you want to retrieve.<br></br>
+<Image src={nine} fluid />
+<br></br>
+</p>
 <br></br>
 <p><h4>Conclusion</h4></p>
-
-
+<br></br>
 <p>IPFS is a powerful and innovative protocol that allows users to store and access files in a decentralized and secure manner. It has several use cases, including file sharing, decentralized websites, decentralized applications, and permanent storage. IPFS is designed to be decentralized, distributed, content-addressed, and versioned. With its unique features, IPFS has the potential to revolutionize the way we store and share information online.</p>
 <br></br>
 

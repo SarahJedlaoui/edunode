@@ -18,7 +18,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 import { Link } from "react-router-dom";
 import CardMembershipIcon from '@mui/icons-material/CardMembership';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-//import Logout from "../auth/Logout";
+import Logout from "../auth/Logout";
 
 export default function Sidebar(props) {
   return (
@@ -125,19 +125,21 @@ Certificates
           
           <ul className="sidebarList">
           
-            <li className="sidebarListItem">
+           <li className="sidebarListItem">
               <Timeline className="sidebarIcon" />
              
             </li>
             <li className="sidebarListItem">
               <Report className="sidebarIcon" />
-              <button onClick={function(){
-    alert("Coming soon")
-}}>Reports</button>
+              <button onClick={
+                 () => {
+                  window.location.href = 'mailto:hi@ogtechnologies.co?subject=Reports';
+                  
+                }} >Reports</button>
             </li>
             <li className="sidebarListItem">
          
-             {/*<Logout />*/ } 
+             <Logout />
             </li>
 
             

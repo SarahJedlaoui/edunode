@@ -10,6 +10,7 @@ import Account from "./components/Account"
 import Resources from "./components/Resources";
 import Community from "./components/Community";
 import Milestones from "./components/Milestones"
+import TermsAndConditions from "./components/Terms";
 import Courses from './components/Courses';
 import SearchBox from "./components/SearchBox";
 import SearchResultsPage from "./components/SearchBox/SearchResultsPage/index"
@@ -136,7 +137,7 @@ function App(props) {
         <Route exact path="/dashboard/settings" element={<Settings/>} />
         <Route exact path="/profile" element={<Profile/>} />
         <Route exact path="/post" element={<Post/>} />
-        
+        <Route exact path="/terms" element={<TermsAndConditions/>} />
 
       </Routes>
     </Provider>

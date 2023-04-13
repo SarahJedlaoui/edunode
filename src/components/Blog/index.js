@@ -23,6 +23,7 @@ import amm from "./Articles/AMM/AMMs.png"
 import suave from "./suave.gif"
 import creator from "./Articles/Web3/creator.png"
 import docker from "./docker1.png"
+import ipfs from "./ipfss.png"
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -168,6 +169,15 @@ const featuredPosts = [
     image: docker,
     imageText: 'Learn about Docker and how to apply it in Blockchain',
     link: '/blog/Docker',
+  },
+  {
+    title: 'Learn about IPFS',
+    date: '13/04/2023',
+    description:
+      'Learn about IPFS, what are the most popular applications, and how you can use it to store images .',
+    image:ipfs,
+    imageText: 'Learn about IPFS, what are the most popular applications, and how you can use it to store images',
+    link: '/blog/ipfs',
   }
 ];
 
