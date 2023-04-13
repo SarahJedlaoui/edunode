@@ -48,19 +48,7 @@ const tiers = [
     buttonVariant: 'contained',
     buttonLink: "/membership/checkout"
   },
-  {
-    title: 'Enterprise',
-    price: '-',
-    description: [
-      'Tailored Courses for employees',
-      'Tailored NFT Certification for course completion',
-      'Help center access',
-      'Phone & email support',
-    ],
-    buttonText: 'Get in touch',
-    buttonVariant: 'outlined',
-    buttonLink: 'mailto:hi@ogtechnologies.co?subject=Enterprise Membership Inquiry'
-  },
+ 
 ];
 
 // const footers = [
@@ -123,7 +111,7 @@ function PricingContent() {
         </Typography>
       </Container>
       {/* End hero unit */}
-      <Container maxWidth="md" component="main">
+      <Container maxWidth="md" component="main" style={{ display: 'flex', flexDirection: 'column', alignItems:"flex-end" }}>
         <Grid container spacing={5} alignItems="flex-end">
           {tiers.map((tier) => (
             // Enterprise card is full width at sm breakpoint
@@ -180,14 +168,8 @@ function PricingContent() {
                   </ul>
                 </CardContent>
                 <CardActions>
-               <Button onClick={
-                 () => {
-                  window.location.href = 'mailto:hi@ogtechnologies.co?subject=Enterprise Membership Inquiry';
-                  
-                }} 
+               <Button href='/membership/checkout'
                   fullWidth variant={tier.buttonVariant}>
-          
-         
                    {tier.buttonText} 
                  </Button> 
                  {/* <Rec /> */}
@@ -236,7 +218,98 @@ console.log({details, data})
               </Card>
             </Grid>
           ))}
+
+
+
+<Grid
+              item
+              key='Enterprise'
+              xs={12}
+              sm={'Enterprise' ? 12 : 6}
+              md={4}
+            >
+              <Card>
+                <CardHeader
+                  title='Enterprise'
+                  subheader= ''
+                  titleTypographyProps={{ align: 'center' }}
+                  subheaderTypographyProps={{
+                    align: 'center',
+                  }}
+                  sx={{
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light'
+                        ? theme.palette.grey[200]
+                        : theme.palette.grey[700],
+                  }}
+                />
+                <CardContent>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'baseline',
+                      mb: 2,
+                    }}
+                  >
+                    <Typography component="h2" variant="h3" color="text.primary">
+                    €-
+                    </Typography>
+                    <Typography variant="h6" color="text.secondary">
+                      /mo
+                    </Typography>
+                  </Box>
+                  <ul>
+                    
+                      <Typography
+                        component="li"
+                        variant="subtitle1"
+                        align="center"
+                        
+                      >
+                        'Tailored Courses for employees',
+      'Tailored NFT Certification for course completion',
+      'Help center access',
+      'Phone & email support',
+                      </Typography>
+                    
+                  </ul>
+                </CardContent>
+                <CardActions>
+               <Button onClick={
+                 () => {
+                  window.location.href = 'mailto:hi@ogtechnologies.co?subject=Enterprise Membership Inquiry';
+                  
+                }} 
+                  fullWidth variant='outlined'>
+          
+         
+          Get in touch
+                 </Button> 
+          
+                </CardActions>
+              </Card>
+            </Grid>
+
+
+
+
+
         </Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </Container>
       {/* Footer */}
       <Container

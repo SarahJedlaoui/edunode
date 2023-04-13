@@ -23,7 +23,7 @@ export default function Checkout () {
     <div>
       {!isPaid ? (
         <PayPalButton
-          amount="0.01"
+          amount="0.29"
           currency="USD"
           onSuccess={onSuccess}
           onCancel={onCancel}
