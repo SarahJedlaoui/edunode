@@ -10,7 +10,7 @@ import Course2 from '../Course2';
 import Course3 from '../Course3';
 import { Form, Row, Col, Image, Card } from 'react-bootstrap';
 import { Link, Redirect } from "react-router-dom"; 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 // import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';

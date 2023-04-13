@@ -18,13 +18,12 @@ import { Field, reduxForm } from "redux-form";
 import TextField from '@mui/material/TextField'
 import PropTypes from 'prop-types'
 import "./style.css"
-
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
 import Posts from "./Posts"
 import Card from "./Card"
-import { io } from "socket.io-client"
 import Tweets from './tweets';
 import PostList from "./PostList";
+
 
 const style = {
   height: 30,
@@ -264,7 +263,7 @@ class Feed extends Component {
           <Item><Topbar /></Item>
           <div>
           <Tweets />
-          <Posts />
+     
    
           <div>
     
@@ -323,33 +322,18 @@ class Feed extends Component {
     <Grid xs={7} sm={8.5} md={10}>
       <Item><Topbar /></Item>
       <div>
-      
+  
 
       <div>
 
    
     <hr />
-    {/* <InfiniteScroll
-      dataLength={this.state.items.length}
-      next={this.fetchMoreData}
-      hasMore={this.state.hasMore}
-      loader={<h4>Loading...</h4>}
-      endMessage={
-        <p style={{ textAlign: "center" }}>
-          <b>Yay! You have seen it all</b>
-        </p>
-      }
-    >
-      
-      {this.state.items.map((i, index) => (
-        <div style={style} key={index}>
-          div - #{index}
-        </div>
-      ))}
-    </InfiniteScroll> */}
+    
   </div>
      
 </div>
+
+
 <PostList />
       
     </Grid>
@@ -363,7 +347,7 @@ class Feed extends Component {
     
   </>
 )
-  // return <Redirect to="/" />
+
 } 
 
 }

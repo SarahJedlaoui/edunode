@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import NavBar from "../NavBar"
+import SideBar from "../Dashboard/Sidebar"
+import Footer from "../Footer"
 import { clearErrors } from "../../actions/errorActions";
 import { newPost } from "../../actions/authActions";
 
@@ -203,7 +205,11 @@ class Post extends Component {
   render() {
     const { tags, title, link, description, success } = this.state;
     return (
+      <>
+       {/* <NavBar /> */}
+    
       <Container>
+       
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label htmlFor="tags">Tags:</Label>
@@ -267,7 +273,11 @@ class Post extends Component {
             </div>
           )}
         </Form>
+       
+      
       </Container>
+      <Footer />
+      </>
     );
   }
 }
