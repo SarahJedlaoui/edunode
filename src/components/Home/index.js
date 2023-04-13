@@ -36,7 +36,7 @@ class Home extends Component {
   return (
     <>
       <Helmet>
-        <title>EduNodee</title>
+        <title>EduNode2</title>
         <meta name="Edunode" content="We help you become a Blockchain Developer" />
         <meta property="og:title" content="EduNode" />
         <meta property="og:image" content="path/to/image.jpg" />
