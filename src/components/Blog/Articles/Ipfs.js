@@ -128,34 +128,34 @@ This will add the image to IPFS and return a unique hash that identifies the ima
 To view images on IPFS, you can use the unique hash generated in the previous step and append it to the IPFS gateway URL. For example, if the hash is "QmZdCt8J9ZntrhZamTy2g1Wn8pjArdyAbmBCwzLxjDcE8f", you can view the image by accessing the following URL in your browser:
 <Image src={two} fluid />
 <br></br>
-And also you can use IPFS in your applications to store images in it and here are the steps:<br></br>
-Before we begin, you will need to have the following installed on your computer:<br></br>
-Node.js<br></br>
-IPFS<br></br>
-The ipfs-api Node.js library<br></br>
-*Step 1: Initialize IPFS<br></br>
-To begin, you need to initialize IPFS on your computer. Open a terminal window and run the following command:<br></br>
+And also you can use IPFS in your applications to store images using 'web3.storage' library and here are the steps:<br></br>
+*Step 1: Install the web3.storage library:<br></br>
+
 <Image src={three} fluid />
-This will create the necessary configuration files for IPFS. Once you have initialized IPFS, start the daemon by running the following command:<br></br>
+This command installs the web3.storage library and its dependencies in your project.<br></br>
+
+*Step 2: Import the necessary libraries:<br></br>
+These lines import the create function from the ipfs-http-client library and the Web3Storage class from the web3.storage library.<br></br>
 <Image src={four} fluid />
-This will start the IPFS daemon, which will allow you to interact with the IPFS network from your Node.js application.<br></br>
-*Step 2: Install the ipfs-api Library<br></br>
-Next, you need to install the ipfs-api library. This is a Node.js library that provides a simple interface for interacting with IPFS from a Node.js application. To install the ipfs-api library, run the following command in your terminal:<br></br>
+*Step 3: Connect to an IPFS node:<br></br>
+This code creates an instance of an IPFS node using the create function from the ipfs-http-client library. The options passed to create specify the host, port, and protocol to use when connecting to the IPFS node. In this example, we're using the Infura IPFS gateway over HTTPS:<br></br>
 <Image src={five} fluid />
-*Step 3: Set Up Your Node.js Application<br></br>
-Create a new Node.js application and navigate to the project directory in your terminal. Next, create a new file called index.js and add the following code:<br></br>
+
+*Step 4: Initialize the Web3Storage client:<br></br>
+This code creates a new instance of the Web3Storage class from the web3.storage library, passing in your API key as a token:<br></br>
 <Image src={six} fluid />
-This code sets up a connection to the local IPFS node using the ipfs-api library, and then retrieves a file from IPFS by its hash. Replace the 'fileHash' variable with the hash of the image file that you want to retrieve.<br></br>
-*Step 4: Add Images to IPFS<br></br>
-To add an image to IPFS, you first need to read the image file using the 'fs' module in Node.js. Add the following code to the 'index.js' file to read an image file:<br></br>
+
+*Step 5: Convert the image to a Buffer object:<br></br>
+This code uses the fs module to read the image file from disk and convert it to a Buffer object. You'll need to replace 'path/to/image.jpg' with the actual path to your image file:<br></br>
 <Image src={seven} fluid />
-Replace 'path/to/image.jpg' with the path to your image file.<br></br>
-Next, add the following code to add the image to IPFS:<br></br>
+<br></br>
+*Step 6: Add the image to IPFS:<br></br>
+This code adds the image to IPFS using the add method on the IPFS node instance. The result of the add method is an object containing the CID (content identifier) of the added file, which we extract using destructuring.<br></br>
 <Image src={eight} fluid />
-This code adds the image file to IPFS and logs the result to the console. The res variable contains information about the added file, including its IPFS hash.<br></br>
-*Step 5: Retrieve Images from IPFS<br></br>
-To retrieve an image from IPFS, you can use the IPFS hash that was generated when the image was added. Replace the fileHash variable in the code from Step 3 with the hash of the image that you want to retrieve.<br></br>
+*Step 7: Store the CID on Web3Storage:<br></br>
+This code stores the image on Web3Storage using the put method on the Web3Storage client instance. The put method takes the image buffer as its first argument and an options object as its second argument. In this example, we specify the name of the file and its content type. The result of the put method is an object containing the CID of the stored file, which we extract using destructuring.<br></br>
 <Image src={nine} fluid />
+That's it! You have now stored an image on IPFS using the web3.storage library.<br></br>
 <br></br>
 </p>
 <br></br>
