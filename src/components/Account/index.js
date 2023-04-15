@@ -129,53 +129,130 @@ class Account extends Component {
 
 
   // render the form fields for the user's profile information
-  renderProfileFields() {
-    return (
-      <>
-  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+//   renderProfileFields() {
+//     return (
+//       <>
+//   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       
-        <TextField name="name" type="text" placeholder="Name" fullWidth value={this.state.name}  onChange={this.handleNameChange}   />
-        <TextField disabled name="email" type="email" placeholder={this.props.auth.user.email} fullWidth inputRef={input => this.emailInput = input} />
-        <TextField name="age" type="number" placeholder="Age" fullWidth value={this.state.age}  onChange={this.handleAgeChange} />
-        <Autocomplete
-      id="country-select-demo"
-      sx={{ width:1250 }}
-      options={countries}
-      autoHighlight
-      getOptionLabel={(option) => option.label}
-      renderOption={(props, option) => (
-        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-          <img
-            loading="lazy"
-            width="100"
-            src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-            srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-            alt=""
-          />
-          {option.label} ({option.code}) +{option.phone}
-        </Box>
-      )}
-      renderInput={(params) => (
-        <TextField fullWidth
-          {...params}
-          name='location'
-          label="location"
-          inputProps={{
-            ...params.inputProps,
-            autoComplete: 'new-password', // disable autocomplete and autofill
-          }}
-          value={this.state.location}
-        />
-      )}
-      onChange={this.handleLocationChange}
-    />
-        <TextField name="bio" multiline rows={4} placeholder="My Web3 Journey" fullWidth value={this.state.bio} onChange={this.handleBioChange} />
+//         <TextField name="name" type="text" placeholder="Name" fullWidth value={this.state.name}  onChange={this.handleNameChange}   />
+//         <TextField disabled name="email" type="email" placeholder={this.props.auth.user.email} fullWidth inputRef={input => this.emailInput = input} />
+//         <TextField name="age" type="number" placeholder="Age" fullWidth value={this.state.age}  onChange={this.handleAgeChange} />
+//         <Autocomplete
+//       id="country-select-demo"
+//       sx={{ width:1250 }}
+//       options={countries}
+//       autoHighlight
+//       getOptionLabel={(option) => option.label}
+//       renderOption={(props, option) => (
+//         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+//           <img
+//             loading="lazy"
+//             width="100"
+//             src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+//             srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+//             alt=""
+//           />
+//           {option.label} ({option.code}) +{option.phone}
+//         </Box>
+//       )}
+//       renderInput={(params) => (
+//         <TextField fullWidth
+//           {...params}
+//           name='location'
+//           label="location"
+//           inputProps={{
+//             ...params.inputProps,
+//             autoComplete: 'new-password', // disable autocomplete and autofill
+//           }}
+//           value={this.state.location}
+//         />
+//       )}
+//       onChange={this.handleLocationChange}
+//     />
+//         <TextField name="bio" multiline rows={4} placeholder="My Web3 Journey" fullWidth value={this.state.bio} onChange={this.handleBioChange} />
     
-    </div> 
+//     </div> 
 
-</>
-    )
-  }
+// </>
+//     )
+//   }
+renderProfileFields() {
+  const locationLabel = this.props.auth.user.location ? this.props.auth.user.location : 'Location';
+  return (
+    <>
+      <TextField
+        name="name"
+        type="text"
+        placeholder="Name"
+        fullWidth
+        value={this.state.name}
+        onChange={this.handleNameChange}
+      />
+      <TextField
+        disabled
+        name="email"
+        type="email"
+        placeholder={this.props.auth.user.email}
+        fullWidth
+        inputRef={(input) => (this.emailInput = input)}
+      />
+      <TextField
+        name="age"
+        type="number"
+        placeholder="Age"
+        fullWidth
+        value={this.state.age}
+        onChange={this.handleAgeChange}
+      />
+      <Autocomplete
+        id="country-select-demo"
+        options={countries}
+        autoHighlight
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option) => (
+          <Box
+            component="li"
+            sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+            {...props}
+          >
+            <img
+              loading="lazy"
+              width="100"
+              src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+              srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+              alt=""
+            />
+            {option.label} ({option.code}) +{option.phone}
+          </Box>
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            name="location"
+            label={locationLabel}
+            fullWidth
+            value={this.state.location}
+            onChange={this.handleLocationChange}
+            inputProps={{
+              ...params.inputProps,
+              autoComplete: 'new-password', // disable autocomplete and autofill
+            }}
+          />
+        )}
+      />
+      <TextField
+        name="bio"
+        multiline
+        rows={4}
+        placeholder="My Web3 Journey"
+        fullWidth
+        value={this.state.bio}
+        onChange={this.handleBioChange}
+      />
+    </>
+  );
+}
+
 
   // handle form submission
 
@@ -188,31 +265,31 @@ class Account extends Component {
     }
     const { isUpdated } = this.state; // get isUpdated from state
     return (
-       <>
-        {isUpdated && ( // display alert message if isUpdated is true
-          <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
-            Account updated successfully!
-          </div>
-        )}
-       <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item={true} xs={5} sm={3.5} md={2}>
-          <Item><Sidebar /></Item>
+      <>
+      {isUpdated && (
+        <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
+          Account updated successfully!
+        </div>
+      )}
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={4} md={3}>
+            <Sidebar />
+          </Grid>
+          <Grid item xs={12} sm={8} md={9}>
+            <Topbar />
+            <div style={{ padding: '10px' }}>
+              <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                {this.renderProfileFields()}
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+          </Grid>
         </Grid>
-     
-        <Grid item={true} xs={7} sm={8.5} md={10}>
-          <Item><Topbar /></Item>
-      <form  onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        {this.renderProfileFields()}
-        <button 
-        type="submit">Submit</button>
-      </form>
-      </Grid>
-        
-        </Grid>
-            <Footer />
-            </Box>
-            </>
+        <Footer />
+    </Box>
+
+    </>
     )
   }
 }
