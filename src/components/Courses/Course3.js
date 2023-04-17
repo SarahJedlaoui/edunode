@@ -24,7 +24,12 @@ export function AlertDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleConfirm = (e) => {
+    setOpen(false);
+    window.location.href = '/courses/103/';
 
+
+  };
   return (
     <div>
       <Button
@@ -52,7 +57,7 @@ export function AlertDialog() {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={handleConfirm} color="primary" autoFocus>
             Confirm
           </Button>
         </DialogActions>

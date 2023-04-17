@@ -14,18 +14,42 @@ import TermsAndConditions from "./components/Terms";
 import Courses from './components/Courses';
 import SearchBox from "./components/SearchBox";
 import SearchResultsPage from "./components/SearchBox/SearchResultsPage/index"
+import Questions1 from './components/Courses1/Questions';
 import Questions from './components/Courses/Questions';
 import QuestionsTwo from './components/Courses/QuestionsTwo';
+import QuestionsTwo1 from './components/Courses1/QuestionsTwo';
 import QuestionsThree from './components/Courses/QuestionsThree';
+import QuestionsThree1 from './components/Courses1/QuestionsThree';
 import QuestionsFour from './components/Courses/QuestionsFour';
 import QuestionsFive from './components/Courses/QuestionsFive';
+import QuestionsFour1 from './components/Courses1/QuestionsFour';
+import QuestionsFive1 from './components/Courses/QuestionsFive';
+import Questions2 from './components/Courses2/Questions';
+import QuestionsTwo2 from './components/Courses2/QuestionsTwo';
+import QuestionsThree2 from './components/Courses2/QuestionsThree';
+import QuestionsFour2 from './components/Courses2/QuestionsFour';
+import QuestionsFive2 from './components/Courses2/QuestionsFive';
 import Intro from './components/Courses/One/Intro';
+import Intro1 from './components/Courses1/One/Intro';
+import Intro2 from './components/Courses2/One/Intro';
 import Introi from './components/Courses/One/Introi';
 import Introii from './components/Courses/One/Introii';
 import Introiii from './components/Courses/One/Introiii';
 import Introiiii from './components/Courses/One/Introiiii';
 import Introiiiii from './components/Courses/One/Introiiiii';
+import Introi1 from './components/Courses1/One/Introi';
+import Introii1 from './components/Courses1/One/Introii';
+import Introiii1 from './components/Courses1/One/Introiii';
+import Introiiii1 from './components/Courses1/One/Introiiii';
+import Introiiiii1 from './components/Courses1/One/Introiiiii';
+import Introi2 from './components/Courses2/One/Introi';
+import Introii2 from './components/Courses2/One/Introii';
+import Introiii2 from './components/Courses2/One/Introiii';
+import Introiiii2 from './components/Courses2/One/Introiiii';
+import Introiiiii2 from './components/Courses2/One/Introiiiii';
 import Coursedone from "./components/Courses/Coursedone"
+import Coursedone1 from "./components/Courses1/Coursedone"
+import Coursedone2 from "./components/Courses2/Coursedone"
 import Keybase from "./components/Blog/Articles/Keybase";
 import Issue from "./components/Blog/Articles/Issue";
 import Register from "./components/Register";
@@ -86,17 +110,41 @@ function App(props) {
         <Route exact path="/search-results/:query" element={<SearchResultsPage/>} />
         <Route exact path="/search" element={<SearchBox/>} />
         <Route exact path="/courses/101/" element={<Intro/>} />
+        <Route exact path="/courses/102/" element={<Intro1/>} />
+        <Route exact path="/courses/103/" element={<Intro2/>} />
         <Route exact path="/courses/101/i" element={<Introi/>} />
         <Route exact path="/courses/101/ii" element={<Introii/>} />
         <Route exact path="/courses/101/iii" element={<Introiii/>} />
         <Route exact path="/courses/101/iiii" element={<Introiiii/>} />
         <Route exact path="/courses/101/iiiii" element={<Introiiiii/>} />
+        <Route exact path="/courses/102/i" element={<Introi1/>} />
+        <Route exact path="/courses/102/ii" element={<Introii1/>} />
+        <Route exact path="/courses/102/iii" element={<Introiii1/>} />
+        <Route exact path="/courses/102/iiii" element={<Introiiii1/>} />
+        <Route exact path="/courses/102/iiiii" element={<Introiiiii1/>} />
+        <Route exact path="/courses/103/i" element={<Introi2/>} />
+        <Route exact path="/courses/103/ii" element={<Introii2/>} />
+        <Route exact path="/courses/103/iii" element={<Introiii2/>} />
+        <Route exact path="/courses/103/iiii" element={<Introiiii2/>} />
+        <Route exact path="/courses/103/iiiii" element={<Introiiiii2/>} />
         <Route exact path="/courses/101/1" element={<Questions/>} />
         <Route exact path="/courses/101/2" element={<QuestionsTwo/>} />
         <Route exact path="/courses/101/3" element={<QuestionsThree/>} />
         <Route exact path="/courses/101/4" element={<QuestionsFour/>} />
         <Route exact path="/courses/101/5" element={<QuestionsFive/>} />
         <Route exact path="/courses/101/done" element={<Coursedone/>} />
+        <Route exact path="/courses/102/1" element={<Questions1/>} />
+        <Route exact path="/courses/102/2" element={<QuestionsTwo1/>} />
+        <Route exact path="/courses/102/3" element={<QuestionsThree1/>} />
+        <Route exact path="/courses/102/4" element={<QuestionsFour1/>} />
+        <Route exact path="/courses/102/5" element={<QuestionsFive1/>} />
+        <Route exact path="/courses/102/done" element={<Coursedone1/>} />
+        <Route exact path="/courses/103/1" element={<Questions2/>} />
+        <Route exact path="/courses/103/2" element={<QuestionsTwo2/>} />
+        <Route exact path="/courses/103/3" element={<QuestionsThree2/>} />
+        <Route exact path="/courses/103/4" element={<QuestionsFour2/>} />
+        <Route exact path="/courses/103/5" element={<QuestionsFive2/>} />
+        <Route exact path="/courses/103/done" element={<Coursedone2/>} />
         <Route exact path="/blog" element={<Blog/>} />
         <Route exact path="/blog/What-is-Keybase" element={<Keybase/>} />
         <Route exact path="/blog/How-to-issue" element={<Issue/>} />

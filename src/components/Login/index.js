@@ -19,7 +19,7 @@ import flogo from "./flogo.png"
 import mlogo from "./metamask.png"
 import m2logo from "./metamask2.png"
 import mozartlogo from "./mozartlogo.png"
-
+//import gapi from 'gapi';
 import { Navigate } from "react-router-dom";
 
 
@@ -69,7 +69,8 @@ class Login extends Component {
     clearErrors: PropTypes.func.isRequired
   }
 
-
+  
+  
   renderTextField = ({
     label,
     input,
@@ -120,8 +121,17 @@ class Login extends Component {
 
 
   }
-
+  /**  componentDidMount() {
+    window.gapi.load("client:auth2", this.initGapi);
+    gapi.load('auth2', function() {
+      gapi.auth2.init({
+        client_id: 'YOUR_CLIENT_ID'
+      });
+    });
+  }*/
   render() {
+
+    
 
 const albedoHandler = () => {
 
@@ -306,6 +316,7 @@ Login with <Image style={{ width: '95px' ,display: "inline-block",margin: "5px 5
    
 </Button>
           </div>
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
           <br></br>
           <div>
           </div>

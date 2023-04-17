@@ -22,13 +22,30 @@ export default function Checkout () {
   return (
     <div>
       {!isPaid ? (
-        <PayPalButton
-          amount="0.29"
-          currency="USD"
-          onSuccess={onSuccess}
-          onCancel={onCancel}
-          onError={onError}
-        />
+         <PayPalButton
+         options={{ vault: true }}
+         createSubscription={(data, actions) => {
+           return actions.subscription.create({
+             plan_id: 'P-8HR49030NU824513AMJPMQFI'
+           });
+         }}
+         onApprove={(data, actions) => {
+           // Capture the funds from the transaction
+           return actions.subscription.get().then(function(details) {
+             // Show a success message to your buyer
+             alert("Subscription completed");
+ 
+             // OPTIONAL: Call your server to save the subscription
+             return fetch("/paypal-subscription-complete", {
+               method: "post",
+               body: JSON.stringify({
+                 orderID: data.orderID,
+                 subscriptionID: data.subscriptionID
+               })
+             });
+           });
+         }}
+       />
       ) : (
         <div>
           <h2>Thank you for your purchase!</h2>

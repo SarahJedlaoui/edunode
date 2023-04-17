@@ -4,9 +4,10 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
-import ops from './ops.PNG';
+import anchors from './anchors.PNG';
 import { Button } from 'react-bootstrap';
 import { Redirect, BrowserRouter, Link } from 'react-router-dom';
+
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -23,12 +24,7 @@ export function AlertDialog() {
   const handleClose = () => {
     setOpen(false);
   };
-const handleConfirm = (e) => {
-    setOpen(false);
-    window.location.href = '/courses/102/';
 
-
-  };
   return (
     <div>
       <Button
@@ -45,7 +41,7 @@ const handleConfirm = (e) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Operations"}
+          {"Anchors"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -56,7 +52,7 @@ const handleConfirm = (e) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleConfirm} color="primary" autoFocus>
+          <Button onClick={handleClose} color="primary" autoFocus>
             Confirm
           </Button>
         </DialogActions>
@@ -86,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Course2() {
+export default function Course3() {
   const classes = useStyles();
 
   return (
@@ -95,15 +91,19 @@ export default function Course2() {
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={ops} />
+              <img
+                className={classes.img}
+                alt="complex"
+                src={anchors}
+              />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  Learn about the operations which allow you to
-                  connect to the Stellar Network.
+                  What are Anchors on Stellar and how can you can
+                  become one.
                 </Typography>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
