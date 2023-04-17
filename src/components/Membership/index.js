@@ -10,9 +10,7 @@ import Paper from '@mui/material/Paper';
 import Footer from '../Footer';
 import { styled } from '@mui/material/styles';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from "redux-form";
-//import { Redirect, BrowserRouter } from "react-router-dom";
-//import Button from "@mui/material/Button"
+import { Field, reduxForm } from "redux-form";  
 import TextField from '@mui/material/TextField'
 import PropTypes from 'prop-types'
 import "./style.css"

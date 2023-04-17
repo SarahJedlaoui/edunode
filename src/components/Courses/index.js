@@ -93,30 +93,22 @@ class Courses extends Component {
       return (
 
         <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar /></Item>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={4} md={3}>
+            <Item><Sidebar /></Item>
+          </Grid>
+          <Grid item xs={12} sm={8} md={9}>
+            <Item><Topbar /></Item>
+            <div style={{ padding: '10px' }}>
+              <Course1doneclaim />
+              <Course2 />
+              <Course3 />
+              <Course4 />
+            </div>
+            <Footer />
+          </Grid>
         </Grid>
-        <Grid xs={7} sm={8.5} md={10}>
-          <Item><Topbar /></Item>
-          <div className="myDiv">
-       
-          <br></br>
-          <Course1doneclaim />
-          <br></br>
-          <Course2 />
-          <br></br>
-          <Course3 />
-          <br></br>
-          <Course4 />
-          <br></br>
-          <Footer />
-        </div>
-        </Grid>
-        
-      </Grid>
-      <Footer />
-    </Box>
+      </Box>
        
       );
     }
@@ -142,7 +134,7 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+         
         </div>
         </Grid>
         
@@ -174,7 +166,7 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+     
         </div>
         </Grid>
         
@@ -185,11 +177,7 @@ class Courses extends Component {
     } else {
       return (
         <>
-          {/* <NavBar />
-          <p>
-            Please <a href="/login">Log In</a> to see the courses.
-          </p>
-          <Footer /> */}
+         
           <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={5} sm={3.5} md={2}>

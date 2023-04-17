@@ -15,26 +15,34 @@ import Paper from '@mui/material/Paper';
 import Footer from '../Footer';
 import Box from '@mui/material/Box';
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   padding: 2rem;
+  width: 100%; // Set the width to 100% or a specific width, e.g., 600px
+  max-width: 600px; // Add a max-width to keep the form from becoming too wide
+  height: auto; // Set the height to auto to adjust according to its content
+  margin: 0 auto; // Center the form within its parent container
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box; // Include padding and border in the form's dimensions
 `;
+// const Form = styled.form`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   border: 1px solid #ccc;
+//   border-radius: 5px;
+// `;
 
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%; // Set the width to 100% to align form fields to the left
   margin-bottom: 1rem;
 `;
 
@@ -65,7 +73,6 @@ const Select = styled.select`
   margin-bottom: 1rem;
 `;
 
-const Option = styled.option``;
 
 const SelectedTagsContainer = styled.div`
   display: flex;
@@ -218,114 +225,78 @@ class Post extends Component {
     return (
 
 <div>
-            <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar /></Item>
-        </Grid>
-     
-        <Grid xs={7} sm={8.5} md={10}>
-          <Item><Topbar /></Item>
-          <div>
-          
-        <Form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label htmlFor="tags">Tags:</Label>
-            <Select id="tags" onChange={this.handleTagSelect}>
-              <option value="">Select a tag</option>
-              {tagsList.map((tag) => (
-                <option key={tag} value={tag}>
-                  {tag}
-                </option>
-              ))}
-            </Select>
-            <SelectedTagsContainer>
-              {tags.map((tag) => (
-                <SelectedTag key={tag}>
-                  {tag}
-                  <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
-                    X
-                  </RemoveTagButton>
-                </SelectedTag>
-              ))}
-            </SelectedTagsContainer>
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="title">Title:</Label>
-            <Input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => this.setState({ title: e.target.value })}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="link">Link:</Label>
-            <Input
-              type="text"
-              id="link"
-              value={link}
-              onChange={(e) => this.setState({ link: e.target.value })}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="description">Description:</Label>
-            <Textarea
-              id="description"
-              value={description}
-              onChange={(e) => this.setState({ description: e.target.value })}
-            ></Textarea>
-          </FormGroup>
-
-
-          <SubmitButton type="submit">Submit</SubmitButton>
-          {success && (
-            <div
-              style={{
-                backgroundColor: "green",
-                color: "white",
-                padding: "10px",
-              }}
-            >
-              Success! Your post has been submitted.
-            </div>
-          )}
-        </Form>
-      
-   
-          <div>
-    
-       
-        <hr />
-        {/* <InfiniteScroll
-          dataLength={this.state.items.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.hasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-        >
-          
-          {this.state.items.map((i, index) => (
-            <div style={style} key={index}>
-              div - #{index}
-            </div>
-          ))}
-        </InfiniteScroll> */}
-      </div>
+  <Box sx={{ flexGrow: 1 }}>
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={4} md={3}>
+        <Item><Sidebar /></Item>
+      </Grid>
+      <Grid item xs={12} sm={8} md={9}>
+        <Item><Topbar /></Item>
+        <div style={{ padding: '10px' }}>
+          <Form onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <Label htmlFor="tags">Tags:</Label>
+              <Select id="tags" onChange={this.handleTagSelect}>
+                <option value="">Select a tag</option>
+                {tagsList.map((tag) => (
+                  <option key={tag} value={tag}>
+                    {tag}
+                  </option>
+                ))}
+              </Select>
+              <SelectedTagsContainer>
+                {tags.map((tag) => (
+                  <SelectedTag key={tag}>
+                    {tag}
+                    <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
+                      X
+                    </RemoveTagButton>
+                  </SelectedTag>
+                ))}
+              </SelectedTagsContainer>
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="title">Title:</Label>
+              <Input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => this.setState({ title: e.target.value })}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="link">Link:</Label>
+              <Input
+                type="text"
+                id="link"
+                value={link}
+                onChange={(e) => this.setState({ link: e.target.value })}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="description">Description:</Label>
+              <Textarea
+                id="description"
+                value={description}
+                onChange={(e) => this.setState({ description: e.target.value })}
+              ></Textarea>
+            </FormGroup>
+            <SubmitButton type="submit">Submit</SubmitButton>
+            {success && (
+              <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
+                Success! Your post has been submitted.
+              </div>
+            )}
+          </Form>
+          <hr />
          
+        </div>
+      </Grid>
+    </Grid>
+    <Footer />
+  </Box>
 </div>
 
-          
-        </Grid>
-        
-      </Grid>
-      <Footer />
-    </Box>
-        </div>
 
      
     );

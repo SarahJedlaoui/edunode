@@ -172,48 +172,7 @@ function PricingContent() {
                   fullWidth variant={tier.buttonVariant}>
                    {tier.buttonText} 
                  </Button> 
-                 {/* <Rec /> */}
-                 {/* <PayPalButton
-        options={{                   
-        //   clientId: "ASqYFNJJ3gVy1CkJchOI1sAzqOjtlvnX1777MIxh7OEBRJislI51R-MzqPZ0mGJgqquxTpHlprJe4vSD",
-        // currency: "EUR",
-        vault: true
-      }}
-      amount="0.01"
-        createSubscription={(data, actions) => {
-          return actions.subscription.create({
-            plan_id: 'P-8HR49030NU824513AMJPMQFI'
-          });
-        }}
-        onApprove={(data, actions) => {
-          // Capture the funds from the transaction
-          return actions.subscription.get().then(function(details) {
-            // Show a success message to your buyer
-            alert("Subscription completed");
-
-            // OPTIONAL: Call your server to save the subscription
-            // return fetch("/paypal-subscription-complete", {
-            //   method: "post",
-            //   body: JSON.stringify({
-            //     orderID: data.orderID,
-            //     subscriptionID: data.subscriptionID
-            //   })
-            // });
-          });
-        }}
-      /> */}
-                 {/* <PayPalButton
-                 options={{
-                   clientId: "ASqYFNJJ3gVy1CkJchOI1sAzqOjtlvnX1777MIxh7OEBRJislI51R-MzqPZ0mGJgqquxTpHlprJe4vSD",
-                   currency: "EUR",
-                   vault: true
-                 }}
-                   amount="0.01"
-                   onSuccess={(details, data) => {
-                   alert("Transaction completed by " + details.payer.name.given_name);
-console.log({details, data})
-        }}
-      /> */}
+                 
                 </CardActions>
               </Card>
             </Grid>

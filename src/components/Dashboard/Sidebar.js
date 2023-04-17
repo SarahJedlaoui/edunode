@@ -125,10 +125,10 @@ Certificates
           
           <ul className="sidebarList">
           
-           <li className="sidebarListItem">
+           {/* <li className="sidebarListItem">
               <Timeline className="sidebarIcon" />
              
-            </li>
+            </li> */}
             <li className="sidebarListItem">
               <Report className="sidebarIcon" />
               <button onClick={

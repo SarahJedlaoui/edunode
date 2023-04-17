@@ -10,7 +10,6 @@ import Logout from "../auth/Logout";
 import { Button, Modal } from "react-bootstrap";
 
 export default function Topbar(props) {
-
   return (
     <div className="topbar">
       <div className="topbarWrapper">
