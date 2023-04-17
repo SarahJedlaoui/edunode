@@ -21,7 +21,7 @@ import {
       token: localStorage.getItem("token"),
       isLoading: false,
       user: null
-  }
+  };
   
   
   

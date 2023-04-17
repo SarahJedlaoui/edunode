@@ -17,9 +17,7 @@ class Home extends Component {
 
   }
 
-// componentDidMount(){
-//   axios.get("https://desolate-woodland-50855.herokuapp.com")
-// }
+
   
   render() {
    
@@ -36,7 +34,7 @@ class Home extends Component {
   return (
     <>
       <Helmet>
-        <title>EduNode2</title>
+        <title>EduNode</title>
         <meta name="Edunode" content="We help you become a Blockchain Developer" />
         <meta property="og:title" content="EduNode" />
         <meta property="og:image" content="path/to/image.jpg" />

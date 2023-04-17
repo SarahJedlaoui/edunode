@@ -1,27 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-class Loggedout extends Component {
+class LoggedOut extends Component {
     constructor(props){
-        super(props)
+        super(props);
        
         this.state = {
-            isLoggeOut: false
-        }
+            isLoggedOut: false
+        };
     }
 
     componentDidMount(){
         localStorage.removeItem('token');
-        
+        this.setState({ isLoggedOut: true });
     }
 
     render() {
         return (
             <div>
                 <p>You are now logged out</p>
-
             </div>
-        )
+        );
     }
 }
 
-export default Loggedout;
+export default LoggedOut;
