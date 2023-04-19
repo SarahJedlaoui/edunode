@@ -93,7 +93,7 @@ export default function Welcome() {
             some things might not work as intended.
           </Typography>
           <Typography gutterBottom>
-            For the moment, only the Basic Concepts Course is
+            For the moment, only the Basic Concepts and the Operations Courses are
             available. If you have any feedback, please send it to us
             to edunodeapp@gmail.com
           </Typography>

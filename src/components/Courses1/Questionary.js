@@ -51,8 +51,7 @@ export default class index extends Component {
           <>
             <LinearWithValueLabel value={10} />
             <h5>
-              Which technology does Stellar use to validate
-              transactions, and to keep the network in sync?{' '}
+            What is required to create a Stellar account?{' '}
             </h5>
 
 

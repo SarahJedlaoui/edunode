@@ -96,17 +96,14 @@ class QuestionFive extends Component {
         <NavBar />
         <LinearProgressWithLabel value={95} />
         <h5>
-          The Stellar Network is a decentralized payment network for
-          building financial products that connect people everywhere.
-          Which is the name of the non-profit organization that leads
-          its development?{' '}
+        What is the main advantage of using multi-signature accounts on the Stellar Network?{' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Stellar Development Foundation"
+              label="To enable faster transactions"
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -116,7 +113,7 @@ class QuestionFive extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Mozilla Foundation"
+              label="To reduce transaction fees"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -128,7 +125,7 @@ class QuestionFive extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Linux Foundation"
+              label="To increase transaction security by requiring multiple signatures"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -138,7 +135,7 @@ class QuestionFive extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="None of the above"
+              label="To automatically convert assets during transactions"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}

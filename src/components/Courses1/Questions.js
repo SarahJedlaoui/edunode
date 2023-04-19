@@ -82,15 +82,14 @@ export default class index extends Component {
         <NavBar />
         <LinearProgressWithLabel value={60} />
         <h5>
-          Which technolgy does Stellar use to validate transactions,
-          and to keep the network in sync?{' '}
+        What is required to create a Stellar account?{' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Internet"
+              label="A username and password"
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -100,7 +99,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Blockchain"
+              label="A public-private key pair"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -112,7 +111,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Hashgraph"
+              label="A valid email address"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -122,7 +121,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="None of the above"
+              label="A phone number"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}

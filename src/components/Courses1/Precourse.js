@@ -84,7 +84,7 @@ export default function Welcome() {
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          Welcome to the EduNode's Basic Concept Course.
+          Welcome to the EduNode's Operations Course.
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom></Typography>

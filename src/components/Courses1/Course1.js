@@ -118,8 +118,7 @@ function Course1(props) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  In this course, you will learn the basic concepts of
-                  the Stellar Network.
+                  In this course, you will learn about the operations which allow you to connect to the Stellar Network.
                 </Typography>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography

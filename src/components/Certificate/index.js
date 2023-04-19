@@ -43,7 +43,7 @@ class Certificate extends Component {
 
   componentDidMount() {
     const email = this.props.auth.user.email;
-    const certificates=this.state.certificates
+    
     axios.get(`https://edunode.herokuapp.com/api/certificates/count/${email}`)
       .then(res => {
         if (res.data.length > 0) {
@@ -54,12 +54,18 @@ class Certificate extends Component {
         console.error(err);
       });
 
-      axios.get(`http://localhost:5001/api/certificates/${email}`)
+      axios.get(`https://edunode.herokuapp.com/api/certificates/${email}`)
       .then(res => {
         if (res.data.length > 0) {
-          this.setState({ certificates: res.data});
+          const certificates = res.data.map(cert => ({
+            certificateNumber: cert.certificateNumber,
+            cid: cert.cid
+          }));
+          this.setState({ certificates: certificates });
           console.log('hi')
+          console.log(res.data)
           console.log(certificates)
+          
         }
       })
     
@@ -250,14 +256,14 @@ class Certificate extends Component {
                     {certificateCount === 0 && (
                       <p>You currently have 0 certifications.</p>
                     )}
-                    {certificateUrls.length > 0 && (
+                    {certificates.length > 0 && (
                       <>
                         <p>Here are your certificates:</p>
                         <ul>
-                          {certificates.cid.map((url) => (
-                            <li key={url}>
-                               <a href={url} target="_blank" rel="noopener noreferrer">
-                                <img src={url} alt="Certificate" />
+                          {certificates.map(cert => (
+                            <li key={cert.certificateNumber}>
+                               <a href={`/certificates/${cert.certificateNumber}?cid=${cert.cid}`} target="_blank" rel="noopener noreferrer">
+                                <img src={cert.cid} alt="Certificate" />
                               </a>
                             </li>
                           ))}

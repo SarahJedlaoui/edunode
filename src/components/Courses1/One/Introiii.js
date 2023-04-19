@@ -42,26 +42,26 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return [
-    'Intro to the Stellar Network',
-    'What is Stellar for?',
-    'Issuing assets and stablecoins',
-    'Who builds on Stellar?',
-    'SDF',
+    'Intro to Operations',
+    'Which kind of operations exist (1/2)',
+    'Which kind of operations exist (2/2)',
+    'Smart Contracts and Escrow Transactions:',
+    'Conclusion to operations',
   ];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return `The Stellar Network is an open-source network which makes it possible to create, send and trade digital representations of all forms of money such as: euros, dollars, pesos, bitcoin, real estate pretty much any type of assets. It’s designed so all the world’s financial systems can work together on a single network. Stellar has no owner; if anything it’s owned by the public. The software runs across a decentralized, open network and handles millions of transactions each day. Like Bitcoin and Ethereum, Stellar relies on blockchain to keep the network in sync, but the end-user experience is more like cash. Stellar is much faster, cheaper, and more energy-efficient than typical blockchain-based systems.`;
+      return `The Stellar Network is a decentralized, open-source platform that facilitates cross-border transactions and digital asset exchanges. In this one-page course, you'll learn about the key operations that enable you to connect to and interact with the Stellar Network. By the end of this course, you'll have a basic understanding of the operations that power Stellar's innovative platform.`;
     case 1:
-      return 'The Stellar Network allows anyone to create a redeemable, tradable representation of any asset. Such representations are called tokens. Tokens are most useful when tied to currencies (representing dollars or yuan or euros digitally makes payments borderless and instant) but in theory, on Stellar, you could issue a token for corn bushels or gold or shares of a REIT or an hour of your time as a consultant. In a sense, Stellar offers a generalized toolkit for anyone to do what Tether did for the Dollar with their USDT, or what Coinbase is doing with their USDC. Stellar lets you digitize value and then issue and redeem claims on it; the platform was designed for stablecoins before stablecoin was even a word. ';
+      return 'Account Creation and Management: -Creating a Stellar Account: Learn how to generate a public-private key pair and set up a Stellar account. -Funding an Account: Understand the process of funding a Stellar account using the native currency, Lumens (XLM). -Merging Accounts: Discover how to merge two Stellar accounts and transfer the remaining XLM to a destination account.-Assets and Trustlines:-Issuing Assets: Learn about the process of creating custom assets on the Stellar Network.-Establishing Trustlines: Understand the importance of trustlines, which enable users to hold and transact with issued assets.-Payments and Transactions:-Making Payments: Discover how to send payments in XLM or custom assets between Stellar accounts.-Path Payments: Learn how to convert one asset to another during a payment transaction, leveraging the Stellar Network"s built-in decentralized exchange.';
     case 2:
-      return 'The Stellar network launched in 2015. Since then it’s processed more than 450 million operations made by over 4 million individual accounts. Large enterprise companies and companies as small as single-dev startups have chosen Stellar to move money and access new markets. The Stellar network has a native digital currency, the lumen, that’s required in small amounts for initializing accounts and making transactions but, beyond those requirements, Stellar doesn’t privilege any particular currency. It’s specifically designed to make traditional forms of money—the money people have been spending and saving for centuries—more useful and accessible.';
+      return 'Offers and Order Books:Creating Offers: Understand the process of creating offers to buy or sell assets on the Stellar decentralized exchange.Managing Order Books: Learn how to view and manage your offers on the Stellar order books. Account Monitoring and Security:Account Data and History: Discover how to access and interpret your account"s transaction history and data. Multi-Signature Accounts: Learn about multi-signature accounts, a security feature that requires multiple signatures to authorize transactions. ';
     case 3:
-      return 'For end-users, Stellar is a fast, efficient network for trading, saving, and spending digital money. For builders, it’s open financial infrastructure. Anyone can access it; there’s no permission or application needed. That basket of currency tokens we just mentioned, those are on the network, ready to use. We have euros, bitcoins, dollars, Mexican pesos, Argentinian pesos, Brazilian reais, and Nigerian naira. Their respective issuers handle deposit, redemption, and compliance, so builders can focus on end-user experience. This same openness also applies to the token layer: a financial institution can issue new digital tokens to fill a market need, say, for the Swiss Franc, without joining a proprietary “association” or dealing with a gatekeeper. The total power of Stellar grows with each new company and developer.';
+      return 'Stellar Smart Contracts: Learn how Stellar supports simple smart contracts using pre-defined conditions, such as time locks and multi-signature requirements, to automate transactions on the network. -Escrow Transactions: Discover how to create escrow transactions, which use Stellar"s smart contract capabilities to hold and release funds based on specific conditions or time constraints, ensuring secure and trustless transactions between parties.';
     case 4:
-      return `The Stellar Network is a decentralized payment network for building financial products that connect people everywhere. The technical development of Stellar is led by the Stellar Development Foundation (SDF), which is a non-profit organization that uses blockchain technology and their native cryptocurrency asset (lumens or XLM) to solve the current problems of sending money around the world in a fast and low-fee way. The platform is run by individuals and organizations all over the world, each contributing some compute, storage, and network capacity.`;
+      return `With this foundational knowledge of Stellar Network operations, you can now connect to the platform and begin exploring its vast potential. Whether you're an individual looking for a better way to transfer funds or a developer seeking to leverage Stellar's powerful technology, understanding these core operations will help you make the most of the Stellar Network. Happy exploring!`;
     default:
       return 'Unknown step';
   }

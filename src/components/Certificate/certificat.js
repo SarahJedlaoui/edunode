@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-const Certificat = ({ match }) => {
-  const certificateNumber = match.params.certificateNumber;
-  const [imageData, setImageData] = useState(null);
-
-  useEffect(() => {
-    fetch(`/certificates/${certificateNumber}`)
-      .then(response => response.blob())
-      .then(data => setImageData(data));
-  }, [certificateNumber]);
-
+import  { useLocation,useParams } from 'react-router-dom';
+import Certificate from './index';
+function Certificat() {
+  const {certificateNumber}=useParams();
+  const location = useLocation();
+  const cid = new URLSearchParams(location.search).get("cid");
   return (
     <div>
-      {imageData && <img src={URL.createObjectURL(imageData)} alt={`Certificate ${certificateNumber}`} />}
+     <h4>{certificateNumber}</h4>
+     <img src={cid} alt="Certificate" />
     </div>
   );
 };

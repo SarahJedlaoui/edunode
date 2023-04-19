@@ -88,17 +88,14 @@ export default class index extends Component {
         <NavBar />
         <LinearProgressWithLabel value={80} />
         <h5>
-          Stellar offers a generalized toolkit for anyone to issue
-          tokens that represent a certain type of asset. Which of the
-          following options is an example of the types of assets that
-          can be issued on Stellar?{' '}
+        Which type of payment allows users to convert one asset to another during a transaction on the Stellar Network? {' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Local fiat currencies (such as dolars, euros, pesos, etc)"
+              label="Direct payment "
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -107,7 +104,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Shares of a real estate investment trust"
+              label="Escrow payment"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -116,7 +113,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Digital Representations of gold, silver and other metals"
+              label="Path payment"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -126,7 +123,7 @@ export default class index extends Component {
 
             <Form.Check
               type="checkbox"
-              label="All of the above"
+              label="Smart contract payment"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}

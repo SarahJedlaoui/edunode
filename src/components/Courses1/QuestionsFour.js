@@ -86,14 +86,14 @@ export default class index extends Component {
         <NavBar />
         <LinearProgressWithLabel value={90} />
         <h5>
-          Who builds on the Stellar Network?{' '}
+        What is the primary function of the Stellar decentralized exchange order books?{' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Public financial institutions"
+              label="To track multi-signature accounts"
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -103,7 +103,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Private financial institutions"
+              label="To store the history of all transactions"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -115,7 +115,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Individuals and Businesses"
+              label="To list offers to buy or sell assets"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -125,7 +125,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="All of the above"
+              label="To monitor trustlines between accounts"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}
