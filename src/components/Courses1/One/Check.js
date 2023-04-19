@@ -104,6 +104,14 @@ export default function CircularIntegration(props) {
           }
         if (props.state.checktwo === true) {
           timer.current = window.setTimeout(() => {
+            setFail(true);
+          setLoading(false);
+          alert('Wrong answer, please try again!');
+        }, 2000);
+   
+        }
+        if (props.state.checkthree === true) {
+          timer.current = window.setTimeout(() => {
             setSuccess(true);
             setLoading(false);
             alert('Correct answer!');
@@ -116,14 +124,6 @@ export default function CircularIntegration(props) {
               // this.setState({ checknone: false });
             navigate('/courses/102/2');
       // return <Redirect to="/courses/102/2" />;
-          }, 2000);
-   
-        }
-        if (props.state.checkthree === true) {
-          timer.current = window.setTimeout(() => {
-            setFail(true);
-            setLoading(false);
-            alert('Wrong answer, please try again!');
           }, 2000);
       }
       if (props.state.checkfour === true) {

@@ -55,7 +55,7 @@ export default function CircularIntegration(props) {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [fail, setFail] = React.useState(false);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const timer = React.useRef();
 
@@ -73,70 +73,72 @@ export default function CircularIntegration(props) {
   }, []);
 
   const handleButtonClick = () => {
-         
+
     setLoading(true);
 
-    
+
     if (!loading) {
 
 
-        if (
-          props.state.checknone === true
-        ) {
-          setLoading(false);
-          alert('please select an option');
-        }
-          if (props.state.checkone === true) {
-            timer.current = window.setTimeout(() => {
-              const useremail = props.props.email
-        
-              setSuccess(true);
-
-              setLoading(false);
-          
-      
-          
-               
-             
-            
-              alert(
-                'Correct answer! Congrats, You have succesfully finished the first course!',
-              );
-        
-            
-              navigate('/courses/102/done');
-              
-            }, 2000);
-          }
-        if (props.state.checktwo === true) {
-          timer.current = window.setTimeout(() => {
-               setFail(true);
-            setLoading(false);
-            alert('Wrong answer, please try again!');
-            
-          
-
-          }, 2000);
-   
-        }
-        if (props.state.checkthree === true) {
-          timer.current = window.setTimeout(() => {
-                          setFail(true);
-                          setLoading(false);
-                          alert('Wrong answer, please try again!');
-             
-            
-            
-          }, 2000);
+      if (
+        props.state.checknone === true
+      ) {
+        setLoading(false);
+        alert('please select an option');
       }
-      if (props.state.checkfour === true) {
+      if (props.state.checkone === true) {
+        timer.current = window.setTimeout(() => {
+          const useremail = props.props.email
+          setFail(true);
+          setLoading(false);
+          alert('Wrong answer, please try again!');
+
+
+
+        }, 2000);
+      }
+      if (props.state.checktwo === true) {
         timer.current = window.setTimeout(() => {
           setFail(true);
           setLoading(false);
           alert('Wrong answer, please try again!');
+
+
+
+        }, 2000);
+
+      }
+      if (props.state.checkthree === true) {
+        timer.current = window.setTimeout(() => {
+          setFail(true);
+          setLoading(false);
+          alert('Wrong answer, please try again!');
+
+
+
         }, 2000);
       }
+      if (props.state.checkfour === true) {
+        timer.current = window.setTimeout(() => {
+          setSuccess(true);
+
+          setLoading(false);
+
+
+
+
+
+
+          alert(
+            'Correct answer! Congrats, You have succesfully finished the first course!',
+          );
+
+
+          navigate('/courses/102/done');
+
+        }, 2000);
       }
+    }
   };
 
   return (
