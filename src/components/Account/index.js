@@ -128,54 +128,6 @@ class Account extends Component {
     }
 
 
-  // render the form fields for the user's profile information
-//   renderProfileFields() {
-//     return (
-//       <>
-//   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      
-//         <TextField name="name" type="text" placeholder="Name" fullWidth value={this.state.name}  onChange={this.handleNameChange}   />
-//         <TextField disabled name="email" type="email" placeholder={this.props.auth.user.email} fullWidth inputRef={input => this.emailInput = input} />
-//         <TextField name="age" type="number" placeholder="Age" fullWidth value={this.state.age}  onChange={this.handleAgeChange} />
-//         <Autocomplete
-//       id="country-select-demo"
-//       sx={{ width:1250 }}
-//       options={countries}
-//       autoHighlight
-//       getOptionLabel={(option) => option.label}
-//       renderOption={(props, option) => (
-//         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-//           <img
-//             loading="lazy"
-//             width="100"
-//             src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-//             srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-//             alt=""
-//           />
-//           {option.label} ({option.code}) +{option.phone}
-//         </Box>
-//       )}
-//       renderInput={(params) => (
-//         <TextField fullWidth
-//           {...params}
-//           name='location'
-//           label="location"
-//           inputProps={{
-//             ...params.inputProps,
-//             autoComplete: 'new-password', // disable autocomplete and autofill
-//           }}
-//           value={this.state.location}
-//         />
-//       )}
-//       onChange={this.handleLocationChange}
-//     />
-//         <TextField name="bio" multiline rows={4} placeholder="My Web3 Journey" fullWidth value={this.state.bio} onChange={this.handleBioChange} />
-    
-//     </div> 
-
-// </>
-//     )
-//   }
 renderProfileFields() {
   const locationLabel = this.props.auth.user.location ? this.props.auth.user.location : 'Location';
   return (
