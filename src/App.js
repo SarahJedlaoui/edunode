@@ -90,7 +90,7 @@ import Dashboard from "./components/Dashboard";
 import Settings from "./components/Settings";
 import Profile from "./components/Profile";
 import Post from "./components/Posts/Post";
-
+import CertificateImage from "./components/Certificate/certificat";
 
 function App(props) {
   const location = useLocation();
@@ -186,7 +186,7 @@ function App(props) {
         <Route exact path="/profile" element={<Profile/>} />
         <Route exact path="/post" element={<Post/>} />
         <Route exact path="/terms" element={<TermsAndConditions/>} />
-
+        <Route exact path="/certificate/:certificateNumber" component={CertificateImage} />
       </Routes>
     </Provider>
   );

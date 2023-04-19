@@ -316,7 +316,7 @@ Login with <Image style={{ width: '95px' ,display: "inline-block",margin: "5px 5
    
 </Button>
           </div>
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <div className="g-signin2" data-onsuccess="onSignIn"></div>
           <br></br>
           <div>
           </div>

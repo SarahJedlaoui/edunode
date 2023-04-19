@@ -21,6 +21,7 @@ export default function Checkout () {
 
   return (
     <div>
+      {/** 
       {!isPaid ? (
          <PayPalButton
          options={{ vault: true }}
@@ -51,7 +52,7 @@ export default function Checkout () {
           <h2>Thank you for your purchase!</h2>
           <p>We appreciate your business.</p>
         </div>
-      )}
+      )}*/}
     </div>
   );
 };

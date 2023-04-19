@@ -30,9 +30,9 @@ class LogoutModal extends Component {
         return (
 <>
             <Form>
-                <Button onClick={this.props.logout}>
+                <Button onClick={this.props.logout} style={{ backgroundColor: '#808080', color: '#fff' }}>
                     Logout
-                </Button> 
+                </Button>  
             </Form>
 
 </>

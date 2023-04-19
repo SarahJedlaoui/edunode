@@ -231,6 +231,7 @@ renderProfileFields() {
             name="location"
             label={locationLabel}
             fullWidth
+            placeholder={locationLabel}
             value={this.state.location}
             onChange={this.handleLocationChange}
             inputProps={{
@@ -239,6 +240,7 @@ renderProfileFields() {
             }}
           />
         )}
+        onChange={this.handleLocationChange}
       />
       <TextField
         name="bio"

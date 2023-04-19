@@ -24,14 +24,16 @@ class Certificate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email : '',
+      email: '',
       userName: "",
       pkey: "",
       pubkey: "",
       isLoading: false,
       errors: {},
       certificateCount: 0,
-      certificateUrls: []
+      certificateUrls: [],
+      certificateNumber:[],
+      certificates:[]
     }
 
     this.onChange = this.onChange.bind(this)
@@ -40,8 +42,8 @@ class Certificate extends Component {
   }
 
   componentDidMount() {
-    const  email = this.props.auth.user.email;
-
+    const email = this.props.auth.user.email;
+    const certificates=this.state.certificates
     axios.get(`https://edunode.herokuapp.com/api/certificates/count/${email}`)
       .then(res => {
         if (res.data.length > 0) {
@@ -52,15 +54,15 @@ class Certificate extends Component {
         console.error(err);
       });
 
-    axios.get(`https://edunode.herokuapp.com/api/certificates/${email}`)
+      axios.get(`http://localhost:5001/api/certificates/${email}`)
       .then(res => {
         if (res.data.length > 0) {
-          this.setState({ certificateUrls: res.data });
+          this.setState({ certificates: res.data});
+          console.log('hi')
+          console.log(certificates)
         }
       })
-      .catch(err => {
-        console.error(err);
-      });
+    
   }
 
   componentDidUpdate(prevProps) {
@@ -86,117 +88,118 @@ class Certificate extends Component {
     meta: { touched, invalid, error },
     ...custom
   }) => (
-      <TextField
-        label={label}
-        placeholder={label}
-        error={touched && invalid}
-        helperText={touched && error}
-        {...input}
-        {...custom}
-      />
-    )
+    <TextField
+      label={label}
+      placeholder={label}
+      error={touched && invalid}
+      helperText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
 
-    onChange = e => {
-      this.setState({ [e.target.name]: e.target.value });
- 
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+
+  };
+  onSubmit = async values => {
+
+    const email = this.props.auth.user.email
+    const userName = values.userName
+    const pkey = values.pkey
+
+
+    // create user object
+    const updateAccount = {
+      email,
+      userName,
+      pkey
     };
-    onSubmit = async values => {
-  
-      const email = this.props.auth.user.email
-      const userName = values.userName
-      const pkey = values.pkey
-      
-  
-      // create user object
-      const updateAccount = {
-        email,
-        userName,
-        pkey
-      };
 
-      try {
+    try {
 
-       await this.props.updateAccount(updateAccount)
-       
-        if (this.props.auth.user) {
-   
-          this.props.history.push("/dashboard")
-        }
-  
-  
-      } catch (error) {
-        console.log(error)
+      await this.props.updateAccount(updateAccount)
+
+      if (this.props.auth.user) {
+
+        this.props.history.push("/dashboard")
       }
 
+
+    } catch (error) {
+      console.log(error)
     }
 
-    onSubmitAlbedo = async values => {
-  
-      
-      const userName = values.userName
-      const pubkey = this.props.auth.user.pubkey
-  
-      // create user object
-      const updateAccount = {
-        userName,
-        pubkey
-        
-      };
- 
+  }
 
-      try {
+  onSubmitAlbedo = async values => {
 
-        await this.props.saveUsernameAlbedo(updateAccount)
-    
 
-        if (this.props.auth.user.pubkey) {
-   
-          // this.props.history.push("/dashboard")
-          alert("Username is updated and will take effect of your next login")
-        }
-  
-  
-      } catch (error) {
-        console.log(error)
+    const userName = values.userName
+    const pubkey = this.props.auth.user.pubkey
+
+    // create user object
+    const updateAccount = {
+      userName,
+      pubkey
+
+    };
+
+
+    try {
+
+      await this.props.saveUsernameAlbedo(updateAccount)
+
+
+      if (this.props.auth.user.pubkey) {
+
+        // this.props.history.push("/dashboard")
+        alert("Username is updated and will take effect of your next login")
       }
 
+
+    } catch (error) {
+      console.log(error)
     }
 
-    onSubmitGoogle = async values => {
-  
-      
-      const email = this.props.auth.user.email
-      const pkey = values.pkey
-  
-      // create user object
-      const updateAccount = {
-       email,
-        pkey
-        
-      };
- 
+  }
 
-      try {
-
-        await this.props.pkeyGoogleUser(updateAccount)
+  onSubmitGoogle = async values => {
 
 
-        if (this.props.auth.user.googleProfilePic) {
-   
-           this.props.history.push("/dashboard")
-          alert("Your public key has been updated and will take effect of your next login")
-        }
-  
-  
-      } catch (error) {
-        console.log(error)
+    const email = this.props.auth.user.email
+    const pkey = values.pkey
+
+    // create user object
+    const updateAccount = {
+      email,
+      pkey
+
+    };
+
+
+    try {
+
+      await this.props.pkeyGoogleUser(updateAccount)
+
+
+      if (this.props.auth.user.googleProfilePic) {
+
+        this.props.history.push("/dashboard")
+        alert("Your public key has been updated and will take effect of your next login")
       }
 
+
+    } catch (error) {
+      console.log(error)
     }
-  
+
+  }
+
   render() {
-  
-   console.log(this.props.auth.user)
+
+
+    console.log(this.props.auth.user)
 
     const Item = styled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
@@ -214,14 +217,18 @@ class Certificate extends Component {
       googleProfilePic,
       isGranted,
       isFirstCourseSelected,
-    courseOneDone,
-     
+      courseOneDone,
+
     } = this.props.auth;
 
-    const { certificateCount, certificateUrls } = this.state;
+    const { certificateCount, certificateUrls,certificateNumber,certificates } = this.state;
+   // const certificateIds = certificateUrls.map(() => Math.random().toString(36).substring(7));
+    //this.setState({
+    //  certificateUrls: certificateUrls.map((url, index) => `/certificate/${certificateIds[index]}`)
+   // });
     // Call the API to get the certificate count and URLs
-    
-    if(this.props.auth.user) {
+
+    if (this.props.auth.user) {
       return (
         <>
           <div>
@@ -247,8 +254,12 @@ class Certificate extends Component {
                       <>
                         <p>Here are your certificates:</p>
                         <ul>
-                          {certificateUrls.map(url => (
-                            <li key={url}> <a href={url} target="_blank" rel="noopener noreferrer"><img src={url} alt="Certificate" /></a></li>
+                          {certificates.cid.map((url) => (
+                            <li key={url}>
+                               <a href={url} target="_blank" rel="noopener noreferrer">
+                                <img src={url} alt="Certificate" />
+                              </a>
+                            </li>
                           ))}
                         </ul>
                       </>
@@ -267,14 +278,14 @@ class Certificate extends Component {
     }
 
 
- 
-  if (!this.props.auth.isAuthenticated) {
-    return (<>Please <a href="https://edunode.org/login">login</a> to see this content</>)
+
+    if (!this.props.auth.isAuthenticated) {
+      return (<>Please <a href="https://edunode.org/login">login</a> to see this content</>)
+    }
+    console.log(this.props.auth)
+
+    //this.props.history.push("/")
   }
-  console.log(this.props.auth)
-  
-  //this.props.history.push("/")
-}
 
 }
 
@@ -292,6 +303,6 @@ export default Certificate = reduxForm({
   form: "ReduxForm",
   fields: ["name", "pkey"],
   clearErrors,
-//   generateCertificate,
+  //   generateCertificate,
 
 })(withRouter(Certificate));

@@ -123,7 +123,8 @@ const HighLight6 = () => {
 };
 
 const HighLight7 = () => {
-  const codeString = 'http://localhost:3000/exchanges';
+  //const codeString = 'http://localhost:3000/exchanges';
+  const codeString = '';
   return (
     <SyntaxHighlighter language="javascript" style={docco}>
       {codeString}
