@@ -120,6 +120,7 @@ const tagsList = [
   "Crypto",
   "Smart Contracts",
   "NFTs",
+  "Soroban",
   "Solidity",
   "IT",
   "Dev",
