@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import CheckIcon from '@material-ui/icons/Check';
 import SaveIcon from '@material-ui/icons/Save';
-import {setQuestionOneValid} from "../../../actions/authActions"
+import { setQuestionOneValid } from "../../../actions/authActions"
 import { Redirect, useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +54,7 @@ export default function CircularIntegration(props) {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [fail, setFail] = React.useState(false);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [questionOneValid, setQuestionOneValid] = React.useState(false);
   // const [questionTwoValid, setQuestionTwoValid] = React.useState(false);
@@ -82,59 +82,60 @@ export default function CircularIntegration(props) {
   }, []);
 
   const handleButtonClick = () => {
-         
+
     setLoading(true);
 
-    
+
     if (!loading) {
 
 
-        if (
-          props.state.checknone === true
-        ) {
-          setLoading(false);
-          alert('please select an option');
-        }
-          if (props.state.checkone === true) {
-            timer.current = window.setTimeout(() => {
-
-              setFail(true);
-            setLoading(false);
-            alert('Wrong answer, please try again!');
-              
-            }, 2000);
-          }
-        if (props.state.checktwo === true) {
-          timer.current = window.setTimeout(() => {
-               setFail(true);
-            setLoading(false);
-            alert('Wrong answer, please try again!');
-            
-
-
-          }, 2000);
-   
-        }
-        if (props.state.checkthree === true) {
-          timer.current = window.setTimeout(() => {
-                          setFail(true);
-                          setLoading(false);
-                          alert('Wrong answer, please try again!');
-             
-            
-            
-          }, 2000);
-        }
-        if (props.state.checkfour === true) {
-          timer.current = window.setTimeout(() => {
-               setSuccess(true);
-
-               setLoading(false);
-               alert('Correct answer!');
-               navigate('/courses/102/4');
-          }, 2000);
-        }
+      if (
+        props.state.checknone === true
+      ) {
+        setLoading(false);
+        alert('please select an option');
       }
+      if (props.state.checkone === true) {
+        timer.current = window.setTimeout(() => {
+
+          setFail(true);
+          setLoading(false);
+          alert('Wrong answer, please try again!');
+
+        }, 2000);
+      }
+      if (props.state.checktwo === true) {
+        timer.current = window.setTimeout(() => {
+          setFail(true);
+          setLoading(false);
+          alert('Wrong answer, please try again!');
+
+
+
+        }, 2000);
+
+      }
+      if (props.state.checkthree === true) {
+        timer.current = window.setTimeout(() => {
+          setSuccess(true);
+
+          setLoading(false);
+          alert('Correct answer!');
+          navigate('/courses/102/4');
+        }, 2000);
+
+      }
+      if (props.state.checkfour === true) {
+        timer.current = window.setTimeout(() => {
+          setFail(true);
+          setLoading(false);
+          alert('Wrong answer, please try again!');
+
+
+
+        }, 2000);
+      }
+    }
   };
 
   return (

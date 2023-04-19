@@ -110,31 +110,21 @@ export default function CircularIntegration(props) {
       }
       if (props.state.checkthree === true) {
         timer.current = window.setTimeout(() => {
+          setSuccess(true);
+          setLoading(false);
+          alert(
+            'Correct answer! Congrats, You have succesfully finished the first course!',
+          );
+          navigate('/courses/102/done') 
+        }, 2000);
+      }
+      if (props.state.checkfour === true) {
+        timer.current = window.setTimeout(() => {
           setFail(true);
           setLoading(false);
           alert('Wrong answer, please try again!');
 
 
-
-        }, 2000);
-      }
-      if (props.state.checkfour === true) {
-        timer.current = window.setTimeout(() => {
-          setSuccess(true);
-
-          setLoading(false);
-
-
-
-
-
-
-          alert(
-            'Correct answer! Congrats, You have succesfully finished the first course!',
-          );
-
-
-          navigate('/courses/102/done');
 
         }, 2000);
       }

@@ -116,11 +116,11 @@ export default function CircularIntegration(props) {
       if (props.state.checkthree === true) {
         timer.current = window.setTimeout(() => {
 
-          setFail(true);
+          setSuccess(true);
+
           setLoading(false);
-          alert('Wrong answer, please try again!');
-
-
+          alert('Correct answer!');
+          navigate('/courses/102/3');
 
         }, 2000);
 
@@ -128,11 +128,11 @@ export default function CircularIntegration(props) {
       if (props.state.checkfour === true) {
         timer.current = window.setTimeout(() => {
 
-          setSuccess(true);
-
+          setFail(true);
           setLoading(false);
-          alert('Correct answer!');
-          navigate('/courses/102/3');
+          alert('Wrong answer, please try again!');
+
+
 
         }, 2000);
       }
