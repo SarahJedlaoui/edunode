@@ -14,11 +14,14 @@ export default function PostCard({ post }) {
           <FontAwesomeIcon icon={faLink} className="mr-2" />
           {post.link}
         </a>
+        <div className="card-label">Author:</div>
+        <p className="card-text">{post.email}</p>
         <p className="card-text">
           <small className="text-muted">
             Tags: {post.tags.join(", ")}
           </small>
         </p>
+       
       </div>
     </div>
   );

@@ -86,14 +86,14 @@ export default class index extends Component {
         <NavBar />
         <LinearProgressWithLabel value={90} />
         <h5>
-          Who builds on the Stellar Network?{' '}
+        What type of organization or entity is required to operate as an Anchor on the Stellar Network?{' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Public financial institutions"
+              label="A decentralized autonomous organization (DAO)"
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -103,7 +103,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Private financial institutions"
+              label="A registered company or organization in your jurisdiction"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -115,7 +115,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Individuals and Businesses"
+              label="A non-profit organization"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -125,7 +125,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="All of the above"
+              label="A group of individuals collaborating informally"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}

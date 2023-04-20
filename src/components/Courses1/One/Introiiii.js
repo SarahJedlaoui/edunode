@@ -56,11 +56,26 @@ function getStepContent(step) {
     case 0:
       return `The Stellar Network is a decentralized, open-source platform that facilitates cross-border transactions and digital asset exchanges. In this one-page course, you'll learn about the key operations that enable you to connect to and interact with the Stellar Network. By the end of this course, you'll have a basic understanding of the operations that power Stellar's innovative platform.`;
     case 1:
-      return 'Account Creation and Management: -Creating a Stellar Account: Learn how to generate a public-private key pair and set up a Stellar account. -Funding an Account: Understand the process of funding a Stellar account using the native currency, Lumens (XLM). -Merging Accounts: Discover how to merge two Stellar accounts and transfer the remaining XLM to a destination account.-Assets and Trustlines:-Issuing Assets: Learn about the process of creating custom assets on the Stellar Network.-Establishing Trustlines: Understand the importance of trustlines, which enable users to hold and transact with issued assets.-Payments and Transactions:-Making Payments: Discover how to send payments in XLM or custom assets between Stellar accounts.-Path Payments: Learn how to convert one asset to another during a payment transaction, leveraging the Stellar Network"s built-in decentralized exchange.';
+      return'Account Creation and Management: \n\
+      -Creating a Stellar Account: Learn how to generate a public-private key pair and set up a Stellar account. \n\
+      -Funding an Account: Understand the process of funding a Stellar account using the native currency, Lumens (XLM). \n\
+      -Merging Accounts: Discover how to merge two Stellar accounts and transfer the remaining XLM to a destination account.\n\
+      -Assets and Trustlines: \n\
+      -Issuing Assets: Learn about the process of creating custom assets on the Stellar Network. \n\
+      -Establishing Trustlines: Understand the importance of trustlines, which enable users to hold and transact with issued assets.\n\
+      -Payments and Transactions: \n\
+      -Making Payments: Discover how to send payments in XLM or custom assets between Stellar accounts. \n\
+      -Path Payments: Learn how to convert one asset to another during a payment transaction, leveraging the Stellar Network"s built-in decentralized exchange.';
     case 2:
-      return 'Offers and Order Books:Creating Offers: Understand the process of creating offers to buy or sell assets on the Stellar decentralized exchange.Managing Order Books: Learn how to view and manage your offers on the Stellar order books. Account Monitoring and Security:Account Data and History: Discover how to access and interpret your account"s transaction history and data. Multi-Signature Accounts: Learn about multi-signature accounts, a security feature that requires multiple signatures to authorize transactions. ';
+      return '1-Offers and Order Books:\n\
+      -Creating Offers: Understand the process of creating offers to buy or sell assets on the Stellar decentralized exchange.\n\
+      -Managing Order Books: Learn how to view and manage your offers on the Stellar order books. \n\
+      2-Account Monitoring and Security:\n\
+      -Account Data and History: Discover how to access and interpret your account"s transaction history and data.\n\
+      -Multi-Signature Accounts: Learn about multi-signature accounts, a security feature that requires multiple signatures to authorize transactions. ';
     case 3:
-      return 'Stellar Smart Contracts: Learn how Stellar supports simple smart contracts using pre-defined conditions, such as time locks and multi-signature requirements, to automate transactions on the network. -Escrow Transactions: Discover how to create escrow transactions, which use Stellar"s smart contract capabilities to hold and release funds based on specific conditions or time constraints, ensuring secure and trustless transactions between parties.';
+      return '1-Stellar Smart Contracts: Learn how Stellar supports simple smart contracts using pre-defined conditions, such as time locks and multi-signature requirements, to automate transactions on the network. \n\
+      2-Escrow Transactions: Discover how to create escrow transactions, which use Stellar"s smart contract capabilities to hold and release funds based on specific conditions or time constraints, ensuring secure and trustless transactions between parties.';
     case 4:
       return `With this foundational knowledge of Stellar Network operations, you can now connect to the platform and begin exploring its vast potential. Whether you're an individual looking for a better way to transfer funds or a developer seeking to leverage Stellar's powerful technology, understanding these core operations will help you make the most of the Stellar Network. Happy exploring!`;
     default:

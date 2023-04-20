@@ -84,16 +84,14 @@ export default class index extends Component {
         <NavBar />
         <LinearProgressWithLabel value={70} />
         <h5>
-          The Stellar Network allows anyone to create a redeemable,
-          tradable representations of basically any asset, which is
-          the usual name for it?{' '}
+        How do Anchors ensure the value of the tokens they issue on the Stellar Network?{' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Shares"
+              label="By using complex algorithms to determine the value"
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -103,7 +101,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Coins"
+              label="By pegging the tokens to a basket of cryptocurrencies"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -115,7 +113,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Tokens"
+              label="By maintaining a one-to-one reserve of the underlying real-world asset for each token issued"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -125,7 +123,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="none of the above"
+              label="By guaranteeing a minimum return on investment for token holders"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}

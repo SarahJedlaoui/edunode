@@ -108,10 +108,10 @@ export default function VerticalLinearStepper() {
           className={classes.resetContainer}
         >
           <Typography>
-            Course introduction completed - Now get ready for the
+            Course completed - Now get ready for the
             Quiz.
           </Typography>
-          <Link to="/courses/101/1" className={classes.button}>
+          <Link to="/courses/103/1" className={classes.button}>
             Continue
           </Link>
         </Paper>

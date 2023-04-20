@@ -42,7 +42,7 @@ class Certificate extends Component {
   }
 
   componentDidMount() {
-    const email = this.props.auth.user.email;
+    const email = this.props.auth?.user?.email;
     
     axios.get(`https://edunode.herokuapp.com/api/certificates/count/${email}`)
       .then(res => {

@@ -43,26 +43,38 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return [
-    'Intro to the Stellar Network',
-    'What is Stellar for?',
-    'Issuing assets and stablecoins',
-    'Who builds on Stellar?',
-    'SDF',
+    'Course Post',
+    'What are Anchors on the Stellar Network?',
+    'How do Anchors work?',
+    'How to become an Anchor on the Stellar Network?',
+    'Conclusion',
+    
   ];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return `The Stellar Network is an open-source network which makes it possible to create, send and trade digital representations of all forms of money such as: euros, dollars, pesos, bitcoin, real estate pretty much any type of assets. It’s designed so all the world’s financial systems can work together on a single network. Stellar has no owner; if anything it’s owned by the public. The software runs across a decentralized, open network and handles millions of transactions each day. Like Bitcoin and Ethereum, Stellar relies on blockchain to keep the network in sync, but the end-user experience is more like cash. Stellar is much faster, cheaper, and more energy-efficient than typical blockchain-based systems.`;
+      return `Hello everyone! Today, we'll dive into the world of the Stellar Network and explore a crucial aspect of its ecosystem – the Anchors. We will discuss what Anchors are, how they work, and how you can become one. Let's get started!`;
     case 1:
-      return 'The Stellar Network allows anyone to create a redeemable, tradable representation of any asset. Such representations are called tokens. Tokens are most useful when tied to currencies (representing dollars or yuan or euros digitally makes payments borderless and instant) but in theory, on Stellar, you could issue a token for corn bushels or gold or shares of a REIT or an hour of your time as a consultant. In a sense, Stellar offers a generalized toolkit for anyone to do what Tether did for the Dollar with their USDT, or what Coinbase is doing with their USDC. Stellar lets you digitize value and then issue and redeem claims on it; the platform was designed for stablecoins before stablecoin was even a word. ';
+      return 'Anchors are trusted entities on the Stellar Network that act as a bridge between traditional financial systems and the Stellar ecosystem. They provide essential services by allowing users to deposit and withdraw their local currency (fiat) or other assets, such as cryptocurrencies, in exchange for Stellar-based tokens. These tokens can then be traded and transferred within the Stellar Network seamlessly and cost-effectively. ';
     case 2:
-      return 'The Stellar network launched in 2015. Since then it’s processed more than 450 million operations made by over 4 million individual accounts. Large enterprise companies and companies as small as single-dev startups have chosen Stellar to move money and access new markets. The Stellar network has a native digital currency, the lumen, that’s required in small amounts for initializing accounts and making transactions but, beyond those requirements, Stellar doesn’t privilege any particular currency. It’s specifically designed to make traditional forms of money—the money people have been spending and saving for centuries—more useful and accessible.';
+      return 'Anchors operate by issuing tokens that represent real-world assets, such as fiat currencies or cryptocurrencies. They maintain a one-to-one reserve of the underlying asset for every token they issue, ensuring that the tokens are fully backed and can be redeemed at any time. Here is a step-by-step breakdown of how Anchors work:\
+      A user deposits a real-world asset (e.g., USD) with an Anchor.\
+      The Anchor mints an equivalent amount of Stellar-based tokens (e.g., USDt) and credits the user s Stellar account.\
+      The user can now trade, send, or receive the tokens within the Stellar Network.\
+      When the user wants to redeem their tokens, they send the tokens back to the Anchor.\
+      The Anchor verifies the transaction and releases the corresponding real-world asset (e.g., USD) back to the user.';
     case 3:
-      return 'For end-users, Stellar is a fast, efficient network for trading, saving, and spending digital money. For builders, it’s open financial infrastructure. Anyone can access it; there’s no permission or application needed. That basket of currency tokens we just mentioned, those are on the network, ready to use. We have euros, bitcoins, dollars, Mexican pesos, Argentinian pesos, Brazilian reais, and Nigerian naira. Their respective issuers handle deposit, redemption, and compliance, so builders can focus on end-user experience. This same openness also applies to the token layer: a financial institution can issue new digital tokens to fill a market need, say, for the Swiss Franc, without joining a proprietary “association” or dealing with a gatekeeper. The total power of Stellar grows with each new company and developer.';
+      return 'Becoming an Anchor requires fulfilling several criteria, ensuring that you can provide a reliable and secure service to users. Here"s a step-by-step guide on how to become an Anchor:\
+      Establish a legal entity: To operate as an Anchor, you need to create a registered company or organization in your jurisdiction. This entity will be responsible for complying with all applicable laws and regulations, such as Anti-Money Laundering (AML) and Know Your Customer (KYC) requirements.\
+      Build a robust infrastructure: Develop a secure and scalable technical infrastructure to handle deposits, withdrawals, token issuance, and redemption processes. This will include creating APIs for users to interact with your services and integrating with the Stellar Network.\
+      Maintain reserves: Ensure that you have a one-to-one reserve of the real-world assets for every token you issue. This is critical for maintaining the trust and stability of your tokens within the Stellar ecosystem.\
+      Implement AML and KYC procedures: Develop and enforce robust AML and KYC policies to prevent fraud and comply with regulatory requirements. This includes verifying the identity of users and monitoring transactions for suspicious activities.\
+      Acquire necessary licenses and approvals: Obtain any required licenses or regulatory approvals to operate as an Anchor in your jurisdiction. This may involve working with financial regulators, banks, and other relevant authorities.\
+      Join the Stellar Network: Finally, submit an application to join the Stellar Network as an Anchor. Once approved, you can start providing your services to users worldwide.';
     case 4:
-      return `The Stellar Network is a decentralized payment network for building financial products that connect people everywhere. The technical development of Stellar is led by the Stellar Development Foundation (SDF), which is a non-profit organization that uses blockchain technology and their native cryptocurrency asset (lumens or XLM) to solve the current problems of sending money around the world in a fast and low-fee way. The platform is run by individuals and organizations all over the world, each contributing some compute, storage, and network capacity.`;
+      return `We hope this post has given you a clear understanding of what Anchors are, how they work, and how you can become one on the Stellar Network. Anchors play a critical role in connecting traditional financial systems with the world of digital assets, enabling a more inclusive, efficient, and accessible global financial ecosystem. Good luck on your journey to becoming an Anchor!`;
     default:
       return 'Unknown step';
   }
@@ -151,7 +163,7 @@ export function VerticalLinearStepper(props) {
         >
           
           <Typography>
-            Course introduction completed - Now get ready for the
+            Course completed - Now get ready for the
             Quiz.
           </Typography>
           <Link to="/courses/103/1" className={classes.button}>

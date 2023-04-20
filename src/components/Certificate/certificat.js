@@ -8,7 +8,7 @@ function Certificat() {
   const cid = new URLSearchParams(location.search).get("cid");
   return (
     <div>
-     <h4>{certificateNumber}</h4>
+     
      <img src={cid} alt="Certificate" />
     </div>
   );

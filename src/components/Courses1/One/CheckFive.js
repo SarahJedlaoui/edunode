@@ -113,9 +113,9 @@ export default function CircularIntegration(props) {
           setSuccess(true);
           setLoading(false);
           alert(
-            'Correct answer! Congrats, You have succesfully finished the first course!',
+            'Correct answer!',
           );
-          navigate('/courses/102/done') 
+          navigate('/courses/102/6') 
         }, 2000);
       }
       if (props.state.checkfour === true) {

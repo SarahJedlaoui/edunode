@@ -117,21 +117,21 @@ export default function CircularIntegration(props) {
         }
         if (props.state.checkthree === true) {
           timer.current = window.setTimeout(() => {
-                          setFail(true);
-                          setLoading(false);
-                          alert('Wrong answer, please try again!');
-             
-            
-            
-          }, 2000);
+            setSuccess(true);
+
+            setLoading(false);
+            alert('Correct answer!');
+            navigate('/courses/103/4');
+       }, 2000);
         }
         if (props.state.checkfour === true) {
           timer.current = window.setTimeout(() => {
-               setSuccess(true);
+            setFail(true);
+            setLoading(false);
+            alert('Wrong answer, please try again!');
+            
 
-               setLoading(false);
-               alert('Correct answer!');
-               navigate('/courses/103/4');
+
           }, 2000);
         }
       }

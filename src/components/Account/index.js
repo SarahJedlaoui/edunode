@@ -26,13 +26,14 @@ class Account extends Component {
 
   constructor(props) {
     super(props);
+    const { auth } = this.props;
 
     this.state = {
-      name: this.props.auth.user.name || "",
+      name: auth.user && auth.user.name ? auth.user.name : "",
       email: "",
-      age: this.props.auth.user.age || "",
-      location: this.props.auth.user.location || "",
-      bio: this.props.auth.user.bio || "",
+      age: auth.user && auth.user.age ? auth.user.age : "",
+      location: auth.user && auth.user.location ? auth.user.location : "",
+      bio: auth.user && auth.user.bio ? auth.user.bio : "",
       _id:"",
       isLoading: false,
       errors: {},

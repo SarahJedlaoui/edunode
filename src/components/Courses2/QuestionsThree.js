@@ -88,17 +88,14 @@ export default class index extends Component {
         <NavBar />
         <LinearProgressWithLabel value={80} />
         <h5>
-          Stellar offers a generalized toolkit for anyone to issue
-          tokens that represent a certain type of asset. Which of the
-          following options is an example of the types of assets that
-          can be issued on Stellar?{' '}
+        Which of the following is NOT a requirement for becoming an Anchor on the Stellar Network?{' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Local fiat currencies (such as dolars, euros, pesos, etc)"
+              label="Obtaining necessary licenses and regulatory approvals"
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -107,7 +104,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Shares of a real estate investment trust"
+              label="Implementing robust AML and KYC procedures"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -116,7 +113,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Digital Representations of gold, silver and other metals"
+              label="Holding a minimum of 10,000 Stellar Lumens (XLM) in reserve"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -126,7 +123,7 @@ export default class index extends Component {
 
             <Form.Check
               type="checkbox"
-              label="All of the above"
+              label="Building a secure and scalable technical"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar';
 import Footer from '../Footer';
-import CircularIntegration from './One/CheckTwo';
+import CircularIntegration from './One/CheckSix';
 import {
   Form,
   Row,
@@ -82,7 +82,7 @@ export default class index extends Component {
     return (
       <>
         <NavBar />
-        <LinearProgressWithLabel value={70} />
+        <LinearProgressWithLabel value={99} />
         <h5>
         What is the main purpose of establishing trustlines on the Stellar Network?{' '}
         </h5>

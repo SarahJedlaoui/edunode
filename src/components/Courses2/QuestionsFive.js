@@ -96,17 +96,14 @@ class QuestionFive extends Component {
         <NavBar />
         <LinearProgressWithLabel value={95} />
         <h5>
-          The Stellar Network is a decentralized payment network for
-          building financial products that connect people everywhere.
-          Which is the name of the non-profit organization that leads
-          its development?{' '}
+        Which of the following activities is a user NOT able to perform with Stellar-based tokens issued by an Anchor?{' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Stellar Development Foundation"
+              label="Trading the tokens within the Stellar Network"
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -116,7 +113,7 @@ class QuestionFive extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Mozilla Foundation"
+              label="Sending the tokens to other users within the network"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -128,7 +125,7 @@ class QuestionFive extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Linux Foundation"
+              label="Redeeming the tokens for the underlying real-world asset"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -138,7 +135,7 @@ class QuestionFive extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="None of the above"
+              label="Mining new tokens by validating transactions on the network"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}

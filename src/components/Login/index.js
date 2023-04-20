@@ -21,8 +21,24 @@ import m2logo from "./metamask2.png"
 import mozartlogo from "./mozartlogo.png"
 //import gapi from 'gapi';
 import { Navigate } from "react-router-dom";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 
+function GoogleLoginButton({ onSuccess }) {
+  const login = useGoogleLogin({
+    onSuccess: onSuccess,
+  });
 
+  return (
+    <Button       
+      style={{ width: '300px' }}
+      variant="outlined"
+      onClick={() => login()}
+    >
+      Sign in with Google 🚀
+    </Button>
+  );
+}
 const validate = values => {
   const errors = {}
   const requiredFields = [
@@ -61,7 +77,10 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this)
 
   }
- 
+  handleLoginSuccess = (tokenResponse) => {
+    console.log(tokenResponse);
+    // perform any other actions on successful login
+  }
 
   static propTypes = {
     isAuthenticated: PropTypes.bool,
@@ -271,6 +290,7 @@ albedo.publicKey({
     return (
       <div>
         <NavBar />
+        <GoogleOAuthProvider clientId="249576166536-cf5i54bf0th7cq3aln92cnkfksanqtda.apps.googleusercontent.com">
         <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <div>
             
@@ -279,15 +299,21 @@ albedo.publicKey({
             </Typography>
           </div>
 
-
+          
 <br></br>
           <div>
+         
+
+<GoogleLoginButton onSuccess={this.handleLoginSuccess} />
+</div>
+<br></br>
+<div>
           <Button       
 style={{ width: '300px' }}
 onClick={handleMetamask}
 variant="outlined"
 >
-
+<br></br>
   {" "}Login with <Image style={{ width: '25px' ,display: "inline-block",margin: "20px 20px" }} src={mlogo} /> 
 </Button>
 
@@ -359,7 +385,9 @@ Login with <Image style={{ width: '95px' ,display: "inline-block",margin: "5px 5
      </Link>
           </div>
         </form>
+        </GoogleOAuthProvider>;
       </div>
+     
     )
   }
 }

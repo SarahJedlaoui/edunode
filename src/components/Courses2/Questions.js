@@ -82,15 +82,14 @@ export default class index extends Component {
         <NavBar />
         <LinearProgressWithLabel value={60} />
         <h5>
-          Which technolgy does Stellar use to validate transactions,
-          and to keep the network in sync?{' '}
+        What is the primary role of Anchors on the Stellar Network?{' '}
         </h5>
 
         <Form.Group as={Row}>
           <Col sm={10}>
             <Form.Check
               type="checkbox"
-              label="Internet"
+              label="To mine new Stellar Lumens (XLM)"
               name="checkone"
               id="form1"
               onChange={this.onChangeOne}
@@ -100,7 +99,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Blockchain"
+              label="To validate transactions on the network"
               name="checktwo"
               id="form2"
               onChange={this.onChangeTwo}
@@ -112,7 +111,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="Hashgraph"
+              label="To act as a bridge between traditional financial systems and the Stellar ecosystem"
               name="checkthree"
               id="form3"
               onChange={this.onChangeThree}
@@ -122,7 +121,7 @@ export default class index extends Component {
             />
             <Form.Check
               type="checkbox"
-              label="None of the above"
+              label="To provide decentralized storage solutions"
               name="checkfour"
               id="form4"
               onChange={this.onChangeFour}
