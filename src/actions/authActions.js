@@ -30,7 +30,7 @@ export const loadUser = () => (dispatch, getState) => {
     const config = {
         headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
+            "Ac^ss-Control-Allow-Origin": "*"
         }
     }
 

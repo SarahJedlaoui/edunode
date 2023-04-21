@@ -11,14 +11,15 @@ import { isConnected, getPublicKey } from "@stellar/freighter-api";
 import axios from "axios";
 import html2canvas from 'html2canvas';
 import dep from "./newediploma.png"
+
+
+
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
   const [Name, setName] = useState("");
 
   const albedoHandler = () => {
-
     albedo.publicKey({
-
     })
       .then(res => {
         const intent = res.intent
@@ -54,7 +55,12 @@ function Ediploma(props) {
 
  {/* */} async function sendImageToServer(base64Image, props) {
   try {
+<<<<<<< HEAD
     const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+=======
+    if (props.auth.user.email) {
+      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+>>>>>>> 34ce7cd0d919452e85b60497d5dc826a2d360abe
       image: base64Image,
       pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
       email: props.auth.user.email ? props.auth.user.email : null,
@@ -63,6 +69,19 @@ function Ediploma(props) {
     console.log('hi');
     console.log(props.auth.user.pkey);
     console.log(response.data); // Check if the image was saved successfully
+      
+    } else if (props.auth.user.pkey) {
+
+      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+      image: base64Image,
+      pkey: props.auth.user.pkey,
+      name: Name
+    });
+    console.log(response.data); // Check if the image was saved successfully
+    
+    }
+    
+   
   } catch (error) {
     console.error(error);
   }
@@ -92,7 +111,7 @@ function Ediploma(props) {
     });
     setTimeout(function () {
       try {
-      //  window.location.href = "/";
+        window.location.href = "/";
       } catch (error) {
         console.log(error);
       }
