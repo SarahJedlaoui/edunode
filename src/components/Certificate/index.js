@@ -33,7 +33,9 @@ class Certificate extends Component {
       certificateCount: 0,
       certificateUrls: [],
       certificateNumber:[],
-      certificates:[]
+      certificates:[],
+      issuerPublicKey: '',
+      distributorPublicKey: ''
     }
 
     this.onChange = this.onChange.bind(this)
@@ -73,11 +75,12 @@ class Certificate extends Component {
         if (res.data.length > 0) {
           const certificates = res.data.map(cert => ({
             certificateNumber: cert.certificateNumber,
-            cid: cert.cid
+            cid: cert.cid,
+            distributorPublicKey: cert.distributorPublicKey,
+            issuerPublicKey : cert.issuerPublicKey,
           }));
           this.setState({ certificates: certificates });
           console.log('hi')
-          console.log(res.data)
           console.log(certificates)
           
         }
@@ -292,7 +295,7 @@ class Certificate extends Component {
                         <ul>
                           {certificates.map(cert => (
                             <li key={cert.certificateNumber}>
-                               <a href={`/certificates/${cert.certificateNumber}?cid=${cert.cid}`} target="_blank" rel="noopener noreferrer">
+                               <a href={`/certificates/${cert.certificateNumber}?cid=${cert.cid}&distributorPublicKey=${cert.distributorPublicKey}&issuerPublicKey=${cert.issuerPublicKey}`} target="_blank" rel="noopener noreferrer">
                                 <img src={cert.cid} alt="Certificate" />
                               </a>
                             </li>

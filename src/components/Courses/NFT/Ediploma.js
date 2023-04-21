@@ -54,7 +54,7 @@ function Ediploma(props) {
 
  {/* */} async function sendImageToServer(base64Image, props) {
   try {
-    const response = await axios.post("http://localhost:5001/api/certificates/diploma", {
+    const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
       image: base64Image,
       pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
       email: props.auth.user.email ? props.auth.user.email : null,

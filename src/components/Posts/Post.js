@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import { styled as muiStyled } from '@mui/material/styles';
-import styled  from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
@@ -14,6 +14,10 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Footer from '../Footer';
 import Box from '@mui/material/Box';
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import draftToHtml from "draftjs-to-html"; // Import the draftToHtml function
+import { convertToRaw } from "draft-js";
 
 
 const Form = styled.form`
@@ -176,8 +180,8 @@ class Post extends Component {
       link: this.state.link,
       description: this.state.description,
     };
-   try {
-        {/**   const response = await fetch("https://edunode.herokuapp.com/api/post", {
+    try {
+      {/**   const response = await fetch("https://edunode.herokuapp.com/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -224,81 +228,93 @@ class Post extends Component {
     const { tags, title, link, description, success } = this.state;
     return (
 
-<div>
-  <Box sx={{ flexGrow: 1 }}>
-    <Grid container spacing={2}>
-      <Grid item xs={12} sm={4} md={3}>
-        <Item><Sidebar /></Item>
-      </Grid>
-      <Grid item xs={12} sm={8} md={9}>
-        <Item><Topbar /></Item>
-        <div style={{ padding: '10px' }}>
-          <Form onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <Label htmlFor="tags">Tags:</Label>
-              <Select id="tags" onChange={this.handleTagSelect}>
-                <option value="">Select a tag</option>
-                {tagsList.map((tag) => (
-                  <option key={tag} value={tag}>
-                    {tag}
-                  </option>
-                ))}
-              </Select>
-              <SelectedTagsContainer>
-                {tags.map((tag) => (
-                  <SelectedTag key={tag}>
-                    {tag}
-                    <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
-                      X
-                    </RemoveTagButton>
-                  </SelectedTag>
-                ))}
-              </SelectedTagsContainer>
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="title">Title:</Label>
-              <Input
-                type="text"
-                id="title"
-                value={title}
-                onChange={(e) => this.setState({ title: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="link">Link:</Label>
-              <Input
-                type="text"
-                id="link"
-                value={link}
-                onChange={(e) => this.setState({ link: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="description">Description:</Label>
-              <Textarea
-                id="description"
-                value={description}
-                onChange={(e) => this.setState({ description: e.target.value })}
-              ></Textarea>
-            </FormGroup>
-            <SubmitButton type="submit">Submit</SubmitButton>
-            {success && (
-              <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
-                Success! Your post has been submitted.
+      <div>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4} md={3}>
+              <Item><Sidebar /></Item>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9}>
+              <Item><Topbar /></Item>
+              <div style={{ padding: '10px' }}>
+                <Form onSubmit={this.handleSubmit}>
+                  <FormGroup>
+                    <Label htmlFor="tags">Tags:</Label>
+                    <Select id="tags" onChange={this.handleTagSelect}>
+                      <option value="">Select a tag</option>
+                      {tagsList.map((tag) => (
+                        <option key={tag} value={tag}>
+                          {tag}
+                        </option>
+                      ))}
+                    </Select>
+                    <SelectedTagsContainer>
+                      {tags.map((tag) => (
+                        <SelectedTag key={tag}>
+                          {tag}
+                          <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
+                            X
+                          </RemoveTagButton>
+                        </SelectedTag>
+                      ))}
+                    </SelectedTagsContainer>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="title">Title:</Label>
+                    <Input
+                      type="text"
+                      id="title"
+                      value={title}
+                      onChange={(e) => this.setState({ title: e.target.value })}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="link">Link:</Label>
+                    <Input
+                      type="text"
+                      id="link"
+                      value={link}
+                      onChange={(e) => this.setState({ link: e.target.value })}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="description">Description:</Label>
+                    {/**  <Textarea
+                      id="description"
+                      value={description}
+                      //onChange={(e) => this.setState({ description: e.target.value })}
+                    ></Textarea>*/}
+                  </FormGroup>
+                  <FormGroup>
+                    <Editor
+                      id="description"
+                      initialContent={this.state.description}
+                      toolbarClassName="toolbarClassName"
+                      wrapperClassName="wrapperClassName"
+                      editorClassName="editorClassName"
+                      onContentStateChange={(contentState) => {
+                        const html = draftToHtml(contentState).replace(/<\/?p>/g, '');
+                        this.setState({ description: html });
+                      }}
+                    /></FormGroup>
+                  <SubmitButton type="submit">Submit</SubmitButton>
+                  {success && (
+                    <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
+                      Success! Your post has been submitted.
+                    </div>
+                  )}
+                </Form>
+                <hr />
+
               </div>
-            )}
-          </Form>
-          <hr />
-         
-        </div>
-      </Grid>
-    </Grid>
-    <Footer />
-  </Box>
-</div>
+            </Grid>
+          </Grid>
+          <Footer />
+        </Box>
+      </div>
 
 
-     
+
     );
   }
 }

@@ -9,6 +9,7 @@ import Account from "./components/Account"
 //import Dashboard from "./components/Dashboard";
 import Resources from "./components/Resources";
 import Community from "./components/Community";
+import Project from "./components/Community/project";
 import Milestones from "./components/Milestones"
 import TermsAndConditions from "./components/Terms";
 import Courses from './components/Courses';
@@ -118,6 +119,7 @@ function App(props) {
         <Route exact path="/account" element={<Account/>} />
         <Route exact path="/resources" element={<Resources/>} />
         <Route exact path="/community" element={<Community/>} />
+        <Route exact path="/community/project" element={<Project/>} />
         <Route exact path="/milestones" element={<Milestones/>} />
         <Route exact path="/courses" element={<Courses/>} />
         <Route exact path="/search" element={<SearchBox/>} />
