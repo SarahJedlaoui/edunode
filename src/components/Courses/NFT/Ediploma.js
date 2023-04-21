@@ -54,11 +54,14 @@ function Ediploma(props) {
 
  {/* */} async function sendImageToServer(base64Image, props) {
   try {
-    const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+    const response = await axios.post("http://localhost:5001/api/certificates/diploma", {
       image: base64Image,
-      email: props.auth.user.email,
+      pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
+      email: props.auth.user.email ? props.auth.user.email : null,
       name: Name
     });
+    console.log('hi');
+    console.log(props.auth.user.pkey);
     console.log(response.data); // Check if the image was saved successfully
   } catch (error) {
     console.error(error);

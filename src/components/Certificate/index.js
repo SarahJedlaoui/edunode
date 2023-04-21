@@ -26,7 +26,7 @@ class Certificate extends Component {
     this.state = {
       email: '',
       userName: "",
-      pkey: "",
+      pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
       pubkey: "",
       isLoading: false,
       errors: {},
@@ -43,7 +43,8 @@ class Certificate extends Component {
 
   componentDidMount() {
     const email = this.props.auth?.user?.email;
-    
+    const pkey = this.props.auth?.user?.pkey;
+    if ( this.props.auth.user.email) {
     axios.get(`https://edunode.herokuapp.com/api/certificates/count/${email}`)
       .then(res => {
         if (res.data.length > 0) {
@@ -53,7 +54,20 @@ class Certificate extends Component {
       .catch(err => {
         console.error(err);
       });
+    } else if ( this.props.auth.user.pkey) { 
+       axios.get(`https://edunode.herokuapp.com/api/certificates/count/pkey/${pkey}`)
+    .then(res => {
+      if (res.data.length > 0) {
+        this.setState({ certificateCount: res.data[0].count });
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    });}
 
+
+
+    if ( this.props.auth.user.email) {
       axios.get(`https://edunode.herokuapp.com/api/certificates/${email}`)
       .then(res => {
         if (res.data.length > 0) {
@@ -67,7 +81,23 @@ class Certificate extends Component {
           console.log(certificates)
           
         }
+      })} else if ( this.props.auth.user.pkey) { 
+
+        axios.get(`https://edunode.herokuapp.com/api/certificates/pkey/${pkey}`)
+      .then(res => {
+        if (res.data.length > 0) {
+          const certificates = res.data.map(cert => ({
+            certificateNumber: cert.certificateNumber,
+            cid: cert.cid
+          }));
+          this.setState({ certificates: certificates });
+          console.log('hi')
+          console.log(res.data)
+          console.log(certificates)
+          
+        }
       })
+      }
     
   }
 
@@ -206,7 +236,7 @@ class Certificate extends Component {
 
 
     console.log(this.props.auth.user)
-
+    console.log(this.props.auth.user.pkey)
     const Item = styled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
       padding: theme.spacing(1),
