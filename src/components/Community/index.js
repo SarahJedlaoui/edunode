@@ -126,6 +126,40 @@ function Community() {
               </Card>
             </Grid>
 
+            <Grid item xs={12} sm={6} md={4}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={require('../Resources/stellar11.PNG')}
+                  title="Stellar Developers Discord"
+                />
+                <CardContent className={classes.cardContent}>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                  >
+                    Stellar Developers Discord
+                  </Typography>
+                  <Typography>
+                    Stellar is an open financial network built for
+                    speed and efficiency. With over 4 million accounts
+                    and a 5-second ledger close time, Stellar is the
+                    right choice for your financial service or
+                    application.
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    size="small"
+                    color="primary"
+                    href="https://podcast.stellar.org/"
+                  >
+                    Learn More
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
 
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
@@ -143,18 +177,14 @@ function Community() {
                     The Stellar Podcast
                   </Typography>
                   <Typography>
-                    Stellar is an open financial network built for
-                    speed and efficiency. With over 4 million accounts
-                    and a 5-second ledger close time, Stellar is the
-                    right choice for your financial service or
-                    application.
+                    Check out the Stellar Podcast
                   </Typography>
                 </CardContent>
                 <CardActions>
                   <Button
                     size="small"
                     color="primary"
-                    href="https://podcast.stellar.org/"
+                    href="https://discord.gg/stellardev"
                   >
                     Learn More
                   </Button>
