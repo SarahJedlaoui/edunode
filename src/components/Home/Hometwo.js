@@ -1,5 +1,5 @@
 import React from "react";
-import  Card from '@mui/material/Card';
+
 import  CardMedia  from '@mui/material/CardMedia';
 import  Grid  from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -10,17 +10,9 @@ import "./style.css";
 import MediaCard from './card';
 import CookieConsent from 'react-cookie-consent';
 import ReactPlayer from 'react-player'
-import Mozart from "../Projects/mozart.png";
-import Litemint from "../Projects/litemint.png";
-import Stellar from "./stellar.png";
-import StellarBattle from "../Projects/stellarbattle1.PNG";
-import PublicNode from "../Resources/publicnode1.PNG";
-import StellarGlobal from "../Resources/stellarglobal.png";
-import TalentGarden from "./tag.png";
-import EdtechAustria from "./edtech.png";
-import WIFIWien from "./wifi.png";
 import Logos from "./logos.png";
-import Slider from "react-slick";
+  // import Slider from "react-slick";
+  // import UploadCertificate from "./uploadCertificate";
 
 
 
@@ -122,7 +114,7 @@ function Hometwo() {
          </Container>
 
          <br></br>
-       
+      
          <br></br>
          <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
          <h3>Partners</h3>
