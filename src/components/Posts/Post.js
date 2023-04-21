@@ -170,20 +170,20 @@ class Post extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const data = {
-      email: this.props.auth.user.email, // this.props.auth.user.email
+      email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous", // this.props.auth.user.email
       title: this.state.title,
       tags: this.state.tags,
       link: this.state.link,
       description: this.state.description,
     };
-    try {
-      {/*    const response = await fetch("https://edunode.herokuapp.com/api/post", {
+   try {
+        {/**   const response = await fetch("https://edunode.herokuapp.com/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      }); */}
+      });  */}
       //const result = await response.json();
       //console.log(result);
       this.setState({ success: true }); // Set success state to true

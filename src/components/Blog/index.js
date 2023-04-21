@@ -178,6 +178,15 @@ const featuredPosts = [
     image:ipfs,
     imageText: 'Learn about IPFS, what are the most popular applications, and how you can use it to store images',
     link: '/blog/ipfs',
+  },
+  {
+    title: 'Learn about Soroban',
+    date: '13/04/2023',
+    description:
+      'Learn about Soroban and how to build Smart Contracts on Stellar .',
+    image:ipfs,
+    imageText: 'Learn about Soroban and how to build Smart Contracts on Stellar .',
+    link: '/blog/soroban',
   }
 ];
 

@@ -77,6 +77,7 @@ import Blockchain from "./components/Blog/Articles/Blockchain";
 import Contracts from './components/Blog/Articles/Contracts';
 import Docker from './components/Blog/Articles/Docker';
 import Ipfs from './components/Blog/Articles/Ipfs';
+import Soroban from './components/Blog/Articles/Soroban';
 import AMM from './components/Blog/Articles/AMM/AMM';
 import Kelp from "./components/Blog/Articles/Kelp";
 import Albedo from "./components/Blog/Articles/Albedo";
@@ -208,6 +209,7 @@ function App(props) {
         <Route exact path="/VerifyEmail" element={<VerifyEmail/>} />
         <Route exact path="/blog/docker" element={<Docker/>} />
         <Route exact path="/blog/ipfs" element={<Ipfs/>} />
+        <Route exact path="/blog/soroban" element={<soroban/>} />
         <Route exact path="/dashboard/settings" element={<Settings/>} />
         <Route exact path="/profile" element={<Profile/>} />
         <Route exact path="/post" element={<Post/>} />
