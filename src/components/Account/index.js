@@ -145,7 +145,7 @@ renderProfileFields() {
         disabled
         name="email"
         type="email"
-        placeholder={this.props.auth.user.email}
+        placeholder={this.props.auth.user.email || this.props.auth.user.pkey}
         fullWidth
         inputRef={(input) => (this.emailInput = input)}
       />

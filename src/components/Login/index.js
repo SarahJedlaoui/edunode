@@ -245,9 +245,13 @@ albedo.publicKey({
       
 
       const freighterHandler = async () => {
+
         if (isConnected()) {
+
           const pkey = await getPublicKey();
+
         await this.props.freighterAuth(pkey)
+        
         }
         
         // alert("not conected")
