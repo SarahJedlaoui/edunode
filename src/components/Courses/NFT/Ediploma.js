@@ -62,7 +62,7 @@ function Ediploma(props) {
       email: props.auth.user.email ? props.auth.user.email : null,
       name: Name
     });
-    console.log('hi');
+    console.log('hi'); 
     console.log(props.auth.user.pkey);
     console.log(response.data); // Check if the image was saved successfully
       

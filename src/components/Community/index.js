@@ -14,8 +14,8 @@ import NavBar from "../NavBar";
 import kicon from "./keybaseicon.png";
 import discord from "./discord.png";
 import "./style.css";
-
-
+import axios from 'axios';
+import  { useState, useEffect } from 'react';
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -48,8 +48,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Community() {
-
+  const [projects, setProjects] = useState([]);
   const classes = useStyles();
+
+  useEffect(() => {
+    fetch('/api/projects')
+      .then(res => res.json())
+      .then(data => setProjects(data));
+  }, []);
   return (
     <>
       <NavBar />
@@ -272,6 +278,36 @@ function Community() {
                 </CardActions>
               </Card>
             </Grid>
+
+
+
+            {projects.map(project => (
+  <Grid item xs={12} sm={6} md={4} key={project._id}>
+    <Card className={classes.card}>
+      <CardMedia
+        className={classes.cardMedia}
+        image={project.image}
+        title={project.title}
+      />
+      <CardContent className={classes.cardContent}>
+        <Typography gutterBottom variant="h5" component="h2">
+          {project.title}
+        </Typography>
+        <Typography>{project.description}</Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" color="primary" href={project.url}>
+          Learn More
+        </Button>
+      </CardActions>
+    </Card>
+  </Grid>
+))}
+
+
+
+
+            
           </Grid>
 
           <h4>Communities of enthusiasts around the world.</h4>

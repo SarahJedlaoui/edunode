@@ -18,6 +18,7 @@ import Box from '@mui/material/Box';
 //import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 //import draftToHtml from "draftjs-to-html"; // Import the draftToHtml function
 //import { convertToRaw } from "draft-js";
+import axios from 'axios';
 
 
 const Form = styled.form`
@@ -118,41 +119,25 @@ const SubmitButton = styled.button`
   }
 `;
 
-const tagsList = [
-    "Web3",
-    "Blockchain",
-    "Crypto",
-    "Smart Contracts",
-    "NFTs",
-    "Solidity",
-    "IT",
-    "Dev",
-    "E-learning",
-    "Programming",
-    "Javascript",
-    "Nodejs",
-    "Reactjs",
-    "Other",
-];
 
 class Project extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tags: [],
+           
             title: "",
             link: "",
             description: "",
             email: "",
             success: false,
             isLoading: false,
-            errors: {}
+            errors: {},
+            image:''
         };
 
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleTagSelect = this.handleTagSelect.bind(this);
-        this.handleTagRemove = this.handleTagRemove.bind(this);
+      
     }
 
     componentDidUpdate(prevProps) {
@@ -176,23 +161,18 @@ class Project extends Component {
         const data = {
             email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous", // this.props.auth.user.email
             title: this.state.title,
-            tags: this.state.tags,
+            image: this.state.image,
             link: this.state.link,
             description: this.state.description,
         };
         try {
-            const response = await fetch("https://edunode.herokuapp.com/api/project", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
+            const response = await axios.post('http://localhost:5001/api/project', data);
+            console.log(response);
             //const result = await response.json();
             //console.log(result);
             this.setState({ success: true }); // Set success state to true
             console.log(data)
-            await this.props.newPost(data)
+           
             if (this.props.auth.user) {
                 console.log("users?", this.props.auth.user)
                 return (
@@ -203,19 +183,17 @@ class Project extends Component {
             console.error(error);
         }
     }
-
-    handleTagSelect(e) {
-        const selectedTag = e.target.value;
-        if (!this.state.tags.includes(selectedTag)) {
-            this.setState({ tags: [...this.state.tags, selectedTag] });
-        }
-    }
-
-    handleTagRemove(removedTag) {
-        this.setState({
-            tags: this.state.tags.filter((tag) => tag !== removedTag),
-        });
-    }
+    onChangeImage = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+      
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const imageString = reader.result;
+          this.setState({ image: imageString });
+        };
+      };
+    
 
     render() {
 
@@ -262,7 +240,7 @@ class Project extends Component {
                                         <Textarea
                                             id="description"
                                             value={description}
-                                        //onChange={(e) => this.setState({ description: e.target.value })}
+                                        onChange={(e) => this.setState({ description: e.target.value })}
                                         ></Textarea>
                                     </FormGroup>
                                     {/** <FormGroup>
@@ -283,14 +261,14 @@ class Project extends Component {
                                         <Input
                                             type="file"
                                             id="image"
-                                            onChange={(e) => this.setState({ image: e.target.files[0] })}
+                                            onChange={this.onChangeImage}
                                         />
                                     </FormGroup>
 
                                     <SubmitButton type="submit">Submit</SubmitButton>
                                     {success && (
                                         <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
-                                            Success! Your post has been submitted.
+                                            Success! Your project has been submitted.
                                         </div>
                                     )}
                                 </Form>

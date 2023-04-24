@@ -36,7 +36,7 @@ export const loadUser = () => (dispatch, getState) => {
 
     axios
       .get(
-        'https://edunode.herokuapp.com/api/auth/user',
+        'http://localhost:5001/api/users/user',
         tokenConfig(getState),
         config,
       )

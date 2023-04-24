@@ -16,9 +16,50 @@ import Footer from '../Footer';
 import Box from '@mui/material/Box';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import draftToHtml from "draftjs-to-html"; // Import the draftToHtml function
-import { convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+import { EditorState, convertToRaw } from 'draft-js';
+import { convertToHTML } from 'draft-convert';
 
+
+// Initialize editorState
+const editorState = EditorState.createEmpty();
+
+
+const options = {
+  inlineStyles: {
+    BOLD: { element: 'strong' },
+    ITALIC: { element: 'em' },
+    UNDERLINE: { element: 'u' },
+    STRIKETHROUGH: { element: 'del' },
+  },
+  blockTypes: {
+    'header-one': { element: 'h1' },
+    'header-two': { element: 'h2' },
+    'header-three': { element: 'h3' },
+    'header-four': { element: 'h4' },
+    'header-five': { element: 'h5' },
+    'header-six': { element: 'h6' },
+    'unordered-list-item': { element: 'li', nest: 'ul' },
+    'ordered-list-item': { element: 'li', nest: 'ol' },
+    blockquote: { element: 'blockquote' },
+    'code-block': { element: 'pre' },
+  },
+  entityStyleFn: (entity) => {
+    const entityType = entity.getType().toLowerCase();
+    if (entityType === 'link') {
+      const data = entity.getData();
+      return {
+        element: 'a',
+        attributes: {
+          href: data.url,
+          rel: data.rel,
+          target: data.target,
+        },
+      };
+    }
+    // Add more conditions to preserve other entity types, if necessary
+  },
+};
 
 const Form = styled.form`
   display: flex;
@@ -293,11 +334,16 @@ class Post extends Component {
                       toolbarClassName="toolbarClassName"
                       wrapperClassName="wrapperClassName"
                       editorClassName="editorClassName"
+                      editorState={editorState} // set the editorState here
+                      onEditorStateChange={(editorState) => {
+                        this.setState({ editorState });
+                      }}
                       onContentStateChange={(contentState) => {
-                        const html = draftToHtml(contentState).replace(/<\/?p>/g, '');
+                        const html = convertToHTML(options)(contentState);
                         this.setState({ description: html });
                       }}
-                    /></FormGroup>
+                    />
+                  </FormGroup>
                   <SubmitButton type="submit">Submit</SubmitButton>
                   {success && (
                     <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
