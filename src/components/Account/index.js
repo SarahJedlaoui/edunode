@@ -32,14 +32,14 @@ class Account extends Component {
       name: auth.user && auth.user.name ? auth.user.name : "",
       email: "",
       age: auth.user && auth.user.age ? auth.user.age : "",
-      location: auth.user && auth.user.location ? auth.user.location : "",
+      // location: auth.user && auth.user.location ? auth.user.location : "",
       bio: auth.user && auth.user.bio ? auth.user.bio : "",
       _id:"",
       isLoading: false,
       errors: {},
       isUpdated: false,
     };
-    this.handleLocationChange = this.handleLocationChange.bind(this);
+    // this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
   handleNameChange = (event) => {
@@ -54,10 +54,10 @@ class Account extends Component {
     this.setState({ bio: event.target.value });
   };
 
-  handleLocationChange = (event, newValue) => {
-    this.setState({ location: newValue ? newValue.label : null  });
-    console.log(newValue);
-  };
+  // handleLocationChange = (event, newValue) => {
+  //   this.setState({ location: newValue ? newValue.label : null  });
+  //   console.log(newValue);
+  // };
 
 
   componentDidUpdate(prevProps) {
@@ -157,7 +157,7 @@ renderProfileFields() {
         value={this.state.age}
         onChange={this.handleAgeChange}
       />
-      <Autocomplete
+      {/* <Autocomplete
         id="country-select-demo"
         options={countries}
         autoHighlight
@@ -194,7 +194,7 @@ renderProfileFields() {
           />
         )}
         onChange={this.handleLocationChange}
-      />
+      /> */}
       <TextField
         name="bio"
         multiline
