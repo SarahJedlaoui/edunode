@@ -166,7 +166,7 @@ class Project extends Component {
             description: this.state.description,
         };
         try {
-            const response = await axios.post('http://localhost:5001/api/project', data);
+            const response = await axios.post('https://edunode.herokuapp.com/api/project', data);
             console.log(response);
             //const result = await response.json();
             //console.log(result);

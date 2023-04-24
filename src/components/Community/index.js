@@ -1,5 +1,5 @@
 import React from "react";
-import Map from "../Map";
+//import Map from "../Map";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -15,7 +15,7 @@ import kicon from "./keybaseicon.png";
 import discord from "./discord.png";
 import "./style.css";
 import axios from 'axios';
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -52,7 +52,7 @@ function Community() {
   const classes = useStyles();
 
   useEffect(() => {
-    fetch('/api/projects')
+    fetch('https://edunode.herokuapp.com/api/project/projects')
       .then(res => res.json())
       .then(data => setProjects(data));
   }, []);
@@ -90,10 +90,10 @@ function Community() {
 
 
 
-          <Grid container spacing={4}>  
+          <Grid container spacing={4}>
 
 
-          <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
@@ -109,7 +109,7 @@ function Community() {
                     Stellar Global
                   </Typography>
                   <Typography>
-                  A perfect source for the Stellar Network
+                    A perfect source for the Stellar Network
 
 
                   </Typography>
@@ -235,10 +235,7 @@ function Community() {
                 </CardActions>
               </Card>
             </Grid>
-          </Grid>
-          
 
-          <Grid container spacing={4}>
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
@@ -274,7 +271,7 @@ function Community() {
               </Card>
             </Grid>
 
-            
+
 
             <Grid item xs={12} sm={6} md={4}>
               <Card className={classes.card}>
@@ -307,44 +304,44 @@ function Community() {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid>
+             </Grid>
+
+
+              {projects.map(project => (
+              <Grid item xs={12} sm={6} md={4} key={project._id}>
+                <Card className={classes.card}>
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={project.image}
+                    title={project.title}
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {project.title}
+                    </Typography>
+                    <Typography>{project.description}</Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" color="primary" href={project.link}>
+                      Learn More
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+                ))}
 
 
 
-            {projects.map(project => (
-  <Grid item xs={12} sm={6} md={4} key={project._id}>
-    <Card className={classes.card}>
-      <CardMedia
-        className={classes.cardMedia}
-        image={project.image}
-        title={project.title}
-      />
-      <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant="h5" component="h2">
-          {project.title}
-        </Typography>
-        <Typography>{project.description}</Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" color="primary" href={project.url}>
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
-  </Grid>
-))}
 
 
 
-
-            
-          </Grid>
+           </Grid>
 
           <h4>Communities of enthusiasts around the world.</h4>
           <br></br>
           <p>To open the links, please click for half a second</p>
           <div>
-            <Map/>
+            {/*<Map/>*/}
           </div>
           <br></br>
           <br></br>
