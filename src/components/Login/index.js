@@ -155,13 +155,9 @@ class Login extends Component {
           <Navigate to="/dashboard" />
         );
       }
-
-
     } catch (error) {
       console.log(error)
     }
-
-
   }
   /**  componentDidMount() {
     window.gapi.load("client:auth2", this.initGapi);
@@ -173,32 +169,32 @@ class Login extends Component {
   }*/
   render() {
 
+    
 
+const albedoHandler = () => {
 
-    const albedoHandler = () => {
+albedo.publicKey({
 
-      albedo.publicKey({
+})
+          .then(res => {
+            const intent = res.intent
+            const pubkey = res.pubkey
+            const signature = res.signature
+            const signed_message = res.signed_message
+            const userName = ""
+            const newAlbedoUser = {
+              intent,
+              pubkey,
+              signature,
+              signed_message,
+              userName,
 
-      })
-        .then(res => {
-          const intent = res.intent
-          const pubkey = res.pubkey
-          const signature = res.signature
-          const signed_message = res.signed_message
-          const userName = ""
-          const newAlbedoUser = {
-            intent,
-            pubkey,
-            signature,
-            signed_message,
-            userName,
+            }
 
-          }
+            this.props.albedoAuth(newAlbedoUser)
 
-          this.props.albedoAuth(newAlbedoUser)
-
-        })
-    }
+          })
+}
 
     const handleMetamask = async (e) => {
       e.preventDefault()
@@ -215,30 +211,53 @@ class Login extends Component {
       if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed!');
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        //  window.ethereum.request({ method: 'eth_requestAccounts' });
+      //  window.ethereum.request({ method: 'eth_requestAccounts' });
         console.log(accounts)
-        if (accounts !== undefined) {
-          await this.props.metamaskAuth(accounts)
-
-          return (
-            <Navigate to="/dashboard" />
-          );
+        if(accounts !== undefined){
+ await this.props.metamaskAuth(accounts)
+ 
+ return (
+  <Navigate to="/dashboard" />
+);
         }
-
-      } else {
+        
+      } else {     
         alert("Please install metamask")
 
       }
-
-
-
+      
+ 
+      
     }
+const albedoHandler = () => {
+
+albedo.publicKey({
+
+})
+          .then(res => {
+            const intent = res.intent
+            const pubkey = res.pubkey
+            const signature = res.signature
+            const signed_message = res.signed_message
+            const userName = ""
+            const newAlbedoUser = {
+              intent,
+              pubkey,
+              signature,
+              signed_message,
+              userName,
+
+            }
     const accountChangedHandler = (newAccount) => {
       // setDefaultAccount(newAccount)
     }
 
-    const getUserBalance = (address) => {
-    }
+            this.props.albedoAuth(newAlbedoUser)
+
+          })
+}
+
+
 
     // const handleCustomLogin = async (e) => {
     //   e.preventDefault()
@@ -257,17 +276,18 @@ class Login extends Component {
     //    console.log(currentUser)
     //    try {
 
+
     //    await this.props.webThreeAuth(currentUser)
 
     //   } catch (error) {
     //     console.log(error)
     //   }
 
-
+      
     //   }
+      
 
-
-    const freighterHandler = async () => {
+      const freighterHandler = async () => {
 
       if (isConnected()) {
 
