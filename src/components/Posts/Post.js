@@ -14,15 +14,18 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Footer from '../Footer';
 import Box from '@mui/material/Box';
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import draftToHtml from "draftjs-to-html";
-import { EditorState, convertToRaw } from 'draft-js';
+//import { Editor } from "react-draft-wysiwyg";
+//import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+//import draftToHtml from "draftjs-to-html";
+//import { EditorState, convertToRaw } from 'draft-js';
+//import { convertToHTML } from 'draft-convert';
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { convertToHTML } from 'draft-convert';
 
-
 // Initialize editorState
-const editorState = EditorState.createEmpty();
+{/*const editorState = EditorState.createEmpty();
 
 
 const options = {
@@ -60,7 +63,7 @@ const options = {
     // Add more conditions to preserve other entity types, if necessary
   },
 };
-
+*/}
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -184,14 +187,15 @@ class Post extends Component {
       tags: [],
       title: "",
       link: "",
-      description: "",
+      description: '',
       email: "",
       success: false,
       isLoading: false,
+      editorState: EditorState.createEmpty(),
       errors: {}
     };
 
-
+    this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
@@ -220,7 +224,7 @@ class Post extends Component {
       title: this.state.title,
       tags: this.state.tags,
       link: this.state.link,
-      description: this.state.description,
+      description: convertToHTML(this.state.editorState.getCurrentContent()),
     };
     try {
       {/**   const response = await fetch("https://edunode.herokuapp.com/api/post", {
@@ -256,11 +260,21 @@ class Post extends Component {
   handleTagRemove(removedTag) {
     this.setState({
       tags: this.state.tags.filter((tag) => tag !== removedTag),
+      
     });
   }
 
-  render() {
 
+  onEditorStateChange(editorState) {
+    this.setState({
+      editorState,
+      description: this.state.description,
+    });
+  };
+
+
+  render() {
+    const { editorState } = this.state;
     const Item = muiStyled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
       padding: theme.spacing(1),
@@ -325,7 +339,7 @@ class Post extends Component {
                       id="description"
                       value={description}
                       //onChange={(e) => this.setState({ description: e.target.value })}
-                    ></Textarea>*/}
+                    ></Textarea>
                   </FormGroup>
                   <FormGroup>
                     <Editor
@@ -342,8 +356,18 @@ class Post extends Component {
                         const html = convertToHTML(options)(contentState);
                         this.setState({ description: html });
                       }}
-                    />
+                    />*/}
                   </FormGroup>
+
+                  <Editor
+                    editorState={editorState}
+                    toolbarClassName="toolbarClassName"
+                    wrapperClassName="wrapperClassName"
+                    editorClassName="editorClassName"
+                    onEditorStateChange={this.onEditorStateChange}
+                  />
+
+
                   <SubmitButton type="submit">Submit</SubmitButton>
                   {success && (
                     <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>

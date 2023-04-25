@@ -9,7 +9,7 @@ export default function PostCard({ post }) {
        <div className="card-label">Title:</div>
         <h5 className="card-title" style={{ fontSize: "1.2rem", fontWeight: "bold" }}>{post.title}</h5>
         <div className="card-label">Description:</div>
-        <p className="card-text">{post.description}</p>
+        <p className="card-text" dangerouslySetInnerHTML={{ __html: post.description }} ></p>
         <a href={post.link} className="card-link">
           <FontAwesomeIcon icon={faLink} className="mr-2" />
           {post.link}
