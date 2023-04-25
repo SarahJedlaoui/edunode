@@ -77,7 +77,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "git pull":"git status && git add . && git commit -am 'commit' && git pull",
+    "git push":"git status && git add . && git commit -am 'commit' && git push"
   },
   "eslintConfig": {
     "extends": [
