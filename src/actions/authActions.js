@@ -22,22 +22,22 @@ import {
 
 // check token and load user
 
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = ({email}) => (dispatch, getState) => {
 
     //user loading
     dispatch({ type: USER_LOADING });
-
+    const body = JSON.stringify({ email });
     const config = {
         headers: {
             "Content-Type": "application/json",
-            "Ac^ss-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "*"
         }
     }
 
     axios
       .get(
-        'http://localhost:5001/api/users/user',
-        tokenConfig(getState),
+        'https://edunode.herokuapp.com/api/users/user',
+        
         config,
       )
       .then((res) => {

@@ -17,7 +17,7 @@ import "./style.css"
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
 import Pricing from "./Pricing"
 import PayPal from "./paypal"
-
+import { Navigate } from "react-router-dom";
 
 class Membership extends Component {
   constructor(props) {
@@ -226,10 +226,14 @@ class Membership extends Component {
 
 
   if (!this.props.auth.isAuthenticated) {
-    return <div>Please log in to view this page.</div>;
+    return (
+      <Navigate to="/" />
+    );
   }
   
-  return <div>Please log in to view this page.</div>;
+  return (
+    <Navigate to="/" />
+  );
 }
 
 }

@@ -15,6 +15,7 @@ import Button from '@mui/material/Button'
 import PropTypes from 'prop-types'
 import axios from "axios"
 import "./style.css"
+import { Navigate } from "react-router-dom";
 
 class Chat extends Component {
   constructor(props) {
@@ -181,7 +182,9 @@ console.log(message)
 
 
   if (!this.props.auth.isAuthenticated) {
-    return <div>Please log in to view this page.</div>;
+    return (
+      <Navigate to="/" />
+    );
   }
 }
 

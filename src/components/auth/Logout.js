@@ -8,19 +8,34 @@ import {
     Form
 } from "reactstrap";
 import  withRouter  from "../../withRouter";
-
+import { Navigate } from "react-router-dom";
 
 
 class LogoutModal extends Component {
 
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+       
+        this.onChange = this.onChange.bind(this);
+       
+      }
+
     static propTypes = {
         logout: PropTypes.func.isRequired,
-        clearErrors: PropTypes.func.isRequired
-       
+        clearErrors: PropTypes.func.isRequired,
+        onChange:PropTypes.func.isRequired,
     }
+
     
 
-  
+    onChange = async () => {
+       this.props.logout();
+       <Navigate to="/" />
+      };
 
     render() {
        
@@ -30,7 +45,9 @@ class LogoutModal extends Component {
         return (
 <>
             <Form>
-                <Button onClick={this.props.logout} style={{ backgroundColor: '#808080', color: '#fff' }}>
+                <Button onClick={
+                    this.onChange
+                    } style={{ backgroundColor: '#808080', color: '#fff' }}>
                     Logout
                 </Button>  
             </Form>

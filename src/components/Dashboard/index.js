@@ -8,7 +8,7 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import Footer from "../Footer"
 import { TwitterTimelineEmbed, TwitterFollowButton } from 'react-twitter-embed';
-
+import { Navigate } from "react-router-dom";
 class Dashboard extends Component {
 
   render() {
@@ -17,18 +17,24 @@ class Dashboard extends Component {
 
     if (!isGranted && !isVerified && !isAuthenticated && !hasUsername) {
 
-      return <div>Please log in to view this page.</div>;
+      return (
+        <Navigate to="/" />
+      );
 
     }
 
     if (!isAuthenticated) {
 
-      return <div>Please log in to view this page.</div>;
+      return (
+        <Navigate to="/" />
+      );
 
     }
 
     if (isAuthenticated && !isVerified) {
-      return <div>Please log in to view this page.</div>;
+      return (
+        <Navigate to="/" />
+      );
      
     }
 

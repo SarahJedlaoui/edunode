@@ -9,7 +9,7 @@ import "./style.css";
 import withRouter  from '../../withRouter'
 import {Container, Row, Col } from "react-bootstrap";
 import SideBar from "../SideBar"
-
+import { Navigate } from "react-router-dom";
 
 const validate = values => {
   const errors = {};
@@ -128,8 +128,8 @@ const verifyUser = {
     );
   }
   return (
-    <div>please log in to see this page</div>
-  )
+    <Navigate to="/" />
+  );
   }
 }
 

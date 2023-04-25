@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-
+import { Navigate } from "react-router-dom";
 export default class Dashboard extends Component {
   constructor(props) {
     super(props)
@@ -20,7 +20,9 @@ export default class Dashboard extends Component {
 
   render() {
     if(this.state.loggedIn === false) {
-      return <div>Please log in to view this page.</div>;
+      return (
+        <Navigate to="/" />
+      );
     }
 
     return (

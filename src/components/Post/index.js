@@ -10,7 +10,7 @@ import "./style.css";
 import withRouter from '../../withRouter';
 import {Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import SideBar from "../SideBar"
-
+import { Navigate } from "react-router-dom";
 
 const validate = values => {
   const errors = {};
@@ -152,8 +152,8 @@ forwardUser = () => {
     );
   }
   return (
-    <div>please log in to see this page</div>
-  )
+    <Navigate to="/" />
+  );
   }
 }
 

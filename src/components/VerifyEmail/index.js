@@ -21,6 +21,7 @@ import Footer from '../Footer';
 import Paper from '@mui/material/Paper';
 import Topbar from "../Dashboard/Topbar";
 import { Navigate } from "react-router-dom";
+import { loadUser } from '../../actions/authActions';
 
 const validate = values => {
   const errors = {};
@@ -100,6 +101,11 @@ alert(`A confirmation code has be sent to your email ${email}, please also check
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  componentDidMount() {
+    const email = this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : '';
+    this.props.loadUser(email);
+  } 
 
 
   onSubmit = async (values) => {
@@ -325,7 +331,7 @@ const mapStateToProps = (state) => ({
 });
 
 VerifyEmail = connect(
-  mapStateToProps, { verifyCode, clearErrors }
+  mapStateToProps, { loadUser ,verifyCode, clearErrors }
   )(VerifyEmail);
 
 export default VerifyEmail = reduxForm({
@@ -333,5 +339,6 @@ export default VerifyEmail = reduxForm({
   fields: ["confirmationCode"],
   validate,
   clearErrors,
-  verifyCode
+  verifyCode,
+  loadUser
 })(withRouter(VerifyEmail));

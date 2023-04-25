@@ -15,7 +15,7 @@ import { Field, reduxForm } from "redux-form";
 import Button from "@mui/material/Button"
 import TextField from '@mui/material/TextField'
 import PropTypes from 'prop-types'
-
+import { Navigate } from "react-router-dom";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -131,7 +131,9 @@ class Dashboard extends Component {
             </div>
         )
     }else{
-      return <div>Please log in to view this page.</div>;
+      return (
+        <Navigate to="/" />
+      );
     }
     
   }

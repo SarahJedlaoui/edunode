@@ -216,7 +216,9 @@ renderProfileFields() {
   render() {
     const { isAuthenticated } = this.props.auth
     if (!isAuthenticated) {
-      return <div>Please log in to view this page.</div>;
+      return (
+        <Navigate to="/" />
+      );
     }
     const { isUpdated } = this.state; // get isUpdated from state
     return (
