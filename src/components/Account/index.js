@@ -124,8 +124,7 @@ class Account extends Component {
       }
       // create user object
       
-      
-
+    
     }
 
 
@@ -145,7 +144,7 @@ renderProfileFields() {
         disabled
         name="email"
         type="email"
-        placeholder={this.props.auth.user.email || this.props.auth.user.pkey}
+        placeholder={this.props.auth.user.pkey || this.props.auth.user.email}
         fullWidth
         inputRef={(input) => (this.emailInput = input)}
       />
