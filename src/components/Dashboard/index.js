@@ -9,6 +9,8 @@ import Topbar from "./Topbar";
 import Footer from "../Footer"
 import { TwitterTimelineEmbed, TwitterFollowButton } from 'react-twitter-embed';
 import { Navigate } from "react-router-dom";
+import Search from "./Search"
+
 class Dashboard extends Component {
 
   render() {
@@ -49,6 +51,9 @@ class Dashboard extends Component {
               <Grid item xs={7} sm={8.5} md={10}>
 
                 <Topbar />
+                <Search />
+
+
 
                 <TwitterTimelineEmbed
                   sourceType="profile"
