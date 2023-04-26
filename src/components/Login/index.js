@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from "@mui/material/CircularProgress"
-import {  Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import { clearErrors } from "../../actions/errorActions";
 import "./style.css";
 import albedologo from "./albedo.png"
@@ -23,17 +23,40 @@ import mozartlogo from "./mozartlogo.png"
 import { Navigate } from "react-router-dom";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
-function GoogleLoginButton({ onSuccess }) {
-  const login = useGoogleLogin({
-    onSuccess: onSuccess,
+function GoogleLoginButton({ onSuccess, onFailure }){
+  const { signIn, loaded, error, user } = useGoogleLogin({
+    clientId: '249576166536-cf5i54bf0th7cq3aln92cnkfksanqtda.apps.googleusercontent.com',
+    redirectUri: 'http://localhost:3000/', // Your app's redirect URI
+    onSuccess: handleSuccess, // Function to call after successful login
+    onFailure: handleFailure, // Function to call after failed login
+    accessType: 'offline',
+    responseType: 'code',
+    scope: 'https://www.googleapis.com/auth/userinfo.email',
   });
 
+  function handleSuccess(user) {
+    console.log('User successfully logged in:', user);
+    // Store the user's email in your user model or state
+    const email = user.profile.email;
+    // Redirect to the appropriate page using React Router
+    // For example: history.push('/dashboard');
+  }
+
+  function handleFailure(error) {
+    console.error('Google sign-in error:', error);
+    console.error('Google sign-in error:', error);
+  }
+  function handleClick() {
+    console.log('Button clicked');
+    signIn();
+  }
   return (
-    <Button       
+    <Button
       style={{ width: '300px' }}
       variant="outlined"
-      onClick={() => login()}
+      onClick={handleClick}
     >
       Sign in with Google 🚀
     </Button>
@@ -70,7 +93,7 @@ class Login extends Component {
       password: "",
       isLoading: false,
       errors: {}
-      
+
     }
 
     this.onChange = this.onChange.bind(this)
@@ -88,8 +111,8 @@ class Login extends Component {
     clearErrors: PropTypes.func.isRequired
   }
 
-  
-  
+
+
   renderTextField = ({
     label,
     input,
@@ -115,7 +138,7 @@ class Login extends Component {
 
     const email = values.email
     const password = values.password
-    
+
     // create user object
     const newUser = {
       email,
@@ -150,32 +173,32 @@ class Login extends Component {
   }*/
   render() {
 
-    
 
-const albedoHandler = () => {
 
-albedo.publicKey({
+    const albedoHandler = () => {
 
-})
-          .then(res => {
-            const intent = res.intent
-            const pubkey = res.pubkey
-            const signature = res.signature
-            const signed_message = res.signed_message
-            const userName = ""
-            const newAlbedoUser = {
-              intent,
-              pubkey,
-              signature,
-              signed_message,
-              userName,
+      albedo.publicKey({
 
-            }
+      })
+        .then(res => {
+          const intent = res.intent
+          const pubkey = res.pubkey
+          const signature = res.signature
+          const signed_message = res.signed_message
+          const userName = ""
+          const newAlbedoUser = {
+            intent,
+            pubkey,
+            signature,
+            signed_message,
+            userName,
 
-            this.props.albedoAuth(newAlbedoUser)
+          }
 
-          })
-}
+          this.props.albedoAuth(newAlbedoUser)
+
+        })
+    }
 
     const handleMetamask = async (e) => {
       e.preventDefault()
@@ -192,26 +215,26 @@ albedo.publicKey({
       if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed!');
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      //  window.ethereum.request({ method: 'eth_requestAccounts' });
+        //  window.ethereum.request({ method: 'eth_requestAccounts' });
         console.log(accounts)
-        if(accounts !== undefined){
- await this.props.metamaskAuth(accounts)
- 
- return (
-  <Navigate to="/dashboard" />
-);
+        if (accounts !== undefined) {
+          await this.props.metamaskAuth(accounts)
+
+          return (
+            <Navigate to="/dashboard" />
+          );
         }
-        
-      } else {     
+
+      } else {
         alert("Please install metamask")
 
       }
-      
- 
-      
+
+
+
     }
     const accountChangedHandler = (newAccount) => {
-// setDefaultAccount(newAccount)
+      // setDefaultAccount(newAccount)
     }
 
     const getUserBalance = (address) => {
@@ -225,9 +248,9 @@ albedo.publicKey({
     //      clientId: process.env.REACT_APP_WEBTHREEAUTH_CLIENT_ID,
     //   theme: "light",
     //   loginMethodsOrder: ["github", "twitter", "google", "discord", "facebook",  "reddit",  "twitch", "apple", "linkedin", "email_passwordless"]
-       
+
     //    })
-       
+
     //  const currentUser = Moralis.User.current();
 
     //    const {id, className, currentLoginProvider} = currentUser
@@ -235,31 +258,31 @@ albedo.publicKey({
     //    try {
 
     //    await this.props.webThreeAuth(currentUser)
-  
+
     //   } catch (error) {
     //     console.log(error)
     //   }
 
-      
+
     //   }
-      
 
-      const freighterHandler = async () => {
 
-        if (isConnected()) {
+    const freighterHandler = async () => {
 
-          const pkey = await getPublicKey();
+      if (isConnected()) {
+
+        const pkey = await getPublicKey();
 
         await this.props.freighterAuth(pkey)
-        
-        }
-        
-        // alert("not conected")
-        
+
       }
 
+      // alert("not conected")
 
-   
+    }
+
+
+
     const { pristine, submitting } = this.props
     const { isLoading, isAuthenticated, isVerified } = this.props.auth
 
@@ -267,9 +290,9 @@ albedo.publicKey({
       return <div style={{
         position: 'absolute', left: '50%', top: '50%',
         transform: 'translate(-50%, -50%)'
-      }}> 
-      
-      <CircularProgress
+      }}>
+
+        <CircularProgress
           color="secondary"
         />
 
@@ -278,14 +301,14 @@ albedo.publicKey({
     }
     if (isAuthenticated && !isVerified) {
       //  <p class="loading">Loading...</p> <CircularProgress color="secondary" />
-      
+
       return (
         <Navigate to="/" />
       );
     }
     if (isAuthenticated && isVerified) {
       //  <p class="loading">Lding...</p> <CircularProgress color="secondary" />
-     
+
       return (
         <Navigate to="/dashboard" />
       );
@@ -295,103 +318,114 @@ albedo.publicKey({
       <div>
         <NavBar />
         <GoogleOAuthProvider clientId="249576166536-cf5i54bf0th7cq3aln92cnkfksanqtda.apps.googleusercontent.com">
-        <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          <div>
-            
-            <Typography>
-              Please log in.
-            </Typography>
-          </div>
+          <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+            <div>
 
-          
-<br></br>
-          <div>
-         
+              <Typography>
+                Please log in.
+              </Typography>
+            </div>
 
-<GoogleLoginButton onSuccess={this.handleLoginSuccess} />
-</div>
-<br></br>
-<div>
-          <Button       
-style={{ width: '300px' }}
-onClick={handleMetamask}
-variant="outlined"
->
-<br></br>
-  {" "}Login with <Image style={{ width: '25px' ,display: "inline-block",margin: "20px 20px" }} src={mlogo} /> 
-</Button>
 
-</div>
-<div>
-        
-          </div>
-          <br></br>
-          <div>
-<Button
-style={{ width: '300px' }}
-onClick={freighterHandler}
-variant="outlined"
->
-  Login with <Image style={{ width: '85px' ,display: "inline-block",margin: "5px 5px"}} src={flogo} /> 
-</Button>
-          </div>
-          <br></br>
-          <div>
-          <Button
-style={{ width: '300px' }}
-onClick={albedoHandler}
-variant="outlined"
->
-Login with <Image style={{ width: '95px' ,display: "inline-block",margin: "5px 5px",}} src={albedologo} /> 
-   
-</Button>
-          </div>
-          <div className="g-signin2" data-onsuccess="onSignIn"></div>
-          <br></br>
-          <div>
-          </div>
-          <div>
-            <Field
-              name="email"
-              type="text"
-              label="Email"
-              component={this.renderTextField}
-              id="email"
-              value={this.state.email}
-            />
-          </div>
-          <div>
-            <Field
-              name="password"
-              type="password"
-              label="Password"
-              component={this.renderTextField}
-              id="password"
-              value={this.state.password}
-            />
-          </div>
+            <br></br>
 
-          <div>
-            <Button
-              variant="contained"
-              id="button"
-              type="submit"
-              disabled={pristine || submitting}>
-              Login
-        </Button>
-          </div>
-          <div>
-            <p>{this.props.error.msg.msg}</p>
-          </div>
-          <div>
-            <Link to="/">
-              Return
-     </Link>
-          </div>
-        </form>
+            <GoogleLogin
+  onSuccess={credentialResponse => {
+    console.log(credentialResponse);
+    console.log('login success')
+  }}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+  useOneTap
+/>
+            <div>
+
+
+              <GoogleLoginButton/>
+            </div>
+            <br></br>
+            <div>
+              <Button
+                style={{ width: '300px' }}
+                onClick={handleMetamask}
+                variant="outlined"
+              >
+                <br></br>
+                {" "}Login with <Image style={{ width: '25px', display: "inline-block", margin: "20px 20px" }} src={mlogo} />
+              </Button>
+
+            </div>
+            <div>
+
+            </div>
+            <br></br>
+            <div>
+              <Button
+                style={{ width: '300px' }}
+                onClick={freighterHandler}
+                variant="outlined"
+              >
+                Login with <Image style={{ width: '85px', display: "inline-block", margin: "5px 5px" }} src={flogo} />
+              </Button>
+            </div>
+            <br></br>
+            <div>
+              <Button
+                style={{ width: '300px' }}
+                onClick={albedoHandler}
+                variant="outlined"
+              >
+                Login with <Image style={{ width: '95px', display: "inline-block", margin: "5px 5px", }} src={albedologo} />
+
+              </Button>
+            </div>
+            <div className="g-signin2" data-onsuccess="onSignIn"></div>
+            <br></br>
+            <div>
+            </div>
+            <div>
+              <Field
+                name="email"
+                type="text"
+                label="Email"
+                component={this.renderTextField}
+                id="email"
+                value={this.state.email}
+              />
+            </div>
+            <div>
+              <Field
+                name="password"
+                type="password"
+                label="Password"
+                component={this.renderTextField}
+                id="password"
+                value={this.state.password}
+              />
+            </div>
+
+            <div>
+              <Button
+                variant="contained"
+                id="button"
+                type="submit"
+                disabled={pristine || submitting}>
+                Login
+              </Button>
+            </div>
+            <div>
+              <p>{this.props.error.msg.msg}</p>
+            </div>
+            <div>
+              <Link to="/">
+                Return
+              </Link>
+            </div>
+          </form>
         </GoogleOAuthProvider>;
       </div>
-     
+
     )
   }
 }

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { isConnected, getPublicKey } from "@stellar/freighter-api";
 import axios from "axios";
 import html2canvas from 'html2canvas';
-import dep from "./4.png"
+import dep from "./5.png"
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
   const [Name, setName] = useState("");
@@ -55,7 +55,7 @@ function Ediploma(props) {
  {/* */} async function sendImageToServer(base64Image, props) {
   try {
     if (props.auth.user.email) {
-      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma3", {
+      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma4", {
       
       pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
       email: props.auth.user.email ? props.auth.user.email : null,
@@ -67,7 +67,7 @@ function Ediploma(props) {
       
     } else if (props.auth.user.pkey) {
 
-      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma3", {
+      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma4", {
       //image: base64Image,
       pkey: props.auth.user.pkey,
       name: Name
@@ -134,7 +134,7 @@ function Ediploma(props) {
       <div id="downloadWrapper">
         <div id="certificateWrapper" ref={certificateWrapper}>
           <p>{Name}</p>
-          <img src={dep} alt="eCertificate" />
+          <img src={"https://i.imgur.com/MxzEwin.png"} alt="eCertificate" />
         </div>
       </div>
     </div>

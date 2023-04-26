@@ -36,6 +36,11 @@ import QuestionsTwo3 from './components/Courses3/QuestionsTwo';
 import QuestionsThree3 from './components/Courses3/QuestionsThree';
 import QuestionsFour3 from './components/Courses3/QuestionsFour';
 import QuestionsFive3 from './components/Courses3/QuestionsFive';
+import Questions4 from './components/Courses4/Questions';
+import QuestionsTwo4 from './components/Courses4/QuestionsTwo';
+import QuestionsThree4 from './components/Courses4/QuestionsThree';
+import QuestionsFour4 from './components/Courses4/QuestionsFour';
+import QuestionsFive4 from './components/Courses4/QuestionsFive';
 import Intro from './components/Courses/One/Intro';
 import Intro1 from './components/Courses1/One/Intro';
 import Intro2 from './components/Courses2/One/Intro';
@@ -60,10 +65,17 @@ import Introii3 from './components/Courses3/One/Introii';
 import Introiii3 from './components/Courses3/One/Introiii';
 import Introiiii3 from './components/Courses3/One/Introiiii';
 import Introiiiii3 from './components/Courses3/One/Introiiiii';
+import Intro4 from './components/Courses4/One/Intro';
+import Introi4 from './components/Courses4/One/Introi';
+import Introii4 from './components/Courses4/One/Introii';
+import Introiii4 from './components/Courses4/One/Introiii';
+import Introiiii4 from './components/Courses4/One/Introiiii';
+import Introiiiii4 from './components/Courses4/One/Introiiiii';
 import Coursedone from "./components/Courses/Coursedone"
 import Coursedone1 from "./components/Courses1/Coursedone"
 import Coursedone2 from "./components/Courses2/Coursedone"
 import Coursedone3 from "./components/Courses3/Coursedone"
+import Coursedone4 from "./components/Courses4/Coursedone"
 import Keybase from "./components/Blog/Articles/Keybase";
 import Issue from "./components/Blog/Articles/Issue";
 import Register from "./components/Register";
@@ -129,6 +141,7 @@ function App(props) {
         <Route exact path="/courses/102/" element={<Intro1/>} />
         <Route exact path="/courses/103/" element={<Intro2/>} />
         <Route exact path="/courses/104/" element={<Intro3/>} />
+        <Route exact path="/courses/105/" element={<Intro4/>} />
         <Route exact path="/courses/101/i" element={<Introi/>} />
         <Route exact path="/courses/101/ii" element={<Introii/>} />
         <Route exact path="/courses/101/iii" element={<Introiii/>} />
@@ -149,6 +162,11 @@ function App(props) {
         <Route exact path="/courses/104/iii" element={<Introiii3/>} />
         <Route exact path="/courses/104/iiii" element={<Introiiii3/>} />
         <Route exact path="/courses/104/iiiii" element={<Introiiiii3/>} />
+        <Route exact path="/courses/105/i" element={<Introi4/>} />
+        <Route exact path="/courses/105/ii" element={<Introii4/>} />
+        <Route exact path="/courses/105/iii" element={<Introiii4/>} />
+        <Route exact path="/courses/105/iiii" element={<Introiiii4/>} />
+        <Route exact path="/courses/105/iiiii" element={<Introiiiii4/>} />
         <Route exact path="/courses/101/1" element={<Questions/>} />
         <Route exact path="/courses/101/2" element={<QuestionsTwo/>} />
         <Route exact path="/courses/101/3" element={<QuestionsThree/>} />
@@ -174,6 +192,12 @@ function App(props) {
         <Route exact path="/courses/104/4" element={<QuestionsFour3/>} />
         <Route exact path="/courses/104/5" element={<QuestionsFive3/>} />
         <Route exact path="/courses/104/done" element={<Coursedone3/>} />
+        <Route exact path="/courses/105/1" element={<Questions4/>} />
+        <Route exact path="/courses/105/2" element={<QuestionsTwo4/>} />
+        <Route exact path="/courses/105/3" element={<QuestionsThree4/>} />
+        <Route exact path="/courses/105/4" element={<QuestionsFour4/>} />
+        <Route exact path="/courses/105/5" element={<QuestionsFive4/>} />
+        <Route exact path="/courses/105/done" element={<Coursedone4/>} />
         <Route exact path="/blog" element={<Blog/>} />
         <Route exact path="/blog/What-is-Keybase" element={<Keybase/>} />
         <Route exact path="/blog/How-to-issue" element={<Issue/>} />

@@ -10,7 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { isConnected, getPublicKey } from "@stellar/freighter-api";
 import axios from "axios";
 import html2canvas from 'html2canvas';
-import dep from "./newediploma.png"
+import dep from "./2.png"
+
+
+
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
   const [Name, setName] = useState("");
@@ -52,18 +55,35 @@ function Ediploma(props) {
 
   }
 
- {/* */} async function sendImageToServer(base64Image, props) {
-  try {
-    const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
-      image: base64Image,
-      email: props.auth.user.email,
-      name: Name
-    });
-    console.log(response.data); // Check if the image was saved successfully
-  } catch (error) {
-    console.error(error);
+  async function sendImageToServer(base64Image, props) {
+    try {
+      if (props.auth.user.email) {
+        const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma1", {
+        
+        pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
+        email: props.auth.user.email ? props.auth.user.email : null,
+        name: Name
+      });
+      console.log('hi'); 
+      console.log(props.auth.user.pkey);
+      console.log(response.data); // Check if the image was saved successfully
+        
+      } else if (props.auth.user.pkey) {
+  
+        const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma1", {
+        //image: base64Image,
+        pkey: props.auth.user.pkey,
+        name: Name
+      });
+      console.log(response.data); // Check if the image was saved successfully
+      
+      }
+      
+     
+    } catch (error) {
+      console.error(error);
+    }
   }
-}
 
 
 
@@ -89,7 +109,7 @@ function Ediploma(props) {
     });
     setTimeout(function () {
       try {
-      //  window.location.href = "/";
+       window.location.href = "/";
       } catch (error) {
         console.log(error);
       }
@@ -117,7 +137,7 @@ function Ediploma(props) {
       <div id="downloadWrapper">
         <div id="certificateWrapper" ref={certificateWrapper}>
           <p>{Name}</p>
-          <img src="https://i.imgur.com/MxzEwin.png" alt="eCertificate" />
+          <img src={dep} alt="eCertificate" />
         </div>
       </div>
     </div>
