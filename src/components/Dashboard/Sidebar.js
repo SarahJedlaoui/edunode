@@ -73,6 +73,10 @@ export default function Sidebar(props) {
               <Link to="/post">New Post</Link>
             </li>
             <li className="sidebarListItem">
+              <PublishIcon className="sidebarIcon" />
+              <Link to="/course">Add Course</Link>
+            </li>
+            <li className="sidebarListItem">
               <MailOutline className="sidebarIcon" />
               <button onClick={() => handleAlert("Coming soon")}>Mail</button>
             </li>

@@ -317,7 +317,7 @@ class Login extends Component {
     return (
       <div>
         <NavBar />
-        
+        <GoogleOAuthProvider clientId="463653089707-8p48kpc82eg0042v0gsh80bkfsv4m7uj.apps.googleusercontent.com">
           <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
             <div>
 
@@ -423,7 +423,7 @@ class Login extends Component {
               </Link>
             </div>
           </form>
-       
+        </GoogleOAuthProvider>;
       </div>
 
     )

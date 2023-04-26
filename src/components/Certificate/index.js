@@ -24,9 +24,9 @@ class Certificate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       userName: "",
-      pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
+      pkey: this.props.auth && this.props.auth.user && this.props.auth.user.pkey ? this.props.auth.user.pkey : "",
       pubkey: "",
       isLoading: false,
       errors: {},
@@ -44,9 +44,9 @@ class Certificate extends Component {
   }
 
   componentDidMount() {
-    const email = this.props.auth?.user?.email;
-    const pkey = this.props.auth?.user?.pkey;
-    if ( this.props.auth.user.email) {
+    const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : ""
+    const pkey = this.props.auth && this.props.auth.user && this.props.auth.user.pkey ? this.props.auth.user.pkey : "anonymous"
+    if (email) {
     axios.get(`https://edunode.herokuapp.com/api/certificates/count/${email}`)
       .then(res => {
         if (res.data.length > 0) {
@@ -56,7 +56,7 @@ class Certificate extends Component {
       .catch(err => {
         console.error(err);
       });
-    } else if ( this.props.auth.user.pkey) { 
+    } else if ( pkey) { 
        axios.get(`https://edunode.herokuapp.com/api/certificates/count/pkey/${pkey}`)
     .then(res => {
       if (res.data.length > 0) {
@@ -69,7 +69,7 @@ class Certificate extends Component {
 
 
 
-    if ( this.props.auth.user.email) {
+    if ( email) {
       axios.get(`https://edunode.herokuapp.com/api/certificates/${email}`)
       .then(res => {
         if (res.data.length > 0) {
@@ -84,7 +84,7 @@ class Certificate extends Component {
           console.log(certificates)
           
         }
-      })} else if ( this.props.auth.user.pkey) { 
+      })} else if ( pkey) { 
 
         axios.get(`https://edunode.herokuapp.com/api/certificates/pkey/${pkey}`)
       .then(res => {
@@ -238,8 +238,8 @@ class Certificate extends Component {
   render() {
 
 
-    console.log(this.props.auth.user)
-    console.log(this.props.auth.user.pkey)
+    //console.log(this.props.auth.user)
+    //console.log(this.props.auth.user.pkey)
     const Item = styled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
       padding: theme.spacing(1),
