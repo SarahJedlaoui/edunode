@@ -53,10 +53,10 @@ const handleConfirm = (e) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} style={{ backgroundColor: '#6E59F7', color: 'white' }}>
             Cancel
           </Button>
-          <Button onClick={handleConfirm} color="primary" autoFocus>
+          <Button onClick={handleConfirm} style={{ backgroundColor: '#6E59F7', color: 'white' }} autoFocus>
             Confirm
           </Button>
         </DialogActions>

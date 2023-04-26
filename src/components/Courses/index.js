@@ -269,7 +269,7 @@ export function AlertDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} style={{ backgroundColor: '#808080', color: '#fff' }}>
+          <Button onClick={handleClose} style={{ backgroundColor: 'red', color: 'white' }}>
             Cancel
           </Button>
           <Button onClick={handleConfirm} color="blue" autoFocus>
