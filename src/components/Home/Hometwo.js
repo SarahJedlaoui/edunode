@@ -13,7 +13,7 @@ import ReactPlayer from 'react-player'
 import Logos from "./logos.png";
   // import Slider from "react-slick";
   // import UploadCertificate from "./uploadCertificate";
-
+import MultipleSelect from './drop'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +65,7 @@ function Hometwo() {
 
     return (
       <>
-        <Container maxWidth="sm">
+        <Container maxWidth="sm"  style={{ justifyContent: 'center', alignItems: 'center'}}  >
           <Typography
             component="h3"
             variant="h2"
@@ -81,8 +81,14 @@ function Hometwo() {
             color="textSecondary"
             paragraph
           >
-       Learn Web3 and Blockchain skills and reach your developing goals.
+          Learn Web3 and Blockchain skills and reach your developing goals.
           </Typography>
+
+
+          <div  style={{display:'flex', justifyContent: 'center', alignItems: 'center'}} >
+         <MultipleSelect/>
+         </div>
+
           {/* <section className="chatbot">
             <div className="chat-input-holder">
 

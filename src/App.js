@@ -119,6 +119,8 @@ import Profile from "./components/Profile";
 import Post from "./components/Posts/Post";
 import Cours from "./components/Teach/teach";
 import Certificat from "./components/Certificate/certificat";
+import Notification from './components/Notifications/Notification';
+
 
 function App(props) {
   const location = useLocation();
@@ -240,6 +242,7 @@ function App(props) {
         <Route exact path="/dashboard/settings" element={<Settings/>} />
         <Route exact path="/profile" element={<Profile/>} />
         <Route exact path="/post" element={<Post/>} />
+        <Route exact path="/notification" element={<Notification/>} />
         <Route exact path="/Course" element={<Cours/>} />
         <Route exact path="/terms" element={<TermsAndConditions/>} />
         <Route exact path="/certificates/:certificateNumber" element={<Certificat/>} /> 

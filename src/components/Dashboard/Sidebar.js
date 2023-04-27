@@ -17,12 +17,39 @@ import { Link } from "react-router-dom";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import Logout from "../auth/Logout";
+import axios from 'axios';
+import { useState, useEffect } from "react";
 
-export default function Sidebar(props) {
+export default function Sidebar(Email) {
+  const [NotificationCount, setNotificationCount] = useState(0);
+  
   const handleAlert = (message) => {
     alert(message);
   };
 
+
+  async function Count(){
+    const email = Email.props;
+    if (!email) {
+      console.log("Email not found.");
+      return;
+    }
+
+    //console.log(props.auth);
+    console.log('email in side bar',email);
+   
+      const response = await axios.get(`https://edunode.herokuapp.com/api/certificates/notification/count/${email}`);
+      if (response.data.length > 0) {
+        setNotificationCount(response.data[0].count);
+        console.log('sidebar',response.data)
+      }
+    } 
+  
+
+  useEffect(() => {
+    console.log('boooooooo');
+    Count();
+  });
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
@@ -87,11 +114,11 @@ export default function Sidebar(props) {
               </button>
             </li>
             <li className="sidebarListItem">
-              <div className="counter">0</div>
+              <div className="counter">{NotificationCount}</div>
               <NotificationsNoneIcon className="sidebarIcon" />
-              <button onClick={() => handleAlert("No new notifications")}>
-                Notifications
-              </button>
+              
+               <Link to='/notification'> Notifications</Link>
+              
             </li>
             <li className="sidebarListItem">
               <SmartToyIcon className="sidebarIcon" />

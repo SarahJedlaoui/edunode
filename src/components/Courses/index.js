@@ -78,7 +78,7 @@ class Courses extends Component {
       color: theme.palette.text.secondary,
     }));
     
-  
+    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
     const {
       isLoading,
       isAuthenticated,
@@ -96,7 +96,7 @@ class Courses extends Component {
         <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4} md={3}>
-            <Item><Sidebar /></Item>
+            <Item><Sidebar props={email}/></Item>
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
             <Item><Topbar /></Item>
@@ -121,7 +121,7 @@ class Courses extends Component {
         <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar /></Item>
+          <Item><Sidebar props={email} /></Item>
         </Grid>
         <Grid xs={7} sm={8.5} md={10}>
           <Item><Topbar /></Item>
@@ -154,7 +154,7 @@ class Courses extends Component {
         <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar /></Item>
+          <Item><Sidebar  props={email}/></Item>
         </Grid>
         <Grid xs={7} sm={8.5} md={10}>
           <Item><Topbar /></Item>
@@ -185,7 +185,7 @@ class Courses extends Component {
           <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar /></Item>
+          <Item><Sidebar props={email}/></Item>
         </Grid>
         <Grid xs={7} sm={8.5} md={10}>
           <Item><Topbar /></Item>

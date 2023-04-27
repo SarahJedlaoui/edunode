@@ -259,7 +259,7 @@ class Certificate extends Component {
       courseOneDone,
 
     } = this.props.auth;
-
+    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
     const { certificateCount, certificateUrls,certificateNumber,certificates } = this.state;
    // const certificateIds = certificateUrls.map(() => Math.random().toString(36).substring(7));
     //this.setState({
@@ -274,7 +274,7 @@ class Certificate extends Component {
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid xs={5} sm={3.5} md={2} item={1} >
-                  <Item><Sidebar /></Item>
+                  <Item><Sidebar props={email} /></Item>
                 </Grid>
 
                 <Grid xs={7} sm={8.5} md={10} item={1}>

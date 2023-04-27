@@ -282,13 +282,14 @@ class Teach extends Component {
       color: theme.palette.text.secondary,
     }));
     const { tags, title, link, description, success } = this.state;
+    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
     return (
 
       <div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={4} md={3}>
-              <Item><Sidebar /></Item>
+              <Item><Sidebar props={email} /></Item>
             </Grid>
             <Grid item xs={12} sm={8} md={9}>
               <Item><Topbar /></Item>

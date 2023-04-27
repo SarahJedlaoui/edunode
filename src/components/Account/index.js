@@ -130,6 +130,7 @@ class Account extends Component {
 
 renderProfileFields() {
   const locationLabel = this.props.auth.user.location ? this.props.auth.user.location : 'Location';
+  
   return (
     <>
       <TextField
@@ -220,6 +221,7 @@ renderProfileFields() {
       );
     }
     const { isUpdated } = this.state; // get isUpdated from state
+    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
     return (
       <>
       {isUpdated && (
@@ -230,7 +232,7 @@ renderProfileFields() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4} md={3}>
-            <Sidebar />
+            <Sidebar props={email} />
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
             <Topbar />

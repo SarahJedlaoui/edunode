@@ -16,7 +16,10 @@ class Dashboard extends Component {
   render() {
 
     const { isAuthenticated, isVerified, hasUsername,history, googleProfilePic, isGranted, user } = this.props.auth
-
+    const email= user.email;
+    console.log(email);
+    console.log('dashboard');
+    console.log(user);
     if (!isGranted && !isVerified && !isAuthenticated && !hasUsername) {
 
       return (
@@ -46,7 +49,7 @@ class Dashboard extends Component {
         <>
           <Grid container spacing={2}>
               <Grid item xs={5} md={2}>
-                <Sidebar props={user} />
+                <Sidebar props={email} />
               </Grid>
               <Grid item xs={7} sm={8.5} md={10}>
 
