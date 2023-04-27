@@ -78,7 +78,7 @@ class Courses extends Component {
       color: theme.palette.text.secondary,
     }));
     
-    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
+    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     const {
       isLoading,
       isAuthenticated,

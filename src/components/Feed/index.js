@@ -222,7 +222,7 @@ class Feed extends Component {
   
   render() {
 
-    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
+    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
 
 
     const Item = styled(Paper)(({ theme }) => ({

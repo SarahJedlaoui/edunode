@@ -259,7 +259,7 @@ class Certificate extends Component {
       courseOneDone,
 
     } = this.props.auth;
-    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
+    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     const { certificateCount, certificateUrls,certificateNumber,certificates } = this.state;
    // const certificateIds = certificateUrls.map(() => Math.random().toString(36).substring(7));
     //this.setState({

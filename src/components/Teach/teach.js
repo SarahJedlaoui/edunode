@@ -282,7 +282,7 @@ class Teach extends Component {
       color: theme.palette.text.secondary,
     }));
     const { tags, title, link, description, success } = this.state;
-    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
+    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     return (
 
       <div>
