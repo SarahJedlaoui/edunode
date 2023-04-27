@@ -41,7 +41,7 @@ class Home extends Component {
         <meta property="og:image" content="path/to/image.jpg" />
       </Helmet>
       <NavBar />
-      <MultipleSelect />
+      {/* <MultipleSelect /> */}
 
       <Hometwo/>
       
