@@ -16,7 +16,9 @@ class Dashboard extends Component {
   render() {
 
     const { isAuthenticated, isVerified, hasUsername,history, googleProfilePic, isGranted, user } = this.props.auth
-    const email= user.email;
+    const email= user && user.email ? user.email : "";
+  
+
     console.log(email);
     console.log('dashboard');
     console.log(user);

@@ -152,6 +152,57 @@ body
 
 }
 
+
+
+
+export const googleLogin = ({ email,name }) => dispatch => {
+  console.log(email)
+      dispatch({ type: USER_LOADING });
+  
+      // request body
+  
+      const body = JSON.stringify({ email,name});
+   
+  
+      fetch('http://localhost:5001/api/google', {
+        method: 'POST', 
+        headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json'
+  },
+  body
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log("new data", data)
+   if (data.user) {
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: data,
+    });
+    if (data.user.isVerified === true) {
+      dispatch({
+        type: VERIFICATION_SUCCESS,
+        payload: data,
+      });
+    }
+  } 
+   
+  
+  })
+        .catch((err) => {
+          console.log(err);
+  
+          dispatch({
+            type: LOGIN_FAIL,
+            payload: err
+          });
+        });
+  
+  }
+
+
+
 // send E-mail with confirmation code
 
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import TextField from '@mui/material/TextField'
@@ -11,7 +11,7 @@ import "./style.css";
 import albedologo from "./albedo.png"
 import albedo from '@albedo-link/intent'
 import { connect } from 'react-redux';
-import { albedoAuth, metamaskAuth, login, verifyGoogleUser, verifyTwitterUser, webThreeAuth, freighterAuth, mozartAuth } from "../../actions/authActions";
+import { albedoAuth, metamaskAuth, login,googleLogin, verifyGoogleUser, verifyTwitterUser, webThreeAuth, freighterAuth, mozartAuth } from "../../actions/authActions";
 import NavBar from "../NavBar";
 import { Image } from 'react-bootstrap';
 import { isConnected, getPublicKey } from "@stellar/freighter-api";
@@ -21,47 +21,12 @@ import m2logo from "./metamask2.png"
 import mozartlogo from "./mozartlogo.png"
 //import gapi from 'gapi';
 import { Navigate } from "react-router-dom";
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { useGoogleLogin } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode'
+import { useNavigate } from 'react-router-dom';
+import GoogleLog from './Google'
 
-function GoogleLoginButton({ onSuccess, onFailure }){
-  const { signIn, loaded, error, user } = useGoogleLogin({
-    clientId: '249576166536-cf5i54bf0th7cq3aln92cnkfksanqtda.apps.googleusercontent.com',
-    redirectUri: 'http://localhost:3000/', // Your app's redirect URI
-    onSuccess: handleSuccess, // Function to call after successful login
-    onFailure: handleFailure, // Function to call after failed login
-    accessType: 'offline',
-    responseType: 'code',
-    scope: 'https://www.googleapis.com/auth/userinfo.email',
-  });
 
-  function handleSuccess(user) {
-    console.log('User successfully logged in:', user);
-    // Store the user's email in your user model or state
-    const email = user.profile.email;
-    // Redirect to the appropriate page using React Router
-    // For example: history.push('/dashboard');
-  }
 
-  function handleFailure(error) {
-    console.error('Google sign-in error:', error);
-    console.error('Google sign-in error:', error);
-  }
-  function handleClick() {
-    console.log('Button clicked');
-    signIn();
-  }
-  return (
-    <Button
-      style={{ width: '300px' }}
-      variant="outlined"
-      onClick={handleClick}
-    >
-      Sign in with Google 🚀
-    </Button>
-  );
-}
 const validate = values => {
   const errors = {}
   const requiredFields = [
@@ -92,14 +57,58 @@ class Login extends Component {
       email: "",
       password: "",
       isLoading: false,
+      user: {},
       errors: {}
 
     }
+    this.handleCallBackResponse = this.handleCallBackResponse.bind(this);
 
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
 
   }
+
+  async handleCallBackResponse(response) {
+    console.log('encoded JWT ID Token :' + response.credential);
+    const userObject = jwt_decode(response.credential);
+    console.log(userObject);
+
+    const email = userObject.email;
+    const name  = userObject.name;
+    console.log(email);
+    console.log(name);
+
+
+    const { user } = this.state;
+    
+
+  
+
+     
+    
+      try {
+        const newUser = {
+          email,
+          name,
+        }
+        await this.props.googleLogin( newUser );
+        console.log('googlelogin executed');
+        if (this.props.user) {
+          this.props.navigate('/dashboard');
+        }
+      } catch (error) {
+        console.log(error);
+        console.log('googlelogin failed');
+      }
+    
+
+    if (this.props.user && typeof google !== 'undefined') {
+      this.props.navigate('/dashboard');
+    }
+
+
+  }
+
   handleLoginSuccess = (tokenResponse) => {
     console.log(tokenResponse);
     // perform any other actions on successful login
@@ -111,7 +120,25 @@ class Login extends Component {
     clearErrors: PropTypes.func.isRequired
   }
 
+  componentDidMount() {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        '249576166536-ctede4ekn8eipj22eucggedpbpirg6dc.apps.googleusercontent.com',
+      callback: this.handleCallBackResponse,
+    });
 
+    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+      theme: 'outline',
+      size: 'large',
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('googlelogin pre');
+    const { user } = this.state;
+   
+  }
 
   renderTextField = ({
     label,
@@ -317,19 +344,19 @@ class Login extends Component {
     return (
       <div>
         <NavBar />
-        <GoogleOAuthProvider clientId="463653089707-8p48kpc82eg0042v0gsh80bkfsv4m7uj.apps.googleusercontent.com">
-          <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-            <div>
 
-              <Typography>
-                Please log in.
-              </Typography>
-            </div>
+        <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+          <div>
+
+            <Typography>
+              Please log in.
+            </Typography>
+          </div>
 
 
-            <br></br>
+          <br></br>
 
-            <GoogleLogin
+          {  /*  <GoogleLogin
   onSuccess={credentialResponse => {
     console.log(credentialResponse);
     console.log('login success')
@@ -338,92 +365,95 @@ class Login extends Component {
     console.log('Login Failed');
   }}
   useOneTap
-/>
+/> 
             <div>
 
 
               <GoogleLoginButton/>
-            </div>
-            <br></br>
-            <div>
-              <Button
-                style={{ width: '300px' }}
-                onClick={handleMetamask}
-                variant="outlined"
-              >
-                <br></br>
-                {" "}Login with <Image style={{ width: '25px', display: "inline-block", margin: "20px 20px" }} src={mlogo} />
-              </Button>
+            </div>*/}
 
-            </div>
-            <div>
+<div id='signInDiv'></div>
+       
+          <br></br>
+          <div>
+            <Button
+              style={{ width: '300px' }}
+              onClick={handleMetamask}
+              variant="outlined"
+            >
+              <br></br>
+              {" "}Login with <Image style={{ width: '25px', display: "inline-block", margin: "20px 20px" }} src={mlogo} />
+            </Button>
 
-            </div>
-            <br></br>
-            <div>
-              <Button
-                style={{ width: '300px' }}
-                onClick={freighterHandler}
-                variant="outlined"
-              >
-                Login with <Image style={{ width: '85px', display: "inline-block", margin: "5px 5px" }} src={flogo} />
-              </Button>
-            </div>
-            <br></br>
-            <div>
-              <Button
-                style={{ width: '300px' }}
-                onClick={albedoHandler}
-                variant="outlined"
-              >
-                Login with <Image style={{ width: '95px', display: "inline-block", margin: "5px 5px", }} src={albedologo} />
+          </div>
+          <div>
 
-              </Button>
-            </div>
-            <div className="g-signin2" data-onsuccess="onSignIn"></div>
-            <br></br>
-            <div>
-            </div>
-            <div>
-              <Field
-                name="email"
-                type="text"
-                label="Email"
-                component={this.renderTextField}
-                id="email"
-                value={this.state.email}
-              />
-            </div>
-            <div>
-              <Field
-                name="password"
-                type="password"
-                label="Password"
-                component={this.renderTextField}
-                id="password"
-                value={this.state.password}
-              />
-            </div>
+          </div>
+          <br></br>
+          <div>
+            <Button
+              style={{ width: '300px' }}
+              onClick={freighterHandler}
+              variant="outlined"
+            >
+              Login with <Image style={{ width: '85px', display: "inline-block", margin: "5px 5px" }} src={flogo} />
+            </Button>
+          </div>
+          <br></br>
+          <div>
+            <Button
+              style={{ width: '300px' }}
+              onClick={albedoHandler}
+              variant="outlined"
+            >
+              Login with <Image style={{ width: '95px', display: "inline-block", margin: "5px 5px", }} src={albedologo} />
 
-            <div>
-              <Button
-                variant="contained"
-                id="button"
-                type="submit"
-                disabled={pristine || submitting}>
-                Login
-              </Button>
-            </div>
-            <div>
-              <p>{this.props.error.msg.msg}</p>
-            </div>
-            <div>
-              <Link to="/">
-                Return
-              </Link>
-            </div>
-          </form>
-        </GoogleOAuthProvider>;
+            </Button>
+          </div>
+          <div className="g-signin2" data-onsuccess="onSignIn"></div>
+          <br></br>
+          <div>
+          </div>
+          <div>
+            <Field
+              name="email"
+              type="text"
+              label="Email"
+              component={this.renderTextField}
+              id="email"
+              value={this.state.email}
+            />
+          </div>
+          <div>
+            <Field
+              name="password"
+              type="password"
+              label="Password"
+              component={this.renderTextField}
+              id="password"
+              value={this.state.password}
+            />
+          </div>
+
+          <div>
+            <Button
+              variant="contained"
+              id="button"
+              type="submit"
+              disabled={pristine || submitting}>
+              Login
+            </Button>
+          </div>
+          <div>
+            <p>{this.props.error.msg.msg}</p>
+          </div>
+          <div>
+            <Link to="/">
+              Return
+            </Link>
+          </div>
+        </form>
+
       </div>
 
     )
@@ -437,13 +467,14 @@ const mapStateToProps = state => ({
 })
 
 Login = connect(
-  mapStateToProps, { login, verifyGoogleUser, verifyTwitterUser, clearErrors, albedoAuth, webThreeAuth, freighterAuth, mozartAuth, metamaskAuth }
+  mapStateToProps, { login,googleLogin, verifyGoogleUser, verifyTwitterUser, clearErrors, albedoAuth, webThreeAuth, freighterAuth, mozartAuth, metamaskAuth }
 )(Login)
 
 export default Login = reduxForm({
   form: "LoginReduxForm",
   fields: ['email', 'password'],
   login,
+  googleLogin,
   validate,
   clearErrors,
   verifyGoogleUser,
