@@ -18,23 +18,28 @@ class SearchBar extends Component {
 
   performSearch = () => {
     const { searchQuery } = this.state;
-    
-    alert(searchQuery)
-    // Perform search logic here and update results state
-    // const results = mySearchFunction(searchQuery);
-    // this.setState({ results });
+  
+    fetch(`http://localhost:5001/api/search?query=${searchQuery}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ results: data.results });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   render() {
-    const { results } = this.state;
+    const { results, searchQuery } = this.state;
     return (
       <div>
         <input
           type="text"
           placeholder="Search..."
-          value={this.state.searchQuery}
+          value={searchQuery}
           onChange={this.handleInputChange}
         />
+        <button onClick={this.performSearch}>Search</button>
         {results.map(result => (
           <div key={result.id}>{result.title}</div>
         ))}

@@ -164,7 +164,7 @@ export const googleLogin = ({ email,name }) => dispatch => {
       const body = JSON.stringify({ email,name});
    
   
-      fetch('http://localhost:5001/api/google', {
+      fetch('https://edunode.herokuapp.com/api/google', {
         method: 'POST', 
         headers: {
     'Access-Control-Allow-Origin': '*',
