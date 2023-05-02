@@ -9,8 +9,10 @@ import {
   MailOutline,
   ChatBubbleOutline,
   Timeline,
+ 
   Report,
 } from "@mui/icons-material";
+import SearchIcon from '@mui/icons-material/Search';
 import PublishIcon from "@mui/icons-material/Publish";
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { Link } from "react-router-dom";
@@ -63,6 +65,12 @@ export default function Sidebar(Email) {
               <li className="sidebarListItem">
                 <LineStyle className="sidebarIcon" />
                 Home
+              </li>
+            </Link>
+            <Link to="/search" className="link">
+              <li className="sidebarListItem">
+                <SearchIcon className="sidebarIcon" />
+                Search
               </li>
             </Link>
             <Link to="/account" className="link">

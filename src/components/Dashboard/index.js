@@ -56,7 +56,7 @@ class Dashboard extends Component {
               <Grid item xs={7} sm={8.5} md={10}>
 
                 <Topbar />
-                <Search />
+              
 
 
 

@@ -13,8 +13,8 @@ import Project from "./components/Community/project";
 import Milestones from "./components/Milestones"
 import TermsAndConditions from "./components/Terms";
 import Courses from './components/Courses';
-import SearchBox from "./components/SearchBox";
-import SearchResultsPage from "./components/SearchBox/SearchResultsPage/index"
+//import SearchBox from "./components/SearchBox";
+//import SearchResultsPage from "./components/SearchBox/SearchResultsPage/index"
 import Questions1 from './components/Courses1/Questions';
 import Questions from './components/Courses/Questions';
 import QuestionsTwo from './components/Courses/QuestionsTwo';
@@ -120,7 +120,7 @@ import Post from "./components/Posts/Post";
 import Cours from "./components/Teach/teach";
 import Certificat from "./components/Certificate/certificat";
 import Notification from './components/Notifications/Notification';
-
+import Search from "./components/Search/Search";
 
 function App(props) {
   const location = useLocation();
@@ -137,9 +137,6 @@ function App(props) {
         <Route exact path="/community/project" element={<Project/>} />
         <Route exact path="/milestones" element={<Milestones/>} />
         <Route exact path="/courses" element={<Courses/>} />
-        <Route exact path="/search" element={<SearchBox/>} />
-        <Route exact path="/search-results/:query" element={<SearchResultsPage/>} />
-        <Route exact path="/search" element={<SearchBox/>} />
         <Route exact path="/courses/101/" element={<Intro/>} />
         <Route exact path="/courses/102/" element={<Intro1/>} />
         <Route exact path="/courses/103/" element={<Intro2/>} />
@@ -245,6 +242,7 @@ function App(props) {
         <Route exact path="/notification" element={<Notification/>} />
         <Route exact path="/Course" element={<Cours/>} />
         <Route exact path="/terms" element={<TermsAndConditions/>} />
+        <Route exact path="/search" element={<Search/>} />
         <Route exact path="/certificates/:certificateNumber" element={<Certificat/>} /> 
       </Routes>
     </Provider>

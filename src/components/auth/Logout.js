@@ -27,7 +27,7 @@ class LogoutModal extends Component {
     static propTypes = {
         logout: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
-        onChange:PropTypes.func.isRequired,
+        onChange:PropTypes.func,
     }
 
     
