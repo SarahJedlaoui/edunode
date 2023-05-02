@@ -21,7 +21,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: this.props.auth.user.email,
+      email:this.props.auth.user.email ? this.props.auth.user.email : '',
       prompt: "",
       isLoading: false,
       errors: {},
@@ -75,35 +75,38 @@ class Chat extends Component {
     };
 
    
-handleSubmit = async (event) => {
-  event.preventDefault();
-  const { input, conversation, email } = this.state;
-  if (input.trim()) {
-    this.setState({
-      conversation: [
-        ...conversation,
-        { message: input, sender: 'user' },
-      ],
-      input: '',
-    });
-console.log(conversation)
-    // Send input to AI and handle response
-    try {
-      const response = await axios.post('http://localhost:5001/api/chat/openai', { input, email });
-      const { message } = response.data;
-console.log(message)
-      this.setState((prevState) => ({
-        conversation: [
-          ...prevState.conversation,
-          { message, sender: 'ai' },
-        ],
-      }));
-    } catch (error) {
-      console.error("FRONETEND-ERROR", error);
-    }
-  }
-};
-
+    handleSubmit = async (event) => {
+      event.preventDefault();
+      const { input, email, conversation } = this.state;
+    
+      if (input.trim()) {
+        const newMessage = { message: input, sender: 'user' };
+        this.setState({ conversation: [...conversation, newMessage], input: '' });
+    
+        try {
+          const response = await axios.post('hhttps://edunode.herokuapp.com/api/chat/openai', { input, email });
+          const { msg } = response.data;
+          const aiMessage = { message: msg, sender: 'ai' };
+          this.setState({ conversation: [...conversation, aiMessage] });
+    
+          const historyResponse = await axios.get(`https://edunode.herokuapp.com/api/chat/openai/${email}`);
+          const { data } = historyResponse;
+          const history = data.map((item) => ({
+            message: item.input,
+            sender: 'user',
+          })).concat(data.map((item) => ({
+            message: item.output,
+            sender: 'ai',
+          })));
+    
+          this.setState({ conversation: history });
+        } catch (error) {
+          console.error('FRONETEND-ERROR', error);
+        }
+      }
+    };
+    
+    
     
     
 
