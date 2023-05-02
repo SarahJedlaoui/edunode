@@ -84,7 +84,7 @@ class Chat extends Component {
         this.setState({ conversation: [...conversation, newMessage], input: '' });
     
         try {
-          const response = await axios.post('hhttps://edunode.herokuapp.com/api/chat/openai', { input, email });
+          const response = await axios.post('https://edunode.herokuapp.com/api/chat/openai', { input, email });
           const { msg } = response.data;
           const aiMessage = { message: msg, sender: 'ai' };
           this.setState({ conversation: [...conversation, aiMessage] });
