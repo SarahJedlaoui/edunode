@@ -276,8 +276,8 @@ class Search extends Component {
                                                 value={searchQuery}
                                                 onChange={this.handleInputChange}
                                                 style={{ border: '1px solid gray', borderRadius: '5px', padding: '5px' }}
-                                               
-                                                
+
+
                                             />
                                             <button onClick={this.performSearch} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', padding: '5px' }} >Search</button>
                                             <div className="row justify-content-center card-deck d-flex">
@@ -285,7 +285,7 @@ class Search extends Component {
                                                     <div className="col-md-4 mb-4 h-100" key={course.id}>
                                                         <div className="card shadow h-100">
                                                             <div className="card-body">
-                                                            <h6 className="card-title"> Course </h6>
+                                                                <h6 className="card-title"> Course </h6>
                                                                 <h5 className="card-title">{course.title}</h5>
                                                                 <p className="card-text">{course.description}</p>
                                                                 <p className="card-text">
@@ -294,7 +294,7 @@ class Search extends Component {
                                                                         <FontAwesomeIcon icon={faLink} className="mr-2" />
                                                                         {course.link}
                                                                     </a>
-                                                                   
+
                                                                 </p>
                                                                 <p className="card-text">
                                                                     <small className="text-muted">
@@ -309,6 +309,7 @@ class Search extends Component {
                                                     <div className="col-md-4 mb-4 h-100" key={post.id}>
                                                         <div className="card shadow h-100">
                                                             <div className="card-body">
+                                                            <h6 className="card-title"> Post </h6>
                                                                 <h5 className="card-title">{post.title}</h5>
                                                                 <p className="card-text">{post.description}</p>
                                                                 <a href={post.link} className="card-link">
@@ -328,6 +329,7 @@ class Search extends Component {
                                                     <div className="col-md-4 mb-4 h-100" key={blog.id}>
                                                         <div className="card shadow h-100">
                                                             <div className="card-body">
+                                                            <h6 className="card-title"> Blog </h6>
                                                                 <h5 className="card-title">{blog.title}</h5>
                                                                 <p className="card-text">{blog.description}</p>
                                                                 <p className="card-text">
@@ -337,10 +339,10 @@ class Search extends Component {
                                                                     </a>
 
                                                                     <p className="card-text">
-                                                                    <small className="text-muted">
-                                                                        Tags: {blog.tags.join(", ")}
-                                                                    </small>
-                                                                </p>
+                                                                        <small className="text-muted">
+                                                                            Tags: {blog.tags.join(", ")}
+                                                                        </small>
+                                                                    </p>
                                                                 </p>
                                                             </div>
                                                         </div>

@@ -89,7 +89,7 @@ handleSubmit = async (event) => {
 console.log(conversation)
     // Send input to AI and handle response
     try {
-      const response = await axios.post('http://localhost:5001/api/openai/openai', { input, email });
+      const response = await axios.post('http://localhost:5001/api/chat/openai', { input, email });
       const { message } = response.data;
 console.log(message)
       this.setState((prevState) => ({
