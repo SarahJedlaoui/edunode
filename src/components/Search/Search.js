@@ -275,8 +275,11 @@ class Search extends Component {
                                                 placeholder="Search..."
                                                 value={searchQuery}
                                                 onChange={this.handleInputChange}
+                                                style={{ border: '1px solid gray', borderRadius: '5px', padding: '5px' }}
+                                               
+                                                
                                             />
-                                            <button onClick={this.performSearch}>Search</button>
+                                            <button onClick={this.performSearch} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', padding: '5px' }} >Search</button>
                                             <div className="row justify-content-center card-deck d-flex">
                                                 {results.courses && results.courses.map(course => (
                                                     <div className="col-md-4 mb-4 h-100" key={course.id}>
