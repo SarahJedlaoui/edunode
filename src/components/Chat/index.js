@@ -125,6 +125,9 @@ class Chat extends Component {
     event.preventDefault();
     const { input, email, messages } = this.state;
 
+     // Set loading to true when the request is sent
+  this.setState({ loading: true });
+
     // Send the new question to the backend to get the AI's response
     const response = await fetch('https://edunode.herokuapp.com/api/chat/openai', {
       method: 'POST',
@@ -134,8 +137,8 @@ class Chat extends Component {
     const data = await response.json();
     const aiResponse = data.msg;
 
-    // Update the state with the new chat message
-    this.setState({ input: '', messages: [...messages, { user: input, ai: aiResponse }] });
+    // Update the state with the new chat message and set loading to false
+    this.setState({ input: '', messages: [...messages, { user: input, ai: aiResponse }] , loading: false});
 
     // Get the chat history from the backend and update the state with it
     const response1 = await fetch(`https://edunode.herokuapp.com/api/chat/openai/${email}`);
@@ -171,7 +174,7 @@ class Chat extends Component {
 
     if (isAuthenticated) {
 
-      const { input, messages } = this.state;
+      const { input, messages, loading  } = this.state;
       return (
 
         <>
@@ -221,9 +224,9 @@ class Chat extends Component {
     }
     fullWidth
   />
-  <Button type="submit" variant="contained">
-    Send
-  </Button>
+  <Button type="submit" variant="contained" disabled={loading}>
+        {loading ? "Sending..." : "Send"}
+      </Button>
 </form>
                       </div>
                     </div>
