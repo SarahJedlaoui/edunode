@@ -25,7 +25,7 @@ import { Navigate } from "react-router-dom";
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
 import GoogleLog from './Google'
-import postscribe from 'postscribe';
+
 
 
 const validate = values => {
@@ -378,13 +378,8 @@ class Login extends Component {
               <GoogleLoginButton/>
             </div>*/}
 
-<<<<<<< HEAD
           {/*<div id='signInDiv'></div>*/}
 
-=======
-{/* <div id='signInDiv'></div> */}
-       
->>>>>>> 5970209 (update)
           <br></br>
           <div>
             <Button
