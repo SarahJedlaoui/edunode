@@ -378,8 +378,13 @@ class Login extends Component {
               <GoogleLoginButton/>
             </div>*/}
 
+<<<<<<< HEAD
           {/*<div id='signInDiv'></div>*/}
 
+=======
+{/* <div id='signInDiv'></div> */}
+       
+>>>>>>> 5970209 (update)
           <br></br>
           <div>
             <Button
