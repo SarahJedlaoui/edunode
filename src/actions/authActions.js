@@ -120,7 +120,9 @@ console.log(email)
       method: 'POST', 
       headers: {
   'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
+  'Content-Security-Policy': 'script-src',
+   'self' :'https://accounts.google.com'
 },
 body
 })

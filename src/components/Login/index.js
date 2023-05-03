@@ -1,3 +1,4 @@
+/*global google*/
 import React, { Component, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
@@ -11,7 +12,7 @@ import "./style.css";
 import albedologo from "./albedo.png"
 import albedo from '@albedo-link/intent'
 import { connect } from 'react-redux';
-import { albedoAuth, metamaskAuth, login,googleLogin, verifyGoogleUser, verifyTwitterUser, webThreeAuth, freighterAuth, mozartAuth } from "../../actions/authActions";
+import { albedoAuth, metamaskAuth, login, googleLogin, verifyGoogleUser, verifyTwitterUser, webThreeAuth, freighterAuth, mozartAuth } from "../../actions/authActions";
 import NavBar from "../NavBar";
 import { Image } from 'react-bootstrap';
 import { isConnected, getPublicKey } from "@stellar/freighter-api";
@@ -24,7 +25,7 @@ import { Navigate } from "react-router-dom";
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
 import GoogleLog from './Google'
-
+import postscribe from 'postscribe';
 
 
 const validate = values => {
@@ -74,33 +75,33 @@ class Login extends Component {
     console.log(userObject);
 
     const email = userObject.email;
-    const name  = userObject.name;
+    const name = userObject.name;
     console.log(email);
     console.log(name);
 
 
     const { user } = this.state;
-    
 
-  
 
-     
-    
-      try {
-        const newUser = {
-          email,
-          name,
-        }
-        await this.props.googleLogin( newUser );
-        console.log('googlelogin executed');
-        if (this.props.user) {
-          this.props.navigate('/dashboard');
-        }
-      } catch (error) {
-        console.log(error);
-        console.log('googlelogin failed');
+
+
+
+
+    try {
+      const newUser = {
+        email,
+        name,
       }
-    
+      await this.props.googleLogin(newUser);
+      console.log('googlelogin executed');
+      if (this.props.user) {
+        this.props.navigate('/dashboard');
+      }
+    } catch (error) {
+      console.log(error);
+      console.log('googlelogin failed');
+    }
+
 
     if (this.props.user && typeof google !== 'undefined') {
       this.props.navigate('/dashboard');
@@ -120,8 +121,12 @@ class Login extends Component {
     clearErrors: PropTypes.func.isRequired
   }
 
+
+
   componentDidMount() {
-    /* global google */
+
+
+
     google.accounts.id.initialize({
       client_id:
         '249576166536-ctede4ekn8eipj22eucggedpbpirg6dc.apps.googleusercontent.com',
@@ -134,10 +139,11 @@ class Login extends Component {
     });
   }
 
+
   componentDidUpdate(prevProps, prevState) {
     console.log('googlelogin pre');
     const { user } = this.state;
-   
+
   }
 
   renderTextField = ({
@@ -372,8 +378,8 @@ class Login extends Component {
               <GoogleLoginButton/>
             </div>*/}
 
-<div id='signInDiv'></div>
-       
+          {/*<div id='signInDiv'></div>*/}
+
           <br></br>
           <div>
             <Button
@@ -467,7 +473,7 @@ const mapStateToProps = state => ({
 })
 
 Login = connect(
-  mapStateToProps, { login,googleLogin, verifyGoogleUser, verifyTwitterUser, clearErrors, albedoAuth, webThreeAuth, freighterAuth, mozartAuth, metamaskAuth }
+  mapStateToProps, { login, googleLogin, verifyGoogleUser, verifyTwitterUser, clearErrors, albedoAuth, webThreeAuth, freighterAuth, mozartAuth, metamaskAuth }
 )(Login)
 
 export default Login = reduxForm({
