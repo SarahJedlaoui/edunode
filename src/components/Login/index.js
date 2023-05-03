@@ -140,11 +140,7 @@ class Login extends Component {
   }
 
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('googlelogin pre');
-    const { user } = this.state;
 
-  }
 
   renderTextField = ({
     label,
@@ -266,38 +262,8 @@ class Login extends Component {
 
 
     }
-    const accountChangedHandler = (newAccount) => {
-      // setDefaultAccount(newAccount)
-    }
-
-    const getUserBalance = (address) => {
-    }
-
-    // const handleCustomLogin = async (e) => {
-    //   e.preventDefault()
-    //   const {authenticate} = useMoralis
-    //   const user = await Moralis.authenticate({
-    //     provider: "web3Auth",
-    //      clientId: process.env.REACT_APP_WEBTHREEAUTH_CLIENT_ID,
-    //   theme: "light",
-    //   loginMethodsOrder: ["github", "twitter", "google", "discord", "facebook",  "reddit",  "twitch", "apple", "linkedin", "email_passwordless"]
-
-    //    })
-
-    //  const currentUser = Moralis.User.current();
-
-    //    const {id, className, currentLoginProvider} = currentUser
-    //    console.log(currentUser)
-    //    try {
-
-    //    await this.props.webThreeAuth(currentUser)
-
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
 
 
-    //   }
 
 
     const freighterHandler = async () => {
