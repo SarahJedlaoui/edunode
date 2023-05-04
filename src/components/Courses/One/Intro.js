@@ -84,9 +84,7 @@ export function VerticalLinearStepper(props) {
   const handleNext = () => {
     //  const step = activeStep
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-     setTimeout(function () {
-      window.location.href = '/courses/101/i';
-     }, 500);
+  
     
     //  progressBar(activeStep)
     // window.location.href = '/courses/101/i';

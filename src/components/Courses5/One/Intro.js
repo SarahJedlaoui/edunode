@@ -45,12 +45,9 @@ const useStyles = makeStyles((theme) => ({
 function getSteps() {
   return [
     'Introduction:',
-    'Distributed Ledger Technology (DLT):',
-    'Consensus Mechanisms:',
-    'Smart Contracts:',
-    'Privacy:',
-    'Identity Management:',
-    'Modularity:',
+    'What is Soroban?:',
+    'Key Features of Soroban:',
+    'Benefits of Soroban:',
     'Conclusion:',
     
   ];
@@ -59,21 +56,24 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return `Hyperledger is an open-source blockchain platform that was created by the Linux Foundation in 2015. It is designed to support enterprise blockchain applications with a focus on scalability, privacy, and security. Hyperledger is not a cryptocurrency, but rather a distributed ledger technology (DLT) that is used to build decentralized applications for businesses. In this post, we will cover the most important features and definitions of Hyperledger.`;
+      return `Soroban is a smart contract platform built on top of the Stellar blockchain by the Stellar Development Foundation. It is designed to provide developers with an easy-to-use platform for creating and deploying smart contracts that can be used in a wide range of applications.\
+      In this post, we will take a closer look at the Soroban smart contract platform and explore some of its key features and benefits.`;
     case 1:
-      return 'Hyperledger is a distributed ledger technology (DLT) that allows for the creation of a shared and decentralized database that can be accessed by all participants in a network. The ledger is distributed across all the nodes in the network, and each node has a copy of the ledger. This means that there is no need for a central authority to verify transactions or maintain the ledger.';
+      return 'Soroban is a smart contract platform that is built on top of the Stellar blockchain. It is designed to provide developers with an easy-to-use platform for creating and deploying smart contracts that can be used in a wide range of applications.\
+      Smart contracts are self-executing contracts with the terms of the agreement between buyer and seller being directly written into lines of code. The code and the agreements contained therein exist on a blockchain network, and the smart contract will automatically execute when certain conditions are met.\
+      Soroban is designed to be a flexible and scalable smart contract platform that can be used in a wide range of applications, from financial services to supply chain management.';
     case 2:
-      return 'Hyperledger uses different consensus mechanisms to verify transactions and maintain the integrity of the ledger. One of the most popular consensus mechanisms used by Hyperledger is the Practical Byzantine Fault Tolerance (PBFT) algorithm. PBFT is a fault-tolerant consensus algorithm that allows for fast transaction confirmation and is designed to be resistant to malicious attacks.';
+      return '1-Easy to use: Soroban is designed to be easy to use, even for developers who are not familiar with blockchain technology. The platform comes with a user-friendly interface that makes it easy to create and deploy smart contracts.\
+      2-Scalability: Soroban is built on top of the Stellar blockchain, which is known for its scalability. This means that Soroban can handle a large number of transactions without slowing down or becoming congested.\
+      3-Security: Soroban uses advanced security measures to ensure that smart contracts are secure and cannot be tampered with. The platform also has a built-in auditing system that can be used to track and monitor transactions.\
+      4-Interoperability: Soroban is designed to be interoperable with other blockchain networks and traditional financial systems. This means that it can be used in a wide range of applications and can integrate with existing systems and processes.';
     case 3:
-      return 'Hyperledger allows for the creation of smart contracts, which are self-executing contracts that can automate the negotiation and execution of agreements between parties. Smart contracts are written in programming languages such as Go or Java and are executed on the Hyperledger blockchain.';
+      return 'Cost-effective: Soroban is a cost-effective way to create and deploy smart contracts. It eliminates the need for intermediaries and reduces transaction costs, making it an ideal platform for businesses looking to save money on transactions.\
+      Faster transactions: Soroban is built on top of the Stellar blockchain, which is known for its fast transaction times. This means that smart contracts can be executed quickly and efficiently, reducing delays and improving overall efficiency.\
+      Enhanced transparency: Soroban provides enhanced transparency and accountability by enabling users to track and monitor transactions in real-time. This can help to prevent fraud and improve overall trust in the system.\
+      Improved efficiency: Soroban can help to improve efficiency by automating many of the processes involved in creating and executing smart contracts. This can save time and reduce errors, improving overall efficiency and productivity.';
     case 4:
-      return `Hyperledger provides different levels of privacy for transactions, depending on the needs of the application. This is achieved through the use of different technologies such as channels, which allow for private communication between specific parties, and Fabric Private Data Collections, which allow for the storage of private data within a channel.`;
-    case 5:
-      return `Hyperledger provides robust identity management capabilities, which enable participants to authenticate themselves on the network and control access to resources. This is achieved through the use of digital certificates and access control lists (ACLs).`;
-    case 6:
-      return `Hyperledger is a modular platform, which means that different components can be swapped out and replaced with other components as needed. This enables developers to customize the platform to meet the specific needs of their application.`;
-    case 7:
-      return `Hyperledger is a powerful blockchain platform that provides enterprise-grade features and capabilities. It is designed to support the creation of decentralized applications for businesses and provides different levels of privacy, identity management, and modularity. Hyperledger is a rapidly evolving technology, and developers who are interested in building applications on the platform should stay up-to-date with the latest developments and best practices.`;
+      return `Soroban is a powerful smart contract platform that is designed to be easy to use, scalable, and secure. It can be used in a wide range of applications, from financial services to supply chain management, and provides a cost-effective and efficient way to create and deploy smart contracts. If you are a developer looking to create smart contracts for your business, Soroban is definitely worth considering.`;
     default:
       return 'Unknown step';
   }
@@ -94,8 +94,7 @@ export function VerticalLinearStepper(props) {
   const handleNext = () => {
     //  const step = activeStep
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-   
-    
+     
     //  progressBar(activeStep)
     // window.location.href = '/courses/101/i';
 
@@ -159,7 +158,7 @@ export function VerticalLinearStepper(props) {
             Course completed - Now get ready for the
             Quiz.
           </Typography>
-          <Link to="/courses/105/1" className={classes.button}>
+          <Link to="/courses/106/1" className={classes.button}>
             Continue
           </Link>
         </Paper>
@@ -177,7 +176,7 @@ export function VerticalLinearStepper(props) {
 class Intro extends Component {
   navigateTo = () => {
     const navigate = useNavigate();
-    navigate('/courses/105');
+    navigate('/courses/106');
   }
   constructor(props) {
     super(props);

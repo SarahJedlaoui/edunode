@@ -26,7 +26,7 @@ const suggestedQuestions = [
   "What is Stellar?",
   "What is Soroban?",
   "What is smart Contracts?",
-  
+
 ];
 
 
@@ -42,6 +42,7 @@ class Chat extends Component {
       input: '',
       conversation: [],
       messages: [],
+      sessionMessages: [],
     }
 
     this.onChange = this.onChange.bind(this)
@@ -49,18 +50,27 @@ class Chat extends Component {
 
   }
 
-
-
-  componentDidUpdate(prevProps) {
-    const { error } = this.props;
-    if (error !== prevProps.error) {
-      if (error.id === 'LOGIN_FAIL') {
-        this.setState({ msg: error.msg.msg });
-      } else {
-        this.setState({ msg: null });
-      }
-    }
+     /**
+  componentDidMount() {
+    // Clear chat history when component mounts
+    this.setState({ messages: [] });
   }
+ */
+ 
+
+
+  componentDidUpdate() {
+
+     
+    // Scroll to the end of the page if new messages have been added
+    this.scrollToBottom();
+  }
+  
+  scrollToBottom() {
+    // Use the DOM API to scroll to the end of the page
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
 
   static propTypes = {
     isAuthenticated: PropTypes.bool,
@@ -123,10 +133,10 @@ class Chat extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { input, email, messages } = this.state;
+    const { input, email, sessionMessages } = this.state;
 
-     // Set loading to true when the request is sent
-  this.setState({ loading: true });
+    // Set loading to true when the request is sent
+    this.setState({ loading: true });
 
     // Send the new question to the backend to get the AI's response
     const response = await fetch('https://edunode.herokuapp.com/api/chat/openai', {
@@ -138,13 +148,22 @@ class Chat extends Component {
     const aiResponse = data.msg;
 
     // Update the state with the new chat message and set loading to false
-    this.setState({ input: '', messages: [...messages, { user: input, ai: aiResponse }] , loading: false});
+    this.setState({ input: '', sessionMessages: [...sessionMessages, { user: input, ai: aiResponse }], loading: false });
 
     // Get the chat history from the backend and update the state with it
-    const response1 = await fetch(`https://edunode.herokuapp.com/api/chat/openai/${email}`);
-    const data1 = await response1.json();
-    const chatHistory = data1.map(chat => ({ user: chat.input, ai: chat.output }));
-    this.setState({ messages: chatHistory });
+    //const response1 = await fetch(`https://edunode.herokuapp.com/api/chat/openai/${email}`);
+    //const data1 = await response1.json();
+    //const chatHistory = data1.map(chat => ({ user: chat.input, ai: chat.output }));
+    //this.setState({ messages: chatHistory });
+
+
+ // Clear the input field after the message is sent
+ this.setState({ input: '' });
+
+
+     // Scroll to the end of the page
+     window.scrollTo(0,document.body.scrollHeight);
+
   }
 
 
@@ -174,7 +193,7 @@ class Chat extends Component {
 
     if (isAuthenticated) {
 
-      const { input, messages, loading  } = this.state;
+      const { input, sessionMessages, loading } = this.state;
       return (
 
         <>
@@ -190,8 +209,8 @@ class Chat extends Component {
                   <div>
                     <div>
                       <div>
-                       
-                        {messages.map((message, index) => (
+
+                        {sessionMessages.map((message, index) => (
                           <div key={index}>
 
                             <Alert severity="info"><Typography variant="h6">User:</Typography> {message.user}</Alert>
@@ -202,32 +221,35 @@ class Chat extends Component {
                           </div>
                         ))}
 
-<form onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSubmit}>
 
 
 
-<div>
-<h2>Suggested Questions:</h2>
-{suggestedQuestions.map((question, index) => (
-<button key={index} onClick={() => this.setState({ input: question }, this.handleSubmit)}>
-{question}
-</button>
-))}
-</div>
+                          <div>
+                            <h2>Suggested Questions:</h2>
+                            <br></br>
+                            {suggestedQuestions.map((question, index) => (
+                              <Button key={index} variant="contained" onClick={() => this.setState({ input: question }, this.handleSubmit)}>
+                                {question}
+                              </Button>
+                            ))}
+                          </div>
+                          <br></br>
 
+                          <TextField
+                            label="Ask a question"
+                            value={input}
+                            onChange={(event) =>
+                              this.setState({ input: event.target.value })
+                            }
+                            fullWidth
+                          />
+                          <Button type="submit" variant="contained" disabled={loading}>
+                            {loading ? "Sending..." : "Send"}
+                          </Button>
+                        </form>
+                        <div ref={el => this.messagesEnd = el}></div>
 
-  <TextField
-    label="Ask a question"
-    value={input}
-    onChange={(event) =>
-      this.setState({ input: event.target.value })
-    }
-    fullWidth
-  />
-  <Button type="submit" variant="contained" disabled={loading}>
-        {loading ? "Sending..." : "Send"}
-      </Button>
-</form>
                       </div>
                     </div>
                   </div>

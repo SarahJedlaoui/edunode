@@ -41,6 +41,11 @@ import QuestionsTwo4 from './components/Courses4/QuestionsTwo';
 import QuestionsThree4 from './components/Courses4/QuestionsThree';
 import QuestionsFour4 from './components/Courses4/QuestionsFour';
 import QuestionsFive4 from './components/Courses4/QuestionsFive';
+import Questions5 from './components/Courses5/Questions';
+import QuestionsTwo5 from './components/Courses5/QuestionsTwo';
+import QuestionsThree5 from './components/Courses5/QuestionsThree';
+import QuestionsFour5 from './components/Courses5/QuestionsFour';
+import QuestionsFive5 from './components/Courses5/QuestionsFive';
 import Intro from './components/Courses/One/Intro';
 import Intro1 from './components/Courses1/One/Intro';
 import Intro2 from './components/Courses2/One/Intro';
@@ -71,16 +76,24 @@ import Introii4 from './components/Courses4/One/Introii';
 import Introiii4 from './components/Courses4/One/Introiii';
 import Introiiii4 from './components/Courses4/One/Introiiii';
 import Introiiiii4 from './components/Courses4/One/Introiiiii';
+import Intro5 from './components/Courses5/One/Intro';
+import Introi5 from './components/Courses5/One/Introi';
+import Introii5 from './components/Courses5/One/Introii';
+import Introiii5 from './components/Courses5/One/Introiii';
+import Introiiii5 from './components/Courses5/One/Introiiii';
+import Introiiiii5 from './components/Courses5/One/Introiiiii';
 import Coursedone from "./components/Courses/Coursedone"
 import Coursedone1 from "./components/Courses1/Coursedone"
 import Coursedone2 from "./components/Courses2/Coursedone"
 import Coursedone3 from "./components/Courses3/Coursedone"
 import Coursedone4 from "./components/Courses4/Coursedone"
+import Coursedone5 from "./components/Courses5/Coursedone"
 import Keybase from "./components/Blog/Articles/Keybase";
 import Issue from "./components/Blog/Articles/Issue";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Chat from "./components/Chat";
+import History from "./components/Chat/history";
 import Blog from "./components/Blog";
 import VerifyEmail from "./components/VerifyEmail";
 import Stellarnomics from "./components/Blog/Articles/Stellarnomics";
@@ -142,6 +155,7 @@ function App(props) {
         <Route exact path="/courses/103/" element={<Intro2/>} />
         <Route exact path="/courses/104/" element={<Intro3/>} />
         <Route exact path="/courses/105/" element={<Intro4/>} />
+        <Route exact path="/courses/106/" element={<Intro5/>} />
         <Route exact path="/courses/101/i" element={<Introi/>} />
         <Route exact path="/courses/101/ii" element={<Introii/>} />
         <Route exact path="/courses/101/iii" element={<Introiii/>} />
@@ -167,6 +181,11 @@ function App(props) {
         <Route exact path="/courses/105/iii" element={<Introiii4/>} />
         <Route exact path="/courses/105/iiii" element={<Introiiii4/>} />
         <Route exact path="/courses/105/iiiii" element={<Introiiiii4/>} />
+        <Route exact path="/courses/106/i" element={<Introi5/>} />
+        <Route exact path="/courses/106/ii" element={<Introii5/>} />
+        <Route exact path="/courses/106/iii" element={<Introiii5/>} />
+        <Route exact path="/courses/106/iiii" element={<Introiiii5/>} />
+        <Route exact path="/courses/106/iiiii" element={<Introiiiii5/>} />
         <Route exact path="/courses/101/1" element={<Questions/>} />
         <Route exact path="/courses/101/2" element={<QuestionsTwo/>} />
         <Route exact path="/courses/101/3" element={<QuestionsThree/>} />
@@ -198,6 +217,12 @@ function App(props) {
         <Route exact path="/courses/105/4" element={<QuestionsFour4/>} />
         <Route exact path="/courses/105/5" element={<QuestionsFive4/>} />
         <Route exact path="/courses/105/done" element={<Coursedone4/>} />
+        <Route exact path="/courses/106/1" element={<Questions5/>} />
+        <Route exact path="/courses/106/2" element={<QuestionsTwo5/>} />
+        <Route exact path="/courses/106/3" element={<QuestionsThree5/>} />
+        <Route exact path="/courses/106/4" element={<QuestionsFour5/>} />
+        <Route exact path="/courses/106/5" element={<QuestionsFive5/>} />
+        <Route exact path="/courses/106/done" element={<Coursedone5/>} />
         <Route exact path="/blog" element={<Blog/>} />
         <Route exact path="/blog/What-is-Keybase" element={<Keybase/>} />
         <Route exact path="/blog/How-to-issue" element={<Issue/>} />
@@ -244,6 +269,7 @@ function App(props) {
         <Route exact path="/terms" element={<TermsAndConditions/>} />
         <Route exact path="/search" element={<Search/>} />
         <Route exact path="/certificates/:certificateNumber" element={<Certificat/>} /> 
+        <Route exact path="/historyChat" element={<History/>} />
       </Routes>
     </Provider>
   );

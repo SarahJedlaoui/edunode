@@ -49,7 +49,7 @@ export function AlertDialog(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {/* {"Are you sure?"} */}
+           {"Basic Concepts"} 
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">

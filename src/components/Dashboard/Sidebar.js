@@ -133,6 +133,10 @@ export default function Sidebar(Email) {
               <Link to="/chat">Chat</Link>
             </li>
             <li className="sidebarListItem">
+              <SmartToyIcon className="sidebarIcon" />
+              <Link to="/historyChat">Chat History</Link>
+            </li>
+            <li className="sidebarListItem">
               <Report className="sidebarIcon" />
               <button
                 onClick={() => {

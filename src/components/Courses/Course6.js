@@ -4,10 +4,8 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
-import seps from './hyperledger.png';
+import sor from './sor.png';
 import { Button } from 'react-bootstrap';
-import { Redirect, BrowserRouter, Link } from 'react-router-dom';
-
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -26,7 +24,7 @@ export function AlertDialog() {
   };
   const handleConfirm = (e) => {
     setOpen(false);
-    window.location.href = '/courses/105/';
+    window.location.href = '/courses/106/';
 
 
   };
@@ -46,7 +44,7 @@ export function AlertDialog() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Hyperledger"}
+          {"Soroban"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -96,14 +94,14 @@ export default function Course5() {
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={seps} />
+              <img className={classes.img} alt="complex" src={sor} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  In this course you will learn about Hyperledger.
+                  In this course you will learn about Soroban.
                 </Typography>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
