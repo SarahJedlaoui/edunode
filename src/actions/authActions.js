@@ -510,7 +510,7 @@ export const albedoAuth = ({
 
   try {
     const res = await axios.post(
-      'https://desolate-woodland-50855.herokuapp.com/api/albedo', 
+      'https://edunode.herokuapp.com/api/albedo', 
       body, 
       config
     );

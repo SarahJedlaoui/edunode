@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 import NavBar from "../NavBar"
 import Helmet from "react-helmet"
 import Footer from "../Footer"
-import UploadCertificate from './uploadCertificate.js';
 
 
 class Home extends Component {
@@ -41,8 +40,8 @@ class Home extends Component {
         <meta property="og:image" content="path/to/image.jpg" />
       </Helmet>
       <NavBar />
-      {/* <SearchBar placeholder={"search"}/> */}
-      {/* <UploadCertificate /> */}
+
+
       <Hometwo/>
       
       <Footer/>

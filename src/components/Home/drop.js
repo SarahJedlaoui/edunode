@@ -78,13 +78,13 @@ export default function MultipleSelect() {
                         >
                             Teach
                         </MenuItem>
-                        <MenuItem
+                        {/* <MenuItem
                             key="Certify"
                             value="Certify"
                             style={getStyles("Certify", personName, theme)}
                         >
                             Certify
-                        </MenuItem>
+                        </MenuItem> */}
                     </Select>
                 </FormControl>
             </div >

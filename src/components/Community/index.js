@@ -1,5 +1,5 @@
 import React from "react";
-//import Map from "../Map";
+import Map from "../Map";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -341,7 +341,7 @@ function Community() {
           <br></br>
           <p>To open the links, please click for half a second</p>
           <div>
-            {/*<Map/>*/}
+      
           </div>
           <br></br>
           <br></br>

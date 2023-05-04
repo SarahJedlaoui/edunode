@@ -98,7 +98,7 @@ import Security from './components/Blog/Articles/Security';
 import NFT from './components/Blog/Articles/NFT';
 import Certificate from "./components/Certificate"
 import Web3 from "./components/Blog/Articles/Web3"
-import ChessBoard from "./components/Chess/";
+import ChessBoardEditor from "./components/Chess/";
 import Feed from "./components/Feed";
 import Gcallback from "./components/Gcallback";
 import Hyperledger from "./components/Hyperledger"
@@ -217,7 +217,7 @@ function App(props) {
         <Route exact path="/blog/automated-market-maker" element={<AMM/>} />
         <Route exact path="/blog/learn-about-blockchain" element={<Blockchain/>} />
         <Route exact path="/projects" element={<Projects/>} />
-        <Route exact path="/chess" element={<ChessBoard/>} />
+        <Route exact path="/chess" element={<ChessBoardEditor/>} />
         <Route exact path="/feed" element={<Feed/>} />
         <Route exact path="/gcallback" element={<Gcallback/>} />
         <Route exact path="/hyperledger" element={<Hyperledger/>} />

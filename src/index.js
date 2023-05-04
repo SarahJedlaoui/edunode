@@ -6,6 +6,8 @@ import { store } from "./store";
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './tailwind.output.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import './index.css';
 
 createRoot(document.getElementById('root')).render(
 
