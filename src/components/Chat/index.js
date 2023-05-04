@@ -20,13 +20,10 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-
-
 const suggestedQuestions = [
-  "What is Stellar?",
-  "What is Soroban?",
-  "What is smart Contracts?",
-  
+  "What is the Stellar Network?",
+  "What is the Soroban Smart Contract Platform?",
+  "What is a Decentralized Certification?",
 ];
 
 
@@ -122,7 +119,7 @@ class Chat extends Component {
   */
 
   handleSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const { input, email, messages } = this.state;
 
      // Set loading to true when the request is sent
@@ -206,14 +203,22 @@ class Chat extends Component {
 
 
 
-<div>
+{/* <div>
 <h2>Suggested Questions:</h2>
 {suggestedQuestions.map((question, index) => (
 <button key={index} onClick={() => this.setState({ input: question }, this.handleSubmit)}>
 {question}
 </button>
 ))}
-</div>
+</div> */}
+<Box>
+  <Typography variant="h6">Suggested prompts:</Typography>
+  {suggestedQuestions.map((question, index) => (
+    <Button key={index} variant="contained" color="primary" onClick={() => this.setState({ input: question }, this.handleSubmit)}>
+      {question}
+    </Button>
+  ))}
+</Box>
 
 
   <TextField

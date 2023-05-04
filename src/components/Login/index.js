@@ -274,6 +274,10 @@ class Login extends Component {
 
         await this.props.freighterAuth(pkey)
 
+        return (
+          <Navigate to="/dashboard" />
+        );
+
       }
 
       // alert("not conected")
