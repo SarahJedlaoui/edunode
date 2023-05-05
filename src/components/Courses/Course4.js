@@ -107,6 +107,11 @@ export default function Course3() {
                   way for anchors and wallets to interact on behalf of
                   users.
                 </Typography>
+                <p className="card-text">
+          <small className="text-muted">
+            Tags: SEPs
+          </small>
+        </p>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
                   variant="body2"

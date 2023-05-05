@@ -105,6 +105,11 @@ export default function Course5() {
                 <Typography gutterBottom variant="subtitle1">
                   In this course you will learn about Hyperledger.
                 </Typography>
+                <p className="card-text">
+          <small className="text-muted">
+            Tags: Hyperledger
+          </small>
+        </p>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
                   variant="body2"

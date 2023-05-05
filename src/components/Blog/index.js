@@ -70,6 +70,7 @@ const featuredPosts = [
     image: sa,
     imageText: 'Image Text',
     link: '/blog/How-to-issue',
+    tags:['Stellar']
   },
   {
     title: 'What is Keybase?',
@@ -79,6 +80,7 @@ const featuredPosts = [
     image: ek,
     imageText: 'Keybase',
     link: '/blog/What-is-Keybase',
+    tags:['Keybase']
   },
   {
     title: 'Stellarnomics',
@@ -88,6 +90,7 @@ const featuredPosts = [
     image: ec,
     imageText: 'Stellarnomics',
     link: '/blog/Stellarnomics',
+    tags:['Stellarnomics','Stellar']
   },
   {
     title: 'Kelp: Setup your first trading bot',
@@ -97,6 +100,7 @@ const featuredPosts = [
     image: kelpword,
     imageText: 'Kelp',
     link: '/blog/kelp',
+    tags:['Kelp']
   },
   {
     title: 'Identity verification with Albedo',
@@ -106,6 +110,7 @@ const featuredPosts = [
     image: albedologo,
     imageText: 'Albedo',
     link: '/blog/albedo',
+    tags:['Albedo']
   },
   {
     title: 'How to keep your lumens safe.',
@@ -115,6 +120,7 @@ const featuredPosts = [
     image: security,
     imageText: 'Tips and Security tools',
     link: '/blog/security-tools',
+    tags:['Stellar']
   },
   {
     title: 'What are NFTs and how to mint them using the Stellar Network?',
@@ -124,6 +130,7 @@ const featuredPosts = [
     image: nft,
     imageText: 'NFTs on Stellar',
     link: '/blog/minting-nfts',
+    tags:['NFT']
   },
   {
     title: 'What are Smart Contracts?',
@@ -133,6 +140,7 @@ const featuredPosts = [
     image: sc,
     imageText: 'Smart Contracts',
     link: '/blog/smart-contracts',
+    tags:['Smart Contracts']
   },
   {
     title: 'DeFi Explained: What is an Automated Market Maker?',
@@ -142,6 +150,7 @@ const featuredPosts = [
     image: amm,
     imageText: 'DeFi Explained: What is an Automated Market Maker?',
     link: '/blog/automated-market-maker',
+    tags:['AMM']
   },
   {
     title: 'Learn about Blockchain',
@@ -151,6 +160,7 @@ const featuredPosts = [
     image: suave,
     imageText: 'Learn about Blockchain and how to apply it to your day-to-day business life',
     link: '/blog/learn-about-blockchain',
+    tags:['Blockchain']
   },
   {
     title: 'The Web3 Revolution And The New Creator Economy',
@@ -160,6 +170,7 @@ const featuredPosts = [
     image: creator,
     imageText: 'Learn about Blockchain and how to apply it to your day-to-day business life',
     link: '/blog/the-web3-revolution',
+    tags:['Web3']
   },
   {
     title: 'Learn about Docker',
@@ -169,6 +180,7 @@ const featuredPosts = [
     image: docker,
     imageText: 'Learn about Docker and how to apply it in Blockchain',
     link: '/blog/Docker',
+    tags:['Doker']
   },
   {
     title: 'Learn about IPFS',
@@ -178,6 +190,7 @@ const featuredPosts = [
     image:ipfs,
     imageText: 'Learn about IPFS, what are the most popular applications, and how you can use it to store images',
     link: '/blog/ipfs',
+    tags:['IPFS']
   },
   // {
   //   title: 'Learn about Soroban',

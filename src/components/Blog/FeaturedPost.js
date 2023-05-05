@@ -43,6 +43,11 @@ export default function FeaturedPost(props) {
               <Typography variant="subtitle1" color="primary">
                 Read more...
               </Typography>
+              <p className="card-text">
+          <small className="text-muted">
+          Tags: {post.tags.join(", ")}
+          </small>
+        </p>
             </CardContent>
           </div>
           <Hidden xsDown>

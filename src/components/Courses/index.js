@@ -102,7 +102,7 @@ class Courses extends Component {
           <Grid item xs={12} sm={8} md={9}>
             <Item><Topbar /></Item>
             <div style={{ padding: '10px' }}>
-              <Course1doneclaim />
+              <Course1 />
               <Course2 />
               <Course3 />
               <Course4 />
@@ -130,7 +130,7 @@ class Courses extends Component {
           <div className="myDiv">
           <Welcome />
           <br></br>
-          <Course1done />
+          <Course1 />
           <br></br>
           <Course2 />
           <br></br>

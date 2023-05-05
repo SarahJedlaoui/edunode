@@ -105,6 +105,11 @@ export default function Course2() {
                   Learn about the operations which allow you to
                   connect to the Stellar Network.
                 </Typography>
+                <p className="card-text">
+          <small className="text-muted">
+            Tags: Stellar
+          </small>
+        </p>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
                   variant="body2"

@@ -121,6 +121,11 @@ function Course1(props) {
                   In this course, you will learn the basic concepts of
                   the Stellar Network.
                 </Typography>
+                <p className="card-text">
+          <small className="text-muted">
+            Tags: Stellar
+          </small>
+        </p>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
                   variant="body2"
