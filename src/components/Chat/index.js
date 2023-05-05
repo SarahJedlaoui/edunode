@@ -21,12 +21,16 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 
-
 const suggestedQuestions = [
-  "What is Stellar?",
-  "What is Soroban?",
-  "What is smart Contracts?",
-
+  "What is the Stellar Network?",
+  "What is the Soroban Smart Contract Platform?",
+  "How does Oracles Work?",
+  "What is Hyperledger?",
+  "What is Ethereum?",
+  "What is Solidity?",
+  "How to build a React app?",
+  "How does IPFS work?",
+  "What are NFTs?"
 ];
 
 
