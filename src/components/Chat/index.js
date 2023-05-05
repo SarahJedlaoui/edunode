@@ -21,12 +21,16 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 
-
 const suggestedQuestions = [
-  "What is Stellar?",
-  "What is Soroban?",
-  "What is smart Contracts?",
-
+  "What is the Stellar Network?",
+  "What is the Soroban Smart Contract Platform?",
+  "How does Oracles Work?",
+  "What is Hyperledger?",
+  "What is Ethereum?",
+  "What is Solidity?",
+  "How to build a React app?",
+  "How does IPFS work?",
+  "What are NFTs?"
 ];
 
 
@@ -98,38 +102,7 @@ class Chat extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  /**
-   handleSubmit = async (event) => {
-    event.preventDefault();
-    const { input, email, conversation } = this.state;
   
-    if (input.trim()) {
-      const newMessage = { message: input, sender: 'user' };
-      this.setState({ conversation: [...conversation, newMessage], input: '' });
-  
-      try {
-        const response = await axios.post('https://edunode.herokuapp.com/api/chat/openai', { input, email });
-        const { msg } = response.data;
-        const aiMessage = { message: msg, sender: 'ai' };
-        this.setState({ conversation: [...conversation, aiMessage] });
-  
-        const historyResponse = await axios.get(`https://edunode.herokuapp.com/api/chat/openai/${email}`);
-        const { data } = historyResponse;
-        const history = data.map((item) => ({
-          message: item.input,
-          sender: 'user',
-        })).concat(data.map((item) => ({
-          message: item.output,
-          sender: 'ai',
-        })));
-  
-        this.setState({ conversation: history });
-      } catch (error) {
-        console.error('FRONETEND-ERROR', error);
-      }
-    }
-  };
-  */
 
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -205,7 +178,7 @@ class Chat extends Component {
                 </Grid>
 
                 <Grid xs={7} sm={8.5} md={10}>
-                  <Item><Topbar /></Item>
+                   <Item><Topbar /></Item> 
                   <div>
                     <div>
                       <div>
@@ -275,11 +248,11 @@ class Chat extends Component {
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid xs={5} sm={3.5} md={2}>
-                <Item><Sidebar /></Item>
+                {/* <Item><Sidebar /></Item> */}
               </Grid>
 
               <Grid xs={7} sm={8.5} md={10}>
-                <Item><Topbar /></Item>
+             <Item><Topbar /></Item> 
                 <div>
                   <div>
                     <div>
@@ -296,36 +269,6 @@ class Chat extends Component {
               </Grid>
 
             </Grid>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
             
 
             <Footer />
