@@ -161,7 +161,7 @@ class History extends Component {
                           <div>
                             <div>
                               <h4>Please login to access the chat feature </h4>
-                              <button onclick="location.href='/login'" background >Login</button>
+                              <a href='/login'>Login</a>
         
                             
                               <div ref={el => this.messagesEnd = el}></div>
