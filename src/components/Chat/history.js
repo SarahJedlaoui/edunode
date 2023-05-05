@@ -111,7 +111,7 @@ class History extends Component {
                                 </Grid>
 
                                 <Grid item xs={12} sm={8.5} md={10}>
-                                    <Item><Topbar /></Item>
+                                     <Item><Topbar /></Item> 
                                     <div>
                                         <div>
                                             <div>
@@ -134,7 +134,7 @@ class History extends Component {
                                 </Grid>
 
                             </Grid>
-                            <Footer />
+                            {/* <Footer /> */}
                         </Box>
                     </div>
                 </>

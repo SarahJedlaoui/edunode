@@ -32,13 +32,13 @@ export default class Sep extends Component {
         
         return (
           <div>
-            <NavBar />
+            {/* <NavBar /> */}
 <div>
 <div>
 <pre>{this.state.response}</pre>
     </div>
 </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         );
     }

@@ -252,10 +252,6 @@ renderProfileFields() {
   }
 }
 
-
-
-
-
 const countries = [
   { code: 'AD', label: 'Andorra', phone: '376' },
   {
@@ -680,8 +676,6 @@ const countries = [
   { code: 'ZM', label: 'Zambia', phone: '260' },
   { code: 'ZW', label: 'Zimbabwe', phone: '263' },
 ];
-
-
 
 const mapStateToProps = (state) => ({
   auth: state.auth
