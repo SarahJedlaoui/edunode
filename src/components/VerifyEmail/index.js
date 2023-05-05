@@ -86,6 +86,7 @@ class VerifyEmail extends Component {
     });
   };
   handleClose = () => {
+    console.log('close')
     this.setState({
       open: false
     });
@@ -108,7 +109,7 @@ class VerifyEmail extends Component {
   handleSave = () => {
     // Get the selected tags from state
     const { selectedTags, open } = this.state;
-    this.setState({open: false});
+    
     // Make an HTTP request to your backend to save the selected tags
     axios.post('/api/user/preferences', { preferences: selectedTags })
       .then(response => {
@@ -119,7 +120,7 @@ class VerifyEmail extends Component {
       .catch(error => {
         console.error(error); // Log any errors that occur
       });
-   
+      this.handleClose();
   };
 
   componentDidUpdate(prevProps) {
@@ -200,6 +201,8 @@ class VerifyEmail extends Component {
   };
 
   render() {
+    const { open } = this.state;
+
     const { tags, selectedTags, showModal } = this.state;
     const Item = styled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
@@ -236,9 +239,9 @@ class VerifyEmail extends Component {
       return (
         <div>
           <div>
-
+          <button onClick={this.handleOpen}>Open Modal</button>
             <Modal
-              open={this.handleOpen}
+              open= 'true'
               onClose={this.handleClose}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
@@ -376,79 +379,6 @@ class VerifyEmail extends Component {
       );
     }
 
-    //     return (
-    //       <div>
-    //         <div>
-    //             <Box sx={{ flexGrow: 1 }}>
-    //       <Grid container spacing={2}>
-    //         <Grid xs={5} sm={3.5} md={2}>
-    //           <Item><Sidebar /></Item>
-    //         </Grid>
-
-    //         <Grid xs={7} sm={8.5} md={10}>
-    //           <Item><Topbar /></Item>
-    //           <div>
-    //           <div  className="centered">
-
-    //           </div>
-    //           <div  className="centered">
-
-    //          </div>
-    //          <div  className="centered">
-    //          <Container>
-    //           <Row>
-    //             <Alert className="text-center" severity="warning">
-    //               We have sent a verification a code to{" "}
-    //               {/* <b>{this.props.auth.user.email.email}</b>, please check your inbox (or */}
-    //               in spam folder) and enter the code below to verify your account or
-    //               click{" "}
-    //               <Button onClick={this.resendEmail} type="submit">
-    //                 <b>here</b>
-    //               </Button>{" "}
-    //               if you would like us to resend the email.{" "}
-    //             </Alert>
-
-    //             <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-    //               <div>
-    //                 <Field
-    //                   component={this.renderTextField}
-    //                   value={this.state.confirmationCode}
-    //                   type="text"
-    //                   label="Confirmation Code"
-    //                   name="confirmationCode"
-    //                   id="code"
-    //                 />
-    //               </div>
-    //               <div>
-    //                 <Button
-    //                   variant="contained"
-    //                   id="button"
-    //                   type="submit"
-    //                   disabled={pristine || submitting}
-    //                 >
-    //                   Verify
-    //                 </Button>
-    //               </div>
-    //               <div>
-    //         <p>{this.props.error.msg.msg}</p>
-    //         <p>{this.props.auth.message}</p>
-    //         </div>
-    //             </form>
-    //           </Row>
-    //         </Container>
-    //         </div>
-    // </div>
-
-    //         </Grid>
-
-    //       </Grid>
-    //       <Footer />
-    //     </Box>
-    //         </div>
-    //         < br />
-
-    //       </div>
-    //     );
   }
 }
 
