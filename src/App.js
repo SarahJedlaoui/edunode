@@ -271,8 +271,12 @@ function App(props) {
         <Route exact path="/terms" element={<TermsAndConditions/>} />
         <Route exact path="/search" element={<Search/>} />
         <Route exact path="/certificates/:certificateNumber" element={<Certificat/>} /> 
+<<<<<<< HEAD
         <Route exact path="/historyChat" element={<History/>} />
         <Route exact path="/.well-known/stellar.toml" element={<Sep/>} />
+=======
+        <Route exact path="/chat/history" element={<History/>} />
+>>>>>>> 4589a4b (commit)
       </Routes>
     </Provider>
   );
