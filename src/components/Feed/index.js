@@ -255,9 +255,9 @@ class Feed extends Component {
       <div>
             <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid xs={5} sm={3.5} md={2}>
+        {/* <Grid xs={5} sm={3.5} md={2}>
           <Item><Sidebar props={email}/></Item>
-        </Grid>
+        </Grid> */}
      
         <Grid xs={7} sm={8.5} md={10}>
           <Item><Topbar /></Item>
@@ -269,24 +269,7 @@ class Feed extends Component {
     
        
         <hr />
-        {/* <InfiniteScroll
-          dataLength={this.state.items.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.hasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-        >
-          
-          {this.state.items.map((i, index) => (
-            <div style={style} key={index}>
-              div - #{index}
-            </div>
-          ))}
-        </InfiniteScroll> */}
+      
       </div>
          
 </div>
@@ -315,9 +298,9 @@ class Feed extends Component {
   <div>
         <Box sx={{ flexGrow: 1 }}>
   <Grid container spacing={2}>
-    <Grid xs={5} sm={3.5} md={2}>
+    {/* <Grid xs={5} sm={3.5} md={2}>
       <Item><Sidebar props={email}/></Item>
-    </Grid>
+    </Grid> */}
  
     <Grid xs={7} sm={8.5} md={10}>
       <Item><Topbar /></Item>

@@ -1,93 +1,71 @@
-import React, { Component } from 'react'
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import { verifyCode } from "../../actions/authActions";
-import  withRouter  from '../../withRouter'
-import Sidebar from "./Sidebar";
-import Topbar from "./Topbar";
-import Footer from "../Footer"
+import { verifyCode } from '../../actions/authActions';
 import { TwitterTimelineEmbed, TwitterFollowButton } from 'react-twitter-embed';
-import { Navigate } from "react-router-dom";
-
+import { Navigate } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Topbar from './Topbar';
+import Footer from '../Footer';
+import withRouter from '../../withRouter';
 
 class Dashboard extends Component {
-
   render() {
+    const {
+      isAuthenticated,
+      isVerified,
+      hasUsername,
+      history,
+      googleProfilePic,
+      isGranted,
+      user,
+    } = this.props.auth;
+    const email = user && user.email ? user.email : '';
 
-    const { isAuthenticated, isVerified, hasUsername,history, googleProfilePic, isGranted, user } = this.props.auth
-    const email= user && user.email ? user.email : "";
-  
 
-    console.log(email);
-    console.log('dashboard');
-    console.log(user);
+
     if (!isGranted && !isVerified && !isAuthenticated && !hasUsername) {
-
-      return (
-        <Navigate to="/" />
-      );
-
+      return <Navigate to="/" />;
     }
 
     if (!isAuthenticated) {
-
-      return (
-        <Navigate to="/" />
-      );
-
+      return <Navigate to="/" />;
     }
 
     if (isAuthenticated && !isVerified) {
-      return (
-        <Navigate to="/" />
-      );
-     
+      return <Navigate to="/" />;
     }
 
     if (isAuthenticated) {
-
       return (
         <>
+        <Topbar />
+      
+          {/* <Sidebar props={email} /> */}
+          
           <Grid container spacing={2}>
-              <Grid item xs={5} md={2}>
-                <Sidebar props={email} />
-              </Grid>
-              <Grid item xs={7} sm={8.5} md={10}>
-
-                <Topbar />
-              
-
-
-
-                <TwitterTimelineEmbed
-                  sourceType="profile"
-                  screenName="edunodeorg"
-                  options={{height: 800}}
-                />
-                <TwitterFollowButton
-                  screenName={'edunodeorg'}
-                />
-              </Grid>
-              
+            <Grid item xs={12} sm={12} md={12}>
+              <TwitterTimelineEmbed
+                sourceType="profile"
+                screenName="edunodeorg"
+                options={{ height: 800 }}
+              />
+              <TwitterFollowButton screenName={'edunodeorg'} />
             </Grid>
-            <Footer />
+          </Grid>
+          <Footer />
         </>
       );
-
     }
 
     return <div>Please log in to view this page.....</div>;
   }
-
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
-Dashboard = connect(
-  mapStateToProps, { verifyCode }
-)(Dashboard);
+Dashboard = connect(mapStateToProps, { verifyCode })(Dashboard);
 
-export default Dashboard = withRouter(Dashboard);
-
+export default withRouter(Dashboard);

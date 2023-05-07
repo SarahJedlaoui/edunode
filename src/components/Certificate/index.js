@@ -15,7 +15,7 @@ import TextField from '@mui/material/TextField'
 import PropTypes from 'prop-types'
 import "./style.css";
 import axios from 'axios';
-
+import { Navigate } from "react-router-dom";
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
 //import { isConnected, getPublicKey } from "@stellar/freighter-api";
 
@@ -261,21 +261,16 @@ class Certificate extends Component {
     } = this.props.auth;
     const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     const { certificateCount, certificateUrls,certificateNumber,certificates } = this.state;
-   // const certificateIds = certificateUrls.map(() => Math.random().toString(36).substring(7));
-    //this.setState({
-    //  certificateUrls: certificateUrls.map((url, index) => `/certificate/${certificateIds[index]}`)
-   // });
-    // Call the API to get the certificate count and URLs
-
+  
     if (this.props.auth.user) {
       return (
         <>
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
-                <Grid xs={5} sm={3.5} md={2} item={1} >
+                {/* <Grid xs={5} sm={3.5} md={2} item={1} >
                   <Item><Sidebar props={email} /></Item>
-                </Grid>
+                </Grid> */}
 
                 <Grid xs={7} sm={8.5} md={10} item={1}>
                   <Item><Topbar /></Item>
@@ -319,9 +314,11 @@ class Certificate extends Component {
 
 
     if (!this.props.auth.isAuthenticated) {
-      return (<>Please <a href="https://edunode.org/login">login</a> to see this content</>)
+      return (
+        <Navigate to="/" />
+      );
     }
-    console.log(this.props.auth)
+
 
     //this.props.history.push("/")
   }

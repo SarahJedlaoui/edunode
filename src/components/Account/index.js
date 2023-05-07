@@ -157,44 +157,7 @@ renderProfileFields() {
         value={this.state.age}
         onChange={this.handleAgeChange}
       />
-      {/* <Autocomplete
-        id="country-select-demo"
-        options={countries}
-        autoHighlight
-        getOptionLabel={(option) => option.label}
-        renderOption={(props, option) => (
-          <Box
-            component="li"
-            sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
-            {...props}
-          >
-            <img
-              loading="lazy"
-              width="100"
-              src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-              srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-              alt=""
-            />
-            {option.label} ({option.code}) +{option.phone}
-          </Box>
-        )}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            name="location"
-            label={locationLabel}
-            fullWidth
-            placeholder={locationLabel}
-            value={this.state.location}
-            onChange={this.handleLocationChange}
-            inputProps={{
-              ...params.inputProps,
-              autoComplete: 'new-password', // disable autocomplete and autofill
-            }}
-          />
-        )}
-        onChange={this.handleLocationChange}
-      /> */}
+      
       <TextField
         name="bio"
         multiline
@@ -231,9 +194,9 @@ renderProfileFields() {
       )}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4} md={3}>
+          {/* <Grid item xs={12} sm={4} md={3}>
             <Sidebar props={email} />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={8} md={9}>
             <Topbar />
             <div style={{ padding: '10px' }}>

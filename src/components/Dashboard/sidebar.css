@@ -39,23 +39,29 @@
 }
 
 .sidebarIcon {
-    margin-right: 10px;
-    font-size: 20px !important;
-    color: #333;
+  margin-right: 10px;
+  font-size: 20px !important;
+  color: #333;
 }
 
 button {
-    background: transparent;
-    box-shadow: none;
-    border: none;
-    text-shadow: none;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  text-shadow: none;
 }
-  
+
 button:hover {
-    background-color: transparent;
+  background-color: transparent;
 }
-  
+
 button:focus,
 button:active {
-    outline: none;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
 }

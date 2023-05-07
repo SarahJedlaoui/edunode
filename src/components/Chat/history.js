@@ -102,13 +102,13 @@ class History extends Component {
                     <div>
                         <Box sx={{ flexGrow: 1 }}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12} sm={4} md={2} >
+                                {/* <Grid item xs={12} sm={4} md={2} >
                                     <Item>
 
                                         <Sidebar props={email} />
 
                                     </Item>
-                                </Grid>
+                                </Grid> */}
 
                                 <Grid item xs={12} sm={8.5} md={10}>
                                      <Item><Topbar /></Item> 

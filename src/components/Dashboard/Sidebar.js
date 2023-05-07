@@ -85,12 +85,12 @@ export default function Sidebar(Email) {
                 Courses
               </li>
             </Link>
-            <Link to="/membership" className="link">
+            {/* <Link to="/membership" className="link">
               <li className="sidebarListItem">
                 <CardMembershipIcon className="sidebarIcon" />
                 Membership
               </li>
-            </Link>
+            </Link> */}
             <Link to="/feed" className="link">
               <li className="sidebarListItem">
                 <DynamicFeed className="sidebarIcon" />
