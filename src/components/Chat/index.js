@@ -62,7 +62,7 @@ class Chat extends Component {
 
   scrollToBottom() {
     // Use the DOM API to scroll to the end of the page
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
 
