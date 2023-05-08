@@ -26,6 +26,14 @@ import { loadUser } from '../../actions/authActions';
 import axios from "axios";
 import { Modal } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
+
+
+
+
+
 
 const validate = values => {
   const errors = {};
@@ -64,7 +72,7 @@ class VerifyEmail extends Component {
       values: {},
       isVerified: false,
       email: "",
-      tags: ['tag1', 'tag2', 'tag3', 'tag4'],
+      tags: ['web3', 'Stellar', 'Programming', 'NFT'],
       showPopup: false,
       selectedTags: [],
       error: null,
@@ -88,7 +96,7 @@ class VerifyEmail extends Component {
   handleClose = () => {
     console.log('close')
     this.setState({
-      open: false
+      open: false,
     });
   };
 
@@ -107,20 +115,21 @@ class VerifyEmail extends Component {
   };
 
   handleSave = () => {
+    const email = this.props.auth.user ? this.props.auth.user.email : '';
     // Get the selected tags from state
     const { selectedTags, open } = this.state;
-    
+    console.log(selectedTags);
     // Make an HTTP request to your backend to save the selected tags
-    axios.post('/api/user/preferences', { preferences: selectedTags })
+    axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: selectedTags, email: email })
       .then(response => {
         console.log(response.data); // Log the response from the backend
-        this.setState({ showModal: false });
-        this.setState({open: false}); // Close the modal after saving
+
+
       })
       .catch(error => {
         console.error(error); // Log any errors that occur
       });
-      this.handleClose();
+
   };
 
   componentDidUpdate(prevProps) {
@@ -239,10 +248,10 @@ class VerifyEmail extends Component {
       return (
         <div>
           <div>
-          <button onClick={this.handleOpen}>Open Modal</button>
-            <Modal
-              open= 'true'
-              onClose={this.handleClose}
+            <button onClick={this.handleOpen}>Open Modal</button>
+            {/**   <Modal
+              open={this.state.open}
+
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
@@ -262,37 +271,9 @@ class VerifyEmail extends Component {
                   </div>
                 ))}
 
-                <button onClick={this.handleSave}>Save</button>
+                <button onClick={this.handleClose}>Save</button>
               </Box>
-            </Modal>
-
-
-
-
-
-            {/**  <Modal isOpen={showModal}>
-          <Modal.Header>
-            <Modal.Title>Select your preferences</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {tags.map(tag => (
-              <div key={tag}>
-                <input
-                  type="checkbox"
-                  name={tag}
-                  checked={selectedTags.includes(tag)}
-                  onChange={this.handleTagChange}
-                />
-                <label>{tag}</label>
-              </div>
-            ))}
-          </Modal.Body>
-          <Modal.Footer>
-            <button onClick={this.handleSave}>Save</button>
-          </Modal.Footer>
-        </Modal>
-*/}
-
+            </Modal>*/}
 
 
 
@@ -324,6 +305,38 @@ class VerifyEmail extends Component {
                             </Button>{" "}
                             if you would like us to resend the email.{" "}
                           </Alert>
+                          <Alert className="text-center" severity="warning">
+
+                            And please select your preferences so we can provide you with a personalized experience!  
+                            <Popup trigger=
+                          {<Button> Click here </Button>}
+                          position="right center">
+                          {close => (
+                            <div> Select your preferences
+                              {tags.map(tag => (
+                                <div key={tag}>
+                                  <input
+                                    type="checkbox"
+                                    name={tag}
+                                    checked={selectedTags.includes(tag)}
+                                    onChange={this.handleTagChange}
+                                  />
+                                  <label>{tag}</label>
+                                </div>
+                              ))}
+
+                              <button
+                                onClick={() => {
+                                  this.handleSave();
+                                  close();
+                                }}
+                              >
+                                Save
+                              </button>
+                            </div>
+                          )}
+                        </Popup>
+                          </Alert>
 
                           <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                             <div>
@@ -352,11 +365,19 @@ class VerifyEmail extends Component {
                             </div>
                           </form>
                         </Row>
+
+                        
                       </Container>
                     </div>
                   </div>
 
                 </Grid>
+
+
+
+
+
+
 
               </Grid>
               < br />

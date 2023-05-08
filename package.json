@@ -63,6 +63,7 @@
     "react-slick": "^0.29.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-twitter-embed": "^4.0.4",
+    "reactjs-popup": "^2.0.5",
     "reactstrap": "^9.1.8",
     "recharts": "^2.5.0",
     "redux": "^4.2.1",
