@@ -248,7 +248,7 @@ class VerifyEmail extends Component {
       return (
         <div>
           <div>
-            <button onClick={this.handleOpen}>Open Modal</button>
+           
             {/**   <Modal
               open={this.state.open}
 
@@ -280,7 +280,7 @@ class VerifyEmail extends Component {
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item={true} xs={5} sm={3.5} md={2}>
-                  <Item><Sidebar /></Item>
+                 <Sidebar />
                 </Grid>
                 <Grid item={true} xs={7} sm={8.5} md={10}>
                   <Item><Topbar /></Item>
