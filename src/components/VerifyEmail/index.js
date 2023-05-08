@@ -72,7 +72,7 @@ class VerifyEmail extends Component {
       values: {},
       isVerified: false,
       email: "",
-      tags: ['web3', 'Stellar', 'Programming', 'NFT'],
+      tags: ['web3', 'Stellar', 'Programming', 'NFT','Blockchain','Crypto','E-learning','IT','Soroban'],
       showPopup: false,
       selectedTags: [],
       error: null,
