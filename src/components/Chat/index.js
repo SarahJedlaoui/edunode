@@ -262,6 +262,7 @@ componentDidMount() {
 
     if (!this.props.auth.isAuthenticated) {
       return (
+        <Navigate to="/" />
 
         <>
           <div>
