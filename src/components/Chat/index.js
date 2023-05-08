@@ -173,12 +173,12 @@ class Chat extends Component {
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
-                <Grid xs={5} sm={3.5} md={2}>
+                {/* <Grid xs={5} sm={3.5} md={2}>
                   <Item><Sidebar /></Item>
-                </Grid>
+                </Grid> */}
 
-                <Grid xs={7} sm={8.5} md={10}>
-                   <Item><Topbar /></Item> 
+                <Grid item xs={12} sm={8} md={9}>
+                 <Topbar />
                   <div>
                     <div>
                       <div>

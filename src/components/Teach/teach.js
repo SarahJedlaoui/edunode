@@ -288,9 +288,9 @@ class Teach extends Component {
       <div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4} md={3}>
+            {/* <Grid item xs={12} sm={4} md={3}>
               <Item><Sidebar props={email} /></Item>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={8} md={9}>
               <Item><Topbar /></Item>
               <div style={{ padding: '10px' }}>
@@ -336,28 +336,7 @@ class Teach extends Component {
                   </FormGroup>
                   <FormGroup>
                     <Label htmlFor="description">Course Content:</Label>
-                    {/**  <Textarea
-                      id="description"
-                      value={description}
-                      //onChange={(e) => this.setState({ description: e.target.value })}
-                    ></Textarea>
-                  </FormGroup>
-                  <FormGroup>
-                    <Editor
-                      id="description"
-                      initialContent={this.state.description}
-                      toolbarClassName="toolbarClassName"
-                      wrapperClassName="wrapperClassName"
-                      editorClassName="editorClassName"
-                      editorState={editorState} // set the editorState here
-                      onEditorStateChange={(editorState) => {
-                        this.setState({ editorState });
-                      }}
-                      onContentStateChange={(contentState) => {
-                        const html = convertToHTML(options)(contentState);
-                        this.setState({ description: html });
-                      }}
-                    />*/}
+                    
                   </FormGroup>
 
                   <Editor
