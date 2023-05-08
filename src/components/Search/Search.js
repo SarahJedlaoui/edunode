@@ -362,6 +362,7 @@ class Search extends Component {
                             </Grid>
 
                         </Grid>
+                        <br></br>
                         <Footer />
                     </Box>
                 </div>

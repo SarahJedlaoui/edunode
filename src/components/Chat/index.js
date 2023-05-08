@@ -19,8 +19,7 @@ import { Navigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
 
 const suggestedQuestions = [
   "What is the Stellar Network?",
@@ -39,7 +38,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
+      email:this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       prompt: "",
       isLoading: false,
       errors: {},
@@ -48,7 +47,6 @@ class Chat extends Component {
       conversation: [],
       messages: [],
       sessionMessages: [],
-      highlightedCode: '',
     }
 
     this.onChange = this.onChange.bind(this)
@@ -56,22 +54,22 @@ class Chat extends Component {
 
   }
 
-  /**
-componentDidMount() {
- // Clear chat history when component mounts
- this.setState({ messages: [] });
-}
-*/
-
+     /**
+  componentDidMount() {
+    // Clear chat history when component mounts
+    this.setState({ messages: [] });
+  }
+ */
+ 
 
 
   componentDidUpdate() {
 
-
+     
     // Scroll to the end of the page if new messages have been added
     this.scrollToBottom();
   }
-
+  
   scrollToBottom() {
     // Use the DOM API to scroll to the end of the page
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -104,7 +102,7 @@ componentDidMount() {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-
+  
 
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -122,21 +120,8 @@ componentDidMount() {
     const data = await response.json();
     const aiResponse = data.msg;
 
-    // Extract the code from the response
-    const codeRegex = /```([\s\S]*)```/;
-    const codeMatch = data.msg.match(codeRegex);
-    const code = codeMatch ? codeMatch[1] : '';
-
-    // Highlight the code and set it in the state variable
-    const highlightedCode = (
-      <SyntaxHighlighter language="javascript" style={monokai}>
-        {code}
-      </SyntaxHighlighter>
-    );
-
-
     // Update the state with the new chat message and set loading to false
-    this.setState({ input: '', sessionMessages: [...sessionMessages, { user: input, ai: data.msg, highlightedCode }], loading: false });
+    this.setState({ input: '', sessionMessages: [...sessionMessages, { user: input, ai: aiResponse }], loading: false });
 
     // Get the chat history from the backend and update the state with it
     //const response1 = await fetch(`https://edunode.herokuapp.com/api/chat/openai/${email}`);
@@ -145,12 +130,12 @@ componentDidMount() {
     //this.setState({ messages: chatHistory });
 
 
-    // Clear the input field after the message is sent
-    this.setState({ input: '' });
+ // Clear the input field after the message is sent
+ this.setState({ input: '' });
 
 
-    // Scroll to the end of the page
-    window.scrollTo(0, document.body.scrollHeight);
+     // Scroll to the end of the page
+     window.scrollTo(0,document.body.scrollHeight);
 
   }
 
@@ -193,7 +178,7 @@ componentDidMount() {
                 </Grid> */}
 
                 <Grid item xs={12} sm={8} md={9}>
-                  <Topbar />
+                 <Topbar />
                   <div>
                     <div>
                       <div>
@@ -203,14 +188,9 @@ componentDidMount() {
 
                             <Alert severity="info"><Typography variant="h6">User:</Typography> {message.user}</Alert>
 
-                            {message.highlightedCode && (
-                              <div>{message.highlightedCode}</div>
-                            )}
-                            {!message.highlightedCode && (
-                              <Alert severity="success">
-                                <Typography variant="h6">AI:</Typography> {message.ai}
-                              </Alert>
-                            )}
+                            <Alert severity="success">
+                              <Typography variant="h6">AI:</Typography> {message.ai}
+                            </Alert>
                           </div>
                         ))}
 
@@ -261,7 +241,7 @@ componentDidMount() {
 
 
     if (!this.props.auth.isAuthenticated) {
-      return (
+       return (
         <Navigate to="/" />
       );
     }
