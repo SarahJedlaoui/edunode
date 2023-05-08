@@ -198,7 +198,10 @@ renderProfileFields() {
             <Sidebar props={email} />
           </Grid> */}
           <Grid item xs={12} sm={8} md={9}>
+            <>
             <Topbar />
+            </>
+            
             <div style={{ padding: '10px' }}>
               <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 {this.renderProfileFields()}

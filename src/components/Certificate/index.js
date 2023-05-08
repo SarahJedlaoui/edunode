@@ -272,7 +272,7 @@ class Certificate extends Component {
                   <Item><Sidebar props={email} /></Item>
                 </Grid> */}
 
-                <Grid xs={7} sm={8.5} md={10} item={1}>
+                <Grid item xs={12} sm={8} md={9}>
                   <Item><Topbar /></Item>
                   <div>
                     <p><h3>Welcome to your Certifications</h3></p>

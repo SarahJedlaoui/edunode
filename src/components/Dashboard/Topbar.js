@@ -27,7 +27,7 @@ class Topbar extends Component {
       <div className="topbar">
         <div className="topbarWrapper">
           <div className="topLeft">
-            <span className="logo">EduNode</span>
+           <span className="logo">EduNode</span> 
           </div> 
           <div className="topRight">
             <Navbar bg="white" expand="lg">

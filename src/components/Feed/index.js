@@ -302,8 +302,8 @@ class Feed extends Component {
       <Item><Sidebar props={email}/></Item>
     </Grid> */}
  
-    <Grid xs={7} sm={8.5} md={10}>
-      <Item><Topbar /></Item>
+    <Grid item xs={12} sm={8} md={9}>
+      <Topbar />
       <div>
   
 

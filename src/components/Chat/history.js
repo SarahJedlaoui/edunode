@@ -146,69 +146,7 @@ class History extends Component {
 
         if (!this.props.auth.isAuthenticated) {
             return (
-        
-                <>
-                <div>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2}>
-                      <Grid xs={5} sm={3.5} md={2}>
-                        <Item><Sidebar /></Item>
-                      </Grid>
-        
-                      <Grid xs={7} sm={8.5} md={10}>
-                        <Item><Topbar /></Item>
-                        <div>
-                          <div>
-                            <div>
-                              <h4>Please login to access the chat feature </h4>
-                              <a href='/login'>Login</a>
-        
-                            
-                              <div ref={el => this.messagesEnd = el}></div>
-        
-                            </div>
-                          </div>
-                        </div>
-        
-                      </Grid>
-        
-                    </Grid>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    
-        
-                    <Footer />
-                  </Box>
-                </div>
-              </>
+                <Navigate to="/" />
               );
         }
     }

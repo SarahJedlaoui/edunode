@@ -58,7 +58,9 @@ class Dashboard extends Component {
       );
     }
 
-    return <div>Please log in to view this page.....</div>;
+    return (
+      <Navigate to="/" />
+    );  
   }
 }
 

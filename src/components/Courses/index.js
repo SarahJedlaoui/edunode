@@ -125,9 +125,9 @@ class Courses extends Component {
         {/* <Grid xs={5} sm={3.5} md={2}>
           <Item><Sidebar props={email} /></Item>
         </Grid> */}
-        {/* <Grid xs={7} sm={8.5} md={10}> */}
-          <Item><Topbar /></Item>
-          {/* <div className="myDiv"> */}
+         <Grid item xs={12} sm={8} md={9}> 
+          <Topbar />
+           <div className="myDiv"> 
           <Welcome />
           <br></br>
           <Course1 />
@@ -142,8 +142,8 @@ class Courses extends Component {
           <br></br>
           <Course6 />
           <br></br>
-        {/* </div> */}
-        {/* </Grid> */}
+         </div> 
+         </Grid> 
       </Grid>
       <Footer />
     </Box>
@@ -159,8 +159,8 @@ class Courses extends Component {
         {/* <Grid xs={5} sm={3.5} md={2}>
           <Item><Sidebar  props={email}/></Item>
         </Grid> */}
-        <Grid xs={7} sm={8.5} md={10}>
-          <Item><Topbar /></Item>
+        <Grid item xs={12} sm={8} md={9}>
+        <Topbar />
           <div className="myDiv">
           <Welcome />
           <br></br>
@@ -192,8 +192,8 @@ class Courses extends Component {
         {/* <Grid xs={5} sm={3.5} md={2}>
           <Item><Sidebar props={email}/></Item>
         </Grid> */}
-        <Grid xs={7} sm={8.5} md={10}>
-          <Item><Topbar /></Item>
+        <Grid item xs={12} sm={8} md={9}>
+     <Topbar />
           <div className="myDiv">
           <Welcome />
           <br></br>
