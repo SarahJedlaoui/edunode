@@ -19,7 +19,8 @@ import { Navigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const suggestedQuestions = [
   "What is the Stellar Network?",
@@ -38,7 +39,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email:this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
+      email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       prompt: "",
       isLoading: false,
       errors: {},
@@ -54,22 +55,11 @@ class Chat extends Component {
 
   }
 
-     /**
-  componentDidMount() {
-    // Clear chat history when component mounts
-    this.setState({ messages: [] });
-  }
- */
- 
-
-
   componentDidUpdate() {
-
-     
     // Scroll to the end of the page if new messages have been added
     this.scrollToBottom();
   }
-  
+
   scrollToBottom() {
     // Use the DOM API to scroll to the end of the page
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -102,7 +92,7 @@ class Chat extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  
+
 
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -124,25 +114,16 @@ class Chat extends Component {
     this.setState({ input: '', sessionMessages: [...sessionMessages, { user: input, ai: aiResponse }], loading: false });
 
 
- // Clear the input field after the message is sent
- this.setState({ input: '' });
+    // Clear the input field after the message is sent
+    this.setState({ input: '' });
 
 
-     // Scroll to the end of the page
-     window.scrollTo(0,document.body.scrollHeight);
+    // Scroll to the end of the page
+    window.scrollTo(0, document.body.scrollHeight);
 
   }
 
-
-
-
-
-
-
-
   render() {
-
-
 
     const Item = styled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
@@ -172,26 +153,42 @@ class Chat extends Component {
                 </Grid> */}
 
                 <Grid item xs={12} sm={8} md={9}>
-                 <Topbar />
+                  <Topbar />
                   <div>
                     <div>
                       <div>
 
                         {sessionMessages.map((message, index) => (
                           <div key={index}>
-
-                            <Alert severity="info"><Typography variant="h6">User:</Typography> {message.user}</Alert>
-
-                            <Alert severity="success">
-                              <Typography variant="h6">AI:</Typography> {message.ai}
+                            <Alert severity="info">
+                              <Typography variant="h6">User:</Typography> {message.user}
                             </Alert>
+                            {message.ai.match(/'''[\s\S]*?'''/g) ? (
+                              <Alert severity="success">
+                                <Typography variant="h6">AI:</Typography>
+                                {message.ai.split(/('''[\s\S]*?''')/g).map((part, index) => (
+                                  part.match(/'''[\s\S]*?'''/) ? (
+                                    <SyntaxHighlighter
+                                      key={index}
+                                      language="python"
+                                      style={docco}
+                                    >
+                                      {part.replace(/'''/g, '')}
+                                    </SyntaxHighlighter>
+                                  ) : (
+                                    <Typography key={index} component="span">{part}</Typography>
+                                  )
+                                ))}
+                              </Alert>
+                            ) : (
+                              <Alert severity="success">
+                                <Typography variant="h6">AI:</Typography> {message.ai}
+                              </Alert>
+                            )}
                           </div>
                         ))}
 
                         <form onSubmit={this.handleSubmit}>
-
-
-
                           <div>
                             <h2>Suggested Questions:</h2>
                             <br></br>
@@ -235,7 +232,7 @@ class Chat extends Component {
 
 
     if (!this.props.auth.isAuthenticated) {
-       return (
+      return (
         <Navigate to="/" />
       );
     }

@@ -56,25 +56,18 @@ class Dashboard extends Component {
     axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: selectedTags, email: email })
       .then(response => {
         console.log(response.data); // Log the response from the backend
-
-
       })
       .catch(error => {
         console.error(error); // Log any errors that occur
       });
     // set the flag in localStorage
     localStorage.setItem('selectedTags', 'true');
-
-
     // Hide the popup after saving
     this.setState({ showAlert: false });
   };
 
-
-
-
   render() {
-    const { tags, selectedTags, showPopup, showAlert } = this.state;
+    const { tags, selectedTags, showAlert } = this.state;
     const {
       isAuthenticated,
       isVerified,
