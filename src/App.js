@@ -106,6 +106,7 @@ import Ipfs from './components/Blog/Articles/Ipfs';
 import Soroban from './components/Blog/Articles/Soroban';
 import AMM from './components/Blog/Articles/AMM/AMM';
 import Kelp from "./components/Blog/Articles/Kelp";
+import PostgreSQL from "./components/Blog/Articles/Postgresql";
 import Albedo from "./components/Blog/Articles/Albedo";
 import Security from './components/Blog/Articles/Security';
 import NFT from './components/Blog/Articles/NFT';
@@ -239,6 +240,8 @@ function App(props) {
         <Route exact path="/blog/herramientas-de-seguridad" element={<Seguridad/>} />
         <Route exact path="/blog/smart-contracts" element={<Contracts/>} />
         <Route exact path="/blog/kelp" element={<Kelp/>} />
+        <Route exact path="/blog/postgresql" element={<PostgreSQL/>} />
+
         <Route exact path="/blog/the-web3-revolution" element={<Web3/>} />
         <Route exact path="/blog/albedo" element={<Albedo/>} />
         <Route exact path="/blog/automated-market-maker" element={<AMM/>} />

@@ -24,6 +24,7 @@ import suave from "./suave.gif"
 import creator from "./Articles/Web3/creator.png"
 import docker from "./docker1.png"
 import ipfs from "./ipfss.png"
+import postgres from "./postgres.png"
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -192,15 +193,17 @@ const featuredPosts = [
     link: '/blog/ipfs',
     tags:['IPFS']
   },
-  // {
-  //   title: 'Learn about Soroban',
-  //   date: '13/04/2023',
-  //   description:
-  //     'Learn about Soroban and how to build Smart Contracts on Stellar .',
-  //   image:ipfs,
-  //   imageText: 'Learn about Soroban and how to build Smart Contracts on Stellar .',
-  //   link: '/blog/soroban',
-  // }
+  {
+    title: 'Learn about PostgreSQL',
+    date: '09/05/2023',
+    description:
+      'Learn about PostgreSQL, and how to use it in Blockchain applications .',
+    image:postgres,
+    imageText: 'Learn about PostgreSQL, and how to use it in Blockchain applications',
+    link: '/blog/postgresql',
+    tags:['PostgreSQL']
+  },
+   
 ];
 
 
