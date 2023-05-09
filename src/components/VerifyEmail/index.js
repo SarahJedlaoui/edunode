@@ -22,12 +22,8 @@ import Paper from '@mui/material/Paper';
 import Topbar from "../Dashboard/Topbar";
 import { Navigate } from "react-router-dom";
 import { loadUser } from '../../actions/authActions';
-//import Modal from "react-modal"; 
-import axios from "axios";
-import { Modal } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+
+
 
 
 
@@ -49,17 +45,7 @@ const validate = values => {
   }
   return errors;
 };
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+
 
 class VerifyEmail extends Component {
   constructor(props) {
@@ -72,12 +58,6 @@ class VerifyEmail extends Component {
       values: {},
       isVerified: false,
       email: "",
-      tags: ['web3', 'Stellar', 'Programming', 'NFT','Blockchain','Crypto','E-learning','IT','Soroban'],
-      showPopup: false,
-      selectedTags: [],
-      error: null,
-      showModal: true,
-      open: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -88,49 +68,7 @@ class VerifyEmail extends Component {
     clearErrors: PropTypes.func.isRequired,
     isVerified: PropTypes.bool,
   };
-  handleOpen = () => {
-    this.setState({
-      open: true
-    });
-  };
-  handleClose = () => {
-    console.log('close')
-    this.setState({
-      open: false,
-    });
-  };
-
-  handleTagChange = (event) => {
-    const tagName = event.target.name;
-    const isChecked = event.target.checked;
-    this.setState(prevState => {
-      const selectedTags = new Set(prevState.selectedTags);
-      if (isChecked) {
-        selectedTags.add(tagName);
-      } else {
-        selectedTags.delete(tagName);
-      }
-      return { selectedTags: [...selectedTags] };
-    });
-  };
-
-  handleSave = () => {
-    const email = this.props.auth.user ? this.props.auth.user.email : '';
-    // Get the selected tags from state
-    const { selectedTags, open } = this.state;
-    console.log(selectedTags);
-    // Make an HTTP request to your backend to save the selected tags
-    axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: selectedTags, email: email })
-      .then(response => {
-        console.log(response.data); // Log the response from the backend
-
-
-      })
-      .catch(error => {
-        console.error(error); // Log any errors that occur
-      });
-
-  };
+  
 
   componentDidUpdate(prevProps) {
     const { error } = this.props;
@@ -210,9 +148,6 @@ class VerifyEmail extends Component {
   };
 
   render() {
-    const { open } = this.state;
-
-    const { tags, selectedTags, showModal } = this.state;
     const Item = styled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
       padding: theme.spacing(1),
@@ -220,7 +155,7 @@ class VerifyEmail extends Component {
       color: theme.palette.text.secondary,
     }));
     const { pristine, submitting } = this.props;
-    const { isLoading, isVerified, isAuthenticated, history } = this.props.auth
+    const { isLoading, isVerified, isAuthenticated } = this.props.auth
     const email = this.props.auth.user ? this.props.auth.user.email : '';
     if (isLoading) {
 
@@ -305,38 +240,7 @@ class VerifyEmail extends Component {
                             </Button>{" "}
                             if you would like us to resend the email.{" "}
                           </Alert>
-                          <Alert className="text-center" severity="warning">
-
-                            And please select your preferences so we can provide you with a personalized experience!  
-                            <Popup trigger=
-                          {<Button> Click here </Button>}
-                          position="right center">
-                          {close => (
-                            <div> Select your preferences
-                              {tags.map(tag => (
-                                <div key={tag}>
-                                  <input
-                                    type="checkbox"
-                                    name={tag}
-                                    checked={selectedTags.includes(tag)}
-                                    onChange={this.handleTagChange}
-                                  />
-                                  <label>{tag}</label>
-                                </div>
-                              ))}
-
-                              <button
-                                onClick={() => {
-                                  this.handleSave();
-                                  close();
-                                }}
-                              >
-                                Save
-                              </button>
-                            </div>
-                          )}
-                        </Popup>
-                          </Alert>
+  
 
                           <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                             <div>

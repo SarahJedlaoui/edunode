@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import { verifyCode } from '../../actions/authActions';
 import { TwitterTimelineEmbed, TwitterFollowButton } from 'react-twitter-embed';
 import { Navigate } from 'react-router-dom';
-import Sidebar from './Sidebar';
+//import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 import Footer from '../Footer';
 import withRouter from '../../withRouter';
@@ -12,7 +12,7 @@ import Alert from "@material-ui/lab/Alert";
 import Popup from 'reactjs-popup';
 import Button from "@mui/material/Button";
 import axios from "axios";
-
+import 'reactjs-popup/dist/index.css';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class Dashboard extends Component {
   handleSave = () => {
     const email = this.props.auth.user ? this.props.auth.user.email : '';
     // Get the selected tags from state
-    const { selectedTags, open } = this.state;
+    const { selectedTags } = this.state;
     console.log(selectedTags);
     // Make an HTTP request to your backend to save the selected tags
     axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: selectedTags, email: email })
@@ -68,8 +68,6 @@ class Dashboard extends Component {
       isAuthenticated,
       isVerified,
       hasUsername,
-      history,
-      googleProfilePic,
       isGranted,
       user,
     } = this.props.auth;
