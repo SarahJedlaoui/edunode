@@ -123,12 +123,6 @@ class Chat extends Component {
     // Update the state with the new chat message and set loading to false
     this.setState({ input: '', sessionMessages: [...sessionMessages, { user: input, ai: aiResponse }], loading: false });
 
-    // Get the chat history from the backend and update the state with it
-    //const response1 = await fetch(`https://edunode.herokuapp.com/api/chat/openai/${email}`);
-    //const data1 = await response1.json();
-    //const chatHistory = data1.map(chat => ({ user: chat.input, ai: chat.output }));
-    //this.setState({ messages: chatHistory });
-
 
  // Clear the input field after the message is sent
  this.setState({ input: '' });

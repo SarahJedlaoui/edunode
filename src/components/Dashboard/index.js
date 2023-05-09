@@ -8,9 +8,61 @@ import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 import Footer from '../Footer';
 import withRouter from '../../withRouter';
+import Alert from "@material-ui/lab/Alert";
+import Popup from 'reactjs-popup';
+import Button from "@mui/material/Button";
+import axios from "axios";
+
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     
+      email: "",
+      tags: ['web3', 'Stellar', 'Programming', 'NFT','Blockchain','Crypto','E-learning','IT','Soroban'],
+      selectedTags: [],
+      
+    };
+   
+  }
+  handleTagChange = (event) => {
+    const tagName = event.target.name;
+    const isChecked = event.target.checked;
+    this.setState(prevState => {
+      const selectedTags = new Set(prevState.selectedTags);
+      if (isChecked) {
+        selectedTags.add(tagName);
+      } else {
+        selectedTags.delete(tagName);
+      }
+      return { selectedTags: [...selectedTags] };
+    });
+  };
+
+  handleSave = () => {
+    const email = this.props.auth.user ? this.props.auth.user.email : '';
+    // Get the selected tags from state
+    const { selectedTags, open } = this.state;
+    console.log(selectedTags);
+    // Make an HTTP request to your backend to save the selected tags
+    axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: selectedTags, email: email })
+      .then(response => {
+        console.log(response.data); // Log the response from the backend
+
+
+      })
+      .catch(error => {
+        console.error(error); // Log any errors that occur
+      });
+
+  };
+
+
+
+
   render() {
+    const { tags, selectedTags } = this.state;
     const {
       isAuthenticated,
       isVerified,
@@ -45,6 +97,38 @@ class Dashboard extends Component {
           
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
+            <Alert className="text-center" severity="warning">
+
+Please select your preferences so we can provide you with a personalized experience!  
+<Popup trigger=
+{<Button> Click here </Button>}
+position="right center">
+{close => (
+<div> Select your preferences
+  {tags.map(tag => (
+    <div key={tag}>
+      <input
+        type="checkbox"
+        name={tag}
+        checked={selectedTags.includes(tag)}
+        onChange={this.handleTagChange}
+      />
+      <label>{tag}</label>
+    </div>
+  ))}
+
+  <button
+    onClick={() => {
+      this.handleSave();
+      close();
+    }}
+  >
+    Save
+  </button>
+</div>
+)}
+</Popup>
+</Alert>
               <TwitterTimelineEmbed
                 sourceType="profile"
                 screenName="edunodeorg"
