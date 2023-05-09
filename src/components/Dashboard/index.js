@@ -18,13 +18,13 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     
+
       email: "",
-      tags: ['web3', 'Stellar', 'Programming', 'NFT','Blockchain','Crypto','E-learning','IT','Soroban'],
+      tags: ['web3', 'Stellar', 'Programming', 'NFT', 'Blockchain', 'Crypto', 'E-learning', 'IT', 'Soroban'],
       selectedTags: [],
-      
+      showPopup: true, //  a state variable to control the visibility of the alert
     };
-   
+
   }
   handleTagChange = (event) => {
     const tagName = event.target.name;
@@ -55,14 +55,15 @@ class Dashboard extends Component {
       .catch(error => {
         console.error(error); // Log any errors that occur
       });
-
+    // Hide the popup after saving
+    this.setState({ showPopup: false });
   };
 
 
 
 
   render() {
-    const { tags, selectedTags } = this.state;
+    const { tags, selectedTags, showPopup  } = this.state;
     const {
       isAuthenticated,
       isVerified,
@@ -91,44 +92,44 @@ class Dashboard extends Component {
     if (isAuthenticated) {
       return (
         <>
-        <Topbar />
-      
+          <Topbar />
+
           {/* <Sidebar props={email} /> */}
-          
+
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
-            <Alert className="text-center" severity="warning">
+            {showPopup && ( // Only render the alert if showPopup is true
+          <Alert className="text-center" severity="warning">
+            Please select your preferences so we can provide you with a personalized experience!  
+            <Popup trigger={<Button> Click here </Button>} position="right center">
+              {close => (
+                <div>
+                  Select your preferences
+                  {tags.map(tag => (
+                    <div key={tag}>
+                      <input
+                        type="checkbox"
+                        name={tag}
+                        checked={selectedTags.includes(tag)}
+                        onChange={this.handleTagChange}
+                      />
+                      <label>{tag}</label>
+                    </div>
+                  ))}
 
-Please select your preferences so we can provide you with a personalized experience!  
-<Popup trigger=
-{<Button> Click here </Button>}
-position="right center">
-{close => (
-<div> Select your preferences
-  {tags.map(tag => (
-    <div key={tag}>
-      <input
-        type="checkbox"
-        name={tag}
-        checked={selectedTags.includes(tag)}
-        onChange={this.handleTagChange}
-      />
-      <label>{tag}</label>
-    </div>
-  ))}
-
-  <button
-    onClick={() => {
-      this.handleSave();
-      close();
-    }}
-  >
-    Save
-  </button>
-</div>
-)}
-</Popup>
-</Alert>
+                  <button
+                    onClick={() => {
+                      this.handleSave();
+                      close();
+                    }}
+                  >
+                    Save
+                  </button>
+                </div>
+              )}
+            </Popup>
+          </Alert>
+        )}
               <TwitterTimelineEmbed
                 sourceType="profile"
                 screenName="edunodeorg"
@@ -144,7 +145,7 @@ position="right center">
 
     return (
       <Navigate to="/" />
-    );  
+    );
   }
 }
 
