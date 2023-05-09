@@ -18,14 +18,21 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       email: "",
       tags: ['web3', 'Stellar', 'Programming', 'NFT', 'Blockchain', 'Crypto', 'E-learning', 'IT', 'Soroban'],
       selectedTags: [],
-      showPopup: true, //  a state variable to control the visibility of the alert
+      showAlert: true, //  a state variable to control the visibility of the alert
     };
 
   }
+
+  componentDidMount() {
+    const showAlert = !localStorage.getItem('selectedTags'); // check if the flag is set
+    this.setState({ showAlert }); // update the state based on the flag
+  }
+
+
+
   handleTagChange = (event) => {
     const tagName = event.target.name;
     const isChecked = event.target.checked;
@@ -55,15 +62,19 @@ class Dashboard extends Component {
       .catch(error => {
         console.error(error); // Log any errors that occur
       });
+    // set the flag in localStorage
+    localStorage.setItem('selectedTags', 'true');
+
+
     // Hide the popup after saving
-    this.setState({ showPopup: false });
+    this.setState({ showAlert: false });
   };
 
 
 
 
   render() {
-    const { tags, selectedTags, showPopup  } = this.state;
+    const { tags, selectedTags, showPopup, showAlert } = this.state;
     const {
       isAuthenticated,
       isVerified,
@@ -88,57 +99,84 @@ class Dashboard extends Component {
     }
 
     if (isAuthenticated) {
-      return (
-        <>
+
+      if (!showAlert) {
+        return (
+          <>
+            <Topbar />
+
+            {/* <Sidebar props={email} /> */}
+
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} md={12}>
+
+                <TwitterTimelineEmbed
+                  sourceType="profile"
+                  screenName="edunodeorg"
+                  options={{ height: 800 }}
+                />
+                <TwitterFollowButton screenName={'edunodeorg'} />
+              </Grid>
+            </Grid>
+            <Footer />
+          </>
+        );
+      }
+      // show the alert and the popup if the flag is not set
+      else {
+        return (
+          <>
           <Topbar />
-
-          {/* <Sidebar props={email} /> */}
-
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12}>
-            {showPopup && ( // Only render the alert if showPopup is true
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={12} md={12}>
           <Alert className="text-center" severity="warning">
             Please select your preferences so we can provide you with a personalized experience!  
-            <Popup trigger={<Button> Click here </Button>} position="right center">
-              {close => (
-                <div>
-                  Select your preferences
-                  {tags.map(tag => (
-                    <div key={tag}>
-                      <input
-                        type="checkbox"
-                        name={tag}
-                        checked={selectedTags.includes(tag)}
-                        onChange={this.handleTagChange}
-                      />
-                      <label>{tag}</label>
-                    </div>
-                  ))}
-
-                  <button
-                    onClick={() => {
-                      this.handleSave();
-                      close();
-                    }}
-                  >
-                    Save
-                  </button>
+            <Popup trigger=
+            {<Button> Click here </Button>}
+            position="right center">
+            {close => (
+            <div> Select your preferences
+              {tags.map(tag => (
+                <div key={tag}>
+                  <input
+                    type="checkbox"
+                    name={tag}
+                    checked={selectedTags.includes(tag)}
+                    onChange={this.handleTagChange}
+                  />
+                  <label>{tag}</label>
                 </div>
-              )}
+              ))}
+
+              <button
+                onClick={() => {
+                  this.handleSave();
+                  close();
+                }}
+              >
+                Save
+              </button>
+            </div>
+            )}
             </Popup>
           </Alert>
-        )}
-              <TwitterTimelineEmbed
-                sourceType="profile"
-                screenName="edunodeorg"
-                options={{ height: 800 }}
-              />
-              <TwitterFollowButton screenName={'edunodeorg'} />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} md={12}>
+
+                <TwitterTimelineEmbed
+                  sourceType="profile"
+                  screenName="edunodeorg"
+                  options={{ height: 800 }}
+                />
+                <TwitterFollowButton screenName={'edunodeorg'} />
+              </Grid>
             </Grid>
-          </Grid>
-          <Footer />
-        </>
-      );
+      <Footer />
+      </>
+        )
+      }
     }
 
     return (
