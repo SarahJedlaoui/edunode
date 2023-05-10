@@ -13,7 +13,7 @@ import Popup from 'reactjs-popup';
 import Button from "@mui/material/Button";
 import axios from "axios";
 import 'reactjs-popup/dist/index.css';
-
+import Navbar from './Navbar';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -96,8 +96,10 @@ class Dashboard extends Component {
       if (!showAlert) {
         return (
           <>
-            <Topbar />
-
+            <Navbar />
+            <br></br>
+            <br></br>
+            <br></br>
             {/* <Sidebar props={email} /> */}
 
             <Grid container spacing={2}>

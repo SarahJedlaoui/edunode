@@ -95,7 +95,7 @@ class Chat extends Component {
 
 
   handleSubmit = async (event) => {
-    event.preventDefault();
+    
     const { input, email, sessionMessages } = this.state;
 
     // Set loading to true when the request is sent
@@ -104,7 +104,8 @@ class Chat extends Component {
     // Send the new question to the backend to get the AI's response
     const response = await fetch('https://edunode.herokuapp.com/api/chat/openai', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' ,
+      "Access-Control-Allow-Origin": '*' },
       body: JSON.stringify({ input, email }),
     });
     const data = await response.json();

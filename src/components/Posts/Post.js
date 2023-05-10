@@ -23,6 +23,11 @@ import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { convertToHTML } from 'draft-convert';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+
+
 
 // Initialize editorState
 {/*const editorState = EditorState.createEmpty();
@@ -192,13 +197,18 @@ class Post extends Component {
       success: false,
       isLoading: false,
       editorState: EditorState.createEmpty(),
-      errors: {}
+      errors: {},
+      privatee: false
     };
 
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
+    this.handleSwitchChange = this.handleSwitchChange.bind(this);
+  }
+  handleSwitchChange(event) {
+    this.setState({ privatee: event.target.checked });
   }
 
   componentDidUpdate(prevProps) {
@@ -225,6 +235,7 @@ class Post extends Component {
       tags: this.state.tags,
       link: this.state.link,
       description: convertToHTML(this.state.editorState.getCurrentContent()),
+      privatee: this.state.privatee
     };
     try {
       {/**   const response = await fetch("https://edunode.herokuapp.com/api/post", {
@@ -260,7 +271,7 @@ class Post extends Component {
   handleTagRemove(removedTag) {
     this.setState({
       tags: this.state.tags.filter((tag) => tag !== removedTag),
-      
+
     });
   }
 
@@ -282,7 +293,7 @@ class Post extends Component {
       color: theme.palette.text.secondary,
     }));
     const { tags, title, link, description, success } = this.state;
-    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
+    const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     return (
 
       <div>
@@ -292,9 +303,11 @@ class Post extends Component {
               <Item><Sidebar props={email}/></Item>
             </Grid> */}
             <Grid item xs={12} sm={8} md={9}>
-              <Item><Topbar /></Item>
+              <Topbar />
               <div style={{ padding: '10px' }}>
                 <Form onSubmit={this.handleSubmit}>
+                <h4 style={{ fontSize: "2em", textAlign: "center" }}>Add Post</h4>
+
                   <FormGroup>
                     <Label htmlFor="tags">Tags:</Label>
                     <Select id="tags" onChange={this.handleTagSelect}>
@@ -336,7 +349,7 @@ class Post extends Component {
                   </FormGroup>
                   <FormGroup>
                     <Label htmlFor="description">Description:</Label>
-                    
+
                   </FormGroup>
 
                   <Editor
@@ -346,7 +359,12 @@ class Post extends Component {
                     editorClassName="editorClassName"
                     onEditorStateChange={this.onEditorStateChange}
                   />
-
+                  <FormControlLabel
+                    value="private"
+                    control={<Switch color="primary" checked={this.state.privatee} onChange={this.handleSwitchChange} />}
+                    label="Private"
+                    labelPlacement="start"
+                  />
 
                   <SubmitButton type="submit">Submit</SubmitButton>
                   {success && (

@@ -16,7 +16,7 @@ import dep from "./newediploma.png"
 
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
-  const [Name, setName] = useState("");
+  const [Name, setName] = useState(props.user && props.user.name ? props.user.name : '');
 
   const albedoHandler = () => {
     albedo.publicKey({
@@ -107,7 +107,7 @@ function Ediploma(props) {
     });
     setTimeout(function () {
       try {
-       // window.location.href = "/";
+        window.location.href = "/";
       } catch (error) {
         console.log(error);
       }
@@ -121,8 +121,9 @@ function Ediploma(props) {
         <h1>EduNode eCertificate</h1>
         <p>Please enter your name.</p>
         <input
+        disabled
           type="text"
-          placeholder="Please enter your name..."
+          placeholder={props.auth.user.name}
           value={Name}
           onChange={(e) => {
             setName(e.target.value);

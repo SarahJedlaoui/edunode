@@ -8,20 +8,67 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Footer from '../Footer';
-import { styled } from '@mui/material/styles';
+//import { styled } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types'
 import Autocomplete from '@mui/material/Autocomplete';
-import axios from 'axios'; 
+import axios from 'axios';
 import { Navigate } from "react-router-dom";
+import styled from 'styled-components';
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
+const Select = styled.select`
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+`;
+
+
+const SelectedTagsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+`;
+
+const SelectedTag = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  background-color: #f5f5f5;
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+`;
+
+const RemoveTagButton = styled.button`
+  background-color: transparent;
+  color: #333;
+  border: none;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+`;
+const tagsList = [
+
+  "Web3",
+  "Blockchain",
+  "Crypto",
+  "Smart Contracts",
+  "NFTs",
+  "Soroban",
+  "Solidity",
+  "IT",
+  "Dev",
+  "E-learning",
+  "Programming",
+  "Javascript",
+  "Nodejs",
+  "Reactjs",
+  "Other",
+];
 class Account extends Component {
 
   constructor(props) {
@@ -29,18 +76,40 @@ class Account extends Component {
     const { auth } = this.props;
 
     this.state = {
+      tags: auth.user && auth.user.preferences ? auth.user.preferences : [],
       name: auth.user && auth.user.name ? auth.user.name : "",
-      email: "",
+      email:  auth.user.email ? auth.user.email : '',
+      preferences: auth.user && auth.user.preferences ? auth.user.preferences : [],
       age: auth.user && auth.user.age ? auth.user.age : "",
       // location: auth.user && auth.user.location ? auth.user.location : "",
       bio: auth.user && auth.user.bio ? auth.user.bio : "",
-      _id:"",
+      _id: "",
       isLoading: false,
       errors: {},
       isUpdated: false,
     };
+    this.handleTagSelect = this.handleTagSelect.bind(this);
+    this.handleTagRemove = this.handleTagRemove.bind(this);
+    
     // this.handleLocationChange = this.handleLocationChange.bind(this);
   }
+
+
+  handleTagSelect(e) {
+    const selectedTag = e.target.value;
+    if (!this.state.tags.includes(selectedTag)) {
+      this.setState({ tags: [...this.state.tags, selectedTag] });
+    }
+  }
+
+  handleTagRemove(removedTag) {
+    this.setState({
+      tags: this.state.tags.filter((tag) => tag !== removedTag),
+
+    });
+  }
+
+
 
   handleNameChange = (event) => {
     this.setState({ name: event.target.value });
@@ -52,6 +121,9 @@ class Account extends Component {
 
   handleBioChange = (event) => {
     this.setState({ bio: event.target.value });
+  };
+  handlePreferencesChange = (event) => {
+    this.setState({ preferences: event.target.value });
   };
 
   // handleLocationChange = (event, newValue) => {
@@ -83,33 +155,34 @@ class Account extends Component {
     meta: { touched, invalid, error },
     ...custom
   }) => (
-      <TextField
-        label={label}
-        placeholder={label}
-        error={touched && invalid}
-        helperText={touched && error}
-        {...input}
-        {...custom}
-      />
-    )
+    <TextField
+      label={label}
+      placeholder={label}
+      error={touched && invalid}
+      helperText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
 
-    
-    onSubmit = async values => {
 
-      console.log(values)
-      console.log(this.props)
+  onSubmit = async values => {
 
-      const formData = {
-        name: this.state.name,
-        age: this.state.age,
-        bio: this.state.bio,
-        _id: this.props.auth.user._id,
-        email: this.props.auth.user.email,
-        location: this.state.location,
-      };
-      try {
+    console.log(values)
+    console.log(this.props)
+    const { tags,email } = this.state;
+    const formData = {
+      name: this.state.name,
+      age: this.state.age,
+      bio: this.state.bio,
+      _id: this.props.auth.user._id,
+      email: this.props.auth.user.email,
+      location: this.state.location,
+      preferences: this.state.preferences,
+    };
+    try {
 
-        axios.post('https://edunode.herokuapp.com/api/profile', formData)
+      axios.post('https://edunode.herokuapp.com/api/profile', formData)
         .then(response => {
           console.log(response.data);
           this.setState({ isUpdated: true }); // set isUpdated to true if account is successfully updated
@@ -117,64 +190,94 @@ class Account extends Component {
         .catch(error => {
           console.error(error);
         });
-         
-        
-      } catch (error) {
-        console.log(error);
-      }
-      // create user object
-      
-    
+        axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: tags, email: email })
+        .then(response => {
+          console.log(response.data); // Log the response from the backend
+        })
+        .catch(error => {
+          console.error(error); // Log any errors that occur
+        });
+
+    } catch (error) {
+      console.log(error);
     }
+    // create user object
 
 
-renderProfileFields() {
-  const locationLabel = this.props.auth.user.location ? this.props.auth.user.location : 'Location';
-  
-  return (
-    <>
-      <TextField
-        name="name"
-        type="text"
-        placeholder="Name"
-        fullWidth
-        value={this.state.name}
-        onChange={this.handleNameChange}
-      />
-      <TextField
-        disabled
-        name="email"
-        type="email"
-        placeholder={this.props.auth.user.pkey || this.props.auth.user.email}
-        fullWidth
-        inputRef={(input) => (this.emailInput = input)}
-      />
-      <TextField
-        name="age"
-        type="number"
-        placeholder="Age"
-        fullWidth
-        value={this.state.age}
-        onChange={this.handleAgeChange}
-      />
-      
-      <TextField
-        name="bio"
-        multiline
-        rows={4}
-        placeholder="My Web3 Journey"
-        fullWidth
-        value={this.state.bio}
-        onChange={this.handleBioChange}
-      />
-    </>
-  );
-}
+  }
+
+
+  renderProfileFields() {
+    //const locationLabel = this.props.auth.user.location ? this.props.auth.user.location : 'Location';
+    const { tags } = this.state;
+    return (
+      <>
+        <label>Full Name:</label>
+        <TextField
+
+          name="name"
+          type="text"
+          placeholder="Name"
+          fullWidth
+          value={this.state.name}
+          onChange={this.handleNameChange}
+        />
+        <label>Email:</label>
+        <TextField
+          disabled
+          name="email"
+          type="email"
+          placeholder={this.props.auth.user.pkey || this.props.auth.user.email}
+          fullWidth
+          inputRef={(input) => (this.emailInput = input)}
+        />
+        <label>Age:</label>
+        <TextField
+          name="age"
+          type="number"
+          placeholder="Age"
+          fullWidth
+          value={this.state.age}
+          onChange={this.handleAgeChange}
+        />
+        <label>Bio:</label>
+        <TextField
+          name="bio"
+          multiline
+          rows={4}
+          placeholder="My Web3 Journey"
+          fullWidth
+          value={this.state.bio}
+          onChange={this.handleBioChange}
+        />
+        <label>Preferences:</label>
+        
+        <Select fullWidth id="tags" onChange={this.handleTagSelect} style={{ width: '100%' }}>
+          <option value="">{this.state.preferences}</option>
+          {tagsList.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
+        </Select>
+        <SelectedTagsContainer>
+          {tags.map((tag) => (
+            <SelectedTag key={tag}>
+              {tag}
+              <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
+                X
+              </RemoveTagButton>
+            </SelectedTag>
+          ))}
+        </SelectedTagsContainer>
+      </>
+    );
+  }
 
 
   // handle form submission
 
-  
+
 
   render() {
     const { isAuthenticated } = this.props.auth
@@ -184,36 +287,56 @@ renderProfileFields() {
       );
     }
     const { isUpdated } = this.state; // get isUpdated from state
-    const email=this.props.auth.user.email ? this.props.auth.user.email : '';
+    const email = this.props.auth.user.email ? this.props.auth.user.email : '';
     return (
       <>
-      {isUpdated && (
-        <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
-          Account updated successfully!
-        </div>
-      )}
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {/* <Grid item xs={12} sm={4} md={3}>
+
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            {/* <Grid item xs={12} sm={4} md={3}>
             <Sidebar props={email} />
           </Grid> */}
-          <Grid item xs={12} sm={8} md={9}>
-            <>
-            <Topbar />
-            </>
-            
-            <div style={{ padding: '10px' }}>
-              <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                {this.renderProfileFields()}
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-          </Grid>
-        </Grid>
-        <Footer />
-    </Box>
+            <Grid item xs={12} sm={8} md={9}>
+              <>
+                <Topbar />
+              </>
 
-    </>
+              <div style={{ padding: '10px' }}>
+                <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                  <h4 style={{ fontSize: "2em", textAlign: "center" }}>Account</h4>
+                  <br></br>
+                  {this.renderProfileFields()}
+                  <br></br>
+                  <button
+                    type="submit"
+                    style={{
+                      backgroundColor: "#007bff",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "4px",
+                      padding: "10px 20px",
+                      fontSize: "1.2em",
+                      boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)"
+                    }}
+                  >
+                    Submit
+                  </button>
+
+
+                </form>
+                <br></br>
+                {isUpdated && (
+                  <div style={{ backgroundColor: 'green', color: 'white', padding: '10px', borderRadius: "4px", }}>
+                    Account updated successfully!
+                  </div>
+                )}
+              </div>
+            </Grid>
+          </Grid>
+          <Footer />
+        </Box>
+
+      </>
     )
   }
 }

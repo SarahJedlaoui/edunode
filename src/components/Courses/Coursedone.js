@@ -29,6 +29,7 @@ import Ediploma from "./NFT/Ediploma"
 class Coursedone extends Component {
   constructor(props) {
     super(props);
+    const { auth } = this.props;
     this.state = {
       email: '',
     };
@@ -90,12 +91,12 @@ class Coursedone extends Component {
     //   }
     // }, 2000);
 
-
+      const user=this.props.auth && this.props.auth.user ? this.props.auth.user : "";
 
     return (
       <>
     {/* <div>loading now..</div> */}
-    <Ediploma />
+    <Ediploma user={user } />
     </>
     )
   }

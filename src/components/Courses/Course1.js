@@ -53,7 +53,8 @@ export function AlertDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure that you want to take this course?
+            Are you sure that you want to take this course? <br></br>
+            PS: please fill in your full name in the account so we can provide you with a certification 
           </DialogContentText>
         </DialogContent>
         <DialogActions>
