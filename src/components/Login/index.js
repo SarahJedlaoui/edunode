@@ -407,6 +407,7 @@ class Login extends Component {
               label="Password"
               component={this.renderTextField}
               id="password"
+       
               value={this.state.password}
             />
           </div>
@@ -416,7 +417,9 @@ class Login extends Component {
               variant="contained"
               id="button"
               type="submit"
+              
               disabled={pristine || submitting}>
+                
               Login
             </Button>
           </div>
