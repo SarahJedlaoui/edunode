@@ -322,6 +322,9 @@ class Feed extends Component {
     </Grid>
     
   </Grid>
+  <br></br>
+  <br></br>
+  <br></br>
   <Footer />
 </Box>
     </div>

@@ -136,7 +136,7 @@ import Certificat from "./components/Certificate/certificat";
 import Notification from './components/Notifications/Notification';
 import Search from "./components/Search/Search";
 import Sep from './components/Sep/sep'
-
+import PostDetails from './components/Posts/postDetails'
 
 function App(props) {
   const location = useLocation();
@@ -276,6 +276,7 @@ function App(props) {
         <Route exact path="/certificates/:certificateNumber" element={<Certificat/>} /> 
         <Route exact path="/historyChat" element={<History/>} />
         <Route exact path="/.well-known/stellar.toml" element={<Sep/>} />
+        <Route exact path="/postDetails" element={<PostDetails/>} />
       </Routes>
     </Provider>
   );

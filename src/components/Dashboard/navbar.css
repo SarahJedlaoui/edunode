@@ -3,14 +3,14 @@
   height: 70px;
   width: 97%;
   top: 0;
-  left: 20px;
+  left: 7px;
   right: 0px;
   display: flex;
   align-items: center;
   padding: 0.5rem 0.5rem;
   background-color: #fff;
   color: black;
-  padding: 0 30px;
+  padding: 0 0px;
   box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
 }
 
@@ -23,11 +23,13 @@
 
 .navigation-menu {
   margin-left: auto;
+  
 }
 
 .navigation-menu ul {
   display: flex;
   padding: 0;
+  overflow-y: scroll;
 }
 
 .navigation-menu li {

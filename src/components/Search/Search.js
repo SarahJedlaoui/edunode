@@ -363,6 +363,10 @@ class Search extends Component {
 
                         </Grid>
                         <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                       
                         <Footer />
                     </Box>
                 </div>
