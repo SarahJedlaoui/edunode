@@ -102,7 +102,8 @@ class Chat extends Component {
     this.setState({ loading: true });
 
     // Send the new question to the backend to get the AI's response
-    const response = await fetch('https://edunode.herokuapp.com/api/chat/openai', {
+      const response = await fetch('https://edunode.herokuapp.com/api/chat/openai', {
+   
       method: 'POST',
       headers: { 'Content-Type': 'application/json' ,
       "Access-Control-Allow-Origin": '*' },
@@ -189,7 +190,7 @@ class Chat extends Component {
                           </div>
                         ))}
 
-                        <form onSubmit={this.handleSubmit}>
+                        <form >
                           <div>
                             <h2>Suggested Questions:</h2>
                             <br></br>
@@ -209,7 +210,7 @@ class Chat extends Component {
                             }
                             fullWidth
                           />
-                          <Button type="submit" variant="contained" disabled={loading}>
+                          <Button type="submit" variant="contained"   onClick={() => this.setState( this.handleSubmit)} disabled={loading}>
                             {loading ? "Sending..." : "Send"}
                           </Button>
                         </form>
