@@ -15,7 +15,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 import { Navigate } from "react-router-dom";
 import styled from 'styled-components';
-
+import Navbar from '../Dashboard/Navbar';
 
 const Select = styled.select`
   padding: 0.5rem;
@@ -300,9 +300,10 @@ class Account extends Component {
           </Grid> */}
             <Grid item xs={12} sm={8} md={9}>
               <>
-                <Topbar />
+                <Navbar />
               </>
-
+              <br></br>
+              <br></br>
               <div style={{ padding: '10px' }}>
                 <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                   <h4 style={{ fontSize: "2em", textAlign: "center" }}>Account</h4>

@@ -16,7 +16,7 @@ import PropTypes from 'prop-types'
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-
+import Navbar from '../Dashboard/Navbar';
 
 const style = {
     height: 30,
@@ -249,7 +249,14 @@ class Search extends Component {
 
 
                 <div>
-                <Topbar />
+                <Navbar />
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                
+                
                     <Box sx={{ flexGrow: 1 }}>
                    
                         <Grid container spacing={2}>

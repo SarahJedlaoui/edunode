@@ -18,14 +18,14 @@ import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import { GpsFixed } from '@mui/icons-material';
 import Button from '../Membership/Button';
-
+import Navbar from '../Dashboard/Navbar';
 
 
 class History extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email:this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
+            email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
             prompt: "",
             isLoading: false,
             errors: {},
@@ -111,7 +111,10 @@ class History extends Component {
                                 </Grid> */}
 
                                 <Grid item xs={12} sm={8.5} md={10}>
-                                     <Item><Topbar /></Item> 
+                                    <Navbar />
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
                                     <div>
                                         <div>
                                             <div>
@@ -147,7 +150,7 @@ class History extends Component {
         if (!this.props.auth.isAuthenticated) {
             return (
                 <Navigate to="/" />
-              );
+            );
         }
     }
 

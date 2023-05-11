@@ -21,7 +21,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-
+import Navbar from '../Dashboard/Navbar';
 const suggestedQuestions = [
   "What is the Stellar Network?",
   "What is the Soroban Smart Contract Platform?",
@@ -155,7 +155,10 @@ class Chat extends Component {
                 </Grid> */}
 
                 <Grid item xs={12} sm={8} md={9}>
-                  <Topbar />
+                <Navbar/>
+          <br></br>
+          <br></br>
+          <br></br>
                   <div>
                     <div>
                       <div>

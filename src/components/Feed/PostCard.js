@@ -1,17 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+
 export default function PostCard({ post }) {
   return (
-
     <div className="card shadow">
-    <Link
-     to={{
-     pathname: '/postDetails',
-     props: { title: post.title, description: post.description, link: post.link, tags: post.tags }
-   }}
->
       <div className="card-body">
        <div className="card-label">Title:</div>
         <h5 className="card-title" style={{ fontSize: "1.2rem", fontWeight: "bold" }}>{post.title}</h5>
@@ -28,9 +21,8 @@ export default function PostCard({ post }) {
             Tags: {post.tags.join(", ")}
           </small>
         </p>
-        
+       
       </div>
-      </Link>
     </div>
   );
 }

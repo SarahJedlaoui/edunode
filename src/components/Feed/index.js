@@ -23,7 +23,7 @@ import Posts from "./Posts"
 import Card from "./Card"
 import Tweets from './tweets';
 import PostList from "./PostList";
-
+import Navbar from '../Dashboard/Navbar';
 
 const style = {
   height: 30,
@@ -260,7 +260,10 @@ class Feed extends Component {
         </Grid> */}
      
         <Grid xs={7} sm={8.5} md={10}>
-          <Item><Topbar /></Item>
+          <Navbar />
+          <br></br>
+          <br></br>
+          <br></br>
           <div>
           <Tweets />
      
@@ -303,7 +306,10 @@ class Feed extends Component {
     </Grid> */}
  
     <Grid item xs={12} sm={8} md={9}>
-      <Topbar />
+    <Navbar />
+          <br></br>
+          <br></br>
+          <br></br>
       <div>
   
 
@@ -322,9 +328,6 @@ class Feed extends Component {
     </Grid>
     
   </Grid>
-  <br></br>
-  <br></br>
-  <br></br>
   <Footer />
 </Box>
     </div>

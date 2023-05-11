@@ -8,10 +8,10 @@ import Grid from '@mui/material/Grid';
 import Footer from '../Footer';
 import Box from '@mui/material/Box';
 import { EditorState } from 'draft-js';
-import  { useLocation,useParams } from 'react-router-dom';
+//import  { useLocation,useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-
-class PostDetails extends Component{
+class PostDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,9 +28,8 @@ class PostDetails extends Component{
             comments: [],
             newComment: ""
         };
-
-
     }
+
     handleCommentChange = (event) => {
         this.setState({ newComment: event.target.value });
     }
@@ -40,15 +39,19 @@ class PostDetails extends Component{
         const newComments = this.state.comments.concat([this.state.newComment]);
         this.setState({ comments: newComments, newComment: "" });
     }
-
+    static propTypes = {
+        isAuthenticated: PropTypes.bool,
+        error: PropTypes.object.isRequired,
+        clearErrors: PropTypes.func.isRequired
+    }
 
 
 
 
 
     render() {
-        
-        
+
+
         return (
 
             <div>

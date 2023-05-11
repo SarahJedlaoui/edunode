@@ -25,7 +25,7 @@ import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { convertToHTML } from 'draft-convert';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import Navbar from '../Dashboard/Navbar';
 
 
 
@@ -303,7 +303,10 @@ class Post extends Component {
               <Item><Sidebar props={email}/></Item>
             </Grid> */}
             <Grid item xs={12} sm={8} md={9}>
-              <Topbar />
+            <Navbar/>
+          <br></br>
+          <br></br>
+          <br></br>
               <div style={{ padding: '10px' }}>
                 <Form onSubmit={this.handleSubmit}>
                 <h4 style={{ fontSize: "2em", textAlign: "center" }}>Add Post</h4>

@@ -18,7 +18,7 @@ import axios from 'axios';
 import { Navigate } from "react-router-dom";
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
 //import { isConnected, getPublicKey } from "@stellar/freighter-api";
-
+import Navbar from '../Dashboard/Navbar';
 
 class Certificate extends Component {
   constructor(props) {
@@ -273,7 +273,10 @@ class Certificate extends Component {
                 </Grid> */}
 
                 <Grid item xs={12} sm={8} md={9}>
-                  <Item><Topbar /></Item>
+                <Navbar/>
+          <br></br>
+          <br></br>
+          <br></br>
                   <div>
                     <p><h3>Welcome to your Certifications</h3></p>
                     <br></br>
