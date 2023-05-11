@@ -83,6 +83,7 @@ class Account extends Component {
       age: auth.user && auth.user.age ? auth.user.age : "",
       // location: auth.user && auth.user.location ? auth.user.location : "",
       bio: auth.user && auth.user.bio ? auth.user.bio : "",
+      location: auth.user && auth.user.location ? auth.user.location : "",
       _id: "",
       isLoading: false,
       errors: {},
