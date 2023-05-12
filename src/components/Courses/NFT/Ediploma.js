@@ -107,11 +107,7 @@ function Ediploma(props) {
     });
     setTimeout(function () {
       try {
-<<<<<<< HEAD
-       // window.location.href = "/";
-=======
-         window.location.href = "/";
->>>>>>> 627023b (fix)
+        window.location.href = "/";
       } catch (error) {
         console.log(error);
       }

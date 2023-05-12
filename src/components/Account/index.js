@@ -184,7 +184,7 @@ class Account extends Component {
     };
     try {
 
-      axios.post('http://localhost:5001/api/profile', formData)
+      axios.post('https://edunode.herokuapp.com/api/profile', formData)
         .then(response => {
           console.log(response.data);
           this.setState({ isUpdated: true }); // set isUpdated to true if account is successfully updated
@@ -192,7 +192,7 @@ class Account extends Component {
         .catch(error => {
           console.error(error);
         });
-        axios.post('http://localhost:5001/api/users/preferences', { preferences: tags, email: email })
+        axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: tags, email: email })
         .then(response => {
           console.log(response.data); // Log the response from the backend
         })
