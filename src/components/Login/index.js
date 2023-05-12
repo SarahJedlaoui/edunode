@@ -325,7 +325,7 @@ class Login extends Component {
           <div>
 
             <Typography>
-              Please log in.
+              Please choose your login method.
             </Typography>
           </div>
 
@@ -357,8 +357,9 @@ class Login extends Component {
               onClick={handleMetamask}
               variant="outlined"
             >
-              <br></br>
-              {" "}Login with <Image style={{ width: '25px', display: "inline-block", margin: "20px 20px" }} src={mlogo} />
+             
+              Login with metamask
+              {/* <Image style={{ width: '25px', display: "inline-block", margin: "20px 20px" }} src={mlogo} /> */}
             </Button>
 
           </div>
@@ -372,7 +373,8 @@ class Login extends Component {
               onClick={freighterHandler}
               variant="outlined"
             >
-              Login with <Image style={{ width: '85px', display: "inline-block", margin: "5px 5px" }} src={flogo} />
+              Login with freighter 
+              {/* <Image style={{ width: '85px', display: "inline-block", margin: "5px 5px" }} src={flogo} /> */}
             </Button>
           </div>
           <br></br>
@@ -382,7 +384,7 @@ class Login extends Component {
               onClick={albedoHandler}
               variant="outlined"
             >
-              Login with <Image style={{ width: '95px', display: "inline-block", margin: "5px 5px", }} src={albedologo} />
+              Login with albedo{/* Login with <Image style={{ width: '95px', display: "inline-block", margin: "5px 5px", }} src={albedologo} /> */}
 
             </Button>
           </div>
