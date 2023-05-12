@@ -121,7 +121,10 @@ class Dashboard extends Component {
       else {
         return (
           <>
-          <Topbar />
+          <Navbar />
+            <br></br>
+            <br></br>
+            <br></br>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={12}>
           <Alert className="text-center" severity="warning">
