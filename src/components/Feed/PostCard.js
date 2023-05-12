@@ -4,7 +4,9 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 export default function PostCard({ post }) {
   return (
+    
     <div className="card shadow">
+      <a href={`/postDetails/${post._id}`} target="_blank" rel="noopener noreferrer">
       <div className="card-body">
        <div className="card-label">Title:</div>
         <h5 className="card-title" style={{ fontSize: "1.2rem", fontWeight: "bold" }}>{post.title}</h5>
@@ -21,8 +23,9 @@ export default function PostCard({ post }) {
             Tags: {post.tags.join(", ")}
           </small>
         </p>
-       
+        
       </div>
+      </a>
     </div>
   );
 }

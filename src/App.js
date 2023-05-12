@@ -276,7 +276,7 @@ function App(props) {
         <Route exact path="/certificates/:certificateNumber" element={<Certificat/>} /> 
         <Route exact path="/historyChat" element={<History/>} />
         <Route exact path="/.well-known/stellar.toml" element={<Sep/>} />
-        <Route exact path="/postDetails" element={<PostDetails/>} />
+        <Route exact path="/postDetails/:_id" element={<PostDetails/>} />
       </Routes>
     </Provider>
   );
