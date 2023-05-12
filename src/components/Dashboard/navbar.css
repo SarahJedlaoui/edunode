@@ -24,30 +24,20 @@
 
 .navigation-menu {
   margin-left: auto;
-  background-color: rgba(255, 255, 255, 0.95);
-  z-index: 99998;
-  opacity: 1;
-  position:fixed
+  
 }
 
 .navigation-menu ul {
   display: flex;
-    padding: 0;
-    overflow-y: scroll;
-    background-color: #fff;
-    z-index: 99998;
-    display: none;
-    position:fixed
+  padding: 0;
+  overflow-y: scroll;
 }
 
 .navigation-menu li {
   font-weight: bold;
   list-style-type: none;
   margin: 0 0.7rem;
-  z-index: 99998;
 }
-
-
 
 .navigation-menu li a {
 
@@ -78,54 +68,49 @@
   background-color: #2642af;
 }
 
-
-
 @media screen and (max-width: 768px) {
   .hamburger {
     display: block;
   }
 
-  .navigation-menu ul {
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    flex-direction: column;
-    z-index: 99999;
-    width: 100%;
-    height: calc(100vh - 77px);
-    background-color: white;
-    border-top: 1px solid black;
-  }
+  @media screen and (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
 
-  .navigation-menu li {
-    z-index: 99998;
-    text-align: center;
-    margin: 0;
-  }
+    .navigation-menu ul {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      flex-direction: column;
 
-  .navigation-menu li a {
-    color: black;
+      width: 100%;
+      height: calc(100vh - 77px);
+      background-color: white;
+      border-top: 1px solid black;
+    }
 
-    width: 100%;
-    padding: 1.5rem 0;
-  }
+    .navigation-menu li {
+      display: block;
+      text-align: center;
+      margin: 0;
+    }
 
-  .navigation-menu li:hover {
-    background-color: #eee;
-  }
-  .navigation-menu ul {
-    display: flex;
-    padding: 0;
-    overflow-y: scroll;
-    background-color: #fff;
-    z-index: 99998;
-    display: none;
-    position:fixed
-  }
+    .navigation-menu li a {
+      color: black;
 
-  .navigation-menu.expanded ul {
-    display: block;
-  }
+      width: 100%;
+      padding: 1.5rem 0;
+    }
 
+    .navigation-menu li:hover {
+      background-color: #eee;
+    }
+
+    .navigation-menu.expanded ul {
+      display: block;
+    }
+
+  }
 }
