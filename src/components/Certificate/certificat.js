@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import  { useLocation,useParams } from 'react-router-dom';
 import Certificate from './index';
+
 function Certificat() {
   const {certificateNumber}=useParams();
   const location = useLocation();
