@@ -66,6 +66,7 @@ export default function Navbar() {
           <Logout />
         </ul>
       </div>
+     
     </nav>
   );
 }

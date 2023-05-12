@@ -292,18 +292,23 @@ class Account extends Component {
     const email = this.props.auth.user.email ? this.props.auth.user.email : '';
     return (
       <>
-
+           
+           <div>
+            <div  style={{z:-1}} >
+                <Navbar />
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                </div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             {/* <Grid item xs={12} sm={4} md={3}>
             <Sidebar props={email} />
           </Grid> */}
             <Grid item xs={12} sm={8} md={9}>
-              <>
-                <Navbar />
-              </>
-              <br></br>
-              <br></br>
+              
               <div style={{ padding: '10px' }}>
                 <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                   <h4 style={{ fontSize: "2em", textAlign: "center" }}>Account</h4>
@@ -338,7 +343,7 @@ class Account extends Component {
           </Grid>
           <Footer />
         </Box>
-
+</div>
       </>
     )
   }

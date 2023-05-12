@@ -17,7 +17,6 @@ import axios from "axios"
 import "./style.css"
 import { Navigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -127,12 +126,7 @@ class Chat extends Component {
 
   render() {
 
-    const Item = styled(Paper)(({ theme }) => ({
-      ...theme.typography.body2,
-      padding: theme.spacing(1),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    }));
+    
 
 
     const {
@@ -147,6 +141,10 @@ class Chat extends Component {
       return (
 
         <>
+        <Navbar/>
+          <br></br>
+          <br></br>
+          <br></br>
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
@@ -155,10 +153,7 @@ class Chat extends Component {
                 </Grid> */}
 
                 <Grid item xs={12} sm={8} md={9}>
-                <Navbar/>
-          <br></br>
-          <br></br>
-          <br></br>
+                
                   <div>
                     <div>
                       <div>
