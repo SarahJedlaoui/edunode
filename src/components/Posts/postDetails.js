@@ -64,6 +64,8 @@ function PostDetails () {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [post, setPost] = useState({});
+  
+
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
@@ -87,8 +89,25 @@ function PostDetails () {
   }, [_id]);
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit =async (event) => {
     event.preventDefault();
+    
+     
+        const newComment = {
+          text: newComment,
+          email: email,
+          postId: post._id // Add the post ID to the new comment object
+        };
+        try {
+          const res = await axios.post("/api/comments", newComment);
+          setComments([...comments, newComment]);
+          setNewComment("");
+        } catch (err) {
+          console.error(err);
+        }
+     
+
+
     const newComments = comments.concat([newComment]);
     setComments(newComments);
     setNewComment("");
