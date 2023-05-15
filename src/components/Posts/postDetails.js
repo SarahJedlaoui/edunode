@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { clearErrors } from "../../actions/errorActions";
@@ -7,7 +7,7 @@ import Footer from "../Footer";
 import Box from "@mui/material/Box";
 import { EditorState } from "draft-js";
 import PropTypes from "prop-types";
-import  { useLocation,useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import axios from "axios";
 import Navbar from '../Dashboard/Navbar';
 import TextField from '@mui/material/TextField'
@@ -16,63 +16,54 @@ import { makeStyles } from "@mui/styles";
 
 
 const useStyles = makeStyles((theme) => ({
-    postContainer: {
-      padding: theme.spacing(2),
-      backgroundColor: "#F5F5F5",
-      borderRadius: "10px",
-    },
-    postTitle: {
-      marginBottom: theme.spacing(2),
-      fontWeight: "bold",
-      fontSize: "36px",
-    },
-    postDescription: {
-      marginBottom: theme.spacing(4),
-      fontSize: "20px",
-    },
-    postLink: {
-      fontSize: "20px",
-    },
-    commentsContainer: {
-      marginTop: theme.spacing(4),
-    },
-    commentInput: {
-      marginRight: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-    },
-    commentButton: {
-      marginTop: theme.spacing(2),
-    },
-  }));
+  postContainer: {
+    padding: theme.spacing(2),
+    backgroundColor: "#F5F5F5",
+    borderRadius: "10px",
+  },
+  postTitle: {
+    marginBottom: theme.spacing(2),
+    fontWeight: "bold",
+    fontSize: "36px",
+  },
+  postDescription: {
+    marginBottom: theme.spacing(4),
+    fontSize: "20px",
+  },
+  postLink: {
+    fontSize: "20px",
+  },
+  commentsContainer: {
+    marginTop: theme.spacing(4),
+  },
+  commentInput: {
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  commentButton: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 
 
 
 
 
-function PostDetails () {
-  const [tags, setTags] = useState([]);
-  const [title, setTitle] = useState("");
-  const [link, setLink] = useState("");
-  const [description, setDescription] = useState("");
-  const [email, setEmail] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [errors, setErrors] = useState({});
-  const [privatee, setPrivate] = useState(false);
+function PostDetails(props) {
+  const authData = JSON.parse(localStorage.getItem('persist:root')).auth;
+  const [email, setEmail] = useState(localStorage.getItem(JSON.parse(authData).user.email) );
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [post, setPost] = useState({});
-  
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
+console.log('emaillll',email)
 
-
-  const {_id}=useParams();
-  console.log('id :',_id)
+  const { _id } = useParams();
+  console.log('id :', _id)
 
   useEffect(() => {
     const getPost = async () => {
@@ -89,29 +80,39 @@ function PostDetails () {
   }, [_id]);
 
 
-  const handleSubmit =async (event) => {
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const res = await axios.get(
+          `https://edunode.herokuapp.com/api/post/comments/${_id}`
+        );
+        setComments(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getComments();
+  }, [_id]);
+
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
-     
-        const newComment = {
-          text: newComment,
-          email: email,
-          postId: post._id // Add the post ID to the new comment object
-        };
-        try {
-          const res = await axios.post("/api/comments", newComment);
-          setComments([...comments, newComment]);
-          setNewComment("");
-        } catch (err) {
-          console.error(err);
-        }
-     
+    const userEmail = 'hi@edunode.org';
+    const comment = {
+      text: newComment,
+      email: userEmail
+    };
 
-
-    const newComments = comments.concat([newComment]);
-    setComments(newComments);
-    setNewComment("");
+    try {
+      const res = await axios.post(`https://edunode.herokuapp.com/api/post/comments/${_id}`, comment);
+      setComments([...comments, comment]);
+      setNewComment("");
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+
 
   return (
     <div>
@@ -145,7 +146,10 @@ function PostDetails () {
                     <button type="submit">Add Comment</button>
                   </form>
                   {comments.map((comment, index) => (
-                    <div key={index}>{comment}</div>
+                    <div key={index}>
+                      <p>{comment.text}</p>
+                      <p>Comment by: {comment.email}</p>
+                    </div>
                   ))}
                 </div>
               </div>
