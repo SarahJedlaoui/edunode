@@ -123,7 +123,7 @@ class Login extends Component {
 
 
 
-  componentDidMount() {
+  /*componentDidMount() {
 
 
 
@@ -138,7 +138,7 @@ class Login extends Component {
       size: 'large',
     });
   }
-
+*/
 
 
 

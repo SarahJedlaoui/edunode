@@ -84,7 +84,7 @@ class Account extends Component {
       // location: auth.user && auth.user.location ? auth.user.location : "",
       bio: auth.user && auth.user.bio ? auth.user.bio : "",
       location: auth.user && auth.user.location ? auth.user.location : "",
-      _id: "",
+      _id: auth.user && auth.user._id ? auth.user._id : "",
       isLoading: false,
       errors: {},
       isUpdated: false,
@@ -168,6 +168,10 @@ class Account extends Component {
 
 
   onSubmit = async values => {
+    console.log(this.state.name)
+    console.log(this.state._id)
+    console.log(this.props.auth.user._id)
+    console.log(this.props.auth.user.email)
 
     console.log(values)
     console.log(this.props)
