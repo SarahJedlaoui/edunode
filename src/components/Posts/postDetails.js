@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { clearErrors } from "../../actions/errorActions";
@@ -12,7 +12,7 @@ import axios from "axios";
 import Navbar from '../Dashboard/Navbar';
 import TextField from '@mui/material/TextField'
 import { makeStyles } from "@mui/styles";
-
+import UserContext from './UserContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,15 +52,19 @@ const useStyles = makeStyles((theme) => ({
 
 function PostDetails(props) {
   const authData = JSON.parse(localStorage.getItem('persist:root')).auth;
-  const [email, setEmail] = useState(localStorage.getItem(JSON.parse(authData).user.email) );
+  const [email, setEmail] = useState(localStorage.getItem(JSON.parse(authData).user.email));
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [post, setPost] = useState({});
+  let userDetails = JSON.parse(localStorage.getItem('user'));
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
-console.log('emaillll',email)
+  
+  console.log('userDetails', userDetails)
+  console.log('userDetails', userDetails.email)
+  
 
   const { _id } = useParams();
   console.log('id :', _id)
@@ -94,13 +98,15 @@ console.log('emaillll',email)
     getComments();
   }, [_id]);
 
-  
+
   const handleSubmit = async (event) => {
+
+    console.log('submit email : ',userDetails.email)
     event.preventDefault();
-    const userEmail = 'hi@edunode.org';
+    const userEmaill = userDetails.email;
     const comment = {
       text: newComment,
-      email: userEmail
+      email: userEmaill
     };
 
     try {

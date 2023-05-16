@@ -24,6 +24,8 @@ import Card from "./Card"
 import Tweets from './tweets';
 import PostList from "./PostList";
 import Navbar from '../Dashboard/Navbar';
+import  { useState } from 'react';
+import UserContext from '../Posts/UserContext';
 
 const style = {
   height: 30,
@@ -36,7 +38,7 @@ class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
+      email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       userName: "",
       pkey: "",
       pubkey: "",
@@ -251,7 +253,7 @@ class Feed extends Component {
   
         <>
  
-       
+ <UserContext.Provider value={this.state.email}>
       <div>
             <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
@@ -286,7 +288,7 @@ class Feed extends Component {
         </div>
         
        
-        
+        </UserContext.Provider>
       </>
     )
   }
@@ -297,7 +299,7 @@ class Feed extends Component {
   
     <>
 
-   
+<UserContext.Provider value={this.state.email}>
   <div>
         <Box sx={{ flexGrow: 1 }}>
   <Grid container spacing={2}>
@@ -333,6 +335,7 @@ class Feed extends Component {
     </div>
     
    
+    </UserContext.Provider>
     
   </>
 )

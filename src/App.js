@@ -137,6 +137,7 @@ import Notification from './components/Notifications/Notification';
 import Search from "./components/Search/Search";
 import Sep from './components/Sep/sep'
 import PostDetails from './components/Posts/postDetails'
+import { useState } from 'react';
 
 function App(props) {
   const location = useLocation();

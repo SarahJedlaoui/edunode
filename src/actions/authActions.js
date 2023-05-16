@@ -132,13 +132,22 @@ body
   dispatch({
     type: LOGIN_SUCCESS,
     payload: data,
+    
   });
   if (data.user.isVerified === true) {
     dispatch({
       type: VERIFICATION_SUCCESS,
       payload: data,
+     
     });
+
+    localStorage.setItem('jwt', data.user)
+    localStorage.setItem('user', JSON.stringify(data.user))
+    console.log('users', data.user)
   }
+  localStorage.setItem('jwt', data.user)
+  localStorage.setItem('user', JSON.stringify(data.user))
+  console.log('users', data.user)
 } 
  
 
