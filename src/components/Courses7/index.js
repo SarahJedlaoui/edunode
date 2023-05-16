@@ -25,12 +25,7 @@ import Course1doneclaim from './Course1doneclaim';
 import Course2 from './Course2';
 import Course3 from './Course3';
 import Course4 from './Course4';
-import Course5 from './Course5';
-import Course6 from './Course6';
-import Course7 from './Course7';
-import Course8 from './Course8';
 import Footer from '../Footer';
-import Navbar from '../Dashboard/Navbar';
 
 // Import styles
 import './style.css';
@@ -82,7 +77,7 @@ class Courses extends Component {
       color: theme.palette.text.secondary,
     }));
     
-    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
+  
     const {
       isLoading,
       isAuthenticated,
@@ -98,29 +93,30 @@ class Courses extends Component {
       return (
 
         <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {/* <Grid item xs={12} sm={4} md={3}>
-            <Item><Sidebar props={email}/></Item>
-          </Grid> */}
-          <Grid item xs={12} sm={8} md={9}>
-            <Item><Navbar /></Item>
-            <br></br>
-     <br></br>
-     <br></br>
-            <div style={{ padding: '10px' }}>
-              <Course1 />
-              <Course2 />
-              <Course3 />
-              <Course4 />
-              <Course5 />
-              <Course6 />
-              <Course7 />
-              <Course8 />
-            </div>
-            <Footer />
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid xs={5} sm={3.5} md={2}>
+          <Item><Sidebar /></Item>
         </Grid>
-      </Box>
+        <Grid xs={7} sm={8.5} md={10}>
+          <Item><Topbar /></Item>
+          <div className="myDiv">
+       
+          <br></br>
+          <Course1doneclaim />
+          <br></br>
+          <Course2 />
+          <br></br>
+          <Course3 />
+          <br></br>
+          <Course4 />
+          <br></br>
+          <Footer />
+        </div>
+        </Grid>
+        
+      </Grid>
+      <Footer />
+    </Box>
        
       );
     }
@@ -130,18 +126,15 @@ class Courses extends Component {
 
         <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {/* <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar props={email} /></Item>
-        </Grid> */}
-         <Grid item xs={12} sm={8} md={9}> 
-          <Navbar />
-          <br></br>
-     <br></br>
-     <br></br>
-           <div className="myDiv"> 
+        <Grid xs={5} sm={3.5} md={2}>
+          <Item><Sidebar /></Item>
+        </Grid>
+        <Grid xs={7} sm={8.5} md={10}>
+          <Item><Topbar /></Item>
+          <div className="myDiv">
           <Welcome />
           <br></br>
-          <Course1 />
+          <Course1done />
           <br></br>
           <Course2 />
           <br></br>
@@ -149,15 +142,10 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Course5/>
-          <br></br>
-          <Course6 />
-          <br></br>
-          <Course7 />
-          <br></br>
-          <Course8 />
-         </div> 
-         </Grid> 
+          <Footer />
+        </div>
+        </Grid>
+        
       </Grid>
       <Footer />
     </Box>
@@ -170,14 +158,11 @@ class Courses extends Component {
       return (
         <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {/* <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar  props={email}/></Item>
-        </Grid> */}
-        <Grid item xs={12} sm={8} md={9}>
-        <Navbar />
-        <br></br>
-     <br></br>
-     <br></br>
+        <Grid xs={5} sm={3.5} md={2}>
+          <Item><Sidebar /></Item>
+        </Grid>
+        <Grid xs={7} sm={8.5} md={10}>
+          <Item><Topbar /></Item>
           <div className="myDiv">
           <Welcome />
           <br></br>
@@ -189,13 +174,7 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Course5/>
-          <br></br>
-          <Course6 />
-          <br></br>
-          <Course7 />
-          <br></br>
-          <Course8 />
+          <Footer />
         </div>
         </Grid>
         
@@ -206,17 +185,18 @@ class Courses extends Component {
     } else {
       return (
         <>
-         
+          {/* <NavBar />
+          <p>
+            Please <a href="/login">Log In</a> to see the courses.
+          </p>
+          <Footer /> */}
           <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {/* <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar props={email}/></Item>
-        </Grid> */}
-        <Grid item xs={12} sm={8} md={9}>
-     <Navbar />
-     <br></br>
-     <br></br>
-     <br></br>
+        <Grid xs={5} sm={3.5} md={2}>
+          <Item><Sidebar /></Item>
+        </Grid>
+        <Grid xs={7} sm={8.5} md={10}>
+          <Item><Topbar /></Item>
           <div className="myDiv">
           <Welcome />
           <br></br>
@@ -227,14 +207,6 @@ class Courses extends Component {
           <Course3 />
           <br></br>
           <Course4 />
-          <br></br>
-          <Course5/>
-          <br></br>
-          <Course6 />
-          <br></br>
-          <Course7 />
-          <br></br>
-          <Course8 />
           <br></br>
           <Footer />
         </div>
@@ -303,10 +275,10 @@ export function AlertDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} style={{ backgroundColor: 'red', color: 'white' }}>
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleConfirm} color="blue" autoFocus>
+          <Button onClick={handleConfirm} color="primary" autoFocus>
             Confirm
           </Button>
         </DialogActions>

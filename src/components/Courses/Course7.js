@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
-import sor from './sor.png';
+import sor from './Ethereum.png';
 import { Button } from 'react-bootstrap';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -24,7 +24,7 @@ export function AlertDialog() {
   };
   const handleConfirm = (e) => {
     setOpen(false);
-    window.location.href = '/courses/106/';
+    window.location.href = '/courses/107/';
 
 
   };
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Course6() {
+export default function Course7() {
   const classes = useStyles();
 
   return (
@@ -101,11 +101,11 @@ export default function Course6() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  In this course you will learn about Soroban.
+                  In this course you will learn understanding Ethereum.
                 </Typography>
                 <p className="card-text">
           <small className="text-muted">
-            Tags: Soroban
+            Tags: Ethereum
           </small>
         </p>
                 <Typography variant="body2" gutterBottom></Typography>

@@ -46,6 +46,16 @@ import QuestionsTwo5 from './components/Courses5/QuestionsTwo';
 import QuestionsThree5 from './components/Courses5/QuestionsThree';
 import QuestionsFour5 from './components/Courses5/QuestionsFour';
 import QuestionsFive5 from './components/Courses5/QuestionsFive';
+import Questions6 from './components/Courses6/Questions';
+import QuestionsTwo6 from './components/Courses6/QuestionsTwo';
+import QuestionsThree6 from './components/Courses6/QuestionsThree';
+import QuestionsFour6 from './components/Courses6/QuestionsFour';
+import QuestionsFive6 from './components/Courses6/QuestionsFive';
+import Questions7 from './components/Courses7/Questions';
+import QuestionsTwo7 from './components/Courses7/QuestionsTwo';
+import QuestionsThree7 from './components/Courses7/QuestionsThree';
+import QuestionsFour7 from './components/Courses7/QuestionsFour';
+import QuestionsFive7 from './components/Courses7/QuestionsFive';
 import Intro from './components/Courses/One/Intro';
 import Intro1 from './components/Courses1/One/Intro';
 import Intro2 from './components/Courses2/One/Intro';
@@ -82,12 +92,16 @@ import Introii5 from './components/Courses5/One/Introii';
 import Introiii5 from './components/Courses5/One/Introiii';
 import Introiiii5 from './components/Courses5/One/Introiiii';
 import Introiiiii5 from './components/Courses5/One/Introiiiii';
+import Intro6 from './components/Courses6/One/Intro';
+import Intro7 from './components/Courses7/One/Intro';
 import Coursedone from "./components/Courses/Coursedone"
 import Coursedone1 from "./components/Courses1/Coursedone"
 import Coursedone2 from "./components/Courses2/Coursedone"
 import Coursedone3 from "./components/Courses3/Coursedone"
 import Coursedone4 from "./components/Courses4/Coursedone"
 import Coursedone5 from "./components/Courses5/Coursedone"
+import Coursedone6 from "./components/Courses6/Coursedone"
+import Coursedone7 from "./components/Courses7/Coursedone"
 import Keybase from "./components/Blog/Articles/Keybase";
 import Issue from "./components/Blog/Articles/Issue";
 import Register from "./components/Register";
@@ -190,6 +204,8 @@ function App(props) {
         <Route exact path="/courses/106/iii" element={<Introiii5/>} />
         <Route exact path="/courses/106/iiii" element={<Introiiii5/>} />
         <Route exact path="/courses/106/iiiii" element={<Introiiiii5/>} />
+        <Route exact path="/courses/107" element={<Intro6/>} />
+        <Route exact path="/courses/108" element={<Intro7/>} />
         <Route exact path="/courses/101/1" element={<Questions/>} />
         <Route exact path="/courses/101/2" element={<QuestionsTwo/>} />
         <Route exact path="/courses/101/3" element={<QuestionsThree/>} />
@@ -227,6 +243,18 @@ function App(props) {
         <Route exact path="/courses/106/4" element={<QuestionsFour5/>} />
         <Route exact path="/courses/106/5" element={<QuestionsFive5/>} />
         <Route exact path="/courses/106/done" element={<Coursedone5/>} />
+        <Route exact path="/courses/107/1" element={<Questions6/>} />
+        <Route exact path="/courses/107/2" element={<QuestionsTwo6/>} />
+        <Route exact path="/courses/107/3" element={<QuestionsThree6/>} />
+        <Route exact path="/courses/107/4" element={<QuestionsFour6/>} />
+        <Route exact path="/courses/107/5" element={<QuestionsFive6/>} />
+        <Route exact path="/courses/108/done" element={<Coursedone6/>} />
+        <Route exact path="/courses/108/1" element={<Questions7/>} />
+        <Route exact path="/courses/108/2" element={<QuestionsTwo7/>} />
+        <Route exact path="/courses/108/3" element={<QuestionsThree7/>} />
+        <Route exact path="/courses/108/4" element={<QuestionsFour7/>} />
+        <Route exact path="/courses/108/5" element={<QuestionsFive7/>} />
+        <Route exact path="/courses/108/done" element={<Coursedone7/>} />
         <Route exact path="/blog" element={<Blog/>} />
         <Route exact path="/blog/What-is-Keybase" element={<Keybase/>} />
         <Route exact path="/blog/How-to-issue" element={<Issue/>} />

@@ -120,8 +120,9 @@ function Ediploma(props) {
         <h1>EduNode eCertificate</h1>
         <p>Please enter your name.</p>
         <input
+        disabled
           type="text"
-          placeholder="Please enter your name..."
+          placeholder={props.auth.user.name}
           value={Name}
           onChange={(e) => {
             setName(e.target.value);

@@ -87,9 +87,9 @@ export function VerticalLinearStepper(props) {
   
     
     //  progressBar(activeStep)
-    // window.location.href = '/courses/101/i';
+     window.location.href = '/courses/101/i';
 
-    //  setActiveProgress((prevActiveStep) => prevActiveStep + 20);
+      setActiveProgress((prevActiveStep) => prevActiveStep + 20);
   };
 
   const handleBack = () => {
