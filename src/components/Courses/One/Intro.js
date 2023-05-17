@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 //import ProgressBar from 'react-bootstrap/ProgressBar';
 import Box from '@mui/material/Box';
-import NavBar from '../../NavBar';
+import Navbar from '../../Dashboard/Navbar';
 import Footer from '../../Footer';
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../actions/errorActions';
@@ -20,6 +20,7 @@ import { reduxForm } from 'redux-form';
 import { useNavigate } from 'react-router-dom';
 import "./styles.css"
 import Precourse from "../Precourse.js"
+
 
 
 
@@ -183,7 +184,10 @@ class Intro extends Component {
     const progress = this.state.progress
     return (
       <div>
-        <NavBar></NavBar>
+         <Navbar></Navbar> 
+         <br></br>
+         <br></br>
+         <br></br>
         <LinearProgressWithLabel value={activeProgress} />
         <VerticalLinearStepper
           activeStep={activeStep}

@@ -106,6 +106,7 @@ function Ediploma(props) {
 
   }
 
+<<<<<<< HEAD
   {/* */ } async function sendImageToServer(base64Image, props) {
     try {
       if (props.auth.user.email) {
@@ -117,6 +118,28 @@ function Ediploma(props) {
         console.log('hi');
         console.log(props.auth.user.pkey);
         console.log(response.data); // Check if the image was saved successfully
+=======
+ {/* */} async function sendImageToServer(base64Image, props) {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+    }
+ }
+  try {
+    if (props.auth.user.email) {
+      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+      image: base64Image,
+      pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
+      email: props.auth.user.email ? props.auth.user.email : null,
+      name: Name
+    }, config);
+    console.log('hi'); 
+    console.log(props.auth.user.pkey);
+    console.log(response.data); // Check if the image was saved successfully
+      
+    } else if (props.auth.user.pkey) {
+>>>>>>> 679ceec (ediploma / ai plugin)
 
       } else if (props.auth.user.pkey) {
 
