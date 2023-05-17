@@ -89,34 +89,11 @@ function getStepContent(step) {
 
 export function VerticalLinearStepper(props) {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [activeProgress, setActiveProgress] = React.useState(0);
+  
   const steps = getSteps();
+  const { activeStep, handleNext, handleBack } = props;
 
-  React.useEffect(() => {
-
-    setActiveProgress((prevActiveStep) => prevActiveStep + 10);
-
-  }, [activeStep]);
-
-  const handleNext = () => {
-    //  const step = activeStep
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-
-    //  progressBar(activeStep)
-    // window.location.href = '/courses/101/i';
-
-    //  setActiveProgress((prevActiveStep) => prevActiveStep + 20);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  //   const onSubmit = () => {
-  //     console.log("hi")
-
-  // }
+ 
 
   return (
     <>
@@ -190,6 +167,8 @@ class Intro extends Component {
     super(props);
     this.state = {
       progress: 0,
+      activeStep: 0,
+      activeProgress: 0,
       stepone: 10,
       isLoading: false,
       errors: {},
@@ -197,20 +176,38 @@ class Intro extends Component {
     this.onChangeOne = this.onChange.bind(this);
   }
 
+
+  handleNext = () => {
+    this.setState((prevState) => ({
+      activeStep: prevState.activeStep + 1,
+      activeProgress: prevState.activeProgress + 15,
+    }));
+  };
+
+  handleBack = () => {
+    this.setState((prevState) => ({
+      activeStep: prevState.activeStep - 1,
+      activeProgress: prevState.activeProgress - 10,
+    }));
+  };
+
   onChange = (e) => {
     // e.preventDefault();
     console.log('Please select a value');
   };
 
   render(props, state) {
+    const { activeStep, activeProgress } = this.state;
     const progress = this.state.progress
     return (
       <div>
         <NavBar></NavBar>
-        <LinearProgressWithLabel value={5} />
-        <VerticalLinearStepper />
-
-
+        <LinearProgressWithLabel value={activeProgress} />
+        <VerticalLinearStepper
+          activeStep={activeStep}
+          handleNext={this.handleNext}
+          handleBack={this.handleBack}
+        />
         <Footer />
       </div>
     );

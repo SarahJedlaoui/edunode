@@ -69,6 +69,16 @@ const tagsList = [
   "Reactjs",
   "Other",
 ];
+
+const skillsList = [
+  "IT",
+  "Programming",
+  "Javascript",
+  "Nodejs",
+  "Reactjs",
+  "TypeScript",
+   "Other",
+];
 class Account extends Component {
 
   constructor(props) {
@@ -77,11 +87,11 @@ class Account extends Component {
 
     this.state = {
       tags: auth.user && auth.user.preferences ? auth.user.preferences : [],
+      skills: auth.user && auth.user.skills ? auth.user.skills : [],
       name: auth.user && auth.user.name ? auth.user.name : "",
       email:  auth.user.email ? auth.user.email : '',
       preferences: auth.user && auth.user.preferences ? auth.user.preferences : [],
       age: auth.user && auth.user.age ? auth.user.age : "",
-      // location: auth.user && auth.user.location ? auth.user.location : "",
       bio: auth.user && auth.user.bio ? auth.user.bio : "",
       location: auth.user && auth.user.location ? auth.user.location : "",
       _id: auth.user && auth.user._id ? auth.user._id : "",
@@ -91,21 +101,43 @@ class Account extends Component {
     };
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
+    this.handleSkillsSelect = this.handleSkillsSelect.bind(this);
+    this.handleSkillsRemove = this.handleSkillsRemove.bind(this);
     
     // this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
 
   handleTagSelect(e) {
+   console.log(this.state.tags)
+   console.log('handletagSelect ',this.props.auth.user)
+   console.log(this.state.skills)
+   console.log('hhhhhhh ',this.props.auth.user.skills)
     const selectedTag = e.target.value;
     if (!this.state.tags.includes(selectedTag)) {
       this.setState({ tags: [...this.state.tags, selectedTag] });
     }
   }
 
+  handleSkillsSelect(e) {
+    //console.log('handleSkillsSelect ',this.props.auth.user)
+    console.log('handleSkillsSelect ',this.state.preferences)
+    const selectedTag1 = e.target.value;
+    if (!this.state.skills.includes(selectedTag1)) {
+      this.setState({ skills: [...this.state.skills, selectedTag1] });
+    }
+  }
+
   handleTagRemove(removedTag) {
     this.setState({
       tags: this.state.tags.filter((tag) => tag !== removedTag),
+
+    });
+  }
+
+  handleSkillsRemove(removedTag) {
+    this.setState({
+      skills: this.state.skills.filter((tag) => tag !== removedTag),
 
     });
   }
@@ -124,6 +156,9 @@ class Account extends Component {
     this.setState({ bio: event.target.value });
   };
   handlePreferencesChange = (event) => {
+    this.setState({ preferences: event.target.value });
+  };
+  handleSkillsChange = (event) => {
     this.setState({ preferences: event.target.value });
   };
 
@@ -176,6 +211,7 @@ class Account extends Component {
     console.log(values)
     console.log(this.props)
     const preferences= this.state.preferences;
+    const skills= this.state.skills;
     const { tags,email } = this.state;
     const formData = {
       name: this.state.name,
@@ -204,6 +240,14 @@ class Account extends Component {
           console.error(error); // Log any errors that occur
         });
 
+        axios.post('https://edunode.herokuapp.com/api/users/skills', { skills: skills, email: email })
+        .then(response => {
+          console.log(response.data); // Log the response from the backend
+        })
+        .catch(error => {
+          console.error(error); // Log any errors that occur
+        });
+
     } catch (error) {
       console.log(error);
     }
@@ -215,7 +259,7 @@ class Account extends Component {
 
   renderProfileFields() {
     //const locationLabel = this.props.auth.user.location ? this.props.auth.user.location : 'Location';
-    const { tags } = this.state;
+    const { tags,skills } = this.state;
     return (
       <>
         <label>Full Name:</label>
@@ -271,6 +315,26 @@ class Account extends Component {
             <SelectedTag key={tag}>
               {tag}
               <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
+                X
+              </RemoveTagButton>
+            </SelectedTag>
+          ))}
+        </SelectedTagsContainer>
+        <label>Skills:</label>
+        
+        <Select fullWidth id="tags" onChange={this.handleSkillsSelect} style={{ width: '100%' }}>
+          <option value="">{this.state.skills}</option>
+          {skillsList.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
+        </Select>
+        <SelectedTagsContainer>
+          {skills.map((tag) => (
+            <SelectedTag key={tag}>
+              {tag}
+              <RemoveTagButton onClick={() => this.handleSkillsRemove(tag)}>
                 X
               </RemoveTagButton>
             </SelectedTag>

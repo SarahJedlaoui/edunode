@@ -71,93 +71,69 @@ function getStepContent(step) {
 
 export function VerticalLinearStepper(props) {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
- const [activeProgress, setActiveProgress] = React.useState(0);
+  
   const steps = getSteps();
+  const { activeStep, handleNext, handleBack } = props;
 
- React.useEffect(() => {
-
-   setActiveProgress((prevActiveStep) => prevActiveStep + 10);
-
- }, [activeStep]);
-
-  const handleNext = () => {
-    //  const step = activeStep
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  
-    
-    //  progressBar(activeStep)
-     window.location.href = '/courses/101/i';
-
-      setActiveProgress((prevActiveStep) => prevActiveStep + 20);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-//   const onSubmit = () => {
-//     console.log("hi")
-  
-// }
+ 
 
   return (
     <>
-    <Precourse  />
-    <div className={classes.root} >
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-            <StepContent>
-              <Typography>{getStepContent(index)}</Typography>
-              <div className={classes.actionsContainer}>
-                <div>
-                  <Button
-                    type="button"
-                    label="back"
-                    id="back"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.button}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1
-                      ? 'Finish'
-                      : 'Next'}
-                  </Button>
+      <Precourse />
+      <div className={classes.root} >
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {steps.map((label, index) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+              <StepContent>
+                <Typography>{getStepContent(index)}</Typography>
+                <div className={classes.actionsContainer}>
+                  <div>
+                    <Button
+                      type="button"
+                      label="back"
+                      id="back"
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      className={classes.button}
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1
+                        ? 'Finish'
+                        : 'Next'}
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </StepContent>
-          </Step>
-        ))}
-      </Stepper>
-      {activeStep === steps.length && (
-        <Paper
-          square
-          elevation={0}
-          className={classes.resetContainer}
-        >
-          <Typography>
-            Course introduction completed - Now get ready for the
-            Quiz.
-          </Typography>
-          <Link to="/courses/101/1" className={classes.button}>
-            Continue
-          </Link>
-        </Paper>
-      )}
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
+        {activeStep === steps.length && (
+          <Paper
+            square
+            elevation={0}
+            className={classes.resetContainer}
+          >
+            <Typography>
+              Course completed - Now get ready for the
+              Quiz.
+            </Typography>
+            <Link to="/courses/101/1" className={classes.button}>
+              Continue
+            </Link>
+          </Paper>
+        )}
       </div>
-      </>
+    </>
   );
-    
+
 }
 
 
@@ -173,12 +149,29 @@ class Intro extends Component {
     super(props);
     this.state = {
       progress: 0,
+      activeStep: 0,
+      activeProgress: 0,
       stepone: 10,
       isLoading: false,
       errors: {},
     };
-       this.onChangeOne = this.onChange.bind(this);
+    this.onChangeOne = this.onChange.bind(this);
   }
+
+
+  handleNext = () => {
+    this.setState((prevState) => ({
+      activeStep: prevState.activeStep + 1,
+      activeProgress: prevState.activeProgress + 20,
+    }));
+  };
+
+  handleBack = () => {
+    this.setState((prevState) => ({
+      activeStep: prevState.activeStep - 1,
+      activeProgress: prevState.activeProgress - 20,
+    }));
+  };
 
   onChange = (e) => {
     // e.preventDefault();
@@ -186,19 +179,22 @@ class Intro extends Component {
   };
 
   render(props, state) {
+    const { activeStep, activeProgress } = this.state;
     const progress = this.state.progress
     return (
       <div>
         <NavBar></NavBar>
-        <LinearProgressWithLabel value={5} />
-        <VerticalLinearStepper  />
-
-
+        <LinearProgressWithLabel value={activeProgress} />
+        <VerticalLinearStepper
+          activeStep={activeStep}
+          handleNext={this.handleNext}
+          handleBack={this.handleBack}
+        />
         <Footer />
       </div>
     );
   }
-}   
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
@@ -247,19 +243,19 @@ LinearProgressWithLabel.propTypes = {
 
 function LinearWithValueLabel(props) {
   const classes = useStyles();
-   const [progress, setProgress] = React.useState(props.props);
+  const [progress, setProgress] = React.useState(props.props);
 
- React.useEffect(() => {
-//  setProgress(prev => prev + 10)
- }, []);
-// const now = 60;
+  React.useEffect(() => {
+    //  setProgress(prev => prev + 10)
+  }, []);
+  // const now = 60;
 
   return (
     <div className={classes.root}>
-      
+
 
       {/* <ProgressBar now={now} label={`${now}%`} /> */}
-      
+
     </div>
   );
 }
