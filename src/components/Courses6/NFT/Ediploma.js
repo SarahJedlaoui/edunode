@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { isConnected, getPublicKey } from "@stellar/freighter-api";
 import axios from "axios";
 import html2canvas from 'html2canvas';
-import dep from "./5.png"
+import dep from "./7.png"
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
