@@ -54,7 +54,7 @@ const customIcons = {
 function IconContainer(props) {
   const { value, ...other } = props;
   const ratingLabel = customIcons[value].label;
-  
+
   return <span {...other}>{customIcons[value].icon}</span>;
 }
 
@@ -66,10 +66,11 @@ IconContainer.propTypes = {
 
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
+  const [ratingValue, setRatingValue] = useState(2);
   const [Name, setName] = useState(props.user && props.user.name ? props.user.name : '');
-  const [Feedback, setFeedback] = useState( '');
-  
-
+  const [Feedback, setFeedback] = useState('');
+  const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
+  const courseId = '644bcdd1e1fec0f4f55a7447';
   const albedoHandler = () => {
     albedo.publicKey({
     })
@@ -105,35 +106,34 @@ function Ediploma(props) {
 
   }
 
- {/* */} async function sendImageToServer(base64Image, props) {
-  try {
-    if (props.auth.user.email) {
-      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
-      image: base64Image,
-      pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
-      email: props.auth.user.email ? props.auth.user.email : null,
-      name: Name
-    });
-    console.log('hi'); 
-    console.log(props.auth.user.pkey);
-    console.log(response.data); // Check if the image was saved successfully
-      
-    } else if (props.auth.user.pkey) {
+  {/* */ } async function sendImageToServer(base64Image, props) {
+    try {
+      if (props.auth.user.email) {
+        const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+          
+          email: props.auth.user.email ? props.auth.user.email : null,
+          name: Name
+        });
+        console.log('hi');
+        console.log(props.auth.user.pkey);
+        console.log(response.data); // Check if the image was saved successfully
 
-      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
-      image: base64Image,
-      pkey: props.auth.user.pkey,
-      name: Name
-    });
-    console.log(response.data); // Check if the image was saved successfully
-    
+      } else if (props.auth.user.pkey) {
+
+        const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+          
+          pkey: props.auth.user.pkey,
+          name: Name
+        });
+        console.log(response.data); // Check if the image was saved successfully
+
+      }
+
+
+    } catch (error) {
+      console.error(error);
     }
-    
-   
-  } catch (error) {
-    console.error(error);
   }
-}
 
 
 
@@ -145,42 +145,70 @@ function Ediploma(props) {
     return base64Image;
   }
 
-  const navigate = useNavigate();
 
   const handleConfirmDownload = async (e) => {
     e.preventDefault();
-  
+
     const base64Image = await getCertificateBase64();
     await sendImageToServer(base64Image, props);
     console.log(base64Image); // This will log the base64 string of the image in the console
     // TODO: Send the base64Image to your server using an API
     exportComponentAsPNG(certificateWrapper, {
-      html2CanvasOptions: {  backgroundColor: `url(${dep})`,},
+      html2CanvasOptions: { backgroundColor: `url(${dep})`, },
     });
     setTimeout(function () {
       try {
-        window.location.href = "/";
+       // window.location.href = "/";
       } catch (error) {
         console.log(error);
       }
     }, 3000);
-  }
+
+    const formData = {
+      rate: ratingValue,
+      text: Feedback,
+      email: loggedInUserEmail,
+    };
+    try {
+      const response = await fetch(`http://localhost:5001/api/cours/cours/${courseId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
   
+      if (response.ok) {
+        // Handle successful submission
+      } else {
+        // Handle submission error
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle submission error
+    }
+
+  }
+
 
   return (
     <div className="App">
-  <div className="Meta">
+      <div className="Meta">
         <h1>How did you find our Course </h1>
         <p>Your feedback is very appreciated </p>
         <StyledRating
-      name="highlight-selected-only"
-      defaultValue={2}
-      IconContainerComponent={IconContainer}
-      getLabelText={(value) => customIcons[value].label}
-      highlightSelectedOnly
-    />
-    <br></br>
-     <input
+          name="highlight-selected-only"
+          value={ratingValue}
+          onChange={(event, newValue) => {
+            setRatingValue(newValue);
+          }}
+          IconContainerComponent={IconContainer}
+          getLabelText={(value) => customIcons[value].label}
+          highlightSelectedOnly
+        />
+        <p>Rating: {ratingValue}</p>
+        <br></br>
+        <input
           type="text"
           placeholder='Feedback'
           value={Feedback}
@@ -190,11 +218,11 @@ function Ediploma(props) {
         />
         <br></br>
         <br></br>
-      
+
         <h1>EduNode eCertificate</h1>
         <p>Please enter your name.</p>
         <input
-        disabled
+          disabled
           type="text"
           placeholder={props.auth.user.name}
           value={Name}
@@ -207,7 +235,7 @@ function Ediploma(props) {
         </button>
       </div>
       <div id="downloadWrapper">
-     
+
         <div id="certificateWrapper" ref={certificateWrapper}>
           <p>{Name}</p>
           <img src="https://i.imgur.com/MxzEwin.png" alt="eCertificate" />
