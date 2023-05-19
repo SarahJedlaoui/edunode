@@ -20,7 +20,7 @@ import { reduxForm } from 'redux-form';
 import { useNavigate } from 'react-router-dom';
 import "./styles.css"
 import Precourse from "../Precourse.js"
-import {Container} from '@mui/material';
+import { Container } from '@mui/material';
 import ReactPlayer from 'react-player'
 
 
@@ -45,14 +45,34 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return [
-    'Session 1: Introduction: ',
-    'Session 2: Money, Ledgers, and Bitcoin:',
-    'Session 3: Blockchain Basics & Cryptography:',
-    'Smart Contracts:',
-    'Blockchain Oracles:',
-    'Types of Oracles:',
-    'Oracle Problem:',
-    'Conclusion: '
+    '1. Introduction: ',
+    '2. Money, Ledgers, and Bitcoin:',
+    '3. Blockchain Basics & Cryptography:',
+    '4. Blockchain Basics & Consensus',
+    '5. Blockchain Basics & Transactions, UTXO and Script Code:',
+    '6. Smart Contracts and DApps:',
+    '7. Technical Challenges:',
+    '8. Public Policy:',
+    '9. Permissioned Systems: ',
+    '10. Financial System Challenges & Opportunities',
+    '11. Blockchain Economics',
+    '12. Assessing Use Cases',
+    '13. Payments, Part 1',
+    '14. Payments, Part 2',
+    '15. Central Banks & Commercial Banking, Part 1',
+    '16. Central Banks & Commercial Banking, Part 2',
+    '17. Secondary Markets & Crypto-Exchanges',
+    '19. Primary Markets, ICOs & Venture Capital, Part 1',
+    '20. Primary Markets, ICOs & Venture Capital, Part 2',
+    '21. Post Trade Clearing, Settlement & Processing',
+    '22. Trade Finance & Supply Chain',
+    '23. Digital ID',
+    '24. Conclusion',
+
+
+
+
+
 
   ];
 }
@@ -90,51 +110,135 @@ function getStepContent(step) {
     case 2:
       return (
         <div>
-          {/* <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/watch?v=0UvVOMZqpEA"
-            title="Session 3: Blockchain Basics & Cryptography:"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe> */}
-          {/* <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}> */}
-       <ReactPlayer url='https://www.youtube.com/watch?v=0UvVOMZqpEA' />
-         {/* </Container> */}
-          
+
+          <ReactPlayer url='https://www.youtube.com/watch?v=0UvVOMZqpEA' />
+
+
         </div>
       );
     case 3:
       return (
         <div>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/watch?v=0UvVOMZqpEA"
-            title="Session 3: Blockchain Basics & Cryptography:"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-      );
-    case 4:
-      return (
-        <div>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/w7HDA8gUbpQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       )
-    case 5:
+    case 4:
       return (
         <div>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/zGDTt9Q3vyM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
+    case 5:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/JPkgJwJHYSc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
     case 6:
-      return `The "Oracle Problem" is a term that describes the security and trust issues associated with oracles. Since oracles are third-party services with a central point of control, they introduce a level of trust into the blockchain ecosystem, which otherwise aims to be trustless. If the oracle is compromised, the data it feeds into the smart contract could also be compromised.`;
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/GLVrOlHLJ1U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
     case 7:
-      return `Stay tuned for our next lesson where we'll dive deeper into how Blockchain Oracles work, their benefits, and their challenges. We'll also explore real-world use cases to help you understand their practical applications in the blockchain ecosystem.`;
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/sMnBl0g3Ev4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 8:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/vPJ8oQ99r9c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+
+    case 9:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/l0vD_FBWk0g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+
+
+    case 10:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/_eGNSuTBc60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 11:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/ObGYNQLG3us" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 12:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/ojcOUtUwIe4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 13:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/_Ycy0Dy-B1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 14:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/lPD9fx8fK1k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 15:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/uNqMBBbb6UI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 16:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/KHBi3n0hUSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 17:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/iWpQpPbo7rM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 18:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/7EXcHqLg7BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 19:
+      return (
+        <div>
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/-cZPoqnRZq4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+    case 20:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/DsSzQfejwMk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+      case 21:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/W06Le8fw0vU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
+      case 22:
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/CJCKTixMb70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
     default:
       return 'Unknown step';
   }
@@ -142,11 +246,11 @@ function getStepContent(step) {
 
 export function VerticalLinearStepper(props) {
   const classes = useStyles();
-  
+
   const steps = getSteps();
   const { activeStep, handleNext, handleBack } = props;
 
- 
+
 
   return (
     <>
