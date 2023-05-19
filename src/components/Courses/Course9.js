@@ -24,7 +24,7 @@ export function AlertDialog() {
   };
   const handleConfirm = (e) => {
     setOpen(false);
-    window.location.href = '/courses/108/';
+    window.location.href = '/courses/109/';
 
 
   };
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Course8() {
+export default function Course9() {
   const classes = useStyles();
 
   return (
@@ -101,11 +101,11 @@ export default function Course8() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  In this course you will learn Oracles.
+                  In this course you will learn Blockchain And Money.
                 </Typography>
                 <p className="card-text">
           <small className="text-muted">
-            Tags: Oracles, Blockchain
+            Tags:  Blockchain
           </small>
         </p>
                 <Typography variant="body2" gutterBottom></Typography>

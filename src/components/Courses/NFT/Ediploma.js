@@ -170,7 +170,7 @@ function Ediploma(props) {
       email: loggedInUserEmail,
     };
     try {
-      const response = await fetch(`http://localhost:5001/api/cours/cours/${courseId}`, {
+      const response = await fetch(`https://edunode.herokuapp.com/api/cours/cours/${courseId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
