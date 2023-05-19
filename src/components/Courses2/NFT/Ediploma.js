@@ -66,51 +66,14 @@ IconContainer.propTypes = {
 
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
-  const [ratingValue, setRatingValue] = useState(2);
+  const [ratingValue, setRatingValue] = useState(5);
   const [Name, setName] = useState(props.user && props.user.name ? props.user.name : '');
   const [Feedback, setFeedback] = useState('');
   const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
   const courseId = '644bce0be1fec0f4f55a744b';
 
 
-  const albedoHandler = () => {
-
-    albedo.publicKey({
-
-    })
-      .then(res => {
-        const intent = res.intent
-        const pubkey = res.pubkey
-        const signature = res.signature
-        const signed_message = res.signed_message
-        const userName = ""
-        const newAlbedoUser = {
-          intent,
-          pubkey,
-          signature,
-          signed_message,
-          userName,
-
-        }
-
-        // this.props.albedoSign(newAlbedoUser)
-
-      })
-  }
-
-  const freighterHandler = async () => {
-
-    if (isConnected()) {
-      const name = Name;
-      const pkey = await getPublicKey();
-      // await this.props.freighterSign(pkey, name)
-    }
-
-    alert("not conected")
-
-  }
-
- {/* */} async function sendImageToServer(base64Image, props) {
+async function sendImageToServer(base64Image, props) {
   try {
     if (props.auth.user.email) {
       const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma2", {
@@ -140,8 +103,6 @@ function Ediploma(props) {
   }
 }
 
-
-
   async function getCertificateBase64() {
     const canvas = await html2canvas(certificateWrapper.current, {
       backgroundColor: `url(${dep})`,
@@ -150,7 +111,7 @@ function Ediploma(props) {
     return base64Image;
   }
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleConfirmDownload = async (e) => {
     e.preventDefault();
