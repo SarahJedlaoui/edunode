@@ -73,44 +73,7 @@ function Ediploma(props) {
   const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
   const courseId = '6464e2b48aca412ed2d81bf1';
 
-  const albedoHandler = () => {
-
-    albedo.publicKey({
-
-    })
-      .then(res => {
-        const intent = res.intent
-        const pubkey = res.pubkey
-        const signature = res.signature
-        const signed_message = res.signed_message
-        const userName = ""
-        const newAlbedoUser = {
-          intent,
-          pubkey,
-          signature,
-          signed_message,
-          userName,
-
-        }
-
-        // this.props.albedoSign(newAlbedoUser)
-
-      })
-  }
-
-  const freighterHandler = async () => {
-
-    if (isConnected()) {
-      const name = Name;
-      const pkey = await getPublicKey();
-      // await this.props.freighterSign(pkey, name)
-    }
-
-    alert("not conected")
-
-  }
-
- {/* */} async function sendImageToServer(base64Image, props) {
+ async function sendImageToServer(base64Image, props) {
   try {
     if (props.auth.user.email) {
       const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma6", {

@@ -66,66 +66,23 @@ IconContainer.propTypes = {
 
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
-  const [ratingValue, setRatingValue] = useState(2);
+  const [ratingValue, setRatingValue] = useState(5);
   const [Name, setName] = useState(props.user && props.user.name ? props.user.name : '');
   const [Feedback, setFeedback] = useState('');
   const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
   const courseId = '644bcdd1e1fec0f4f55a7447';
-  const albedoHandler = () => {
-    albedo.publicKey({
-    })
-      .then(res => {
-        const intent = res.intent
-        const pubkey = res.pubkey
-        const signature = res.signature
-        const signed_message = res.signed_message
-        const userName = ""
-        const newAlbedoUser = {
-          intent,
-          pubkey,
-          signature,
-          signed_message,
-          userName,
 
-        }
-
-        // this.props.albedoSign(newAlbedoUser)
-
-      })
-  }
-
-  const freighterHandler = async () => {
-
-    if (isConnected()) {
-      const name = Name;
-      const pkey = await getPublicKey();
-      // await this.props.freighterSign(pkey, name)
-    }
-
-    alert("not conected")
-
-  }
-
- {/* */} async function sendImageToServer(base64Image, props) {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-    }
- }
-  try {
-    if (props.auth.user.email) {
-      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
-      image: base64Image,
-      pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
-      email: props.auth.user.email ? props.auth.user.email : null,
-      name: Name
-    }, config);
-    console.log('hi'); 
-    console.log(props.auth.user.pkey);
-    console.log(response.data); // Check if the image was saved successfully
-      
-    } else if (props.auth.user.pkey) {
+async function sendImageToServer(base64Image, props) {
+    try {
+      if (props.auth.user.email) {
+        const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma", {
+          
+          email: props.auth.user.email ? props.auth.user.email : null,
+          name: Name
+        });
+        console.log('hi');
+        console.log(props.auth.user.pkey);
+        console.log(response.data); // Check if the image was saved successfully
 
       } else if (props.auth.user.pkey) {
 
@@ -143,8 +100,6 @@ function Ediploma(props) {
       console.error(error);
     }
   }
-
-
 
   async function getCertificateBase64() {
     const canvas = await html2canvas(certificateWrapper.current, {

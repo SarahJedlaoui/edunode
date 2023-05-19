@@ -20,7 +20,8 @@ import { reduxForm } from 'redux-form';
 import { useNavigate } from 'react-router-dom';
 import "./styles.css"
 import Precourse from "../Precourse.js"
-
+import {Container} from '@mui/material';
+import ReactPlayer from 'react-player'
 
 
 
@@ -89,7 +90,7 @@ function getStepContent(step) {
     case 2:
       return (
         <div>
-          <iframe
+          {/* <iframe
             width="560"
             height="315"
             src="https://www.youtube.com/watch?v=0UvVOMZqpEA"
@@ -97,7 +98,11 @@ function getStepContent(step) {
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
-          ></iframe>
+          ></iframe> */}
+          {/* <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}> */}
+       <ReactPlayer url='https://www.youtube.com/watch?v=0UvVOMZqpEA' />
+         {/* </Container> */}
+          
         </div>
       );
     case 3:
