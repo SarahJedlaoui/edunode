@@ -63,7 +63,7 @@ IconContainer.propTypes = {
 
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
-  const [ratingValue, setRatingValue] = useState(2);
+  const [ratingValue, setRatingValue] = useState(5);
   const [Name, setName] = useState(props.user && props.user.name ? props.user.name : '');
   const [Feedback, setFeedback] = useState('');
   const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
@@ -145,7 +145,6 @@ function Ediploma(props) {
     return base64Image;
   }
 
-  const navigate = useNavigate();
 
   const handleConfirmDownload = async (e) => {
     e.preventDefault();
@@ -171,7 +170,7 @@ function Ediploma(props) {
       email: loggedInUserEmail,
     };
     try {
-      const response = await fetch(`http://localhost:5001/api/cours/cours/${courseId}`, {
+      const response = await fetch(`https://edunode.herokuapp.com/api/cours/cours/${courseId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

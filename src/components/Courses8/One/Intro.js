@@ -115,17 +115,17 @@ function getStepContent(step) {
         </div>
       );
     case 4:
-      return `Blockchain oracles are third-party services that provide smart contracts with external information. They serve as bridges between blockchains and the outside world. Oracles are vital within the blockchain ecosystem because they broaden the scope that smart contracts can operate within.`;
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/w7HDA8gUbpQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      )
     case 5:
-      return `1-Software Oracles: These oracles handle information available online. For instance, temperature, prices of commodities and goods, flight or train delays, etc.
-
-      2-Hardware Oracles: These oracles are used for monitoring the physical world and relaying this information back to the blockchain. For example, they can be RFID sensors in supply chain monitoring.
-      
-      3-Inbound Oracles: These provide the smart contract with data from the external world.
-      
-      4-Outbound Oracles: These provide smart contracts the ability to send data to the outside world.
-      
-      5-Consensus Oracles: In situations where there's a need for the verification of authenticity, different oracles are used and the most common result amongst them is considered as the true one. `;
+      return (
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/zGDTt9Q3vyM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      );
     case 6:
       return `The "Oracle Problem" is a term that describes the security and trust issues associated with oracles. Since oracles are third-party services with a central point of control, they introduce a level of trust into the blockchain ecosystem, which otherwise aims to be trustless. If the oracle is compromised, the data it feeds into the smart contract could also be compromised.`;
     case 7:
