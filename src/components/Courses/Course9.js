@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
-import sor from './Oracle.png';
+import sor from './mitlogo.png';
 import { Button } from 'react-bootstrap';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
