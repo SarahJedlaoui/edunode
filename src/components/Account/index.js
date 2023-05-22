@@ -98,6 +98,7 @@ class Account extends Component {
       isLoading: false,
       errors: {},
       isUpdated: false,
+      user:{}
     };
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
@@ -142,24 +143,64 @@ class Account extends Component {
     });
   }
 
+  componentDidMount() {
+    const { email } = this.state;
+  
+    axios.get(`https://edunode.herokuapp.com/api/emaillogin/user/${email}`)
+      .then(response => {
+        const data = response.data;
+        this.setState({ user: data }, () => {
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+
 
 
   handleNameChange = (event) => {
-    this.setState({ name: event.target.value });
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        name:event.target.value 
+      }
+    }));
   };
 
   handleAgeChange = (event) => {
-    this.setState({ age: event.target.value });
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        age :event.target.value 
+      }
+    }));
   };
 
   handleBioChange = (event) => {
-    this.setState({ bio: event.target.value });
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        bio:event.target.value 
+      }
+    }));
   };
   handlePreferencesChange = (event) => {
-    this.setState({ preferences: event.target.value });
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        preferences :event.target.value 
+      }
+    }));
   };
   handleSkillsChange = (event) => {
-    this.setState({ preferences: event.target.value });
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        skills :event.target.value 
+      }
+    }));
   };
 
   // handleLocationChange = (event, newValue) => {
@@ -214,12 +255,12 @@ class Account extends Component {
     const skills= this.state.skills;
     const { tags,email } = this.state;
     const formData = {
-      name: this.state.name,
-      age: this.state.age,
-      bio: this.state.bio,
+      name: this.state.user.name,
+      age: this.state.user.age,
+      bio: this.state.user.bio,
       _id: this.props.auth.user._id,
       email: this.props.auth.user.email,
-      location: this.state.location,
+      location: this.state.user.location,
       
     };
     try {
@@ -257,94 +298,6 @@ class Account extends Component {
   }
 
 
-  renderProfileFields() {
-    //const locationLabel = this.props.auth.user.location ? this.props.auth.user.location : 'Location';
-    const { tags,skills } = this.state;
-    return (
-      <>
-        <label>Full Name:</label>
-        <TextField
-
-          name="name"
-          type="text"
-          placeholder="Name"
-          fullWidth
-          value={this.state.name}
-          onChange={this.handleNameChange}
-        />
-        <label>Email:</label>
-        <TextField
-          disabled
-          name="email"
-          type="email"
-          placeholder={this.props.auth.user.pkey || this.props.auth.user.email}
-          fullWidth
-          inputRef={(input) => (this.emailInput = input)}
-        />
-        <label>Age:</label>
-        <TextField
-          name="age"
-          type="number"
-          placeholder="Age"
-          fullWidth
-          value={this.state.age}
-          onChange={this.handleAgeChange}
-        />
-        <label>Bio:</label>
-        <TextField
-          name="bio"
-          multiline
-          rows={4}
-          placeholder="My Web3 Journey"
-          fullWidth
-          value={this.state.bio}
-          onChange={this.handleBioChange}
-        />
-        <label>Preferences:</label>
-        
-        <Select fullWidth id="tags" onChange={this.handleTagSelect} style={{ width: '100%' }}>
-          <option value="">{this.state.preferences}</option>
-          {tagsList.map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </Select>
-        <SelectedTagsContainer>
-          {tags.map((tag) => (
-            <SelectedTag key={tag}>
-              {tag}
-              <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
-                X
-              </RemoveTagButton>
-            </SelectedTag>
-          ))}
-        </SelectedTagsContainer>
-        <label>Skills:</label>
-        
-        <Select fullWidth id="tags" onChange={this.handleSkillsSelect} style={{ width: '100%' }}>
-          <option value="">{this.state.skills}</option>
-          {skillsList.map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </Select>
-        <SelectedTagsContainer>
-          {skills.map((tag) => (
-            <SelectedTag key={tag}>
-              {tag}
-              <RemoveTagButton onClick={() => this.handleSkillsRemove(tag)}>
-                X
-              </RemoveTagButton>
-            </SelectedTag>
-          ))}
-        </SelectedTagsContainer>
-      </>
-    );
-  }
-
-
   // handle form submission
 
 
@@ -356,6 +309,9 @@ class Account extends Component {
         <Navigate to="/" />
       );
     }
+    const { tags,skills,user } = this.state;
+    console.log('user',user)
+    console.log('userp',user.preferences)
     const { isUpdated } = this.state; // get isUpdated from state
     const email = this.props.auth.user.email ? this.props.auth.user.email : '';
     return (
@@ -381,7 +337,86 @@ class Account extends Component {
                 <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                   <h4 style={{ fontSize: "2em", textAlign: "center" }}>Account</h4>
                   <br></br>
-                  {this.renderProfileFields()}
+                  <>
+        <label>Full Name:</label>
+        <TextField
+
+          name="name"
+          type="text"
+          placeholder="Name"
+          fullWidth
+          value={this.state.user.name}
+          onChange={this.handleNameChange}
+        />
+        <label>Email:</label>
+        <TextField
+          disabled
+          name="email"
+          type="email"
+          placeholder={this.props.auth.user.pkey || this.props.auth.user.email}
+          fullWidth
+          inputRef={(input) => (this.emailInput = input)}
+        />
+        <label>Age:</label>
+        <TextField
+          name="age"
+          type="number"
+          placeholder="Age"
+          fullWidth
+          value={user.age}
+          onChange={this.handleAgeChange}
+        />
+        <label>Bio:</label>
+        <TextField
+          name="bio"
+          multiline
+          rows={4}
+          placeholder="My Web3 Journey"
+          fullWidth
+          value={user.bio}
+          onChange={this.handleBioChange}
+        />
+        <label>Preferences:</label>
+        
+        <Select fullWidth id="tags" onChange={this.handleTagSelect} style={{ width: '100%' }}>
+          <option value="">{user.preferences}</option>
+          {tagsList.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
+        </Select>
+        <SelectedTagsContainer>
+          {tags.map((tag) => (
+            <SelectedTag key={tag}>
+              {tag}
+              <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
+                X
+              </RemoveTagButton>
+            </SelectedTag>
+          ))}
+        </SelectedTagsContainer>
+        <label>Skills:</label>
+        
+        <Select fullWidth id="tags" onChange={this.handleSkillsSelect} style={{ width: '100%' }}>
+          <option value="">{user.skills}</option>
+          {skillsList.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
+        </Select>
+        <SelectedTagsContainer>
+          {skills.map((tag) => (
+            <SelectedTag key={tag}>
+              {tag}
+              <RemoveTagButton onClick={() => this.handleSkillsRemove(tag)}>
+                X
+              </RemoveTagButton>
+            </SelectedTag>
+          ))}
+        </SelectedTagsContainer>
+      </>
                   <br></br>
                   <button
                     type="submit"

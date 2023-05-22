@@ -29,7 +29,7 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
+            email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
             userName: "",
             pkey: "",
             pubkey: "",
@@ -38,7 +38,8 @@ class Search extends Component {
             items: Array.from({ length: 20 }),
             hasMore: true,
             searchQuery: '',
-            results: []
+            results: [],
+            preferences:[]
         }
 
         this.onChange = this.onChange.bind(this)
@@ -67,7 +68,18 @@ class Search extends Component {
             });
     }
 
+componentDidMount(){
+    const { email } = this.state;
+    fetch(`https://edunode.herokuapp.com/api/search/${email}`)
+    .then(response => response.json())
+    .then(data => {
+        this.setState({ preferences: data });
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
+}
 
     componentDidUpdate(prevProps) {
         const { error } = this.props;
@@ -217,7 +229,7 @@ class Search extends Component {
     }
 
     render() {
-        const { searchQuery, results } = this.state;
+        const { searchQuery, results,preferences } = this.state;
         const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
 
 
@@ -244,10 +256,7 @@ class Search extends Component {
 
 
         return (
-
             <>
-
-
                 <div>
                 <Navbar />
                 <br></br>
@@ -255,8 +264,6 @@ class Search extends Component {
                 <br></br>
                 <br></br>
                 <br></br>
-                
-                
                     <Box sx={{ flexGrow: 1 }}>
                    
                         <Grid container spacing={2}>
@@ -265,30 +272,22 @@ class Search extends Component {
                             </Grid> */}
 
                             <Grid item xs={12} sm={8} md={9}>
-                              
-
                                 <div>
-
-
                                     <div>
-
-
-                                      
-
-
-
-
                                         <div>
+                                        
                                             <input
                                                 type="text"
                                                 placeholder="Search..."
                                                 value={searchQuery}
                                                 onChange={this.handleInputChange}
                                                 style={{ border: '1px solid gray', borderRadius: '5px', padding: '5px' }}
-
-
                                             />
                                             <button onClick={this.performSearch} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', padding: '5px' }} >Search</button>
+
+
+
+
                                             <div className="row justify-content-center card-deck d-flex">
                                                 {results.courses && results.courses.map(course => (
                                                     <div className="col-md-4 mb-4 h-100" key={course.id}>

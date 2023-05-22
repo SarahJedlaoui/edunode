@@ -14,16 +14,22 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import 'reactjs-popup/dist/index.css';
 import Navbar from './Navbar';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
+
+
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       preferences: this.props.auth.user.preferences ? this.props.auth.user.preferences: [],
       skills:this.props.auth.user.skills ? this.props.auth.user.skills: [],
-      email: "",
+      email:  this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       tags: ['web3', 'Stellar', 'Programming', 'NFT', 'Blockchain', 'Crypto', 'E-learning', 'IT', 'Soroban'],
       selectedTags: [],
-      showAlert: true, //  a state variable to control the visibility of the alert
+      showAlert: true, //  a state variable to control the visibility of the alert,
+      preference:[]
     };
 
   }
@@ -32,6 +38,16 @@ class Dashboard extends Component {
     const showAlert = !localStorage.getItem('selectedTags'); // check if the flag is set
     this.setState({ showAlert }); // update the state based on the flag
     console.log(this.state.preferences)
+
+    const { email } = this.state;
+    fetch(`https://edunode.herokuapp.com/api/search/${email}`)
+    .then(response => response.json())
+    .then(data => {
+        this.setState({ preference: data });
+    })
+    .catch(error => {
+        console.error(error);
+    });
   }
 
 
@@ -70,7 +86,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { tags, selectedTags, showAlert,preferences,skills } = this.state;
+    const { tags, selectedTags, showAlert,preference,skills,preferences } = this.state;
     const {
       isAuthenticated,
       isVerified,
@@ -120,6 +136,81 @@ class Dashboard extends Component {
           Skills: {this.state.skills.join(", ")}
           </small>
         </p>
+
+
+
+        <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>These are some search based on your interests ans skills:</h1>
+
+
+<div className="row justify-content card-deck d-flex">
+    {preference.courses && preference.courses.map(course => (
+        <div className="col-md-4 mb-4 h-100" key={course.id}>
+            <div className="card shadow h-100">
+                <div className="card-body">
+                    <h6 className="card-title"> Course </h6>
+                    <h5 className="card-title">{course.title}</h5>
+                    <p className="card-text">{course.description}</p>
+                    <p className="card-text">
+
+                        <a href={course.link} className="card-link">
+                            <FontAwesomeIcon icon={faLink} className="mr-2" />
+                            {course.link}
+                        </a>
+
+                    </p>
+                    <p className="card-text">
+                        <small className="text-muted">
+                            Tags: {course.tags.join(", ")}
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    ))}
+    {preference.posts && preference.posts.map(post => (
+        <div className="col-md-4 mb-4 h-100" key={post.id}>
+            <div className="card shadow h-100">
+                <div className="card-body">
+                <h6 className="card-title"> Post </h6>
+                    <h5 className="card-title">{post.title}</h5>
+                    <p className="card-text">{post.description}</p>
+                    <a href={post.link} className="card-link">
+                        <FontAwesomeIcon icon={faLink} className="mr-2" />
+                        {post.link}
+                    </a>
+                    <p className="card-text">
+                        <small className="text-muted">
+                            Tags: {post.tags.join(", ")}
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    ))}
+    {preference.blogs && preference.blogs.map(blog => (
+        <div className="col-md-4 mb-4 h-100" key={blog.id}>
+            <div className="card shadow h-100">
+                <div className="card-body">
+                <h6 className="card-title"> Blog </h6>
+                    <h5 className="card-title">{blog.title}</h5>
+                    <p className="card-text">{blog.description}</p>
+                    <p className="card-text">
+                        <a href={blog.link} className="card-link">
+                            <FontAwesomeIcon icon={faLink} className="mr-2" />
+                            {blog.link}
+                        </a>
+
+                        <p className="card-text">
+                            <small className="text-muted">
+                                Tags: {blog.tags.join(", ")}
+                            </small>
+                        </p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    ))}
+</div>
         </Grid>
       </Grid>
       <br></br>
