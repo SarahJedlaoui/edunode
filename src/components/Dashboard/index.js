@@ -18,6 +18,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      preferences: this.props.auth.user.preferences ? this.props.auth.user.preferences: [],
+      skills:this.props.auth.user.skills ? this.props.auth.user.skills: [],
       email: "",
       tags: ['web3', 'Stellar', 'Programming', 'NFT', 'Blockchain', 'Crypto', 'E-learning', 'IT', 'Soroban'],
       selectedTags: [],
@@ -29,6 +31,7 @@ class Dashboard extends Component {
   componentDidMount() {
     const showAlert = !localStorage.getItem('selectedTags'); // check if the flag is set
     this.setState({ showAlert }); // update the state based on the flag
+    console.log(this.state.preferences)
   }
 
 
@@ -67,7 +70,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { tags, selectedTags, showAlert } = this.state;
+    const { tags, selectedTags, showAlert,preferences,skills } = this.state;
     const {
       isAuthenticated,
       isVerified,
@@ -101,6 +104,25 @@ class Dashboard extends Component {
             <br></br>
             <br></br>
             {/* <Sidebar props={email} /> */}
+            
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={12} md={12}>
+
+        <h1 style={{fontSize: '24px', fontWeight: 'bold'}}>These are your preferences and skills:</h1>
+
+        <p className="card-text">
+          <small className="text-muted">
+          Preferences: {this.state.preferences.join(", ")}
+          </small>
+        </p>
+        <p className="card-text">
+          <small className="text-muted">
+          Skills: {this.state.skills.join(", ")}
+          </small>
+        </p>
+        </Grid>
+      </Grid>
+      <br></br>
 
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12}>
@@ -125,7 +147,7 @@ class Dashboard extends Component {
             <br></br>
             <br></br>
             <br></br>
-      <Grid container spacing={2}>
+            <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={12}>
           <Alert className="text-center" severity="warning">
             Please select your preferences so we can provide you with a personalized experience!  
@@ -161,7 +183,11 @@ class Dashboard extends Component {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={12}>
+
+      
+
+        <br></br>
+            {/**  /* <Grid item xs={12} sm={12} md={12}>
 
                 <TwitterTimelineEmbed
                   sourceType="profile"
@@ -169,7 +195,7 @@ class Dashboard extends Component {
                   options={{ height: 800 }}
                 />
                 <TwitterFollowButton screenName={'edunodeorg'} />
-              </Grid>
+              </Grid>*/}
             </Grid>
       <Footer />
       </>
