@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState , useEffect}from 'react';
 import { makeStyles } from '@material-ui/core';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -13,6 +13,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+
+
 
 export function AlertDialog() {
   const [open, setOpen] = React.useState(false);
@@ -88,7 +93,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Course5() {
+  const [rating, setRating] = useState();
   const classes = useStyles();
+  const courseId = '644bce41e1fec0f4f55a744f';
+
+  useEffect(() => {
+    // Function to retrieve the average rate for the course
+    const getCourseAverageRate = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5001/api/cours/courses/${courseId}/average-rating`);
+        setRating(response.data.averageRating);
+        console.log(response.data.averageRating)
+       
+      } catch (error) {
+        console.error(error);
+        // Handle error
+      }
+    };
+
+    getCourseAverageRate();
+  }, []);
+  useEffect(() => {
+    console.log('Updated rating:', rating);
+  }, [rating]);
 
   return (
     <div className={classes.root}>
@@ -110,6 +137,12 @@ export default function Course5() {
             Tags: Hyperledger
           </small>
         </p>
+        <Stack spacing={1}>
+        {typeof rating === 'number' && (
+          <Rating name="size-small" defaultValue={rating} size="small"  precision={0.1} readOnly />
+        )}
+      
+    </Stack>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
                   variant="body2"

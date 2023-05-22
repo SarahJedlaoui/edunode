@@ -110,10 +110,7 @@ class Account extends Component {
 
 
   handleTagSelect(e) {
-   console.log(this.state.tags)
-   console.log('handletagSelect ',this.props.auth.user)
-   console.log(this.state.skills)
-   console.log('hhhhhhh ',this.props.auth.user.skills)
+
     const selectedTag = e.target.value;
     if (!this.state.tags.includes(selectedTag)) {
       this.setState({ tags: [...this.state.tags, selectedTag] });
@@ -190,7 +187,7 @@ class Account extends Component {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
-        preferences :event.target.value 
+        preferences: event.target.value 
       }
     }));
   };
@@ -198,7 +195,7 @@ class Account extends Component {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
-        skills :event.target.value 
+        skills: event.target.value 
       }
     }));
   };
