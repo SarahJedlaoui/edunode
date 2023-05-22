@@ -99,7 +99,7 @@ export default function Course2() {
     // Function to retrieve the average rate for the course
     const getCourseAverageRate = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/cours/courses/${courseId}/average-rating`);
+        const response = await axios.get(`https://edunode.herokuapp.com/api/cours/courses/${courseId}/average-rating`);
         setRating(response.data.averageRating);
         console.log(response.data.averageRating)
        
