@@ -118,6 +118,11 @@ function Course1(props) {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
+              <p className="card-text">
+          <small className="text-muted">
+            Rating: ""
+          </small>
+        </p>
                 <Typography gutterBottom variant="subtitle1">
                   In this course, you will learn the basic concepts of
                   the Stellar Network.
@@ -127,6 +132,7 @@ function Course1(props) {
             Tags: Stellar
           </small>
         </p>
+
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
                   variant="body2"
