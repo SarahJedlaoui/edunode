@@ -94,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 function Course1(props) {
   const [rating, setRating] = useState();
   const classes = useStyles();
