@@ -159,6 +159,7 @@ import Search from "./components/Search/Search";
 import Sep from './components/Sep/sep'
 import AiPlugin from './components/AiPlugin'
 import PostDetails from './components/Posts/postDetails'
+import CourseDetails from './components/Courses/courseDetails'
 import { useState } from 'react';
 
 function App(props) {
@@ -322,6 +323,7 @@ function App(props) {
         <Route exact path="/.well-known/stellar.toml" element={<Sep/>} />
         <Route exact path="/.well-known/ai-plugin.json" element={<AiPlugin/>} />
         <Route exact path="/postDetails/:_id" element={<PostDetails/>} />
+        <Route exact path="/courseDetails/:_id" element={<CourseDetails/>} />
       </Routes>
     </Provider>
   );

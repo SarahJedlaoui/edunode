@@ -84,6 +84,24 @@ class Courses extends Component {
     }));
     
     const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
+    const id1 ='644bcdd1e1fec0f4f55a7447';
+    const id2 ='644bcdeee1fec0f4f55a7449';
+    const id3 ='644bce0be1fec0f4f55a744b';
+    const id4 ='644bce24e1fec0f4f55a744d';
+    const id5 ='644bce41e1fec0f4f55a744f';
+    const id6 ='6464e2968aca412ed2d81bef';
+    const id7 ='6464e2b48aca412ed2d81bf1';
+    const id8 ='6464e2d58aca412ed2d81bf3';
+    const id9 ='646b83386cea9a0294e65253';
+
+
+
+
+
+
+
+
+
     const {
       isLoading,
       isAuthenticated,
@@ -103,21 +121,41 @@ class Courses extends Component {
           {/* <Grid item xs={12} sm={4} md={3}>
             <Item><Sidebar props={email}/></Item>
           </Grid> */}
-          <Grid item xs={12} sm={8} md={9}>
+          <Grid item xs={12} sm={8} md={20}>
             <Item><Navbar /></Item>
             <br></br>
      <br></br>
      <br></br>
             <div style={{ padding: '10px' }}>
-              <Course1 />
-              <Course2 />
-              <Course3 />
-              <Course4 />
-              <Course5 />
-              <Course6 />
-              <Course7 />
-              <Course8 />
-              <Course9 />
+            <br></br>
+          <a href={`/courseDetails/${id1}`} target="_blank" rel="noopener noreferrer">
+          <Course1 /></a>
+          <br></br>
+          <a href={`/courseDetails/${id2}`} target="_blank" rel="noopener noreferrer">
+          <Course2 /></a>
+          <br></br>
+          <a href={`/courseDetails/${id3}`} target="_blank" rel="noopener noreferrer">
+          <Course3 /></a>
+          <br></br>
+          <a href={`/courseDetails/${id4}`} target="_blank" rel="noopener noreferrer">
+          <Course4 /></a>
+          <br></br>
+          <a href={`/courseDetails/${id5}`} target="_blank" rel="noopener noreferrer">
+          <Course5/></a>
+          <br></br>
+          <a href={`/courseDetails/${id6}`} target="_blank" rel="noopener noreferrer">
+          <Course6 /></a>
+          <br></br>
+          <a href={`/courseDetails/${id7}`} target="_blank" rel="noopener noreferrer">
+          <Course7 /></a>
+          <br></br>
+          <a href={`/courseDetails/${id8}`} target="_blank" rel="noopener noreferrer">
+          <Course8 /></a>
+          <br></br>
+          <a href={`/courseDetails/${id9}`} target="_blank" rel="noopener noreferrer">
+          <Course9 />
+          </a>
+          <br></br>
           <br></br>
             </div>
             <Footer />
@@ -136,7 +174,7 @@ class Courses extends Component {
         {/* <Grid xs={5} sm={3.5} md={2}>
           <Item><Sidebar props={email} /></Item>
         </Grid> */}
-         <Grid item xs={12} sm={8} md={9}> 
+         <Grid item xs={12} sm={8} md={20}> 
           <Navbar />
           <br></br>
      <br></br>
@@ -144,23 +182,33 @@ class Courses extends Component {
            <div className="myDiv"> 
           <Welcome />
           <br></br>
-          <Course1 />
+          <a href={`/courseDetails/${id1}`} target="_blank" rel="noopener noreferrer">
+          <Course1 /></a>
           <br></br>
-          <Course2 />
+          <a href={`/courseDetails/${id2}`} target="_blank" rel="noopener noreferrer">
+          <Course2 /></a>
           <br></br>
-          <Course3 />
+          <a href={`/courseDetails/${id3}`} target="_blank" rel="noopener noreferrer">
+          <Course3 /></a>
           <br></br>
-          <Course4 />
+          <a href={`/courseDetails/${id4}`} target="_blank" rel="noopener noreferrer">
+          <Course4 /></a>
           <br></br>
-          <Course5/>
+          <a href={`/courseDetails/${id5}`} target="_blank" rel="noopener noreferrer">
+          <Course5/></a>
           <br></br>
-          <Course6 />
+          <a href={`/courseDetails/${id6}`} target="_blank" rel="noopener noreferrer">
+          <Course6 /></a>
           <br></br>
-          <Course7 />
+          <a href={`/courseDetails/${id7}`} target="_blank" rel="noopener noreferrer">
+          <Course7 /></a>
           <br></br>
-          <Course8 />
+          <a href={`/courseDetails/${id8}`} target="_blank" rel="noopener noreferrer">
+          <Course8 /></a>
           <br></br>
+          <a href={`/courseDetails/${id9}`} target="_blank" rel="noopener noreferrer">
           <Course9 />
+          </a>
           <br></br>
          </div> 
          </Grid> 
@@ -179,7 +227,7 @@ class Courses extends Component {
         {/* <Grid xs={5} sm={3.5} md={2}>
           <Item><Sidebar  props={email}/></Item>
         </Grid> */}
-        <Grid item xs={12} sm={8} md={9}>
+        <Grid item xs={12} sm={8} md={20}>
         <Navbar />
         <br></br>
      <br></br>
@@ -187,23 +235,33 @@ class Courses extends Component {
           <div className="myDiv">
           <Welcome />
           <br></br>
-          <Course1 />
+          <a href={`/courseDetails/${id1}`} target="_blank" rel="noopener noreferrer">
+          <Course1 /></a>
           <br></br>
-          <Course2 />
+          <a href={`/courseDetails/${id2}`} target="_blank" rel="noopener noreferrer">
+          <Course2 /></a>
           <br></br>
-          <Course3 />
+          <a href={`/courseDetails/${id3}`} target="_blank" rel="noopener noreferrer">
+          <Course3 /></a>
           <br></br>
-          <Course4 />
+          <a href={`/courseDetails/${id4}`} target="_blank" rel="noopener noreferrer">
+          <Course4 /></a>
           <br></br>
-          <Course5/>
+          <a href={`/courseDetails/${id5}`} target="_blank" rel="noopener noreferrer">
+          <Course5/></a>
           <br></br>
-          <Course6 />
+          <a href={`/courseDetails/${id6}`} target="_blank" rel="noopener noreferrer">
+          <Course6 /></a>
           <br></br>
-          <Course7 />
+          <a href={`/courseDetails/${id7}`} target="_blank" rel="noopener noreferrer">
+          <Course7 /></a>
           <br></br>
-          <Course8 />
+          <a href={`/courseDetails/${id8}`} target="_blank" rel="noopener noreferrer">
+          <Course8 /></a>
           <br></br>
+          <a href={`/courseDetails/${id9}`} target="_blank" rel="noopener noreferrer">
           <Course9 />
+          </a>
           <br></br>
         </div>
         </Grid>
@@ -221,7 +279,7 @@ class Courses extends Component {
         {/* <Grid xs={5} sm={3.5} md={2}>
           <Item><Sidebar props={email}/></Item>
         </Grid> */}
-        <Grid item xs={12} sm={8} md={9}>
+        <Grid item xs={12} sm={8} md={20}>
      <Navbar />
      <br></br>
      <br></br>
@@ -229,23 +287,33 @@ class Courses extends Component {
           <div className="myDiv">
           <Welcome />
           <br></br>
-          <Course1 />
+          <a href={`/courseDetails/${id1}`} target="_blank" rel="noopener noreferrer">
+          <Course1 /></a>
           <br></br>
-          <Course2 />
+          <a href={`/courseDetails/${id2}`} target="_blank" rel="noopener noreferrer">
+          <Course2 /></a>
           <br></br>
-          <Course3 />
+          <a href={`/courseDetails/${id3}`} target="_blank" rel="noopener noreferrer">
+          <Course3 /></a>
           <br></br>
-          <Course4 />
+          <a href={`/courseDetails/${id4}`} target="_blank" rel="noopener noreferrer">
+          <Course4 /></a>
           <br></br>
-          <Course5/>
+          <a href={`/courseDetails/${id5}`} target="_blank" rel="noopener noreferrer">
+          <Course5/></a>
           <br></br>
-          <Course6 />
+          <a href={`/courseDetails/${id6}`} target="_blank" rel="noopener noreferrer">
+          <Course6 /></a>
           <br></br>
-          <Course7 />
+          <a href={`/courseDetails/${id7}`} target="_blank" rel="noopener noreferrer">
+          <Course7 /></a>
           <br></br>
-          <Course8 />
+          <a href={`/courseDetails/${id8}`} target="_blank" rel="noopener noreferrer">
+          <Course8 /></a>
           <br></br>
+          <a href={`/courseDetails/${id9}`} target="_blank" rel="noopener noreferrer">
           <Course9 />
+          </a>
           <br></br>
           <Footer />
         </div>

@@ -77,7 +77,7 @@ const skillsList = [
   "Nodejs",
   "Reactjs",
   "TypeScript",
-   "Other",
+  "Other",
 ];
 class Account extends Component {
 
@@ -89,7 +89,7 @@ class Account extends Component {
       tags: auth.user && auth.user.preferences ? auth.user.preferences : [],
       skills: auth.user && auth.user.skills ? auth.user.skills : [],
       name: auth.user && auth.user.name ? auth.user.name : "",
-      email:  auth.user.email ? auth.user.email : '',
+      email: auth.user.email ? auth.user.email : '',
       preferences: auth.user && auth.user.preferences ? auth.user.preferences : [],
       age: auth.user && auth.user.age ? auth.user.age : "",
       bio: auth.user && auth.user.bio ? auth.user.bio : "",
@@ -98,13 +98,13 @@ class Account extends Component {
       isLoading: false,
       errors: {},
       isUpdated: false,
-      user:{}
+      user: {}
     };
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
     this.handleSkillsSelect = this.handleSkillsSelect.bind(this);
     this.handleSkillsRemove = this.handleSkillsRemove.bind(this);
-    
+
     // this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
@@ -119,7 +119,7 @@ class Account extends Component {
 
   handleSkillsSelect(e) {
     //console.log('handleSkillsSelect ',this.props.auth.user)
-    console.log('handleSkillsSelect ',this.state.preferences)
+    console.log('handleSkillsSelect ', this.state.preferences)
     const selectedTag1 = e.target.value;
     if (!this.state.skills.includes(selectedTag1)) {
       this.setState({ skills: [...this.state.skills, selectedTag1] });
@@ -142,7 +142,7 @@ class Account extends Component {
 
   componentDidMount() {
     const { email } = this.state;
-  
+
     axios.get(`https://edunode.herokuapp.com/api/emaillogin/user/${email}`)
       .then(response => {
         const data = response.data;
@@ -161,7 +161,7 @@ class Account extends Component {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
-        name:event.target.value 
+        name: event.target.value
       }
     }));
   };
@@ -170,7 +170,7 @@ class Account extends Component {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
-        age :event.target.value 
+        age: event.target.value
       }
     }));
   };
@@ -179,7 +179,7 @@ class Account extends Component {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
-        bio:event.target.value 
+        bio: event.target.value
       }
     }));
   };
@@ -187,7 +187,7 @@ class Account extends Component {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
-        preferences: event.target.value 
+        preferences: event.target.value
       }
     }));
   };
@@ -195,7 +195,7 @@ class Account extends Component {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
-        skills: event.target.value 
+        skills: event.target.value
       }
     }));
   };
@@ -248,9 +248,9 @@ class Account extends Component {
 
     console.log(values)
     console.log(this.props)
-    const preferences= this.state.preferences;
-    const skills= this.state.skills;
-    const { tags,email } = this.state;
+    const preferences = this.state.preferences;
+    const skills = this.state.skills;
+    const { tags, email } = this.state;
     const formData = {
       name: this.state.user.name,
       age: this.state.user.age,
@@ -258,7 +258,7 @@ class Account extends Component {
       _id: this.props.auth.user._id,
       email: this.props.auth.user.email,
       location: this.state.user.location,
-      
+
     };
     try {
 
@@ -270,7 +270,7 @@ class Account extends Component {
         .catch(error => {
           console.error(error);
         });
-        axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: tags, email: email })
+      axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: tags, email: email })
         .then(response => {
           console.log(response.data); // Log the response from the backend
         })
@@ -278,7 +278,7 @@ class Account extends Component {
           console.error(error); // Log any errors that occur
         });
 
-        axios.post('https://edunode.herokuapp.com/api/users/skills', { skills: skills, email: email })
+      axios.post('https://edunode.herokuapp.com/api/users/skills', { skills: skills, email: email })
         .then(response => {
           console.log(response.data); // Log the response from the backend
         })
@@ -306,144 +306,153 @@ class Account extends Component {
         <Navigate to="/" />
       );
     }
-    const { tags,skills,user } = this.state;
-    console.log('user',user)
-    console.log('userp',user.preferences)
+    const { tags, skills, user } = this.state;
+    console.log('user', user)
+    console.log('userp', user.preferences)
     const { isUpdated } = this.state; // get isUpdated from state
     const email = this.props.auth.user.email ? this.props.auth.user.email : '';
     return (
       <>
-           
-           <div>
-            <div  style={{z:-1}} >
-                <Navbar />
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                </div>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            {/* <Grid item xs={12} sm={4} md={3}>
+
+        <div>
+          <div style={{ z: -1 }} >
+            <Navbar />
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+          </div>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              {/* <Grid item xs={12} sm={4} md={3}>
             <Sidebar props={email} />
           </Grid> */}
-            <Grid item xs={12} sm={8} md={9}>
-              
-              <div style={{ padding: '10px' }}>
-                <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                  <h4 style={{ fontSize: "2em", textAlign: "center" }}>Account</h4>
+              <Grid item xs={12} sm={8} md={9}>
+
+                <div style={{ padding: '10px' }}>
+                  <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                    <h4 style={{ fontSize: "2em", textAlign: "center" }}>Account</h4>
+                    <br></br>
+                    <>
+                      <label>Full Name:</label>
+                      <TextField
+
+                        name="name"
+                        type="text"
+                        placeholder="Name"
+                        fullWidth
+                        value={this.state.user.name}
+                        onChange={this.handleNameChange}
+                      />
+                      <label>Email:</label>
+                      <TextField
+                        disabled
+                        name="email"
+                        type="email"
+                        placeholder={this.props.auth.user.pkey || this.props.auth.user.email}
+                        fullWidth
+                        inputRef={(input) => (this.emailInput = input)}
+                      />
+                      <label>Age:</label>
+                      <TextField
+                        name="age"
+                        type="number"
+                        placeholder="Age"
+                        fullWidth
+                        value={user.age}
+                        onChange={this.handleAgeChange}
+                      />
+                      <label>Bio:</label>
+                      <TextField
+                        name="bio"
+                        multiline
+                        rows={4}
+                        placeholder="My Web3 Journey"
+                        fullWidth
+                        value={user.bio}
+                        onChange={this.handleBioChange}
+                      />
+                      <label>Preferences:</label>
+
+                      <Select fullWidth id="tags" onChange={this.handleTagSelect} style={{ width: '100%' }}>
+
+                        <option value="">
+                          {Array.isArray(user.preferences) && user.preferences.join(' , ')}
+                        </option>
+
+                        {tagsList.map((tag) => (
+                          <option key={tag} value={tag}>
+                            {tag}
+                          </option>
+                        ))}
+                      </Select>
+                      
+                        <SelectedTagsContainer>
+                          {tags.map((tag) => (
+                            <SelectedTag key={tag}>
+                              {tag}
+                              <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
+                                X
+                              </RemoveTagButton>
+                            </SelectedTag>
+                          ))}
+                        </SelectedTagsContainer>
+                      
+
+                      <label>Skills:</label>
+
+                      <Select fullWidth id="tags" onChange={this.handleSkillsSelect} style={{ width: '100%' }}>
+                        <option value="">
+                          {Array.isArray(user.skills) && user.skills.join(' , ')}
+                        </option>
+                        {skillsList.map((tag) => (
+                          <option key={tag} value={tag}>
+                            {tag}
+                          </option>
+                        ))}
+                      </Select>
+                      <SelectedTagsContainer>
+                        {skills.map((tag) => (
+                          <SelectedTag key={tag}>
+                            {tag}
+                            <RemoveTagButton onClick={() => this.handleSkillsRemove(tag)}>
+                              X
+                            </RemoveTagButton>
+                          </SelectedTag>
+                        ))}
+                      </SelectedTagsContainer>
+                    </>
+                    <br></br>
+                    <button
+                      type="submit"
+                      style={{
+                        backgroundColor: "#007bff",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "4px",
+                        padding: "10px 20px",
+                        fontSize: "1.2em",
+                        boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)"
+                      }}
+                    >
+                      Submit
+                    </button>
+
+
+                  </form>
                   <br></br>
-                  <>
-        <label>Full Name:</label>
-        <TextField
-
-          name="name"
-          type="text"
-          placeholder="Name"
-          fullWidth
-          value={this.state.user.name}
-          onChange={this.handleNameChange}
-        />
-        <label>Email:</label>
-        <TextField
-          disabled
-          name="email"
-          type="email"
-          placeholder={this.props.auth.user.pkey || this.props.auth.user.email}
-          fullWidth
-          inputRef={(input) => (this.emailInput = input)}
-        />
-        <label>Age:</label>
-        <TextField
-          name="age"
-          type="number"
-          placeholder="Age"
-          fullWidth
-          value={user.age}
-          onChange={this.handleAgeChange}
-        />
-        <label>Bio:</label>
-        <TextField
-          name="bio"
-          multiline
-          rows={4}
-          placeholder="My Web3 Journey"
-          fullWidth
-          value={user.bio}
-          onChange={this.handleBioChange}
-        />
-        <label>Preferences:</label>
-        
-        <Select fullWidth id="tags" onChange={this.handleTagSelect} style={{ width: '100%' }}>
-          <option value="">{user.preferences}</option>
-          {tagsList.map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </Select>
-        <SelectedTagsContainer>
-          {tags.map((tag) => (
-            <SelectedTag key={tag}>
-              {tag}
-              <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
-                X
-              </RemoveTagButton>
-            </SelectedTag>
-          ))}
-        </SelectedTagsContainer>
-        <label>Skills:</label>
-        
-        <Select fullWidth id="tags" onChange={this.handleSkillsSelect} style={{ width: '100%' }}>
-          <option value="">{user.skills}</option>
-          {skillsList.map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </Select>
-        <SelectedTagsContainer>
-          {skills.map((tag) => (
-            <SelectedTag key={tag}>
-              {tag}
-              <RemoveTagButton onClick={() => this.handleSkillsRemove(tag)}>
-                X
-              </RemoveTagButton>
-            </SelectedTag>
-          ))}
-        </SelectedTagsContainer>
-      </>
-                  <br></br>
-                  <button
-                    type="submit"
-                    style={{
-                      backgroundColor: "#007bff",
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: "4px",
-                      padding: "10px 20px",
-                      fontSize: "1.2em",
-                      boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)"
-                    }}
-                  >
-                    Submit
-                  </button>
-
-
-                </form>
-                <br></br>
-                {isUpdated && (
-                  <div style={{ backgroundColor: 'green', color: 'white', padding: '10px', borderRadius: "4px", }}>
-                    Account updated successfully!
-                  </div>
-                )}
-              </div>
+                  {isUpdated && (
+                    <div style={{ backgroundColor: 'green', color: 'white', padding: '10px', borderRadius: "4px", }}>
+                      Account updated successfully!
+                    </div>
+                  )}
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
-          <Footer />
-        </Box>
-</div>
+            <Footer />
+          </Box>
+        </div>
       </>
     )
   }
