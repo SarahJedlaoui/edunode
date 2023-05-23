@@ -128,7 +128,7 @@ function Ediploma(props) {
     });
     setTimeout(function () {
       try {
-       // window.location.href = "/";
+       window.location.href = "/";
       } catch (error) {
         console.log(error);
       }

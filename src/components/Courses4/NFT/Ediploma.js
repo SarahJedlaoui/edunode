@@ -127,7 +127,7 @@ async function sendImageToServer(base64Image, props) {
     });
     setTimeout(function () {
       try {
-       // window.location.href = "/";
+        window.location.href = "/";
       } catch (error) {
         console.log(error);
       }

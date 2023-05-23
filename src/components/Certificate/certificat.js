@@ -64,6 +64,7 @@ function Certificat() {
   const shareUrl = `https://edunode.org/certificates/${certificateNumber}?cid=${cid}&distributorPublicKey=${distributorPublicKey}&issuerPublicKey=${issuerPublicKey}`;
   return (
     <div>
+      <h1>Share you certification with others : </h1>
     <div className="Demo__container">
                 <div className="Demo__some-network">
                   <FacebookShareButton

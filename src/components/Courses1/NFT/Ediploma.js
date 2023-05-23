@@ -20,6 +20,7 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 
+
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
     color: theme.palette.action.disabled,
@@ -61,6 +62,8 @@ IconContainer.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
+
+
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
   const [ratingValue, setRatingValue] = useState(5);
@@ -69,37 +72,34 @@ function Ediploma(props) {
   const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
   const courseId = '644bcdeee1fec0f4f55a7449';
 
-
-  async function sendImageToServer(base64Image, props) {
+async function sendImageToServer(base64Image, props) {
     try {
       if (props.auth.user.email) {
-        const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma1", {
-        
-        pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
-        email: props.auth.user.email ? props.auth.user.email : null,
-        name: Name
-      });
-      console.log('hi'); 
-      console.log(props.auth.user.pkey);
-      console.log(response.data); // Check if the image was saved successfully
-        
+        const response = await axios.post("http://localhost:5001/api/certificates/diploma1", {
+          
+          email: props.auth.user.email ? props.auth.user.email : null,
+          name: Name
+        });
+        console.log('hi');
+        console.log(props.auth.user.pkey);
+        console.log(response.data); // Check if the image was saved successfully
+
       } else if (props.auth.user.pkey) {
-  
+
         const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma1", {
-        //image: base64Image,
-        pkey: props.auth.user.pkey,
-        name: Name
-      });
-      console.log(response.data); // Check if the image was saved successfully
-      
+          
+          pkey: props.auth.user.pkey,
+          name: Name
+        });
+        console.log(response.data); // Check if the image was saved successfully
+
       }
-      
-     
+
+
     } catch (error) {
       console.error(error);
     }
   }
-
 
   async function getCertificateBase64() {
     const canvas = await html2canvas(certificateWrapper.current, {
@@ -109,7 +109,6 @@ function Ediploma(props) {
     return base64Image;
   }
 
-  // const navigate = useNavigate();
 
   const handleConfirmDownload = async (e) => {
     e.preventDefault();
@@ -154,6 +153,7 @@ function Ediploma(props) {
     }
 
   }
+
 
   return (
     <div className="App">
