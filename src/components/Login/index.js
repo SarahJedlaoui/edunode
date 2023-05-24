@@ -391,14 +391,14 @@ class Login extends Component {
           <div className="g-signin2" data-onsuccess="onSignIn"></div>
           <br></br>
           <div>
-          <GoogleLogin
+          {/* <GoogleLogin
           onSuccess={credentialResponse => {
             console.log(credentialResponse);
           }}
           onError={() => {
             console.log('Login Failed');
           }}
-          />
+          /> */}
           </div>
           <div>
             <Field
