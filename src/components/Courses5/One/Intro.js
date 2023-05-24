@@ -56,12 +56,12 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return `Soroban is a smart contract platform built on top of the Stellar blockchain by the Stellar Development Foundation. It is designed to provide developers with an easy-to-use platform for creating and deploying smart contracts that can be used in a wide range of applications.\
-      In this post, we will take a closer look at the Soroban smart contract platform and explore some of its key features and benefits.`;
+      return `Soroban is a smart contracts platform designed to be sensible, built-to-scale, batteries-included, and developer-friendly.It is designed to provide developers with an easy-to-use platform for creating and deploying smart contracts that can be used in a wide range of applications.\
+      In this course post, we will take a closer look at the Soroban smart contract platform and explore some of its key features and benefits.`;
     case 1:
-      return 'Soroban is a smart contract platform that is built on top of the Stellar blockchain. It is designed to provide developers with an easy-to-use platform for creating and deploying smart contracts that can be used in a wide range of applications.\
+      return 'Soroban is a smart contract platform that is built on top of the Stellar blockchain.  It is designed to provide developers with an easy-to-use platform for creating and deploying smart contracts that can be used in a wide range of applications.\
       Smart contracts are self-executing contracts with the terms of the agreement between buyer and seller being directly written into lines of code. The code and the agreements contained therein exist on a blockchain network, and the smart contract will automatically execute when certain conditions are met.\
-      Soroban is designed to be a flexible and scalable smart contract platform that can be used in a wide range of applications, from financial services to supply chain management.';
+      Soroban is designed to be a flexible and scalable smart contract platform that can be used in a wide range of applications, like financial services.';
     case 2:
       return '1-Easy to use: Soroban is designed to be easy to use, even for developers who are not familiar with blockchain technology. The platform comes with a user-friendly interface that makes it easy to create and deploy smart contracts.\
       2-Scalability: Soroban is built on top of the Stellar blockchain, which is known for its scalability. This means that Soroban can handle a large number of transactions without slowing down or becoming congested.\

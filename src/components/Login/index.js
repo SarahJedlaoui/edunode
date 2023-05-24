@@ -25,7 +25,7 @@ import { Navigate } from "react-router-dom";
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
 import GoogleLog from './Google'
-
+import { GoogleLogin } from '@react-oauth/google';
 
 
 const validate = values => {
@@ -391,6 +391,14 @@ class Login extends Component {
           <div className="g-signin2" data-onsuccess="onSignIn"></div>
           <br></br>
           <div>
+          <GoogleLogin
+          onSuccess={credentialResponse => {
+            console.log(credentialResponse);
+          }}
+          onError={() => {
+            console.log('Login Failed');
+          }}
+          />
           </div>
           <div>
             <Field
