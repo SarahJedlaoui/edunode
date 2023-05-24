@@ -32,6 +32,11 @@ export function AlertDialog(props) {
      setOpen(false);
      window.location.href = '/courses/101/';
    };
+   const handleButtonClick = () => {
+    const id1 ='644bcdd1e1fec0f4f55a7447';
+    window.location.href = `/courseDetails/${id1}`;
+  };
+
 
   return (
     <div>
@@ -41,6 +46,13 @@ export function AlertDialog(props) {
         onClick={handleClickOpen}
       >
         Select Course
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleButtonClick}
+      >
+        Course Details
       </Button>
       <Dialog
         open={open}
@@ -98,8 +110,22 @@ const useStyles = makeStyles((theme) => ({
 function Course1(props) {
   const [rating, setRating] = useState();
   const classes = useStyles();
+ 
   const courseId = '644bcdd1e1fec0f4f55a7447';
-
+  const [course, setCourse] = useState({});
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const res = await axios.get(`https://edunode.herokuapp.com/api/cours/course/${courseId}`);
+        setCourse(res.data);
+        console.log('course')
+        console.log(course)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getCourse();
+  }, [courseId]);
   useEffect(() => {
     // Function to retrieve the average rate for the course
     const getCourseAverageRate = async () => {
@@ -145,10 +171,11 @@ function Course1(props) {
                   the Stellar Network.
                 </Typography>
                 <p className="card-text">
-          <small className="text-muted">
-            Tags: Stellar
+                <small className="text-muted">
+                Tags: {course.tags}
           </small>
         </p>
+        
         <Stack spacing={1}>
         {typeof rating === 'number' && (
           <Rating name="size-small" defaultValue={rating} size="small"  precision={0.1} readOnly />

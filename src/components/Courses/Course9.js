@@ -31,6 +31,12 @@ export function AlertDialog() {
 
 
   };
+  const handleButtonClick = () => {
+    const id9 ='646b83386cea9a0294e65253';
+    window.location.href = `/courseDetails/${id9}`;
+  };
+
+
   return (
     <div>
       <Button
@@ -39,6 +45,13 @@ export function AlertDialog() {
         onClick={handleClickOpen}
       >
         Select Course
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleButtonClick}
+      >
+        Course Details
       </Button>
       <Dialog
         open={open}
@@ -92,7 +105,20 @@ export default function Course9() {
   const [rating, setRating] = useState();
   const classes = useStyles();
   const courseId = '646b83386cea9a0294e65253';
-
+  const [course, setCourse] = useState({});
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const res = await axios.get(`https://edunode.herokuapp.com/api/cours/course/${courseId}`);
+        setCourse(res.data);
+        console.log('course')
+        console.log(course)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getCourse();
+  }, [courseId]);
   useEffect(() => {
     // Function to retrieve the average rate for the course
     const getCourseAverageRate = async () => {
@@ -131,8 +157,8 @@ export default function Course9() {
                   In this course you will learn Blockchain And Money.
                 </Typography>
                 <p className="card-text">
-          <small className="text-muted">
-            Tags:  Blockchain
+                <small className="text-muted">
+                Tags: {course.tags}
           </small>
         </p>
         <Stack spacing={1}>

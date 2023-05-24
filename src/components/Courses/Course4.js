@@ -31,9 +31,14 @@ export function AlertDialog() {
   const handleConfirm = (e) => {
     setOpen(false);
     window.location.href = '/courses/104/';
-
-
   };
+
+  const handleButtonClick = () => {
+    const id4 ='644bce24e1fec0f4f55a744d';
+    window.location.href = `/courseDetails/${id4}`;
+  };
+
+
   return (
     <div>
       <Button
@@ -42,6 +47,13 @@ export function AlertDialog() {
         onClick={handleClickOpen}
       >
         Select Course
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleButtonClick}
+      >
+        Course Details
       </Button>
       <Dialog
         open={open}
@@ -95,7 +107,20 @@ export default function Course3() {
   const [rating, setRating] = useState();
   const classes = useStyles();
   const courseId = '644bce24e1fec0f4f55a744d';
-
+  const [course, setCourse] = useState({});
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const res = await axios.get(`https://edunode.herokuapp.com/api/cours/course/${courseId}`);
+        setCourse(res.data);
+        console.log('course')
+        console.log(course)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getCourse();
+  }, [courseId]);
   useEffect(() => {
     // Function to retrieve the average rate for the course
     const getCourseAverageRate = async () => {
@@ -135,8 +160,8 @@ export default function Course3() {
                   users.
                 </Typography>
                 <p className="card-text">
-          <small className="text-muted">
-            Tags: SEPs
+                <small className="text-muted">
+                Tags: {course.tags}
           </small>
         </p>
         <Stack spacing={1}>

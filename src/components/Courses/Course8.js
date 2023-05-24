@@ -31,6 +31,12 @@ export function AlertDialog() {
 
 
   };
+  const handleButtonClick = () => {
+    const id8 ='6464e2d58aca412ed2d81bf3';
+    window.location.href = `/courseDetails/${id8}`;
+  };
+
+
   return (
     <div>
       <Button
@@ -39,6 +45,13 @@ export function AlertDialog() {
         onClick={handleClickOpen}
       >
         Select Course
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleButtonClick}
+      >
+        Course Details
       </Button>
       <Dialog
         open={open}
@@ -92,7 +105,20 @@ export default function Course8() {
   const [rating, setRating] = useState();
   const classes = useStyles();
   const courseId = '6464e2d58aca412ed2d81bf3';
-
+  const [course, setCourse] = useState({});
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const res = await axios.get(`https://edunode.herokuapp.com/api/cours/course/${courseId}`);
+        setCourse(res.data);
+        console.log('course')
+        console.log(course)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getCourse();
+  }, [courseId]);
   useEffect(() => {
     // Function to retrieve the average rate for the course
     const getCourseAverageRate = async () => {
@@ -129,8 +155,8 @@ export default function Course8() {
                   In this course you will learn Oracles.
                 </Typography>
                 <p className="card-text">
-          <small className="text-muted">
-            Tags: Oracles, Blockchain
+                <small className="text-muted">
+                Tags: {course.tags}
           </small>
         </p>
         <Stack spacing={1}>

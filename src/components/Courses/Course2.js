@@ -34,6 +34,12 @@ const handleConfirm = (e) => {
 
 
   };
+
+  const handleButtonClick = () => {
+    const id2 ='644bcdeee1fec0f4f55a7449';
+    window.location.href = `/courseDetails/${id2}`;
+  };
+
   return (
     <div>
       <Button
@@ -42,6 +48,13 @@ const handleConfirm = (e) => {
         onClick={handleClickOpen}
       >
         Select Course
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleButtonClick}
+      >
+        Course Details
       </Button>
       <Dialog
         open={open}
@@ -95,6 +108,22 @@ export default function Course2() {
   const [rating, setRating] = useState();
   const classes = useStyles();
   const courseId = '644bcdeee1fec0f4f55a7449';
+  const [course, setCourse] = useState({});
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const res = await axios.get(`https://edunode.herokuapp.com/api/cours/course/${courseId}`);
+        setCourse(res.data);
+        console.log('course')
+        console.log(course)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getCourse();
+  }, [courseId]);
+
+
   useEffect(() => {
     // Function to retrieve the average rate for the course
     const getCourseAverageRate = async () => {
@@ -133,8 +162,8 @@ export default function Course2() {
                   connect to the Stellar Network.
                 </Typography>
                 <p className="card-text">
-          <small className="text-muted">
-            Tags: Stellar
+                <small className="text-muted">
+            Tags: {course.tags}
           </small>
         </p>
 

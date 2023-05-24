@@ -1,4 +1,4 @@
-import React , {useState , useEffect}from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -31,6 +31,12 @@ export function AlertDialog() {
 
 
   };
+  const handleButtonClick = () => {
+    const id6 = '6464e2968aca412ed2d81bef';
+    window.location.href = `/courseDetails/${id6}`;
+  };
+
+
   return (
     <div>
       <Button
@@ -39,6 +45,13 @@ export function AlertDialog() {
         onClick={handleClickOpen}
       >
         Select Course
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleButtonClick}
+      >
+        Course Details
       </Button>
       <Dialog
         open={open}
@@ -92,15 +105,29 @@ export default function Course6() {
   const [rating, setRating] = useState();
   const classes = useStyles();
   const courseId = '6464e2968aca412ed2d81bef';
-
+  const [course, setCourse] = useState({});
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const res = await axios.get(`https://edunode.herokuapp.com/api/cours/course/${courseId}`);
+        setCourse(res.data);
+        console.log('course')
+        console.log(course)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getCourse();
+  }, [courseId]);
   useEffect(() => {
     // Function to retrieve the average rate for the course
+
     const getCourseAverageRate = async () => {
       try {
         const response = await axios.get(`https://edunode.herokuapp.com/api/cours/courses/${courseId}/average-rating`);
         setRating(response.data.averageRating);
         console.log(response.data.averageRating)
-       
+
       } catch (error) {
         console.error(error);
         // Handle error
@@ -130,38 +157,39 @@ export default function Course6() {
                   In this course you will learn about Soroban.
                 </Typography>
                 <p className="card-text">
-          <small className="text-muted">
-            Tags: Soroban
-          </small>
-        </p>
-        <Stack spacing={1}>
-        {typeof rating === 'number' && (
-          <Rating name="size-small" defaultValue={rating} size="small"  precision={0.1} readOnly />
-        )}
-      
-    </Stack>
-                <Typography variant="body2" gutterBottom></Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                ></Typography>
-              </Grid>
-              <Grid item>
-                <Typography
-                  variant="body2"
-                  style={{ cursor: 'pointer' }}
-                >
-                  {/* <Link to="#"> Select </Link> */}
-                  <AlertDialog />
-                </Typography>
-              </Grid>
+                  <small className="text-muted">
+                    Tags: {course.tags}
+                  </small>
+                </p>
+              
+              <Stack spacing={1}>
+                {typeof rating === 'number' && (
+                  <Rating name="size-small" defaultValue={rating} size="small" precision={0.1} readOnly />
+                )}
+
+              </Stack>
+              <Typography variant="body2" gutterBottom></Typography>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+              ></Typography>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1"></Typography>
+              <Typography
+                variant="body2"
+                style={{ cursor: 'pointer' }}
+              >
+                {/* <Link to="#"> Select </Link> */}
+                <AlertDialog />
+              </Typography>
             </Grid>
           </Grid>
+          <Grid item>
+            <Typography variant="subtitle1"></Typography>
+          </Grid>
         </Grid>
-      </Paper>
-    </div>
+      </Grid>
+    </Paper>
+    </div >
   );
 }

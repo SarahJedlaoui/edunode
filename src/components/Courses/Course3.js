@@ -33,6 +33,12 @@ export function AlertDialog() {
 
 
   };
+  const handleButtonClick = () => {
+    const id3 ='644bce0be1fec0f4f55a744b';
+    window.location.href = `/courseDetails/${id3}`;
+  };
+
+
   return (
     <div>
       <Button
@@ -41,6 +47,13 @@ export function AlertDialog() {
         onClick={handleClickOpen}
       >
         Select Course
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleButtonClick}
+      >
+        Course Details
       </Button>
       <Dialog
         open={open}
@@ -94,7 +107,20 @@ export default function Course3() {
   const [rating, setRating] = useState();
   const classes = useStyles();
   const courseId = '644bce0be1fec0f4f55a744b';
-
+  const [course, setCourse] = useState({});
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const res = await axios.get(`https://edunode.herokuapp.com/api/cours/course/${courseId}`);
+        setCourse(res.data);
+        console.log('course')
+        console.log(course)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getCourse();
+  }, [courseId]);
 
   useEffect(() => {
     // Function to retrieve the average rate for the course
@@ -137,11 +163,10 @@ export default function Course3() {
                   become one.
                 </Typography>
                 <p className="card-text">
-          <small className="text-muted">
-            Tags: Stellar
+                <small className="text-muted">
+                Tags: {course.tags}
           </small>
         </p>
-
         <Stack spacing={1}>
         {typeof rating === 'number' && (
           <Rating name="size-small" defaultValue={rating} size="small"  precision={0.1} readOnly />
