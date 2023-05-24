@@ -1,6 +1,8 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes,Navigate } from "react-router-dom";
 import { Provider, connect } from "react-redux";
+import { useEffect } from "react";
+import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { store } from "./store";
 import Home from "./components/Home";
@@ -161,10 +163,35 @@ import AiPlugin from './components/AiPlugin'
 import PostDetails from './components/Posts/postDetails'
 import CourseDetails from './components/Courses/courseDetails'
 import { useState } from 'react';
+import Loginn from './components/authentif'
+import Signup from "./components/signup";
+import "./App.css";
 
 function App(props) {
   const location = useLocation();
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:5001/auth/login/success", {
+        withCredentials: true,
+      });
+      const { user } = response.data;
+      setUser(user);
+
+      console.log('user',user)
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	useEffect(() => {
+		getUser();
+	}, []);
+
+
 
   return (
     <Provider store={store}>
@@ -324,6 +351,17 @@ function App(props) {
         <Route exact path="/.well-known/ai-plugin.json" element={<AiPlugin/>} />
         <Route exact path="/postDetails/:_id" element={<PostDetails/>} />
         <Route exact path="/courseDetails/:_id" element={<CourseDetails/>} />
+        
+        <Route
+					exact
+					path="/loginn"
+					element={user ? <Navigate to="/" /> : <Loginn />}
+				/>
+				<Route
+					path="/signup"
+					element={user ? <Navigate to="/" /> : <Signup />}
+				/>
+
       </Routes>
     </Provider>
   );
