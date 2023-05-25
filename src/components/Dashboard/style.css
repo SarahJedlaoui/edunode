@@ -10,3 +10,6 @@ justify-content: center;
     justify-content: center;
     align-items: center;
   }
+  .block-example {
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}

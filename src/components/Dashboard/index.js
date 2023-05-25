@@ -13,7 +13,7 @@ import Popup from 'reactjs-popup';
 import Button from "@mui/material/Button";
 import axios from "axios";
 import 'reactjs-popup/dist/index.css';
-import Navbar from './Navbar';
+import Navbar1 from './Navbar1';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,17 +29,31 @@ class Dashboard extends Component {
       tags: ['web3', 'Stellar', 'Programming', 'NFT', 'Blockchain', 'Crypto', 'E-learning', 'IT', 'Soroban'],
       selectedTags: [],
       showAlert: true, //  a state variable to control the visibility of the alert,
-      preference:[]
+      preference:[],
+      user:[]
     };
 
   }
 
   componentDidMount() {
-    const showAlert = !localStorage.getItem('selectedTags'); // check if the flag is set
-    this.setState({ showAlert }); // update the state based on the flag
+    const { email,showAlert } = this.state;
+    console.log('email',email)
+    if (this.props.auth.user.preferences && this.props.auth.user.preferences.length === 0) {
+      // preferences array is empty
+      console.log("Preferences array is empty");
+      this.setState({ showAlert: true });
+    } else {
+      // preferences array is not empty
+      console.log("Preferences array is not empty");
+      this.setState({ showAlert: false });
+    }
+
+    
+    //const showAlert = !localStorage.getItem('selectedTags'); // check if the flag is set
+     // update the state based on the flag
     console.log(this.state.preferences)
 
-    const { email } = this.state;
+   
     fetch(`https://edunode.herokuapp.com/api/search/${email}`)
     .then(response => response.json())
     .then(data => {
@@ -115,7 +129,7 @@ class Dashboard extends Component {
       if (!showAlert) {
         return (
           <>
-            <Navbar />
+            <Navbar1 />
             <br></br>
             <br></br>
             <br></br>
@@ -234,7 +248,7 @@ class Dashboard extends Component {
       else {
         return (
           <>
-          <Navbar />
+          <Navbar1 />
             <br></br>
             <br></br>
             <br></br>

@@ -45,9 +45,13 @@ class LogoutModal extends Component {
         return (
 <>
             <Form>
-                <Button onClick={
+                <Button  outline
+                onClick={
                     this.onChange
-                    } style={{ backgroundColor: '#808080', color: '#fff' }}>
+                    }
+                    
+                    size="lg"
+                    >
                     Logout
                 </Button>  
             </Form>
