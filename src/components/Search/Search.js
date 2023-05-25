@@ -16,7 +16,8 @@ import PropTypes from 'prop-types'
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-import Navbar from '../Dashboard/Navbar';
+import NavBar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 
 const style = {
     height: 30,
@@ -258,10 +259,7 @@ componentDidMount(){
         return (
             <>
                 <div>
-                <Navbar />
-                <br></br>
-                <br></br>
-                <br></br>
+                <Navbar1 />
                 <br></br>
                 <br></br>
                     <Box sx={{ flexGrow: 1 }}>

@@ -15,7 +15,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 import { Navigate } from "react-router-dom";
 import styled from 'styled-components';
-import Navbar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 
 const Select = styled.select`
   padding: 0.5rem;
@@ -316,12 +316,8 @@ class Account extends Component {
 
         <div>
           <div style={{ z: -1 }} >
-            <Navbar />
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+            <Navbar1 />
+           
           </div>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>

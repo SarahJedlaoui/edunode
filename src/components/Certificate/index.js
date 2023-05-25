@@ -18,7 +18,7 @@ import axios from 'axios';
 import { Navigate } from "react-router-dom";
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
 //import { isConnected, getPublicKey } from "@stellar/freighter-api";
-import Navbar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 
 class Certificate extends Component {
   constructor(props) {
@@ -32,8 +32,8 @@ class Certificate extends Component {
       errors: {},
       certificateCount: 0,
       certificateUrls: [],
-      certificateNumber:[],
-      certificates:[],
+      certificateNumber: [],
+      certificates: [],
       issuerPublicKey: '',
       distributorPublicKey: ''
     }
@@ -47,61 +47,63 @@ class Certificate extends Component {
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : ""
     const pkey = this.props.auth && this.props.auth.user && this.props.auth.user.pkey ? this.props.auth.user.pkey : "anonymous"
     if (email) {
-    axios.get(`https://edunode.herokuapp.com/api/certificates/count/${email}`)
-      .then(res => {
-        if (res.data.length > 0) {
-          this.setState({ certificateCount: res.data[0].count });
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
-    } else if ( pkey) { 
-       axios.get(`https://edunode.herokuapp.com/api/certificates/count/pkey/${pkey}`)
-    .then(res => {
-      if (res.data.length > 0) {
-        this.setState({ certificateCount: res.data[0].count });
-      }
-    })
-    .catch(err => {
-      console.error(err);
-    });}
+      axios.get(`https://edunode.herokuapp.com/api/certificates/count/${email}`)
+        .then(res => {
+          if (res.data.length > 0) {
+            this.setState({ certificateCount: res.data[0].count });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    } else if (pkey) {
+      axios.get(`https://edunode.herokuapp.com/api/certificates/count/pkey/${pkey}`)
+        .then(res => {
+          if (res.data.length > 0) {
+            this.setState({ certificateCount: res.data[0].count });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
 
 
 
-    if ( email) {
+    if (email) {
       axios.get(`https://edunode.herokuapp.com/api/certificates/${email}`)
-      .then(res => {
-        if (res.data.length > 0) {
-          const certificates = res.data.map(cert => ({
-            certificateNumber: cert.certificateNumber,
-            cid: cert.cid,
-            distributorPublicKey: cert.distributorPublicKey,
-            issuerPublicKey : cert.issuerPublicKey,
-          }));
-          this.setState({ certificates: certificates });
-          console.log('hi')
-          console.log(certificates)
-          
-        }
-      })} else if ( pkey) { 
+        .then(res => {
+          if (res.data.length > 0) {
+            const certificates = res.data.map(cert => ({
+              certificateNumber: cert.certificateNumber,
+              cid: cert.cid,
+              distributorPublicKey: cert.distributorPublicKey,
+              issuerPublicKey: cert.issuerPublicKey,
+            }));
+            this.setState({ certificates: certificates });
+            console.log('hi')
+            console.log(certificates)
 
-        axios.get(`https://edunode.herokuapp.com/api/certificates/pkey/${pkey}`)
-      .then(res => {
-        if (res.data.length > 0) {
-          const certificates = res.data.map(cert => ({
-            certificateNumber: cert.certificateNumber,
-            cid: cert.cid
-          }));
-          this.setState({ certificates: certificates });
-          console.log('hi')
-          console.log(res.data)
-          console.log(certificates)
-          
-        }
-      })
-      }
-    
+          }
+        })
+    } else if (pkey) {
+
+      axios.get(`https://edunode.herokuapp.com/api/certificates/pkey/${pkey}`)
+        .then(res => {
+          if (res.data.length > 0) {
+            const certificates = res.data.map(cert => ({
+              certificateNumber: cert.certificateNumber,
+              cid: cert.cid
+            }));
+            this.setState({ certificates: certificates });
+            console.log('hi')
+            console.log(res.data)
+            console.log(certificates)
+
+          }
+        })
+    }
+
   }
 
   componentDidUpdate(prevProps) {
@@ -259,9 +261,9 @@ class Certificate extends Component {
       courseOneDone,
 
     } = this.props.auth;
-    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
-    const { certificateCount, certificateUrls,certificateNumber,certificates } = this.state;
-  
+    const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
+    const { certificateCount, certificateUrls, certificateNumber, certificates } = this.state;
+
     if (this.props.auth.user) {
       return (
         <>
@@ -272,11 +274,9 @@ class Certificate extends Component {
                   <Item><Sidebar props={email} /></Item>
                 </Grid> */}
 
-                <Grid item xs={12} sm={8} md={9}>
-                <Navbar/>
-          <br></br>
-          <br></br>
-          <br></br>
+                <Grid item xs={12} sm={8} md={20}>
+                  <Navbar1 />
+
                   <div>
                     <p><h3>Welcome to your Certifications</h3></p>
                     <br></br>
@@ -293,7 +293,7 @@ class Certificate extends Component {
                         <ul>
                           {certificates.map(cert => (
                             <li key={cert.certificateNumber}>
-                               <a href={`/certificates/${cert.certificateNumber}?cid=${cert.cid}&distributorPublicKey=${cert.distributorPublicKey}&issuerPublicKey=${cert.issuerPublicKey}`} target="_blank" rel="noopener noreferrer">
+                              <a href={`/certificates/${cert.certificateNumber}?cid=${cert.cid}&distributorPublicKey=${cert.distributorPublicKey}&issuerPublicKey=${cert.issuerPublicKey}`} target="_blank" rel="noopener noreferrer">
                                 <img src={cert.cid} alt="Certificate" />
                               </a>
                             </li>

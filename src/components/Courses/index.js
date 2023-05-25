@@ -31,7 +31,7 @@ import Course7 from './Course7';
 import Course8 from './Course8';
 import Course9 from './Course9';
 import Footer from '../Footer';
-import Navbar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 
 // Import styles
 import './style.css';
@@ -122,10 +122,8 @@ class Courses extends Component {
             <Item><Sidebar props={email}/></Item>
           </Grid> */}
           <Grid item xs={12} sm={8} md={20}>
-            <Item><Navbar /></Item>
-            <br></br>
-     <br></br>
-     <br></br>
+            <Item><Navbar1 /></Item>
+            
             <div style={{ padding: '10px' }}>
             <br></br>
           
@@ -174,10 +172,8 @@ class Courses extends Component {
           <Item><Sidebar props={email} /></Item>
         </Grid> */}
          <Grid item xs={12} sm={8} md={20}> 
-          <Navbar />
-          <br></br>
-     <br></br>
-     <br></br>
+          <Navbar1 />
+          
            <div className="myDiv"> 
           <Welcome />
           <br></br>
@@ -227,10 +223,8 @@ class Courses extends Component {
           <Item><Sidebar  props={email}/></Item>
         </Grid> */}
         <Grid item xs={12} sm={8} md={20}>
-        <Navbar />
-        <br></br>
-     <br></br>
-     <br></br>
+        <Navbar1 />
+        
           <div className="myDiv">
           <Welcome />
           <br></br>
@@ -279,10 +273,8 @@ class Courses extends Component {
           <Item><Sidebar props={email}/></Item>
         </Grid> */}
         <Grid item xs={12} sm={8} md={20}>
-     <Navbar />
-     <br></br>
-     <br></br>
-     <br></br>
+     <Navbar1 />
+     
           <div className="myDiv">
           <Welcome />
           <br></br>

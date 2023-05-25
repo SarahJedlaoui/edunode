@@ -20,7 +20,7 @@ import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import Navbar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 const suggestedQuestions = [
   "What is the Stellar Network?",
   "What is the Soroban Smart Contract Platform?",
@@ -141,10 +141,8 @@ class Chat extends Component {
       return (
 
         <>
-        <Navbar/>
-          <br></br>
-          <br></br>
-          <br></br>
+        <Navbar1/>
+          
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>

@@ -5,60 +5,69 @@ import PropTypes from "prop-types";
 import { clearErrors } from "../../actions/errorActions";
 import {
     Button,
-    Form
+    Form,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter
 } from "reactstrap";
-import  withRouter  from "../../withRouter";
+import withRouter from "../../withRouter";
 import { Navigate } from "react-router-dom";
 
-
 class LogoutModal extends Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
-
-        }
-       
-        this.onChange = this.onChange.bind(this);
-       
-      }
+            modal: false
+        };
+    }
 
     static propTypes = {
         logout: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
-        onChange:PropTypes.func,
-    }
+        isAuthenticated: PropTypes.bool
+    };
 
-    
+    toggleModal = () => {
+        this.setState((prevState) => ({
+            modal: !prevState.modal
+        }));
+    };
 
-    onChange = async () => {
-       this.props.logout();
-       <Navigate to="/" />
-      };
+    handleLogout = () => {
+        this.props.logout();
+        this.toggleModal();
+        <Navigate to="/" />
+    };
 
     render() {
-       
-
-    
+        const { isAuthenticated } = this.props;
 
         return (
-<>
-            <Form>
-                <Button  outline
-                onClick={
-                    this.onChange
-                    }
-                    
-                    size="lg"
-                    >
-                    Logout
-                </Button>  
-            </Form>
+            <>
+                <Form>
+                    <Button outline onClick={this.toggleModal} size="lg">
+                        Logout
+                    </Button>
+                </Form>
 
-</>
-
-        )
+                <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Logout</ModalHeader>
+                    <ModalBody>
+                        Are you sure you want to logout?
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button outline onClick={this.toggleModal}>
+                            Cancel
+                        </Button>
+                        <Button color="primary"
+                            outline onClick={this.handleLogout}>
+                            Confirm
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </>
+        );
     }
 }
 
@@ -67,5 +76,6 @@ const mapStateToProps = (state) => ({
     error: state.error
 });
 
-export default withRouter(connect(mapStateToProps,
-    { clearErrors, logout })(LogoutModal))
+export default withRouter(
+    connect(mapStateToProps, { clearErrors, logout })(LogoutModal)
+);

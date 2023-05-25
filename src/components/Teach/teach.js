@@ -25,7 +25,7 @@ import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { convertToHTML } from 'draft-convert';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Navbar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 // Initialize editorState
 {/*const editorState = EditorState.createEmpty();
 
@@ -299,8 +299,8 @@ class Teach extends Component {
             {/* <Grid item xs={12} sm={4} md={3}>
               <Item><Sidebar props={email} /></Item>
             </Grid> */}
-            <Grid item xs={12} sm={8} md={9}>
-            <Navbar/>
+            <Grid item xs={12} sm={8} md={20}>
+            <Navbar1/>
           <br></br>
           <br></br>
           <br></br>

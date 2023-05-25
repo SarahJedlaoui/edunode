@@ -130,9 +130,6 @@ class Dashboard extends Component {
         return (
           <>
             <Navbar1 />
-            <br></br>
-            <br></br>
-            <br></br>
             {/* <Sidebar props={email} /> */}
             
       <Grid container spacing={2}>
@@ -249,9 +246,7 @@ class Dashboard extends Component {
         return (
           <>
           <Navbar1 />
-            <br></br>
-            <br></br>
-            <br></br>
+           
             <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={12}>
           <Alert className="text-center" severity="warning">

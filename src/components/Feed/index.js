@@ -23,7 +23,7 @@ import Posts from "./Posts"
 import Card from "./Card"
 import Tweets from './tweets';
 import PostList from "./PostList";
-import Navbar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 import  { useState } from 'react';
 import UserContext from '../Posts/UserContext';
 
@@ -261,8 +261,8 @@ class Feed extends Component {
           <Item><Sidebar props={email}/></Item>
         </Grid> */}
      
-        <Grid xs={7} sm={8.5} md={10}>
-          <Navbar />
+        <Grid xs={7} sm={8.5} md={20}>
+          <Navbar1 />
           <br></br>
           <br></br>
           <br></br>
@@ -303,15 +303,10 @@ class Feed extends Component {
   <div>
         <Box sx={{ flexGrow: 1 }}>
   <Grid container spacing={2}>
-    {/* <Grid xs={5} sm={3.5} md={2}>
-      <Item><Sidebar props={email}/></Item>
-    </Grid> */}
  
-    <Grid item xs={12} sm={8} md={9}>
-    <Navbar />
-          <br></br>
-          <br></br>
-          <br></br>
+    <Grid item xs={12} sm={8} md={20}>
+    <Navbar1 />
+         
       <div>
   
 

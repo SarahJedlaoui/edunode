@@ -18,7 +18,7 @@ import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import { GpsFixed } from '@mui/icons-material';
 import Button from '../Membership/Button';
-import Navbar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 
 
 class History extends Component {
@@ -110,15 +110,15 @@ class History extends Component {
                                     </Item>
                                 </Grid> */}
 
-                                <Grid item xs={12} sm={8.5} md={10}>
-                                    <Navbar />
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
+                                <Grid item xs={12} sm={8.5} md={20}>
+                                    <Navbar1 />
+                                    
                                     <div>
                                         <div>
                                             <div>
+                                                
                                                 <h4 style={{ fontSize: '2em' }}>Chat History</h4>
+                                                <br></br>
                                                 {messages.map((message, index) => (
                                                     <div key={index}>
 
