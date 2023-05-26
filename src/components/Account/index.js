@@ -16,6 +16,7 @@ import axios from 'axios';
 import { Navigate } from "react-router-dom";
 import styled from 'styled-components';
 import Navbar1 from '../Dashboard/Navbar1';
+import ImageUploading from "react-images-uploading";
 
 const Select = styled.select`
   padding: 0.5rem;
@@ -79,6 +80,9 @@ const skillsList = [
   "TypeScript",
   "Other",
 ];
+
+
+
 class Account extends Component {
 
   constructor(props) {
@@ -98,7 +102,11 @@ class Account extends Component {
       isLoading: false,
       errors: {},
       isUpdated: false,
-      user: {}
+      user: {},
+      file: '',
+      imagePreviewUrl: 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true',
+      images: [],
+      maxNumber: 69,
     };
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
@@ -107,7 +115,7 @@ class Account extends Component {
 
     // this.handleLocationChange = this.handleLocationChange.bind(this);
   }
-
+ 
 
   handleTagSelect(e) {
 
@@ -241,13 +249,9 @@ class Account extends Component {
 
 
   onSubmit = async values => {
-    console.log(this.state.name)
-    console.log(this.state._id)
-    console.log(this.props.auth.user._id)
-    console.log(this.props.auth.user.email)
 
-    console.log(values)
-    console.log(this.props)
+    
+    
     const preferences = this.state.preferences;
     const skills = this.state.skills;
     const { tags, email } = this.state;
@@ -296,17 +300,26 @@ class Account extends Component {
 
 
   // handle form submission
-
+  onChangeImage = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    this.setState({ images: imageList });
+    console.log('image', this.state.images)
+  };
 
 
   render() {
     const { isAuthenticated } = this.props.auth
+    const { imagePreviewUrl,
+      name,
+      status,
+      active } = this.state;
     if (!isAuthenticated) {
       return (
         <Navigate to="/" />
       );
     }
-    const { tags, skills, user } = this.state;
+    const { tags, skills, user, images, maxNumber } = this.state;
     console.log('user', user)
     console.log('userp', user.preferences)
     const { isUpdated } = this.state; // get isUpdated from state
@@ -317,7 +330,7 @@ class Account extends Component {
         <div>
           <div style={{ z: -1 }} >
             <Navbar1 />
-           
+
           </div>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
@@ -331,6 +344,82 @@ class Account extends Component {
                     <h4 style={{ fontSize: "2em", textAlign: "center" }}>Account</h4>
                     <br></br>
                     <>
+                      <label>Add profile picture:</label>
+                      <ImageUploading
+                        multiple
+                        value={images}
+                        onChange={this.onChangeImage}
+                        maxNumber={maxNumber}
+                        dataURLKey="data_url"
+                        acceptType={["jpg",'png']}
+                      >
+                        {({
+                          imageList,
+                          onImageUpload,
+                          onImageRemoveAll,
+                          onImageUpdate,
+                          onImageRemove,
+                          isDragging,
+                          dragProps
+                        }) => (
+                          // write your building UI
+                          <div className="upload__image-wrapper">
+                            <button
+                              style={{
+                                backgroundColor: "#007bff",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: "4px",
+                                padding: "5px 10px",
+                                fontSize: "1.2em",
+                                boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)",
+
+                              }}
+
+                              onClick={onImageUpload}
+                              {...dragProps}
+                            >
+                              Click or Drop here
+                            </button>
+                            &nbsp;
+
+                            {imageList.map((image, index) => (
+                              <div key={index} className="image-item">
+                                <img src={image.data_url} alt="" width="100" />
+                                <div className="image-item__btn-wrapper">
+                                  <button
+                                    style={{
+                                      backgroundColor: "#007bff",
+                                      color: "#fff",
+                                      border: "none",
+                                      borderRadius: "4px",
+                                      padding: "5px 10px",
+                                      fontSize: "1.2em",
+                                      boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)"
+                                    }}
+                                    onClick={() => onImageUpdate(index)}>Update</button>
+                                  <button
+                                    style={{
+                                      backgroundColor: "#007bff",
+                                      color: "#fff",
+                                      border: "none",
+                                      borderRadius: "4px",
+                                      padding: "5px 10px",
+                                      fontSize: "1.2em",
+                                      boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)"
+                                    }}
+                                    onClick={() => onImageRemove(index)}>Remove</button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </ImageUploading>
+
+
+
+
+                      <br></br>
                       <label>Full Name:</label>
                       <TextField
 
@@ -383,18 +472,18 @@ class Account extends Component {
                           </option>
                         ))}
                       </Select>
-                      
-                        <SelectedTagsContainer>
-                          {tags.map((tag) => (
-                            <SelectedTag key={tag}>
-                              {tag}
-                              <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
-                                X
-                              </RemoveTagButton>
-                            </SelectedTag>
-                          ))}
-                        </SelectedTagsContainer>
-                      
+
+                      <SelectedTagsContainer>
+                        {tags.map((tag) => (
+                          <SelectedTag key={tag}>
+                            {tag}
+                            <RemoveTagButton onClick={() => this.handleTagRemove(tag)}>
+                              X
+                            </RemoveTagButton>
+                          </SelectedTag>
+                        ))}
+                      </SelectedTagsContainer>
+
 
                       <label>Skills:</label>
 

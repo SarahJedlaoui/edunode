@@ -15,89 +15,102 @@ import {
   HAS_USERNAME,
   ALBEDO_VERIFICATION_SUCCESS,
   FIRST_COURSE_DONE,
-  UPDATED_ACCOUNT
+  UPDATED_ACCOUNT,
+  ALBEDO_VERIFICATION_FAIL
 } from './types';
 
 
 
 // check token and load user
 
-export const loadUser = ({email}) => (dispatch, getState) => {
+export const loadUser = ({ email }) => (dispatch, getState) => {
 
-    //user loading
-    dispatch({ type: USER_LOADING });
-    const body = JSON.stringify({ email });
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
+  //user loading
+  dispatch({ type: USER_LOADING });
+  const body = JSON.stringify({ email });
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     }
+  }
 
-    axios
-      .get(
-        'https://edunode.herokuapp.com/api/users/user',
-        
-        config,
-      )
-      .then((res) => {
-        dispatch({
-          type: USER_LOADED,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        dispatch(
-          returnErrors(err.response.data, err.response.status),
-        );
-        dispatch({
-          type: AUTH_ERROR,
-        });
+  axios
+    .get(
+      'https://edunode.herokuapp.com/api/users/user',
+
+      config,
+    )
+    .then((res) => {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
       });
+    })
+    .catch((err) => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status),
+      );
+      dispatch({
+        type: AUTH_ERROR,
+      });
+    });
 };
 
 // register user
-export const register = ({ email, password, confirmationCode }) => async dispatch => {
+export const register = ({ email, password, confirmationCode }) => dispatch => {
 
-    dispatch({ type: USER_LOADING });
+  dispatch({ type: USER_LOADING });
 
 
-    // request body
+  // request body
 
-    const body = JSON.stringify({ email, password, confirmationCode });
+  const body = JSON.stringify({ email, password, confirmationCode });
 
-fetch('https://edunode.herokuapp.com/api/emailauth/', {
-method: 'POST', 
-headers: {
-'Access-Control-Allow-Origin': '*',
-'Content-Type': 'application/json'
-},
-body
-})
-.then(response => response.json())
-.then((res) => {
-console.log(res)
-
-if (res.user.isVerified === true) {
- dispatch({
-   type: VERIFICATION_SUCCESS,
-  payload: res.data,
- });
-}
- if (res.user.email) {
-         dispatch({
-           type: REGISTER_SUCCESS,
-           payload: res.data,
-});
-}
-})
-      .catch(
-        (err) => {
+  fetch('https://edunode.herokuapp.com/api/emailauth/', {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Content-Security-Policy': 'script-src',
+      // 'self' :'https://accounts.google.com',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS'
+    },
+    body
+  })
+    .then(response => response.json())
+    .then((res) => {
+      console.log(res)
+      if (res.user.email) {
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.data,
+        });
+      
+      if (res.user.isVerified === true) {
+        dispatch({
+          type: VERIFICATION_SUCCESS,
+          payload: res.data,
+        });
+      }
+      if (res.user.isVerified === false) {
+        dispatch({
+          type: VERIFICATION_FAIL,
+          payload: res.data,
+        });
+      }
+      localStorage.setItem('jwt', res.user)
+      localStorage.setItem('user', JSON.stringify(res.user))
+      console.log('users', res.user)
+    }
+    })
+    .catch(
+      (err) => {
         console.log("register failed", err)
 
         dispatch({
           type: REGISTER_FAIL,
-         
+
         })
       });
 }
@@ -106,111 +119,110 @@ if (res.user.isVerified === true) {
 // login User
 
 export const login = ({ email, password }) => dispatch => {
-console.log(email)
-    dispatch({ type: USER_LOADING });
+  console.log(email)
+  dispatch({ type: USER_LOADING });
 
-    // request body
+  // request body
 
-    const body = JSON.stringify({ email, password });
- 
+  const body = JSON.stringify({ email, password });
 
-    fetch('https://edunode.herokuapp.com/api/emaillogin', {
-     
-     // mode: 'no-cors',
-      method: 'POST', 
-      headers: {
-  'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json',
-  'Content-Security-Policy': 'script-src',
-   'self' :'https://accounts.google.com'
-},
-body
-})
-  .then(response => response.json())
-  .then(data => {
- if (data.user !== undefined) {
-  dispatch({
-    type: LOGIN_SUCCESS,
-    payload: data,
-    
-  });
-  if (data.user.isVerified === true) {
-    dispatch({
-      type: VERIFICATION_SUCCESS,
-      payload: data,
-     
-    });
 
-    localStorage.setItem('jwt', data.user)
-    localStorage.setItem('user', JSON.stringify(data.user))
-    console.log('users', data.user)
-  }
-  localStorage.setItem('jwt', data.user)
-  localStorage.setItem('user', JSON.stringify(data.user))
-  console.log('users', data.user)
-} 
- 
-
-})
-      .catch((err) => {
-        console.log(err);
-
+  fetch('https://edunode.herokuapp.com/api/emaillogin', {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Content-Security-Policy': 'script-src',
+      // 'self' :'https://accounts.google.com',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS'
+    },
+    body
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.user !== undefined) {
         dispatch({
-          type: LOGIN_FAIL,
-          payload: err
+          type: LOGIN_SUCCESS,
+          payload: data,
+
         });
+        if (data.user.isVerified === true) {
+          dispatch({
+            type: VERIFICATION_SUCCESS,
+            payload: data,
+
+          });
+
+          localStorage.setItem('jwt', data.user)
+          localStorage.setItem('user', JSON.stringify(data.user))
+          console.log('users', data.user)
+        }
+        localStorage.setItem('jwt', data.user)
+        localStorage.setItem('user', JSON.stringify(data.user))
+        console.log('users', data.user)
+      }
+
+
+    })
+    .catch((err) => {
+      console.log(err);
+
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err
       });
+    });
 
 }
 
 
 
 
-export const googleLogin = ({ email,name }) => dispatch => {
+export const googleLogin = ({ email, name }) => dispatch => {
   console.log(email)
-      dispatch({ type: USER_LOADING });
-  
-      // request body
-  
-      const body = JSON.stringify({ email,name});
-   
-  
-      fetch('https://edunode.herokuapp.com/api/google', {
-        method: 'POST', 
-        headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'application/json'
-  },
-  body
+  dispatch({ type: USER_LOADING });
+
+  // request body
+
+  const body = JSON.stringify({ email, name });
+
+
+  fetch('https://edunode.herokuapp.com/api/google', {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+    },
+    body
   })
     .then(response => response.json())
     .then(data => {
       console.log("new data", data)
-   if (data.user) {
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: data,
-    });
-    if (data.user.isVerified === true) {
-      dispatch({
-        type: VERIFICATION_SUCCESS,
-        payload: data,
-      });
-    }
-  } 
-   
-  
-  })
-        .catch((err) => {
-          console.log(err);
-  
-          dispatch({
-            type: LOGIN_FAIL,
-            payload: err
-          });
+      if (data.user) {
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: data,
         });
-  
-  }
+        if (data.user.isVerified === true) {
+          dispatch({
+            type: VERIFICATION_SUCCESS,
+            payload: data,
+          });
+        }
+      }
+
+
+    })
+    .catch((err) => {
+      console.log(err);
+
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err
+      });
+    });
+
+}
 
 
 
@@ -218,27 +230,27 @@ export const googleLogin = ({ email,name }) => dispatch => {
 
 
 
-export const confirm = ({email, confirmationCode}) => (dispatch) => {
+export const confirm = ({ email, confirmationCode }) => (dispatch) => {
 
 
 
-    const body = JSON.stringify({email, confirmationCode});
+  const body = JSON.stringify({ email, confirmationCode });
 
-    fetch('https://edunode.herokuapp.com/api/confirm', {
-      method: 'POST', 
-      headers: {
-  'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json'
-},
-body
-})
-  .then(response => response.json())
-  .then(data => {
-    console.log(data)
+  fetch('https://edunode.herokuapp.com/api/confirm', {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+    },
+    body
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
 
-})
+    })
 }
-    
+
 
 // resend code
 
@@ -262,10 +274,10 @@ export const resend = (email) => {
 
 export const logout = () => {
 
-   
-    return {
-        type: LOGOUT_SUCCESS
-    }
+
+  return {
+    type: LOGOUT_SUCCESS
+  }
 }
 
 
@@ -273,24 +285,24 @@ export const logout = () => {
 
 export const tokenConfig = getState => {
 
-    // Get token from local storage
+  // Get token from local storage
 
-    const token = getState().auth.token;
-    // headers
+  const token = getState().auth.token;
+  // headers
 
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
-    };
-
-    // if token, add to header
-    if (token) {
-        config.headers["x-auth-token"] = token
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     }
+  };
 
-    return config
+  // if token, add to header
+  if (token) {
+    config.headers["x-auth-token"] = token
+  }
+
+  return config
 }
 
 
@@ -299,37 +311,37 @@ export const tokenConfig = getState => {
 
 export const verifyCode = ({ email, inputcode, id, next }) => async dispatch => {
 
-    dispatch({ type: IS_VERIFYING });
+  dispatch({ type: IS_VERIFYING });
 
-    const body = JSON.stringify({ email, inputcode, id });
-  
-    // axios
-    // .put('https://edunode.herokuapp.com/api/users/username', body, config)
-     await fetch('https://edunode.herokuapp.com/api/verifycode', {
-      method: 'POST', 
-      headers: {
-  'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json'
-},
-body
-})
-  .then(response => response.json())
-  .then(data => {
-    if(data){
-           if(data.user.isVerified === true){
-        dispatch({
-          type: VERIFICATION_SUCCESS,
-          payload: data,
-        })
-      } else {
-        dispatch({
-              type: VERIFICATION_FAIL,
-              payload: data,
-            })
-      } 
-      console.log(data)
-    }
-})  
+  const body = JSON.stringify({ email, inputcode, id });
+
+  // axios
+  // .put('https://edunode.herokuapp.com/api/users/username', body, config)
+  await fetch('https://edunode.herokuapp.com/api/verifycode', {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+    },
+    body
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        if (data.user.isVerified === true) {
+          dispatch({
+            type: VERIFICATION_SUCCESS,
+            payload: data,
+          })
+        } else {
+          dispatch({
+            type: VERIFICATION_FAIL,
+            payload: data,
+          })
+        }
+        console.log(data)
+      }
+    })
     .catch((err) => console.log(err));
 
 
@@ -339,25 +351,25 @@ body
 
 export const saveUsername = ({ email, username }) => dispatch => {
 
-    dispatch({ type: USER_LOADING });
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
+  dispatch({ type: USER_LOADING });
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     }
+  }
 
-    const body = JSON.stringify({ email, username });
+  const body = JSON.stringify({ email, username });
 
-    axios
-      .put('https://edunode.herokuapp.com/api/users/username', body, config)
-      .then((res) => {
-        dispatch({
-          type: HAS_USERNAME,
-          payload: res.data,
-        });
-      })
-      .catch((err) => console.log(err));
+  axios
+    .put('https://edunode.herokuapp.com/api/users/username', body, config)
+    .then((res) => {
+      dispatch({
+        type: HAS_USERNAME,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
 
 }
 
@@ -369,96 +381,96 @@ export const updateAccount = ({ email,
   bio,
   location }) => dispatch => {
 
-  dispatch({ type: USER_LOADING });
-  const config = {
+    dispatch({ type: USER_LOADING });
+    const config = {
       headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       }
+    }
+
+    const body = JSON.stringify({
+      email,
+      name,
+      age,
+      bio,
+      location
+    });
+
+    axios
+      .put('https://edunode.herokuapp.com/api/users/useraccount', body, config)
+      .then((res) => {
+        dispatch({
+          type: UPDATED_ACCOUNT,
+          payload: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
+
   }
-
-  const body = JSON.stringify({ 
-    email,
-    name,
-    age,
-    bio,
-    location 
-  });
-
-  axios
-    .put('https://edunode.herokuapp.com/api/users/useraccount', body, config)
-    .then((res) => {
-      dispatch({
-        type: UPDATED_ACCOUNT,
-        payload: res.data,
-      });
-    })
-    .catch((err) => console.log(err));
-
-}
 
 // login / verify Google user 
 
 export const verifyGoogleUser = ({ email, lastName, fistName, googleId, googleProfilePic, userName, pkey }) => dispatch => {
 
-    dispatch({ type: USER_LOADING });
+  dispatch({ type: USER_LOADING });
 
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     }
+  }
 
-   
 
-    const body = JSON.stringify({
-      email,
-      lastName,
-      fistName,
-      googleId,
-      googleProfilePic,
-      userName,
-      pkey
-    });
 
-    axios
-      .post('https://edunode.herokuapp.com/api/users/google', body, config)
+  const body = JSON.stringify({
+    email,
+    lastName,
+    fistName,
+    googleId,
+    googleProfilePic,
+    userName,
+    pkey
+  });
 
-      .then((res) => {
-        console.log(res.data.user.courseOneDone);
-        if (res.data.user.courseOneDone) {
-          dispatch({
-            type: FIRST_COURSE_DONE,
-            payload: res.data,
-          });
-        } else {
-          dispatch({
-            type: HAS_USERNAME,
-            payload: res.data,
-          });
-        }
-        
-      })
-      .catch((err) => console.log(err));
+  axios
+    .post('https://edunode.herokuapp.com/api/users/google', body, config)
+
+    .then((res) => {
+      console.log(res.data.user.courseOneDone);
+      if (res.data.user.courseOneDone) {
+        dispatch({
+          type: FIRST_COURSE_DONE,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: HAS_USERNAME,
+          payload: res.data,
+        });
+      }
+
+    })
+    .catch((err) => console.log(err));
 
 }
 
 // verfify Twitter user
 
 export const verifyTwitterUser = ({ email, lastName, fistName, googleId, googleProfilePic, userName, pkey }) => dispatch => {
-console.log("hi")
+  console.log("hi")
 
   dispatch({ type: USER_LOADING });
 
   const config = {
-      headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-      }
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
   }
 
- 
+
 
   const body = JSON.stringify({
     email,
@@ -486,7 +498,7 @@ console.log("hi")
           payload: res.data,
         });
       }
-      
+
     })
     .catch((err) => console.log(err));
 
@@ -501,7 +513,7 @@ const config = {
   }
 };
 
-export const albedoAuth = ({ 
+export const albedoAuth = ({
   intent,
   pubkey,
   signature,
@@ -510,7 +522,7 @@ export const albedoAuth = ({
   dispatch({ type: USER_LOADING });
 
   // Request body
-  const body = JSON.stringify({     
+  const body = JSON.stringify({
     intent,
     pubkey,
     signature,
@@ -519,8 +531,8 @@ export const albedoAuth = ({
 
   try {
     const res = await axios.post(
-      'https://edunode.herokuapp.com/api/albedo', 
-      body, 
+      'https://edunode.herokuapp.com/api/albedo',
+      body,
       config
     );
     dispatch({
@@ -536,26 +548,26 @@ export const albedoAuth = ({
 
 export const saveUsernameAlbedo = ({ pubkey, userName }) => dispatch => {
 
-    dispatch({ type: USER_LOADING });
+  dispatch({ type: USER_LOADING });
 
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     }
+  }
 
-    const body = JSON.stringify({ pubkey, userName });
+  const body = JSON.stringify({ pubkey, userName });
 
-    axios
-      .put('https://edunode.herokuapp.com/api/albedo/username', body, config)
-      .then((res) => {
-        dispatch({
-          type: HAS_USERNAME,
-          payload: res.data,
-        });
-      })
-      .catch((err) => console.log(err));
+  axios
+    .put('https://edunode.herokuapp.com/api/albedo/username', body, config)
+    .then((res) => {
+      dispatch({
+        type: HAS_USERNAME,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
 
 }
 
@@ -640,69 +652,69 @@ export const pkeyGoogleUser = ({ email, pkey }) => (
 
 // web3auth user auth
 
-export const webThreeAuth = ({ 
-  id,
-  className, 
-}) => dispatch => {
-
- dispatch({ type: USER_LOADING });
-
-// dispatch({ type: VERIFICATION_SUCCESS });
-
-
-   const config = {
-         headers: {
-           "Content-Type": "application/json",
-             "Access-Control-Allow-Origin": "*"
-         }
-      }
-
- const body = JSON.stringify({     
+export const webThreeAuth = ({
   id,
   className,
-});
+}) => dispatch => {
 
-      axios
-        .post('https://edunode.herokuapp.com/api/web3auth', body, config)
-        .then((res) => {
-          dispatch({
-            type: VERIFICATION_SUCCESS,
-            payload: res.data,
-          });
-        })
-        .catch((err) => console.log(err));
+  dispatch({ type: USER_LOADING });
+
+  // dispatch({ type: VERIFICATION_SUCCESS });
+
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
+  }
+
+  const body = JSON.stringify({
+    id,
+    className,
+  });
+
+  axios
+    .post('https://edunode.herokuapp.com/api/web3auth', body, config)
+    .then((res) => {
+      dispatch({
+        type: VERIFICATION_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
 }
 
 
 // freighter user auth
 
-export const freighterAuth = ( pkey) => dispatch => {
+export const freighterAuth = (pkey) => dispatch => {
 
- dispatch({ type: USER_LOADING });
+  dispatch({ type: USER_LOADING });
 
-// dispatch({ type: VERIFICATION_SUCCESS });
+  // dispatch({ type: VERIFICATION_SUCCESS });
 
 
-   const config = {
-         headers: {
-           "Content-Type": "application/json",
-             "Access-Control-Allow-Origin": "*"
-         }
-      }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
+  }
 
- const body = JSON.stringify({     
-  pkey,
-});
+  const body = JSON.stringify({
+    pkey,
+  });
 
-      axios
-        .post('https://edunode.herokuapp.com/api/freighter', body, config)
-        .then((res) => {
-          dispatch({
-            type: VERIFICATION_SUCCESS,
-            payload: res.data,
-          });
-        })
-        .catch((err) => console.log(err));
+  axios
+    .post('https://edunode.herokuapp.com/api/freighter', body, config)
+    .then((res) => {
+      dispatch({
+        type: VERIFICATION_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
 }
 
 // freighter NFT issuing
@@ -710,138 +722,138 @@ export const freighterAuth = ( pkey) => dispatch => {
 export const freighterSign = (pkey) => dispatch => {
 
   dispatch({ type: USER_LOADING });
- 
- // dispatch({ type: VERIFICATION_SUCCESS });
- 
- 
-    const config = {
-          headers: {
-            "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*"
-          }
-       }
- 
-  const body = JSON.stringify({     
-   pkey,
- });
- 
-       axios
-         .post('https://edunode.herokuapp.com/api/freighternft', body, config)
-         .then((res) => {
-           dispatch({
-             type: VERIFICATION_SUCCESS,
-             payload: res.data,
-           });
-         })
-         .catch((err) => console.log(err));
- }
+
+  // dispatch({ type: VERIFICATION_SUCCESS });
+
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
+  }
+
+  const body = JSON.stringify({
+    pkey,
+  });
+
+  axios
+    .post('https://edunode.herokuapp.com/api/freighternft', body, config)
+    .then((res) => {
+      dispatch({
+        type: VERIFICATION_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+}
 
 // freighter user auth
 
 export const metamaskAuth = (accounts) => dispatch => {
 
   dispatch({ type: USER_LOADING });
- 
-    const config = {
-          headers: {
-            "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*"
-          }
-       }
- 
-  const body = JSON.stringify({     
-   accounts,
- });
- 
-       axios
-         .post('https://edunode.herokuapp.com/api/metamasklogin', body, config)
-         .then((res) => {
-           if (res.isVerified = true) {
-            dispatch({
-              type: VERIFICATION_SUCCESS,
-              payload: res.data,
-            });
-           } else {
-            dispatch({
-              type: VERIFICATION_FAIL,
-              payload: res.data,
-            });
-           }
-          
-         })
-         .catch((err) => console.log(err));
- }
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
+  }
+
+  const body = JSON.stringify({
+    accounts,
+  });
+
+  axios
+    .post('https://edunode.herokuapp.com/api/metamasklogin', body, config)
+    .then((res) => {
+      if (res.isVerified = true) {
+        dispatch({
+          type: VERIFICATION_SUCCESS,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: VERIFICATION_FAIL,
+          payload: res.data,
+        });
+      }
+
+    })
+    .catch((err) => console.log(err));
+}
 
 // mozart user auth
 
 export const mozartAuth = (email, pkey, amount, currency) => dispatch => {
 
- dispatch({ type: USER_LOADING });
+  dispatch({ type: USER_LOADING });
 
-// dispatch({ type: VERIFICATION_SUCCESS });
+  // dispatch({ type: VERIFICATION_SUCCESS });
 
 
-   const config = {
-         headers: {
-           "Content-Type": "application/json",
-             "Access-Control-Allow-Origin": "*"
-         }
-      }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
+  }
 
- const body = JSON.stringify({     
-  pkey,
-});
+  const body = JSON.stringify({
+    pkey,
+  });
 
-      axios
-        .post('https://edunode.herokuapp.com/api/mozart', body, config)
-        .then((res) => {
-          dispatch({
-            type: VERIFICATION_SUCCESS,
-            payload: res.data,
-          });
-        })
-        .catch((err) => console.log(err));
+  axios
+    .post('https://edunode.herokuapp.com/api/mozart', body, config)
+    .then((res) => {
+      dispatch({
+        type: VERIFICATION_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
 }
 
 //  user new post
-export const newPost = ({ email, tags, title, link, description,privatee }) => async dispatch => {
+export const newPost = ({ email, tags, title, link, description, privatee }) => async dispatch => {
   dispatch({ type: USER_LOADING });
 
   // request body
-  const body = JSON.stringify({ email, tags, title, link, description,privatee });
+  const body = JSON.stringify({ email, tags, title, link, description, privatee });
 
   fetch('https://edunode.herokuapp.com/api/post/', {
-    method: 'POST', 
+    method: 'POST',
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json'
     },
     body
   })
-  .then(response => response.json())
-  .then((res) => {
-    console.log(res);
-//if (res.user.isVerified === true) {
-//dispatch({
- //type: VERIFICATION_SUCCESS,
-//payload: res.data,
-//});
-//}
-    if (res.user && res.user.email) {
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data
-      });
-    } else {
+    .then(response => response.json())
+    .then((res) => {
+      console.log(res);
+      //if (res.user.isVerified === true) {
+      //dispatch({
+      //type: VERIFICATION_SUCCESS,
+      //payload: res.data,
+      //});
+      //}
+      if (res.user && res.user.email) {
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.data
+        });
+      } else {
+        dispatch({
+          type: REGISTER_FAIL
+        });
+      }
+    })
+    .catch((err) => {
+      console.log("register failed", err)
       dispatch({
         type: REGISTER_FAIL
       });
-    }
-  })
-  .catch((err) => {
-    console.log("register failed", err)
-    dispatch({
-      type: REGISTER_FAIL
     });
-  });
 };

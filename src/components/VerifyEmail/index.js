@@ -14,7 +14,7 @@ import withRouter from '../../withRouter'
 import "./style.css";
 import { styled } from '@mui/material/styles';
 //import NavBar from "../NavBar"
-import Sidebar from "../Dashboard/Sidebar";
+import Navbar1 from "../Dashboard/Navbar1";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Footer from '../Footer';
@@ -22,11 +22,7 @@ import Paper from '@mui/material/Paper';
 import Topbar from "../Dashboard/Topbar";
 import { Navigate } from "react-router-dom";
 import { loadUser } from '../../actions/authActions';
-
-
-
-
-
+import axios from 'axios';
 
 
 
@@ -58,6 +54,7 @@ class VerifyEmail extends Component {
       values: {},
       isVerified: false,
       email: "",
+      user: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -68,7 +65,24 @@ class VerifyEmail extends Component {
     clearErrors: PropTypes.func.isRequired,
     isVerified: PropTypes.bool,
   };
-  
+  componentDidMount() {
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    const email = this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : '';
+    this.props.loadUser(email);
+    console.log('local',user)
+    axios.get(`https://edunode.herokuapp.com/api/emaillogin/user/${user.email}`)
+    .then(response => {
+      const data = response.data;
+      console.log('dataaaaa',data) 
+      this.setState({ user: response.data }, () => {
+        console.log('useerrr', this.state.user);
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
 
   componentDidUpdate(prevProps) {
     const { error } = this.props;
@@ -102,24 +116,24 @@ class VerifyEmail extends Component {
   resendEmail = () => {
     // alert("clicked")
     //e.preventDefault();
-    const email = this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : '';
-
-    resend(email);
-    alert(`A confirmation code has be sent to your email ${email}, please also check your spam folder`);
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+   console.log('resend email',user.email)
+    resend(user.email);
+    alert(`A confirmation code has be sent to your email ${user.email}, please also check your spam folder`);
     //   };
   }
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
-  componentDidMount() {
-    const email = this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : '';
-    this.props.loadUser(email);
-  }
+ 
+ 
 
 
   onSubmit = async (values) => {
-    const user = this.props.auth.user;
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    
     if (!user || !user.email || !user.confirmationCode) {
       console.log("Invalid user object:", user);
       return;
@@ -183,42 +197,10 @@ class VerifyEmail extends Component {
       return (
         <div>
           <div>
-           
-            {/**   <Modal
-              open={this.state.open}
 
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Select your preferences
-                </Typography>
-                {tags.map(tag => (
-                  <div key={tag}>
-                    <input
-                      type="checkbox"
-                      name={tag}
-                      checked={selectedTags.includes(tag)}
-                      onChange={this.handleTagChange}
-                    />
-                    <label>{tag}</label>
-                  </div>
-                ))}
-
-                <button onClick={this.handleClose}>Save</button>
-              </Box>
-            </Modal>*/}
-
-
-
-            <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
-                <Grid item={true} xs={5} sm={3.5} md={2}>
-                 <Sidebar />
-                </Grid>
-                <Grid item={true} xs={7} sm={8.5} md={10}>
-                  <Item><Topbar /></Item>
+                <Grid item={true} xs={7} sm={8.5} md={20}>
+                  <Navbar1 />
                   <div>
                     <div className="centered">
 
@@ -240,7 +222,8 @@ class VerifyEmail extends Component {
                             </Button>{" "}
                             if you would like us to resend the email.{" "}
                           </Alert>
-  
+                          <br></br>
+                          <br></br>
 
                           <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                             <div>
@@ -270,7 +253,7 @@ class VerifyEmail extends Component {
                           </form>
                         </Row>
 
-                        
+
                       </Container>
                     </div>
                   </div>
@@ -296,7 +279,7 @@ class VerifyEmail extends Component {
               < br />
               < br />
               <Footer />
-            </Box>
+            
           </div>
           < br />
 

@@ -60,7 +60,8 @@ class Login extends Component {
       password: "",
       isLoading: false,
       user: {},
-      errors: {}
+      errors: {},
+      token: ''
 
     }
     this.handleCallBackResponse = this.handleCallBackResponse.bind(this);
@@ -70,9 +71,9 @@ class Login extends Component {
 
   }
 
-  async handleCallBackResponse(response) {
-    console.log('encoded JWT ID Token :' + response.credential);
-    const userObject = jwt_decode(response.credential);
+  async handleCallBackResponse(token) {
+    console.log('encoded JWT ID Token :' + token);
+    const userObject = jwt_decode(token);
     console.log(userObject);
 
     const email = userObject.email;
@@ -157,7 +158,7 @@ class Login extends Component {
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
- 
+
 
   onSubmit = async values => {
 
@@ -232,7 +233,7 @@ class Login extends Component {
           'Non-Ethereum browser detected. You should consider trying MetaMask!'
         );
       }
-      
+
       if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed!');
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -256,7 +257,7 @@ class Login extends Component {
     }
 
 
-  
+
 
     const freighterHandler = async () => {
 
@@ -278,7 +279,7 @@ class Login extends Component {
 
 
 
-    const { pristine, submitting } = this.props
+    const { pristine, submitting, token } = this.props
     const { isLoading, isAuthenticated, isVerified } = this.props.auth
 
     if (isLoading) {
@@ -323,23 +324,27 @@ class Login extends Component {
 
 
           <br></br>
-<div style={{ width: '300px' }}>
-<GoogleLogin
-          type="standard"
-  onSuccess={credentialResponse => {
-    // axios post request to backend to store the token
-    console.log(credentialResponse);
-    console.log('login success')
-    // auto_select
-  }}
-  onError={() => {
-    console.log('Login Failed');
-  }}
-  // useOneTap
-/> 
-</div>
-          
-         
+          <div style={{ width: '300px' }}>
+            <GoogleLogin
+              type="standard"
+              onSuccess={credentialResponse => {
+                // axios post request to backend to store the token
+                console.log(credentialResponse);
+                console.log('login success')
+                
+                const token=credentialResponse.credential
+                this.props.handleSubmit(this.handleCallBackResponse(token))
+                console.log('token ', token )
+                // auto_select
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            // useOneTap
+            />
+          </div>
+
+
 
           <br></br>
           <div>
@@ -348,7 +353,7 @@ class Login extends Component {
               onClick={handleMetamask}
               variant="outlined"
             >
-             
+
               Login with metamask
               {/* <Image style={{ width: '25px', display: "inline-block", margin: "20px 20px" }} src={mlogo} /> */}
             </Button>
@@ -364,7 +369,7 @@ class Login extends Component {
               onClick={freighterHandler}
               variant="outlined"
             >
-              Login with freighter 
+              Login with freighter
               {/* <Image style={{ width: '85px', display: "inline-block", margin: "5px 5px" }} src={flogo} /> */}
             </Button>
           </div>
@@ -379,10 +384,10 @@ class Login extends Component {
 
             </Button>
           </div>
-        
+
           <br></br>
           <div>
-         
+
           </div>
           <div>
             <Field
@@ -401,7 +406,7 @@ class Login extends Component {
               label="Password"
               component={this.renderTextField}
               id="password"
-       
+
               value={this.state.password}
             />
           </div>
@@ -411,9 +416,9 @@ class Login extends Component {
               variant="contained"
               id="button"
               type="submit"
-              
+
               disabled={pristine || submitting}>
-                
+
               Login
             </Button>
           </div>

@@ -270,10 +270,7 @@ class Certificate extends Component {
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
-                {/* <Grid xs={5} sm={3.5} md={2} item={1} >
-                  <Item><Sidebar props={email} /></Item>
-                </Grid> */}
-
+                
                 <Grid item xs={12} sm={8} md={20}>
                   <Navbar1 />
 
@@ -293,7 +290,7 @@ class Certificate extends Component {
                         <ul>
                           {certificates.map(cert => (
                             <li key={cert.certificateNumber}>
-                              <a href={`/certificates/${cert.certificateNumber}?cid=${cert.cid}&distributorPublicKey=${cert.distributorPublicKey}&issuerPublicKey=${cert.issuerPublicKey}`} target="_blank" rel="noopener noreferrer">
+                              <a href={`/certificates/${cert.certificateNumber}`} target="_blank" rel="noopener noreferrer">
                                 <img src={cert.cid} alt="Certificate" />
                               </a>
                             </li>

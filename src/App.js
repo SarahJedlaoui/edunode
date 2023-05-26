@@ -174,27 +174,6 @@ function App(props) {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-
-  const getUser = async () => {
-    try {
-      const response = await axios.get("http://localhost:5001/auth/login/success", {
-        withCredentials: true,
-      });
-      const { user } = response.data;
-      setUser(user);
-
-      console.log('user', user)
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
-
-
   return (
     <Provider store={store}>
       <Routes location={location} navigate={navigate}>

@@ -47,7 +47,7 @@ import {
   InstapaperIcon,
   WeiboIcon,
 } from "react-share";
-
+import axios from 'axios';
 
 
 
@@ -55,13 +55,32 @@ import {
 
 function Certificat() {
   const {certificateNumber}=useParams();
+  const [certificate, setCertificate] = useState(null);
   const title = "E certification "
-  const location = useLocation();
-  const cid = new URLSearchParams(location.search).get("cid");
-  const distributorPublicKey = new URLSearchParams(location.search).get("distributorPublicKey");
-  const issuerPublicKey = new URLSearchParams(location.search).get("issuerPublicKey");
   const stellarLab = "https://horizon-futurenet.stellar.org/accounts/?sponsor=GC4MEJJJMNIBIDZSJOZOPVUQQUKR3AARFLPFYKUFXU2D7PHWJP5S4AEI"
-  const shareUrl = `https://edunode.org/certificates/${certificateNumber}?cid=${cid}&distributorPublicKey=${distributorPublicKey}&issuerPublicKey=${issuerPublicKey}`;
+  const shareUrl = `https://edunode.org/certificates/${certificateNumber}`;
+  console.log('url',shareUrl);
+  useEffect(() => {
+    const fetchCertificate = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5001/api/certificates/cert/${certificateNumber}`);
+        setCertificate(response.data);
+        console.log('certificatttt',response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCertificate();
+  }, [certificateNumber]);
+
+  if (!certificate) {
+    return <div>Loading...</div>;
+  }
+
+  const { cid, distributorPublicKey, issuerPublicKey } = certificate;
+  const ciid=`https://${cid}.ipfs.w3s.link/newdiplomav2.jpg`
+    console.log('cid',cid)
   return (
     <div>
       <h1>Share you certification with others : </h1>
@@ -218,7 +237,7 @@ function Certificat() {
 
               </div>
   
-     <img src={cid} alt="Certificate" />
+     <img src={ciid} alt="Certificate" />
      <h4>certificate Id:{certificateNumber}</h4>
      <h4>distributorPublicKey: {distributorPublicKey}</h4>
      <h4>issuerPublicKey: {issuerPublicKey}</h4>
