@@ -12,13 +12,15 @@ import './index.css';
 
 createRoot(document.getElementById('root')).render(
 
-    <Provider store={store}>
-<GoogleOAuthProvider clientId="463653089707-8p48kpc82eg0042v0gsh80bkfsv4m7uj.apps.googleusercontent.com">
+    
+<GoogleOAuthProvider clientId="463653089707-knhj5ovu0jkdetb0a10h7r9c2rcjl2l7.apps.googleusercontent.com">
+<Provider store={store}>
     <Router>
     <App />
     </Router>
+    </Provider>
     </GoogleOAuthProvider>
-    </Provider>,
+   ,
   
 
    

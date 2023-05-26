@@ -25,7 +25,8 @@ import { Navigate } from "react-router-dom";
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
 import GoogleLog from './Google'
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+
 
 
 const validate = values => {
@@ -81,11 +82,6 @@ class Login extends Component {
 
 
     const { user } = this.state;
-
-
-
-
-
 
     try {
       const newUser = {
@@ -161,7 +157,7 @@ class Login extends Component {
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
+ 
 
   onSubmit = async values => {
 
@@ -192,14 +188,7 @@ class Login extends Component {
 
 
   }
-  /**  componentDidMount() {
-    window.gapi.load("client:auth2", this.initGapi);
-    gapi.load('auth2', function() {
-      gapi.auth2.init({
-        client_id: 'YOUR_CLIENT_ID'
-      });
-    });
-  }*/
+
   render() {
 
 
@@ -228,7 +217,9 @@ class Login extends Component {
 
         })
     }
-
+    // const gLogin = useGoogleLogin({
+    //   onSuccess: tokenResponse => console.log(tokenResponse),
+    // });
     const handleMetamask = async (e) => {
       e.preventDefault()
       let provider;
@@ -241,6 +232,7 @@ class Login extends Component {
           'Non-Ethereum browser detected. You should consider trying MetaMask!'
         );
       }
+      
       if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed!');
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -264,7 +256,7 @@ class Login extends Component {
     }
 
 
-
+  
 
     const freighterHandler = async () => {
 
@@ -331,24 +323,23 @@ class Login extends Component {
 
 
           <br></br>
-
-          {  /*  <GoogleLogin
+<div style={{ width: '300px' }}>
+<GoogleLogin
+          type="standard"
   onSuccess={credentialResponse => {
+    // axios post request to backend to store the token
     console.log(credentialResponse);
     console.log('login success')
+    // auto_select
   }}
   onError={() => {
     console.log('Login Failed');
   }}
-  useOneTap
+  // useOneTap
 /> 
-            <div>
-
-
-              <GoogleLoginButton/>
-            </div>*/}
-
-          {/*<div id='signInDiv'></div>*/}
+</div>
+          
+         
 
           <br></br>
           <div>
@@ -388,17 +379,10 @@ class Login extends Component {
 
             </Button>
           </div>
-          <div className="g-signin2" data-onsuccess="onSignIn"></div>
+        
           <br></br>
           <div>
-          {/* <GoogleLogin
-          onSuccess={credentialResponse => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-          /> */}
+         
           </div>
           <div>
             <Field
@@ -474,3 +458,4 @@ export default Login = reduxForm({
   mozartAuth,
   metamaskAuth
 })(Login)
+
