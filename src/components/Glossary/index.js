@@ -92,6 +92,20 @@ class Glossary extends Component {
                                             aria-controls="panel2a-content"
                                             id="panel2a-header"
                                         >
+                                            <Typography>Stellar</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography>
+                                            A blockchain-based platform that supports smart contracts, enabling more complex financial and logistical operations beyond simple transactions.
+                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    <Accordion>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel2a-content"
+                                            id="panel2a-header"
+                                        >
                                             <Typography>Smart Contract</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
@@ -315,20 +329,7 @@ class Glossary extends Component {
                                             A scalability solution that involves dividing a blockchain into several smaller, more manageable pieces, or "shards," each capable of processing its own transactions and smart contracts.                                            </Typography>
                                         </AccordionDetails>
                                     </Accordion>
-                                    <Accordion>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel2a-content"
-                                            id="panel2a-header"
-                                        >
-                                            <Typography>Stellar</Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Typography>
-                                            A blockchain-based platform that supports smart contracts, enabling more complex financial and logistical operations beyond simple transactions.
-                                            </Typography>
-                                        </AccordionDetails>
-                                    </Accordion>
+                                    
                                     <Accordion>
                                         <AccordionSummary
                                             expandIcon={<ExpandMoreIcon />}
