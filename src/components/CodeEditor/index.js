@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Editor from '@monaco-editor/react';
 
 const CodeEditor = () => {
   const [code, setCode] = useState('');
@@ -26,6 +27,7 @@ const CodeEditor = () => {
 
   return (
     <div>
+      <Editor height="90vh" defaultLanguage="rust" defaultValue="// some comment" />
       <form onSubmit={handleSubmit}>
         <textarea value={code} onChange={handleCodeChange} />
         <br />
