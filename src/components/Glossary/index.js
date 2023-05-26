@@ -40,7 +40,7 @@ class Glossary extends Component {
                             <NavBar />
                           
                             <div style={{ padding: '10px' }}>
-                                 <h1 style={{ fontSize: "2em", textAlign: "center" }}>These are some technical terms in the domain of Web3 that can be helpful :</h1>
+                                 <h1 style={{ fontSize: "2em", textAlign: "center" }}>Some popular terms in Web3/Blockchain:</h1>
                                  <br></br>
 
                                 <div>
