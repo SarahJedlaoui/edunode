@@ -140,7 +140,7 @@ import Feed from "./components/Feed";
 import Gcallback from "./components/Gcallback";
 import Hyperledger from "./components/Hyperledger"
 import HyperledgerCourses from "./components/Hyperledger/Courses"
-import CodeChallenge from "./components/CodeChallenge";
+import Challenge from "./components/Challenges/Challenge";
 import CodeEditor from "./components/CodeEditor";
 import ContactUs from "./components/contactus";
 import Loggedout from "./components/Loggedout";
@@ -305,7 +305,7 @@ function App(props) {
         <Route exact path="/gcallback" element={<Gcallback />} />
         <Route exact path="/hyperledger" element={<Hyperledger />} />
         <Route exact path="/hyperledger/courses" element={<HyperledgerCourses />} />
-        <Route exact path="/codechallenge" element={<CodeChallenge />} />
+        <Route exact path="/challenges" element={<Challenge />} />
         <Route exact path="/codeeditor" element={<CodeEditor />} />
         <Route exact path="/contactus" element={<ContactUs />} />
         <Route exact path="/loggedout" element={<Loggedout />} />

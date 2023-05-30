@@ -13,25 +13,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {
   Button,
 } from 'react-bootstrap';
-import courseData from './data.json';
 
 // Import components
-import Sidebar from "../Dashboard/Sidebar";
-import Topbar from "../Dashboard/Topbar";
+
 import Welcome from './Welcome';
 import Course1 from './Course1';
-import Course1done from './Course1done';
-import Course1doneclaim from './Course1doneclaim';
-import Course2 from './Course2';
-import Course3 from './Course3';
-import Course4 from './Course4';
-import Course5 from './Course5';
-import Course6 from './Course6';
-import Course7 from './Course7';
-import Course8 from './Course8';
-import Course9 from './Course9';
-import Footer from '../Footer';
-import Navbar1 from '../Dashboard/Navbar1';
+
+import Footer from '../../Footer';
+import Navbar1 from '../../Dashboard/Navbar1';
 
 // Import styles
 import './style.css';
@@ -94,14 +83,6 @@ class Courses extends Component {
     const id8 ='6464e2d58aca412ed2d81bf3';
     const id9 ='646b83386cea9a0294e65253';
 
-
-
-
-
-
-
-
-
     const {
       isLoading,
       isAuthenticated,
@@ -113,157 +94,157 @@ class Courses extends Component {
     courseOneDone,
     } = this.props.auth;
 
-    if (this.props.auth.courseOneDone && this.props.auth.isupdated) {
-      return (
+    // if (this.props.auth.courseOneDone && this.props.auth.isupdated) {
+    //   return (
 
-        <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {/* <Grid item xs={12} sm={4} md={3}>
-            <Item><Sidebar props={email}/></Item>
-          </Grid> */}
-          <Grid item xs={12} sm={8} md={20}>
-            <Item><Navbar1 /></Item>
+    //     <Box sx={{ flexGrow: 1 }}>
+    //     <Grid container spacing={2}>
+    //       {/* <Grid item xs={12} sm={4} md={3}>
+    //         <Item><Sidebar props={email}/></Item>
+    //       </Grid> */}
+    //       <Grid item xs={12} sm={8} md={20}>
+    //         <Item><Navbar1 /></Item>
             
-            <div style={{ padding: '10px' }}>
-            <br></br>
+    //         <div style={{ padding: '10px' }}>
+    //         <br></br>
           
-          <Course1 />
-          <br></br>
+    //       <Course1 />
+    //       <br></br>
           
-          <Course2 />
-          <br></br>
+    //       <Course2 />
+    //       <br></br>
          
-          <Course3 />
-          <br></br>
+    //       <Course3 />
+    //       <br></br>
           
-          <Course4 />
+    //       <Course4 />
           
-          <Course5/>
-          <br></br>
+    //       <Course5/>
+    //       <br></br>
           
-          <Course6 />
-          <br></br>
+    //       <Course6 />
+    //       <br></br>
           
-          <Course7 />
-          <br></br>
+    //       <Course7 />
+    //       <br></br>
           
-          <Course8 />
-          <br></br>
+    //       <Course8 />
+    //       <br></br>
           
-          <Course9 />
+    //       <Course9 />
           
-          <br></br>
-          <br></br>
-            </div>
-            <Footer />
-          </Grid>
-        </Grid>
-      </Box>
+    //       <br></br>
+    //       <br></br>
+    //         </div>
+    //         <Footer />
+    //       </Grid>
+    //     </Grid>
+    //   </Box>
        
-      );
-    }
+    //   );
+    // }
 
-    if (this.props.auth.courseOneDone) {
-      return (
+    // if (this.props.auth.courseOneDone) {
+    //   return (
 
-        <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        {/* <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar props={email} /></Item>
-        </Grid> */}
-         <Grid item xs={12} sm={8} md={20}> 
-          <Navbar1 />
+    //     <Box sx={{ flexGrow: 1 }}>
+    //   <Grid container spacing={2}>
+    //     {/* <Grid xs={5} sm={3.5} md={2}>
+    //       <Item><Sidebar props={email} /></Item>
+    //     </Grid> */}
+    //      <Grid item xs={12} sm={8} md={20}> 
+    //       <Navbar1 />
           
-           <div className="myDiv"> 
-          {/* <Welcome /> */}
-          <br></br>
+    //        <div className="myDiv"> 
+    //       {/* <Welcome /> */}
+    //       <br></br>
           
-          <Course1 />
-          <br></br>
+    //       <Course1 />
+    //       <br></br>
           
-          <Course2 />
-          <br></br>
+    //       <Course2 />
+    //       <br></br>
           
-          <Course3 />
-          <br></br>
+    //       <Course3 />
+    //       <br></br>
          
-          <Course4 />
-          <br></br>
+    //       <Course4 />
+    //       <br></br>
           
-          <Course5/>
-          <br></br>
+    //       <Course5/>
+    //       <br></br>
           
-          <Course6 />
-          <br></br>
+    //       <Course6 />
+    //       <br></br>
           
-          <Course7 />
-          <br></br>
+    //       <Course7 />
+    //       <br></br>
           
-          <Course8 />
-          <br></br>
+    //       <Course8 />
+    //       <br></br>
           
-          <Course9 />
+    //       <Course9 />
           
-          <br></br>
-         </div> 
-         </Grid> 
-      </Grid>
-      <Footer />
-    </Box>
+    //       <br></br>
+    //      </div> 
+    //      </Grid> 
+    //   </Grid>
+    //   <Footer />
+    // </Box>
        
-      );
-    }
+    //   );
+    // }
     
     
-    if (isVerified && !courseOneDone) {
-      return (
-        <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        {/* <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar  props={email}/></Item>
-        </Grid> */}
-        <Grid item xs={12} sm={8} md={20}>
-        <Navbar1 />
+    // if (isVerified && !courseOneDone) {
+    //   return (
+    //     <Box sx={{ flexGrow: 1 }}>
+    //   <Grid container spacing={2}>
+    //     {/* <Grid xs={5} sm={3.5} md={2}>
+    //       <Item><Sidebar  props={email}/></Item>
+    //     </Grid> */}
+    //     <Grid item xs={12} sm={8} md={20}>
+    //     <Navbar1 />
         
-          <div className="myDiv">
-          <Welcome />
-          <br></br>
+    //       <div className="myDiv">
+    //       <Welcome />
+    //       <br></br>
           
-          <Course1 />
-          <br></br>
+    //       <Course1 />
+    //       <br></br>
 
-          <Course2 />
-          <br></br>
+    //       <Course2 />
+    //       <br></br>
           
-          <Course3 />
-          <br></br>
+    //       <Course3 />
+    //       <br></br>
           
-          <Course4 />
-          <br></br>
+    //       <Course4 />
+    //       <br></br>
           
-          <Course5/>
-          <br></br>
+    //       <Course5/>
+    //       <br></br>
           
-          <Course6 />
-          <br></br>
+    //       <Course6 />
+    //       <br></br>
           
-          <Course7 />
-          <br></br>
+    //       <Course7 />
+    //       <br></br>
           
-          <Course8 />
-          <br></br>
+    //       <Course8 />
+    //       <br></br>
          
-          <Course9 />
+    //       <Course9 />
           
-          <br></br>
-        </div>
-        </Grid>
+    //       <br></br>
+    //     </div>
+    //     </Grid>
         
-      </Grid>
-      <Footer />
-    </Box>
-      );
-    } else {
+    //   </Grid>
+    //   <Footer />
+    // </Box>
+    //   );
+    // } else {
       return (
         <>
          
@@ -278,10 +259,10 @@ class Courses extends Component {
           <div className="myDiv">
           <Welcome />
           <br></br>
-          <a href={`/courseDetails/${id1}`} target="_blank" rel="noopener noreferrer">
+          <a href={`/challengeDetails/${id1}`} target="_blank" rel="noopener noreferrer">
           <Course1 /></a>
           <br></br>
-          <a href={`/courseDetails/${id2}`} target="_blank" rel="noopener noreferrer">
+          {/* <a href={`/courseDetails/${id2}`} target="_blank" rel="noopener noreferrer">
           <Course2 /></a>
           <br></br>
           <a href={`/courseDetails/${id3}`} target="_blank" rel="noopener noreferrer">
@@ -303,8 +284,8 @@ class Courses extends Component {
           <Course8 /></a>
           <br></br>
           <a href={`/courseDetails/${id9}`} target="_blank" rel="noopener noreferrer">
-          <Course9 />
-          </a>
+          <Course9 /> */}
+          {/* </a> */}
           <br></br>
           <Footer />
         </div>
@@ -320,7 +301,7 @@ class Courses extends Component {
 
 
 
-}
+// }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
