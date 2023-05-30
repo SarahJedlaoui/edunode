@@ -111,7 +111,7 @@ export default function VerticalLinearStepper() {
             Course completed - Now get ready for the
             Quiz.
           </Typography>
-          <Link to="/courses/109/1" className={classes.button}>
+          <Link to="/courses/110/1" className={classes.button}>
             Continue
           </Link>
         </Paper>

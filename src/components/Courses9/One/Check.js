@@ -116,7 +116,7 @@ export default function CircularIntegration(props) {
           setLoading(false);
           alert('Correct answer!');
           setQuestionOneValid(true);
-          navigate('/courses/109/2');
+          navigate('/courses/110/2');
         }, 2000);
       }
       if (props.state.checkfour === true) {

@@ -84,7 +84,7 @@ export default function Welcome() {
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          Welcome to the EduNode's Oracles Course.
+          Welcome to the EduNode's Cryptocurrency Engineering And Design Course.
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom></Typography>

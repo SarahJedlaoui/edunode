@@ -360,7 +360,6 @@ class Account extends Component {
 
                           <img
                             src={this.state.user.images}
-                            alt="Profile Picture"
                             style={{
                               width: '100%',
                               height: '100%',

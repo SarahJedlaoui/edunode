@@ -30,6 +30,7 @@ import Course6 from './Course6';
 import Course7 from './Course7';
 import Course8 from './Course8';
 import Course9 from './Course9';
+import Course10 from './Course10';
 import Footer from '../Footer';
 import Navbar1 from '../Dashboard/Navbar1';
 
@@ -93,7 +94,7 @@ class Courses extends Component {
     const id7 ='6464e2b48aca412ed2d81bf1';
     const id8 ='6464e2d58aca412ed2d81bf3';
     const id9 ='646b83386cea9a0294e65253';
-
+    const id10 ='647603a1c8c864e8a6195e00';
 
 
 
@@ -153,6 +154,9 @@ class Courses extends Component {
           <Course9 />
           
           <br></br>
+          <Course10 />
+          
+          <br></br>
           <br></br>
             </div>
             <Footer />
@@ -205,6 +209,9 @@ class Courses extends Component {
           <Course9 />
           
           <br></br>
+          <Course10 />
+          
+          <br></br>
          </div> 
          </Grid> 
       </Grid>
@@ -254,6 +261,9 @@ class Courses extends Component {
           <br></br>
          
           <Course9 />
+          
+          <br></br>
+          <Course10 />
           
           <br></br>
         </div>

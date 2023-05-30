@@ -128,7 +128,7 @@ export default function CircularIntegration(props) {
 
           setLoading(false);
           alert('Correct answer!');
-          navigate('/courses/109/3');
+          navigate('/courses/110/3');
 
         }, 2000);
       }

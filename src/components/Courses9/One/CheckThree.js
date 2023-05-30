@@ -110,7 +110,7 @@ export default function CircularIntegration(props) {
 
             setLoading(false);
             alert('Correct answer!');
-            navigate('/courses/109/4');
+            navigate('/courses/110/4');
        }, 2000);
    
         }

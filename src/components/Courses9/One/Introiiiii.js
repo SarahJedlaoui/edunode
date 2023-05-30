@@ -93,7 +93,7 @@ export function VerticalLinearStepper(props) {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     setTimeout(function () {
-       window.location.href = '/courses/109/iiii';
+       window.location.href = '/courses/110/iiii';
     }, 3000);
    
   };
@@ -149,7 +149,7 @@ export function VerticalLinearStepper(props) {
             Course completed - Now get ready for the
             Quiz.
           </Typography>
-          <Link to="/courses/109/1" className={classes.button}>
+          <Link to="/courses/110/1" className={classes.button}>
             Continue
           </Link>
         </Paper>

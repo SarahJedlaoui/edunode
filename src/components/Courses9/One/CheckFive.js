@@ -103,7 +103,7 @@ export default function CircularIntegration(props) {
           alert(
             'Correct answer! Congrats, You have succesfully finished the Hyperledger course!',
           );
-          navigate('/courses/109/done');
+          navigate('/courses/110/done');
 
         }, 2000);
 

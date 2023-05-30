@@ -13,6 +13,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 //import ProgressBar from 'react-bootstrap/ProgressBar';
 import Box from '@mui/material/Box';
 import NavBar from '../../NavBar';
+import Navbar1 from '../../Dashboard/Navbar1';
 import Footer from '../../Footer';
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../actions/errorActions';
@@ -45,35 +46,26 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return [
-    '1. Introduction: ',
-    '2. Money, Ledgers, and Bitcoin:',
-    '3. Blockchain Basics & Cryptography:',
-    '4. Blockchain Basics & Consensus',
-    '5. Blockchain Basics & Transactions, UTXO and Script Code:',
-    '6. Smart Contracts and DApps:',
-    '7. Technical Challenges:',
-    '8. Public Policy:',
-    '9. Permissioned Systems: ',
-    '10. Financial System Challenges & Opportunities',
-    '11. Blockchain Economics',
-    '12. Assessing Use Cases',
-    '13. Payments, Part 1',
-    '14. Payments, Part 2',
-    '15. Central Banks & Commercial Banking, Part 1',
-    '16. Central Banks & Commercial Banking, Part 2',
-    '17. Secondary Markets & Crypto-Exchanges',
-    '19. Primary Markets, ICOs & Venture Capital, Part 1',
-    '20. Primary Markets, ICOs & Venture Capital, Part 2',
-    '21. Post Trade Clearing, Settlement & Processing',
-    '22. Trade Finance & Supply Chain',
-    '23. Digital ID',
-    '24. Conclusion',
-
-
-
-
-
-
+    '1. Signatures, Hashing, Hash Chains, e-cash, and Motivation: ',
+    '2. Proof of Work and Mining:',
+    '3. Signatures:',
+    '4. Transactions and the UTXO model',
+    '5. Synchronization Process and Pruning:',
+    '6. Wallets and SPV:',
+    '7. Catena: Efficient Non-equivocation via Bitcoin:',
+    '8. Forks:',
+    '10. PoW Recap, Other Fork Types: ',
+    '11. Fees:',
+    '12. Transaction Malleability and Segregated Witness:',
+    '13. Payment Channels and Lightning Network:',
+    '14. Lightning Network and Cross-chain Swaps',
+    '15. Discreet Log Contracts',
+    '16. MAST, Taproot, Graftroot',
+    '17. Anonymity, Coinjoin and Signature Aggregation',
+    '18. Confidential Transactions:',
+    '22. Alternative Consensus Mechanisms',
+    '23. New Directions in Crypto',
+    '24. zkLedger',
   ];
 }
 
@@ -82,36 +74,20 @@ function getStepContent(step) {
     case 0:
       return (
         <div>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/EH6vE97qIP4"
-            title="Session 1: Introduction:"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=IJquEYhiq_U' />
         </div>
       );
     case 1:
       return (
         <div>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/5auv_xrvoJk"
-            title="Session 2: Money, Ledgers, and Bitcoin:"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=zYzEmBlJ77s' />
         </div>
       );
     case 2:
       return (
         <div>
 
-          <ReactPlayer url='https://www.youtube.com/watch?v=0UvVOMZqpEA' />
+          <ReactPlayer url='https://www.youtube.com/watch?v=0Q5IimX-AAc' />
 
 
         </div>
@@ -119,44 +95,44 @@ function getStepContent(step) {
     case 3:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/w7HDA8gUbpQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=VT2o4KCEbes' />
         </div>
       )
     case 4:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/zGDTt9Q3vyM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=1Qws70XGSq4' />
         </div>
       );
     case 5:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/JPkgJwJHYSc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=mhQebe1Y4d0' />
         </div>
       );
     case 6:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/GLVrOlHLJ1U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=CCeq5PChvuk' />
         </div>
       );
     case 7:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/sMnBl0g3Ev4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=U2yAcsj7P_E' />
         </div>
       );
     case 8:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/vPJ8oQ99r9c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=muwNEvhy6Po' />
         </div>
       );
 
     case 9:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/l0vD_FBWk0g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=wXWbdiOBW5w' />
         </div>
       );
 
@@ -164,79 +140,63 @@ function getStepContent(step) {
     case 10:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/_eGNSuTBc60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=7o5shPC0R2k' />
         </div>
       );
+
     case 11:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/ObGYNQLG3us" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+          <ReactPlayer url='https://www.youtube.com/watch?v=Hzv9WuqIzA0' />
         </div>
       );
     case 12:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/ojcOUtUwIe4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=hNR3WTboo_U' />
         </div>
       );
     case 13:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/_Ycy0Dy-B1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=P6AX8KdXAts' />
         </div>
       );
     case 14:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/lPD9fx8fK1k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=gF4Mkkhyz1Q' />
         </div>
       );
     case 15:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/uNqMBBbb6UI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=BFwc2XA8rSk' />
         </div>
       );
     case 16:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/KHBi3n0hUSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=UySc4jxbqi4' />
         </div>
       );
     case 17:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/iWpQpPbo7rM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=mBdrvfytLDQ' />
         </div>
       );
     case 18:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/7EXcHqLg7BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=74_BKWR3n0k' />
         </div>
       );
     case 19:
       return (
         <div>
-         <iframe width="560" height="315" src="https://www.youtube.com/embed/-cZPoqnRZq4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-    case 20:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/DsSzQfejwMk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-      case 21:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/W06Le8fw0vU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-      case 22:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/CJCKTixMb70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <ReactPlayer url='https://www.youtube.com/watch?v=yKa-KxY-YJk' />
         </div>
       );
     default:
@@ -300,7 +260,7 @@ export function VerticalLinearStepper(props) {
               Course completed - Now get ready for the
               Quiz.
             </Typography>
-            <Link to="/courses/109/1" className={classes.button}>
+            <Link to="/courses/110/1" className={classes.button}>
               Continue
             </Link>
           </Paper>
@@ -318,7 +278,7 @@ export function VerticalLinearStepper(props) {
 class Intro extends Component {
   navigateTo = () => {
     const navigate = useNavigate();
-    navigate('/courses/109');
+    navigate('/courses/110');
   }
   constructor(props) {
     super(props);
@@ -358,7 +318,7 @@ class Intro extends Component {
     const progress = this.state.progress
     return (
       <div>
-        <NavBar></NavBar>
+        <Navbar1></Navbar1>
         <LinearProgressWithLabel value={activeProgress} />
         <VerticalLinearStepper
           activeStep={activeStep}

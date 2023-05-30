@@ -63,6 +63,11 @@ import QuestionsTwo8 from './components/Courses8/QuestionsTwo';
 import QuestionsThree8 from './components/Courses8/QuestionsThree';
 import QuestionsFour8 from './components/Courses8/QuestionsFour';
 import QuestionsFive8 from './components/Courses8/QuestionsFive';
+import Questions9 from './components/Courses9/Questions';
+import QuestionsTwo9 from './components/Courses9/QuestionsTwo';
+import QuestionsThree9 from './components/Courses9/QuestionsThree';
+import QuestionsFour9 from './components/Courses9/QuestionsFour';
+import QuestionsFive9 from './components/Courses9/QuestionsFive';
 import Intro from './components/Courses/One/Intro';
 import Intro1 from './components/Courses1/One/Intro';
 import Intro2 from './components/Courses2/One/Intro';
@@ -102,6 +107,7 @@ import Introiiiii5 from './components/Courses5/One/Introiiiii';
 import Intro6 from './components/Courses6/One/Intro';
 import Intro7 from './components/Courses7/One/Intro';
 import Intro8 from './components/Courses8/One/Intro';
+import Intro9 from './components/Courses9/One/Intro';
 import Coursedone from "./components/Courses/Coursedone"
 import Coursedone1 from "./components/Courses1/Coursedone"
 import Coursedone2 from "./components/Courses2/Coursedone"
@@ -111,6 +117,7 @@ import Coursedone5 from "./components/Courses5/Coursedone"
 import Coursedone6 from "./components/Courses6/Coursedone"
 import Coursedone7 from "./components/Courses7/Coursedone"
 import Coursedone8 from "./components/Courses8/Coursedone"
+import Coursedone9 from "./components/Courses9/Coursedone"
 import Keybase from "./components/Blog/Articles/Keybase";
 import Issue from "./components/Blog/Articles/Issue";
 import Register from "./components/Register";
@@ -224,6 +231,7 @@ function App(props) {
         <Route exact path="/courses/107" element={<Intro6 />} />
         <Route exact path="/courses/108" element={<Intro7 />} />
         <Route exact path="/courses/109" element={<Intro8 />} />
+        <Route exact path="/courses/110" element={<Intro9 />} />
         <Route exact path="/courses/101/1" element={<Questions />} />
         <Route exact path="/courses/101/2" element={<QuestionsTwo />} />
         <Route exact path="/courses/101/3" element={<QuestionsThree />} />
@@ -279,6 +287,12 @@ function App(props) {
         <Route exact path="/courses/109/4" element={<QuestionsFour8 />} />
         <Route exact path="/courses/109/5" element={<QuestionsFive8 />} />
         <Route exact path="/courses/109/done" element={<Coursedone8 />} />
+        <Route exact path="/courses/110/1" element={<Questions9 />} />
+        <Route exact path="/courses/110/2" element={<QuestionsTwo9 />} />
+        <Route exact path="/courses/110/3" element={<QuestionsThree9 />} />
+        <Route exact path="/courses/110/4" element={<QuestionsFour9 />} />
+        <Route exact path="/courses/110/5" element={<QuestionsFive9 />} />
+        <Route exact path="/courses/110/done" element={<Coursedone9 />} />
         <Route exact path="/blog" element={<Blog />} />
         <Route exact path="/blog/What-is-Keybase" element={<Keybase />} />
         <Route exact path="/blog/How-to-issue" element={<Issue />} />
