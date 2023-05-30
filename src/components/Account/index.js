@@ -106,7 +106,7 @@ class Account extends Component {
       file: '',
       imagePreviewUrl: 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true',
       images: [],
-      maxNumber: 69,
+      maxNumber: 1,
     };
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
@@ -115,7 +115,7 @@ class Account extends Component {
 
     // this.handleLocationChange = this.handleLocationChange.bind(this);
   }
- 
+
 
   handleTagSelect(e) {
 
@@ -250,8 +250,10 @@ class Account extends Component {
 
   onSubmit = async values => {
 
-    
-    
+    const imageStrings = this.state.images.map(image => image.data_url); // Extract the image data URLs from the state
+    const images = imageStrings.join(','); // Convert the image data URLs to a single comma-separated string
+
+
     const preferences = this.state.preferences;
     const skills = this.state.skills;
     const { tags, email } = this.state;
@@ -262,11 +264,11 @@ class Account extends Component {
       _id: this.props.auth.user._id,
       email: this.props.auth.user.email,
       location: this.state.user.location,
-
+      images: images
     };
     try {
 
-      axios.post('https://edunode.herokuapp.com/api/profile', formData)
+      axios.post('http://localhost:5001/api/profile', formData)
         .then(response => {
           console.log(response.data);
           this.setState({ isUpdated: true }); // set isUpdated to true if account is successfully updated
@@ -302,7 +304,7 @@ class Account extends Component {
   // handle form submission
   onChangeImage = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
+    console.log(imageList);
     this.setState({ images: imageList });
     console.log('image', this.state.images)
   };
@@ -320,8 +322,6 @@ class Account extends Component {
       );
     }
     const { tags, skills, user, images, maxNumber } = this.state;
-    console.log('user', user)
-    console.log('userp', user.preferences)
     const { isUpdated } = this.state; // get isUpdated from state
     const email = this.props.auth.user.email ? this.props.auth.user.email : '';
     return (
@@ -344,14 +344,41 @@ class Account extends Component {
                     <h4 style={{ fontSize: "2em", textAlign: "center" }}>Account</h4>
                     <br></br>
                     <>
-                      <label>Add profile picture:</label>
+                      <div>
+                        {/* Other account information */}
+                        <h4>Profile Picture :</h4>
+
+                        <div
+                          style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50%',
+                            overflow: 'hidden',
+                            display: 'inline-block',
+                          }}
+                        >
+
+                          <img
+                            src={this.state.user.images}
+                            alt="Profile Picture"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                          />
+
+                        </div>
+                      </div>
+
+
                       <ImageUploading
                         multiple
                         value={images}
                         onChange={this.onChangeImage}
                         maxNumber={maxNumber}
                         dataURLKey="data_url"
-                        acceptType={["jpg",'png']}
+                        acceptType={["jpg", 'png']}
                       >
                         {({
                           imageList,
@@ -415,7 +442,6 @@ class Account extends Component {
                           </div>
                         )}
                       </ImageUploading>
-
 
 
 

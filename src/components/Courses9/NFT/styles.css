@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+  }
+  .App {
+    font-family: "Hachi Maru Pop", cursive;
+    display: flex;
+    padding: 15px;
+  }
+  .App .Meta {
+    flex-grow: 1;
+    padding-right: 15px;
+  }
+  .App .Meta input {
+    font-family: inherit;
+    padding: 5px;
+    width: 100%;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+  }
+  .App .Meta button {
+    padding: 10px 15px;
+    border: 2px solid #000000;
+    background-color: #ffffff;
+    margin: 20px 0;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .App #downloadWrapper {
+    padding: 20px;
+  }
+  .App #certificateWrapper {
+    box-shadow: 0 0 5px #000;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .App #certificateWrapper img {
+    display: block;
+  }
+  .App #certificateWrapper p {
+    font-family: "Staatliches", cursive;
+    margin: 0;
+    position: absolute;
+    left: 110px;
+    top: 350px;
+    font-size: 40pt;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  .Demo__some-network {
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 10px;
+    text-align: center;
+  }
+  
+  .Demo__some-network__share-count {
+    display: inline-flex;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: visible;
+    width: 0;
+    margin-top: 3px;
+    font-size: 12px;
+  }
+  
+  .Demo__some-network__share-button {
+    cursor: pointer;
+  }
+  
+  .Demo__some-network__share-button:hover:not(:active) {
+    opacity: 0.75;
+  }
+  
+  .Demo__some-network__custom-icon {
+    width:32px;
+    height:32px;
+  }
+
+  .centerimg {
+    text-align: center;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+     width: 100%; 
+  }
