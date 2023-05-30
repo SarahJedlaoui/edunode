@@ -96,7 +96,7 @@ class Glossary extends Component {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                            A blockchain-based platform that supports smart contracts, enabling more complex financial and logistical operations beyond simple transactions.
+                                            Stellar makes it possible to create, send, and trade digital representations of all forms of money: dollars, pesos, bitcoin, pretty much anything. It’s designed so all the world’s financial systems can work together on a single network.
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -151,6 +151,19 @@ class Glossary extends Component {
                                         <AccordionDetails>
                                             <Typography>
                                             Short for "Web 3.0", this term represents the next generation of the internet, one where decentralized blockchain technologies and cryptocurrencies play a vital role.                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    <Accordion>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel2a-content"
+                                            id="panel2a-header"
+                                        >
+                                            <Typography>NFT</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography>
+                                            NFT stands for "Non-Fungible Token." It is a type of cryptographic token on a blockchain that represents a unique item or piece of content. Unlike cryptocurrencies like Bitcoin or Ethereum which are fungible and can be exchanged on a one-for-one basis, NFTs are unique and can't be exchanged like-for-like.                                           </Typography>
                                         </AccordionDetails>
                                     </Accordion>
                                     <Accordion>

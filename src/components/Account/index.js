@@ -268,7 +268,7 @@ class Account extends Component {
     };
     try {
 
-      axios.post('http://localhost:5001/api/profile', formData)
+      axios.post('https://edunode.herokuapp.com/api/profile', formData)
         .then(response => {
           console.log(response.data);
           this.setState({ isUpdated: true }); // set isUpdated to true if account is successfully updated
@@ -360,7 +360,7 @@ class Account extends Component {
 
                           <img
                             src={this.state.user.images}
-                            alt="Profile Picture"
+                            // alt="Profile Picture"
                             style={{
                               width: '100%',
                               height: '100%',
