@@ -10,13 +10,17 @@ import './tailwind.output.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css';
 
+
 createRoot(document.getElementById('root')).render(
 
     
 <GoogleOAuthProvider clientId="463653089707-knhj5ovu0jkdetb0a10h7r9c2rcjl2l7.apps.googleusercontent.com">
 <Provider store={store}>
     <Router>
-    <App />
+   
+      <App />
+    
+ 
     </Router>
     </Provider>
     </GoogleOAuthProvider>

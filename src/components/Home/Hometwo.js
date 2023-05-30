@@ -14,6 +14,7 @@ import Logos from "./logos.png";
   // import Slider from "react-slick";
   // import UploadCertificate from "./uploadCertificate";
 import MultipleSelect from './drop'
+import App from './animation.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -120,7 +121,7 @@ function Hometwo() {
          </Container>
 
          <br></br>
-      
+    
          <br></br>
          <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
          <h3>Partners</h3>
