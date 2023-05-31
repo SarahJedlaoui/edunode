@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import dep from './login.jpg'
 import google from './google.png'
+
 function Loginn() {
 	const googleAuth = () => {
 		window.open(
