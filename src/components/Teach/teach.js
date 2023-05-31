@@ -26,6 +26,8 @@ import { convertToHTML } from 'draft-convert';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Navbar1 from '../Dashboard/Navbar1';
+import Modal from 'react-modal';
+import home from './homework.png'
 // Initialize editorState
 {/*const editorState = EditorState.createEmpty();
 
@@ -195,7 +197,8 @@ class Teach extends Component {
       isLoading: false,
       editorState: EditorState.createEmpty(),
       errors: {},
-      privatee: false
+      privatee: false,
+      showPopup: false
     };
 
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
@@ -225,6 +228,7 @@ class Teach extends Component {
   }
 
   async handleSubmit(e) {
+    this.setState({ showPopup: true });
     e.preventDefault();
     const data = {
       email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous", // this.props.auth.user.email
@@ -256,7 +260,12 @@ class Teach extends Component {
     } catch (error) {
       console.error(error);
     }
+
   }
+
+  handleClosePopup = () => {
+    this.setState({ showPopup: false });
+  };
 
   handleTagSelect(e) {
     const selectedTag = e.target.value;
@@ -289,7 +298,7 @@ class Teach extends Component {
       textAlign: 'center',
       color: theme.palette.text.secondary,
     }));
-    const { tags, title, link, description, success } = this.state;
+    const { tags, title, link, description, success, showPopup } = this.state;
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     return (
 
@@ -300,13 +309,13 @@ class Teach extends Component {
               <Item><Sidebar props={email} /></Item>
             </Grid> */}
             <Grid item xs={12} sm={8} md={20}>
-            <Navbar1/>
-          <br></br>
-          <br></br>
-          <br></br>
+              <Navbar1 />
+              <br></br>
+              <br></br>
+              <br></br>
               <div style={{ padding: '10px' }}>
                 <Form onSubmit={this.handleSubmit}>
-                <h4 style={{ fontSize: "2em", textAlign: "center" }}>Add Course</h4>
+                  <h4 style={{ fontSize: "2em", textAlign: "center" }}>Add Course</h4>
 
                   <FormGroup>
                     <Label htmlFor="tags">Tags:</Label>
@@ -373,6 +382,38 @@ class Teach extends Component {
                     </div>
                   )}
                 </Form>
+                <Modal
+                  isOpen={showPopup}
+                  onRequestClose={this.handleClosePopup}
+                  contentLabel="Congratulations"
+                  style={{
+                    overlay: {
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                      width: '400px',
+                      height: '400px',
+                      margin: '0 auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: '20px',
+                      borderRadius: '8px'
+                    }
+                  }}
+                >
+                  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+                  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+                    Thank you for adding the course.
+                  </p>
+                  <img
+                    src={home}
+                    alt="Trophy"
+                    style={{ width: '150px', marginBottom: '20px' }}
+                  />
+                  <button onClick={this.handleClosePopup}>Close</button>
+                </Modal>
                 <hr />
 
               </div>
@@ -380,6 +421,7 @@ class Teach extends Component {
           </Grid>
           <Footer />
         </Box>
+
       </div>
 
 

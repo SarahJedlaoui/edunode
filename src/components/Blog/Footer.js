@@ -10,7 +10,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://edunode.org/">
-      EduNode: meet, learn and build on Stellar -
+      : meet, learn and build on Stellar -
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

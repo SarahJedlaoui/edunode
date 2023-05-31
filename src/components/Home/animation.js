@@ -1,3 +1,5 @@
+{/*
+
 import * as THREE from 'three'
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
@@ -11,9 +13,9 @@ export function Animation() {
   return (
     <div ref={container} className="content-container">
       {/* Container for the HTML view */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden' }} ref={domContent} />
+    {/* <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden' }} ref={domContent} />
       {/* Container for THREEJS */}
-      <Canvas
+  { /*   <Canvas
         shadows
         flat
         linear
@@ -90,9 +92,9 @@ function Scene({ portal, ...props }) {
           <group name="phone" position={[-50, 0, -68]}>
             <Clone object={[nodes['Rectangle 4'], nodes['Rectangle 3'], nodes['Boolean 2']]} />
             {/* Mask is a drei component that generates a stencil, we use the phone-screen as a mask, punching a hole into the canvas */}
-            <Mask id={1} colorWrite={false} depthWrite={false} geometry={nodes.screen.geometry} castShadow receiveShadow position={[0, 0, 9.89]}>
+         {/*    <Mask id={1} colorWrite={false} depthWrite={false} geometry={nodes.screen.geometry} castShadow receiveShadow position={[0, 0, 9.89]}>
               {/* We can drop the HTML inside, make it a 3d-transform and portal it to the dom container above */}
-              <Html className="content-embed" portal={portal} scale={40} transform zIndexRange={[-1, 0]}>
+        {/*       <Html className="content-embed" portal={portal} scale={40} transform zIndexRange={[-1, 0]}>
                 <Embed />
               </Html>
             </Mask>
@@ -127,3 +129,4 @@ const Float = ({ object, intensity = 300, rotation = 1, ...props }) => (
     <Clone object={object} {...props} />
   </FloatImpl>
 )
+*/}
