@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
+import MetaTags from 'react-meta-tags';
 import Footer from '../../../Footer';
 import NavBar from '../../../NavBar';
 import me from '../../me.jpg';
@@ -60,6 +61,11 @@ export default class AMM extends Component {
 
     return (
       <div>
+        
+      <MetaTags>
+        <meta property="og:image" content={amm} />
+      </MetaTags>
+
         <Helmet>
           <meta charSet="utf-8" />
           <title>{title}</title>

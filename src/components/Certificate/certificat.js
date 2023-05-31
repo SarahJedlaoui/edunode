@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import MetaTags from 'react-meta-tags';
 import { useLocation, useParams } from 'react-router-dom';
 import Certificate from './index';
 import {
@@ -49,14 +49,16 @@ import {
 } from "react-share";
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
+
 import MetaDecorator from './MetaDecorator.jsx';
 const metaDecorator = require("./metaDecorator.json");
+
 
 
 function Certificat() {
   const { certificateNumber } = useParams();
   const [certificate, setCertificate] = useState(null);
-  const title = "E certification "
+  const title = "E-certification "
   const stellarLab = "https://horizon-futurenet.stellar.org/accounts/?sponsor=GC4MEJJJMNIBIDZSJOZOPVUQQUKR3AARFLPFYKUFXU2D7PHWJP5S4AEI"
   const shareUrl = `https://edunode.org/certificates/${certificateNumber}`;
   console.log('url', shareUrl);
@@ -91,6 +93,12 @@ function Certificat() {
         imageUrl={ciid}
         imageAlt='hi'
   />*/}
+
+      <MetaTags>
+        <meta property="og:image" content={ciid} />
+      </MetaTags>
+
+
       <Helmet>
         <title>E-Certification</title>
         <meta name="description" content='E-certification' />
