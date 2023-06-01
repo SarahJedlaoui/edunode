@@ -27,7 +27,7 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Navbar1 from '../Dashboard/Navbar1';
 import Modal from 'react-modal';
-import home from './homework.png'
+import home from './elearning.png'
 // Initialize editorState
 {/*const editorState = EditorState.createEmpty();
 

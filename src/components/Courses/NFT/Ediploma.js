@@ -124,7 +124,7 @@ function Ediploma(props) {
     });
     setTimeout(function () {
       try {
-        window.location.href = "/";
+        //window.location.href = "/";
       } catch (error) {
         console.log(error);
       }
@@ -154,7 +154,37 @@ function Ediploma(props) {
       // Handle submission error
     }
 
+    const email = loggedInUserEmail;
+
+  fetch('https://edunode.herokuapp.com/api/certificates/increment-trophy', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to increment trophy');
+      }
+    })
+    .then(data => {
+      console.log(data.message); // Success message from the server
+      // Perform any additional actions or display a success message on the frontend
+    })
+    .catch(error => {
+      console.error(error);
+      // Handle any errors that occurred during the request
+    });
+
   }
+
+
+
+
+
   useEffect(() => {
     setShowPopup(true);
   }, []);

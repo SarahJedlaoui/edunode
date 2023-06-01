@@ -9,7 +9,7 @@ import { EditorState } from "draft-js";
 import PropTypes from "prop-types";
 import { useLocation, useParams } from 'react-router-dom';
 import axios from "axios";
-import Navbar from '../Dashboard/Navbar';
+import Navbar1 from '../Dashboard/Navbar1';
 import TextField from '@mui/material/TextField'
 import { makeStyles } from "@mui/styles";
 
@@ -125,7 +125,7 @@ function CourseDetails(props) {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={9}>
-            <Navbar />
+            <Navbar1 />
             <br></br>
             <br></br>
             <br></br>

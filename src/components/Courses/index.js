@@ -179,7 +179,7 @@ class Courses extends Component {
           <Navbar1 />
           
            <div className="myDiv"> 
-          {/* <Welcome /> */}
+         
           <br></br>
           
           <Course1 />
@@ -233,7 +233,7 @@ class Courses extends Component {
         <Navbar1 />
         
           <div className="myDiv">
-          <Welcome />
+         
           <br></br>
           
           <Course1 />
@@ -286,8 +286,7 @@ class Courses extends Component {
      <Navbar1 />
      
           <div className="myDiv">
-          <Welcome />
-          <br></br>
+        
           <a href={`/courseDetails/${id1}`} target="_blank" rel="noopener noreferrer">
           <Course1 /></a>
           <br></br>

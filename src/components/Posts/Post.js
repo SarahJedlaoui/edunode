@@ -20,8 +20,8 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Navbar1 from '../Dashboard/Navbar1';
 import UserContext from './UserContext';
-
-
+import home from './homework.png'
+import Modal from 'react-modal';
 // Initialize editorState
 {/*const editorState = EditorState.createEmpty();
 
@@ -191,7 +191,8 @@ class Post extends Component {
       isLoading: false,
       editorState: EditorState.createEmpty(),
       errors: {},
-      privatee: false
+      privatee: false,
+      showPopup: false
     };
 
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
@@ -221,6 +222,7 @@ class Post extends Component {
   }
 
   async handleSubmit(e) {
+    this.setState({ showPopup: true });
     e.preventDefault();
     const data = {
       email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous", // this.props.auth.user.email
@@ -254,6 +256,11 @@ class Post extends Component {
     }
   }
 
+ handleClosePopup = () => {
+    this.setState({ showPopup: false });
+  };
+
+
   handleTagSelect(e) {
     const selectedTag = e.target.value;
     if (!this.state.tags.includes(selectedTag)) {
@@ -285,7 +292,7 @@ class Post extends Component {
       textAlign: 'center',
       color: theme.palette.text.secondary,
     }));
-    const { tags, title, link, description, success } = this.state;
+    const { tags, title, link, description, success,showPopup } = this.state;
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     return (
       <UserContext.Provider value={this.state.email}>
@@ -370,7 +377,38 @@ class Post extends Component {
                     )}
                   </Form>
                   <hr />
-
+ <Modal
+                  isOpen={showPopup}
+                  onRequestClose={this.handleClosePopup}
+                  contentLabel="Congratulations"
+                  style={{
+                    overlay: {
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                      width: '400px',
+                      height: '400px',
+                      margin: '0 auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: '20px',
+                      borderRadius: '8px'
+                    }
+                  }}
+                >
+                  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+                  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+                    Thank you for adding new post.
+                  </p>
+                  <img
+                    src={home}
+                    alt="Trophy"
+                    style={{ width: '150px', marginBottom: '20px' }}
+                  />
+                  <button onClick={this.handleClosePopup}>Close</button>
+                </Modal>
                 </div>
               </Grid>
             </Grid>

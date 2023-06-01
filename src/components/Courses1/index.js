@@ -132,7 +132,7 @@ class Courses extends Component {
         <Grid xs={7} sm={8.5} md={10}>
           <Item><Topbar /></Item>
           <div className="myDiv">
-          <Welcome />
+         
           <br></br>
           <Course1done />
           <br></br>
@@ -164,7 +164,7 @@ class Courses extends Component {
         <Grid xs={7} sm={8.5} md={10}>
           <Item><Topbar /></Item>
           <div className="myDiv">
-          <Welcome />
+        
           <br></br>
           <Course1 />
           <br></br>
@@ -198,7 +198,7 @@ class Courses extends Component {
         <Grid xs={7} sm={8.5} md={10}>
           <Item><Topbar /></Item>
           <div className="myDiv">
-          <Welcome />
+         
           <br></br>
           <Course1 />
           <br></br>
