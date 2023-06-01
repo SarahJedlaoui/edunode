@@ -127,7 +127,7 @@ function PostDetails(props) {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={8} md={9}>
+          <Grid item xs={12} sm={8} md={20}>
             <Navbar />
            
             <br></br>
