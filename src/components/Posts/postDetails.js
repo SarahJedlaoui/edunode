@@ -51,12 +51,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 function PostDetails(props) {
-  const authData = JSON.parse(localStorage.getItem('persist:root')).auth;
-  const [email, setEmail] = useState(localStorage.getItem(JSON.parse(authData).user.email));
+  
+  let userDetails = JSON.parse(localStorage.getItem('user'));
+  if (!userDetails) {
+    userDetails = [];
+  }
+  const [email, setEmail] = useState(userDetails?.email ?? 'anonymous');
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [post, setPost] = useState({});
-  let userDetails = JSON.parse(localStorage.getItem('user'));
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -103,7 +106,7 @@ function PostDetails(props) {
 
     console.log('submit email : ',userDetails.email)
     event.preventDefault();
-    const userEmaill = userDetails.email;
+    const userEmaill = userDetails?.email ?? 'anonymous';
     const comment = {
       text: newComment,
       email: userEmaill
@@ -133,17 +136,18 @@ function PostDetails(props) {
             <br></br>
             <div style={{ padding: "10px" }}>
               <div className="post">
-                <h1>Title :</h1>
+              <h1 style={{fontSize: '20px', fontWeight: 'bold'}} >Titlee :</h1>
                 <h2>{post.title}</h2>
                 <br></br>
-                <h1>Description :</h1>
+                <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Description :</h1>
                 <p>{post.description}</p>
                 <br></br>
-                <h1>Link :</h1>
+                <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Link :</h1>
                 <a href={post.link}>{post.link}</a>
                 <br></br>
                 <div className="comments">
-                  <h3>Comments</h3>
+                <h3 style={{fontSize: '20px', fontWeight: 'bold'}}>Comments</h3>
+
                   <form onSubmit={handleSubmit}>
                     <TextField
                       value={newComment}

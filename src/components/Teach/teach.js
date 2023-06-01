@@ -192,7 +192,7 @@ class Teach extends Component {
       title: "",
       link: "",
       description: '',
-      email: "",
+      email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       success: false,
       isLoading: false,
       editorState: EditorState.createEmpty(),
@@ -229,6 +229,30 @@ class Teach extends Component {
 
   async handleSubmit(e) {
     this.setState({ showPopup: true });
+
+    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
+    fetch('http://localhost:5001/api/cours/increment-trophy', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to increment trophy');
+        }
+      })
+      .then(data => {
+        console.log(data.message); 
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+
     e.preventDefault();
     //const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
     const data = {
@@ -262,29 +286,7 @@ class Teach extends Component {
       console.error(error);
     }
 
-    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
-    fetch('https://edunode.herokuapp.com/api/cours/increment-trophy', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Failed to increment trophy');
-        }
-      })
-      .then(data => {
-        console.log(data.message); // Success message from the server
-        // Perform any additional actions or display a success message on the frontend
-      })
-      .catch(error => {
-        console.error(error);
-        // Handle any errors that occurred during the request
-      });
+   
 
 
 
