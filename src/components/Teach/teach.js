@@ -230,6 +230,7 @@ class Teach extends Component {
   async handleSubmit(e) {
     this.setState({ showPopup: true });
     e.preventDefault();
+    //const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
     const data = {
       email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous", // this.props.auth.user.email
       title: this.state.title,
@@ -260,6 +261,33 @@ class Teach extends Component {
     } catch (error) {
       console.error(error);
     }
+
+    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
+    fetch('https://edunode.herokuapp.com/api/cours/increment-trophy', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to increment trophy');
+        }
+      })
+      .then(data => {
+        console.log(data.message); // Success message from the server
+        // Perform any additional actions or display a success message on the frontend
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle any errors that occurred during the request
+      });
+
+
+
 
   }
 
