@@ -9,7 +9,7 @@ import { EditorState } from "draft-js";
 import PropTypes from "prop-types";
 import { useLocation, useParams } from 'react-router-dom';
 import axios from "axios";
-import Navbar from '../Dashboard/Navbar';
+import Navbar from '../Dashboard/Navbar1';
 import TextField from '@mui/material/TextField'
 import { makeStyles } from "@mui/styles";
 import UserContext from './UserContext';
@@ -129,14 +129,11 @@ function PostDetails(props) {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={9}>
             <Navbar />
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+           
             <br></br>
             <div style={{ padding: "10px" }}>
               <div className="post">
-              <h1 style={{fontSize: '20px', fontWeight: 'bold'}} >Titlee :</h1>
+              <h1 style={{fontSize: '20px', fontWeight: 'bold'}} >Title:</h1>
                 <h2>{post.title}</h2>
                 <br></br>
                 <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Description :</h1>
