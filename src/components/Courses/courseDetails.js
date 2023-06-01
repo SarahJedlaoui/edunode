@@ -51,12 +51,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 function CourseDetails(props) {
-  const authData = JSON.parse(localStorage.getItem('persist:root')).auth;
-  const [email, setEmail] = useState(localStorage.getItem(JSON.parse(authData).user.email));
+ 
+  let userDetails = JSON.parse(localStorage.getItem('user'));
+  if (!userDetails) {
+    userDetails = [];
+  }
+  const [email, setEmail] = useState(userDetails?.email ?? 'anonymous');
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [course, setCourse] = useState({});
-  let userDetails = JSON.parse(localStorage.getItem('user'));
+  
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -103,7 +107,7 @@ function CourseDetails(props) {
 
     console.log('submit email : ',userDetails.email)
     event.preventDefault();
-    const userEmaill = userDetails.email;
+    const userEmaill = userDetails?.email ?? 'anonymous';
     const comment = {
       text: newComment,
       email: userEmaill
@@ -124,16 +128,13 @@ function CourseDetails(props) {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={8} md={9}>
+          <Grid item xs={12} sm={8} md={20}>
             <Navbar1 />
-            <br></br>
-            <br></br>
-            <br></br>
             <br></br>
             <br></br>
             <div style={{ padding: "10px" }}>
               <div className="post">
-                <h1 style={{fontSize: '20px', fontWeight: 'bold'}} >Title :</h1>
+                <h1 style={{fontSize: '20px', fontWeight: 'bold'}} >Titlee :</h1>
                 
                 <h2>{course.title}</h2>
                 <br></br>
