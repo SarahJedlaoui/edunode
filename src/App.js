@@ -172,9 +172,8 @@ import CourseDetails from './components/Courses/courseDetails'
 import { useState } from 'react';
 import Loginn from './components/authentif'
 import Signup from "./components/signup";
-import "./App.css";
-import Golossary from './components/Glossary'
 import Glossary from "./components/Glossary";
+import Badge from './components/Badges'
 
 function App(props) {
   const location = useLocation();
@@ -357,6 +356,7 @@ function App(props) {
           element={user ? <Navigate to="/" /> : <Signup />}
         />
         <Route exact path="/glossary" element={<Glossary />} />
+        <Route exact path="/Badges" element={<Badge />} />
       </Routes>
     </Provider>
   );
