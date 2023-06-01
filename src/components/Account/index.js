@@ -370,7 +370,7 @@ class Account extends Component {
                         </div>
                       </div>
 
-
+<p>Please upload only png and jpg</p>
                       <ImageUploading
                         multiple
                         value={images}
