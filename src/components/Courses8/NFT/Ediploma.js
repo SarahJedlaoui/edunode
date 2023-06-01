@@ -76,7 +76,7 @@ function Ediploma(props) {
   const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
   const courseId = '66464e2d58aca412ed2d81bf3';
   const shareUrl = 'https://edunode.org/blog/How-to-issue';
-  const title = "E certification "
+  const title = "EduNode certificate"
  async function sendImageToServer(base64Image, props) {
   try {
     if (props.auth.user.email) {

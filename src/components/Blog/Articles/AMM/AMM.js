@@ -75,6 +75,12 @@ export default class AMM extends Component {
             name="description"
             content="What are AMMs? Why are they useful? And how they are being used in decentralized finance."
           />
+          <meta
+        property="og:image"
+        key="og:image"
+        content={amm}
+      /> 
+      <meta property="twitter:image" content={amm}></meta>
         </Helmet>
         <NavBar />
 
