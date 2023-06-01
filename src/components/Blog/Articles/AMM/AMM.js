@@ -63,7 +63,13 @@ export default class AMM extends Component {
       <div>
         
       <MetaTags>
+      <title>{title}</title>
+      <meta name="description" content="DeFi Explained: What is an Automated Market Maker?" />
+      <meta property="og:title" content="EduNode1" />
         <meta property="og:image" content={amm} />
+        <meta property="og:image" content="./AMMs.png" />
+        <meta property="twitter:image" content={amm}></meta>
+        
       </MetaTags>
 
         <Helmet>
