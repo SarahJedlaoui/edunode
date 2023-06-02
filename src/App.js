@@ -148,6 +148,7 @@ import Gcallback from "./components/Gcallback";
 import Hyperledger from "./components/Hyperledger"
 import HyperledgerCourses from "./components/Hyperledger/Courses"
 import Challenge from "./components/Challenges/Challenge";
+import ChallengeQ  from './components/Challenges/Challenge/One/Intro.js';
 import CodeEditor from "./components/CodeEditor";
 import ContactUs from "./components/contactus";
 import Loggedout from "./components/Loggedout";
@@ -357,6 +358,7 @@ function App(props) {
         />
         <Route exact path="/glossary" element={<Glossary />} />
         <Route exact path="/Badges" element={<Badge />} />
+        <Route exact path="/challenges/101" element={<ChallengeQ />} />
       </Routes>
     </Provider>
   );

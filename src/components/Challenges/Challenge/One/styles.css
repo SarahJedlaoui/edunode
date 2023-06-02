@@ -1,3 +1,27 @@
-.courseOne {
-    background-color: cadetblue
-}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .split-view {
+    display: flex;
+    flex: 1;
+  }
+  
+  .left-panel {
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .right-panel {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+  }
+  .text {
+    white-space: pre-wrap;
+  }
+  

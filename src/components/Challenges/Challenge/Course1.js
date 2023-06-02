@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import basic from "./basic.PNG"
+import challenge1 from "./c1.png"
 import {
   Button,
 } from 'react-bootstrap';
@@ -30,7 +31,7 @@ export function AlertDialog(props) {
 
    const handleConfirm = (e) => {
      setOpen(false);
-     window.location.href = '/courses/101/';
+     window.location.href = '/challenges/101/';
    };
 
   return (
@@ -40,7 +41,7 @@ export function AlertDialog(props) {
         color="primary"
         onClick={handleClickOpen}
       >
-        Select Course
+        Select Challenge
       </Button>
       <Dialog
         open={open}
@@ -53,7 +54,7 @@ export function AlertDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure that you want to take this course?
+            Are you sure that you want to take this challenge?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -110,7 +111,7 @@ function Course1(props) {
               <img
                 className={classes.img}
                 alt="complex"
-                src={basic}
+                src={challenge1}
               />
             </ButtonBase>
           </Grid>
@@ -118,7 +119,7 @@ function Course1(props) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  In this course, you will learn about the operations which allow you to connect to the Stellar Network.
+                  This challenge is called 'The Intergalactic Space Agency'.
                 </Typography>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
