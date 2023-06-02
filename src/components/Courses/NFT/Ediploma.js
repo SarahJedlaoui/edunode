@@ -128,7 +128,7 @@ function Ediploma(props) {
       } catch (error) {
         console.log(error);
       }
-    }, 3000);
+    }, 2000);
 
     const formData = {
       rate: ratingValue,

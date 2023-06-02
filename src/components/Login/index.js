@@ -78,8 +78,10 @@ class Login extends Component {
 
     const email = userObject.email;
     const name = userObject.name;
+    const image =userObject.picture;
     console.log(email);
     console.log(name);
+
 
 
     const { user } = this.state;
@@ -88,6 +90,7 @@ class Login extends Component {
       const newUser = {
         email,
         name,
+        image
       }
       await this.props.googleLogin(newUser);
       console.log('googlelogin executed');

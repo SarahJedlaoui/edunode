@@ -251,8 +251,9 @@ class Account extends Component {
   onSubmit = async values => {
 
     const imageStrings = this.state.images.map(image => image.data_url); // Extract the image data URLs from the state
-    const images = imageStrings.join(','); // Convert the image data URLs to a single comma-separated string
-
+    const imagesJoin = imageStrings.join(','); // Convert the image data URLs to a single comma-separated string
+    
+    const images = imagesJoin || this.state.user.images;
 
     const preferences = this.state.preferences;
     const skills = this.state.skills;

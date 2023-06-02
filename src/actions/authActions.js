@@ -133,7 +133,6 @@ export const login = ({ email, password }) => dispatch => {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
       'Content-Security-Policy': 'script-src',
-      // 'self' :'https://accounts.google.com',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS'
     },
     body
@@ -178,13 +177,13 @@ export const login = ({ email, password }) => dispatch => {
 
 
 
-export const googleLogin = ({ email, name }) => dispatch => {
+export const googleLogin = ({ email, name,image }) => dispatch => {
   console.log(email)
   dispatch({ type: USER_LOADING });
 
   // request body
 
-  const body = JSON.stringify({ email, name });
+  const body = JSON.stringify({ email, name,image });
 
 
   fetch('https://edunode.herokuapp.com/api/google', {
@@ -208,7 +207,13 @@ export const googleLogin = ({ email, name }) => dispatch => {
             type: VERIFICATION_SUCCESS,
             payload: data,
           });
+           localStorage.setItem('jwt', data.user)
+          localStorage.setItem('user', JSON.stringify(data.user))
+          console.log('users', data.user)
         }
+         localStorage.setItem('jwt', data.user)
+          localStorage.setItem('user', JSON.stringify(data.user))
+          console.log('users', data.user)
       }
 
 
