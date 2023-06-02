@@ -119,7 +119,7 @@ class Badge extends Component {
                                             />
                                             <CardContent>
                                                 <Typography gutterBottom variant="h5" component="div">
-                                                    Course Badge
+                                                    Add Course Badge
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
                                                     Congratulations! You have added {addCoursesTrophy} course(s)!
