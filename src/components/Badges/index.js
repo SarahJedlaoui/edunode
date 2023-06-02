@@ -19,6 +19,12 @@ import growth from './growth.png';
 import elearn from './elearning.png';
 import home from './homework.png';
 import Container from '@mui/material/Container';
+import tuto from './tutorial.png';
+import dec from './decision-making.png';
+
+
+
+
 class Badge extends Component {
     constructor(props) {
         super(props);
@@ -37,8 +43,14 @@ class Badge extends Component {
     }
 
     render() {
-
-
+        const {
+            isAuthenticated,
+            isVerified,
+            hasUsername,
+            isGranted,
+            user,
+          } = this.props.auth;
+          const hasShownPopupChat = localStorage.getItem('shownPopupChat');
         //console.log(this.props.auth.user)
         //console.log(this.props.auth.user.pkey)
 
@@ -123,6 +135,50 @@ class Badge extends Component {
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
                                                     Congratulations! You have added {addCoursesTrophy} course(s)!
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+                                )}
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                {isAuthenticated && isVerified && (
+                                    <Card sx={{ maxWidth: 300 }}>
+                                        <CardActionArea>
+                                            <CardMedia
+                                                component="img"
+                                                height="120"
+                                                image={tuto}
+                                                alt="Course badge"
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div">
+                                                    Community Badge 
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    Congratulations! You are a member of our commumnity!
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+                                )}
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                {hasShownPopupChat && (
+                                    <Card sx={{ maxWidth: 300 }}>
+                                        <CardActionArea>
+                                            <CardMedia
+                                                component="img"
+                                                height="120"
+                                                image={dec}
+                                                alt="Course badge"
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div">
+                                                    AI Badge 
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    Congratulations! You have an AI Badge!
                                                 </Typography>
                                             </CardContent>
                                         </CardActionArea>

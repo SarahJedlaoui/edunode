@@ -16,7 +16,8 @@ import 'reactjs-popup/dist/index.css';
 import Navbar1 from './Navbar1';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-
+import Modal from 'react-modal';
+import tuto from './tutorial.png'
 
 
 class Dashboard extends Component {
@@ -30,12 +31,20 @@ class Dashboard extends Component {
       selectedTags: [],
       showAlert: true, //  a state variable to control the visibility of the alert,
       preference:[],
-      user:[]
+      user:[],
+      showPopup: false
     };
 
   }
 
   componentDidMount() {
+    const { isAuthenticated, isVerified } = this.props.auth;
+    const hasShownPopup = localStorage.getItem('shownPopup');
+
+    if (isAuthenticated && isVerified && !hasShownPopup) {
+      this.setState({ showPopup: true });
+    }
+  
     const { email,showAlert } = this.state;
     console.log('email',email)
     if (this.props.auth.user.preferences && this.props.auth.user.preferences.length === 0) {
@@ -99,8 +108,14 @@ class Dashboard extends Component {
     this.setState({ showAlert: false });
   };
 
+
+   handleClosePopup = () => {
+    this.setState({ showPopup: false });
+    localStorage.setItem('shownPopup', true);
+  };
+
   render() {
-    const { tags, selectedTags, showAlert,preference,skills,preferences } = this.state;
+    const { tags, selectedTags, showAlert,preference,skills,preferences , showPopup} = this.state;
     const {
       isAuthenticated,
       isVerified,
@@ -237,6 +252,38 @@ class Dashboard extends Component {
                 <TwitterFollowButton screenName={'edunodeorg'} />
               </Grid>
             </Grid>
+            <Modal
+                  isOpen={showPopup}
+                  onRequestClose={this.handleClosePopup}
+                  contentLabel="Congratulations"
+                  style={{
+                    overlay: {
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                      width: '400px',
+                      height: '400px',
+                      margin: '0 auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: '20px',
+                      borderRadius: '8px'
+                    }
+                  }}
+                >
+                  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+                  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+                    Thank you for joining our community!
+                  </p>
+                  <img
+                    src={tuto}
+                    alt="Trophy"
+                    style={{ width: '150px', marginBottom: '20px' }}
+                  />
+                  <button onClick={this.handleClosePopup}>Close</button>
+                </Modal>
             <Footer />
           </>
         );

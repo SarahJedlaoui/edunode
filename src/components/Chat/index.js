@@ -21,6 +21,11 @@ import Typography from '@mui/material/Typography';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import Navbar1 from '../Dashboard/Navbar1';
+import Modal from 'react-modal';
+import dec from './decision-making.png';
+
+
+
 const suggestedQuestions = [
   "What is the Stellar Network?",
   "What is the Soroban Smart Contract Platform?",
@@ -47,6 +52,7 @@ class Chat extends Component {
       conversation: [],
       messages: [],
       sessionMessages: [],
+      showPopup: false,
     }
 
     this.onChange = this.onChange.bind(this)
@@ -94,18 +100,18 @@ class Chat extends Component {
 
 
   handleSubmit = async (event) => {
-    
     const { input, email, sessionMessages } = this.state;
-
     // Set loading to true when the request is sent
     this.setState({ loading: true });
 
     // Send the new question to the backend to get the AI's response
-      const response = await fetch('https://edunode.herokuapp.com/api/chat/openai', {
-   
+    const response = await fetch('https://edunode.herokuapp.com/api/chat/openai', {
+
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' ,
-      "Access-Control-Allow-Origin": '*' },
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": '*'
+      },
       body: JSON.stringify({ input, email }),
     });
     const data = await response.json();
@@ -121,12 +127,27 @@ class Chat extends Component {
 
     // Scroll to the end of the page
     window.scrollTo(0, document.body.scrollHeight);
+    const hasShownPopupChat = localStorage.getItem('shownPopupChat');
+   
+    if (!hasShownPopupChat) {
+      this.setState({ showPopup: true });
+    }
+
+   
 
   }
 
+
+
+  handleClosePopup = () => {
+    this.setState({ showPopup: false });
+    localStorage.setItem('shownPopupChat', true);
+  };
+
+
   render() {
 
-    
+
 
 
     const {
@@ -137,12 +158,12 @@ class Chat extends Component {
 
     if (isAuthenticated) {
 
-      const { input, sessionMessages, loading } = this.state;
+      const { input, sessionMessages, loading,showPopup } = this.state;
       return (
 
         <>
-        <Navbar1/>
-          
+          <Navbar1 />
+
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
@@ -151,7 +172,7 @@ class Chat extends Component {
                 </Grid> */}
 
                 <Grid item xs={12} sm={8} md={9}>
-                
+
                   <div>
                     <div>
                       <div>
@@ -206,7 +227,7 @@ class Chat extends Component {
                             }
                             fullWidth
                           />
-                          <Button type="submit" variant="contained"   onClick={() => this.setState( this.handleSubmit)} disabled={loading}>
+                          <Button type="submit" variant="contained" onClick={() => this.setState(this.handleSubmit)} disabled={loading}>
                             {loading ? "Sending..." : "Send"}
                           </Button>
                         </form>
@@ -217,7 +238,38 @@ class Chat extends Component {
                   </div>
 
                 </Grid>
-
+                <Modal
+                  isOpen={showPopup}
+                  onRequestClose={this.handleClosePopup}
+                  contentLabel="Congratulations"
+                  style={{
+                    overlay: {
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                      width: '400px',
+                      height: '400px',
+                      margin: '0 auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: '20px',
+                      borderRadius: '8px'
+                    }
+                  }}
+                >
+                  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+                  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+                  You have gained a Badge for using our chat AI!
+                  </p>
+                  <img
+                    src={dec}
+                    alt="Trophy"
+                    style={{ width: '150px', marginBottom: '20px' }}
+                  />
+                  <button onClick={this.handleClosePopup}>Close</button>
+                </Modal>
               </Grid>
               <Footer />
             </Box>
