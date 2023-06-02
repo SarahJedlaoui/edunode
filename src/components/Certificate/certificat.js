@@ -48,7 +48,7 @@ import {
   WeiboIcon,
 } from "react-share";
 import axios from 'axios';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async'
 
 import MetaDecorator from './MetaDecorator.jsx';
 const metaDecorator = require("./metaDecorator.json");
