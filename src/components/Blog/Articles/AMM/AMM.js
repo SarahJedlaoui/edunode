@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
 import MetaTags from 'react-meta-tags';
+import { Helmet } from 'react-helmet-async'
 import Footer from '../../../Footer';
 import NavBar from '../../../NavBar';
 import me from '../../me.jpg';
@@ -39,7 +40,7 @@ import {
   LineIcon,
 
 } from 'react-share';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
 import '../style.css';
 import aqua from "./aquaimg.png"
 
@@ -65,7 +66,7 @@ export default class AMM extends Component {
       <MetaTags>
       <title>{title}</title>
       <meta name="description" content="DeFi Explained: What is an Automated Market Maker?" />
-      <meta property="og:title" content="EduNode1" />
+      <meta property="og:title" content="EduNode" />
         <meta property="og:image" content={amm} />
         <meta property="og:image" content="./AMMs.png" />
         <meta property="twitter:image" content={amm}></meta>
@@ -77,16 +78,10 @@ export default class AMM extends Component {
           <title>{title}</title>
           <link rel="canonical" href={shareUrl} />
           
-          <meta
-            name="description"
-            content="What are AMMs? Why are they useful? And how they are being used in decentralized finance."
-          />
-          <meta
-        property="og:image"
-        key="og:image"
-        content={amm}
-      /> 
+          <meta name="description" content="What are AMMs? Why are they useful? And how they are being used in decentralized finance." />
+          <meta property="og:image" key="og:image" content={amm}/> 
       <meta property="twitter:image" content={amm}></meta>
+      
         </Helmet>
         <NavBar />
 

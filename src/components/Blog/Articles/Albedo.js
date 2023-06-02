@@ -62,7 +62,7 @@ import {
   InstapaperIcon,
   WeiboIcon,
 } from "react-share";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet-async'
 import "./style.css";
 import albedo1 from "./albedo11.PNG"
 import albedo2 from "./albedo2.png"

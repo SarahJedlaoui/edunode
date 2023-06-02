@@ -45,7 +45,7 @@ import {
   LineIcon,
 
 } from 'react-share';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async'
 import './style.css';
 
 export default class Soroban extends Component {
