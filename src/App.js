@@ -175,6 +175,7 @@ import Loginn from './components/authentif'
 import Signup from "./components/signup";
 import Glossary from "./components/Glossary";
 import Badge from './components/Badges'
+import EduNodeGuide from'./components/teacher'
 
 function App(props) {
   const location = useLocation();
@@ -359,6 +360,7 @@ function App(props) {
         <Route exact path="/glossary" element={<Glossary />} />
         <Route exact path="/Badges" element={<Badge />} />
         <Route exact path="/challenges/101" element={<ChallengeQ />} />
+        <Route exact path="/for-teachers" element={<EduNodeGuide />} />
       </Routes>
     </Provider>
   );
