@@ -231,7 +231,7 @@ class Teach extends Component {
     this.setState({ showPopup: true });
 
     const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
-    fetch('http://localhost:5001/api/cours/increment-trophy', {
+    fetch('https://edunode.herokuapp.com/api/cours/increment-trophy', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -251,7 +251,7 @@ class Teach extends Component {
       .catch(error => {
         console.error(error);
       });
-
+      this.setState({ showPopup: true });
 
     e.preventDefault();
     //const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";

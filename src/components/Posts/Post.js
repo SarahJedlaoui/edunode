@@ -222,6 +222,32 @@ class Post extends Component {
   }
 
   async handleSubmit(e) {
+
+
+    this.setState({ showPopup: true });
+
+    const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
+    fetch('https://edunode.herokuapp.com/api/post/increment-trophy', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to increment trophy');
+        }
+      })
+      .then(data => {
+        console.log(data.message);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
     this.setState({ showPopup: true });
     e.preventDefault();
     const data = {
@@ -256,7 +282,7 @@ class Post extends Component {
     }
   }
 
- handleClosePopup = () => {
+  handleClosePopup = () => {
     this.setState({ showPopup: false });
   };
 
@@ -292,7 +318,7 @@ class Post extends Component {
       textAlign: 'center',
       color: theme.palette.text.secondary,
     }));
-    const { tags, title, link, description, success,showPopup } = this.state;
+    const { tags, title, link, description, success, showPopup } = this.state;
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     return (
       <UserContext.Provider value={this.state.email}>
@@ -377,38 +403,38 @@ class Post extends Component {
                     )}
                   </Form>
                   <hr />
- <Modal
-                  isOpen={showPopup}
-                  onRequestClose={this.handleClosePopup}
-                  contentLabel="Congratulations"
-                  style={{
-                    overlay: {
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
-                    },
-                    content: {
-                      width: '400px',
-                      height: '400px',
-                      margin: '0 auto',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      padding: '20px',
-                      borderRadius: '8px'
-                    }
-                  }}
-                >
-                  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
-                  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
-                    Thank you for adding new post.
-                  </p>
-                  <img
-                    src={home}
-                    alt="Trophy"
-                    style={{ width: '150px', marginBottom: '20px' }}
-                  />
-                  <button onClick={this.handleClosePopup}>Close</button>
-                </Modal>
+                  <Modal
+                    isOpen={showPopup}
+                    onRequestClose={this.handleClosePopup}
+                    contentLabel="Congratulations"
+                    style={{
+                      overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                      },
+                      content: {
+                        width: '400px',
+                        height: '400px',
+                        margin: '0 auto',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '20px',
+                        borderRadius: '8px'
+                      }
+                    }}
+                  >
+                    <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+                    <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+                      Thank you for adding new post.
+                    </p>
+                    <img
+                      src={home}
+                      alt="Trophy"
+                      style={{ width: '150px', marginBottom: '20px' }}
+                    />
+                    <button onClick={this.handleClosePopup}>Close</button>
+                  </Modal>
                 </div>
               </Grid>
             </Grid>

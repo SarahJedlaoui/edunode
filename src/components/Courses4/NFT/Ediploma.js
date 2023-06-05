@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useEffect } from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
 import { connect } from "react-redux";
 import { clearErrors } from "../../../actions/errorActions";
@@ -11,6 +11,7 @@ import { isConnected, getPublicKey } from "@stellar/freighter-api";
 import axios from "axios";
 import html2canvas from 'html2canvas';
 import dep from "./5.png"
+import growth from './growth.png';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
@@ -19,7 +20,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-
+import Modal from 'react-modal';
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -72,6 +73,7 @@ function Ediploma(props) {
   const [Feedback, setFeedback] = useState('');
   const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
   const courseId = '644bce41e1fec0f4f55a744f';
+  const [showPopup, setShowPopup] = useState(false);
 
 async function sendImageToServer(base64Image, props) {
   try {
@@ -157,7 +159,44 @@ async function sendImageToServer(base64Image, props) {
       // Handle submission error
     }
 
+    const email = loggedInUserEmail;
+
+  fetch('https://edunode.herokuapp.com/api/certificates/increment-trophy', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to increment trophy');
+      }
+    })
+    .then(data => {
+      console.log(data.message); // Success message from the server
+      // Perform any additional actions or display a success message on the frontend
+    })
+    .catch(error => {
+      console.error(error);
+      // Handle any errors that occurred during the request
+    });
+
   }
+
+
+
+
+
+  useEffect(() => {
+    setShowPopup(true);
+  }, []);
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
   
 
   return (
@@ -210,6 +249,38 @@ async function sendImageToServer(base64Image, props) {
           <img src={dep} alt="eCertificate" />
         </div>
       </div>
+      <Modal
+  isOpen={showPopup}
+  onRequestClose={handleClosePopup}
+  contentLabel="Congratulations"
+  style={{
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    content: {
+      width: '400px',
+      height: '400px',
+      margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '20px',
+      borderRadius: '8px'
+    }
+  }}
+>
+  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+    Thank you for finishing the course an claimed this trophy.
+  </p>
+  <img
+    src={growth}
+    alt="Trophy"
+    style={{ width: '150px', marginBottom: '20px' }}
+  />
+  <button onClick={handleClosePopup}>Close</button>
+</Modal>
     </div>
   );
 }
