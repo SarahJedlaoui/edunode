@@ -844,21 +844,9 @@ export const newPost = ({ email, tags, title, link, description, privatee }) => 
       //payload: res.data,
       //});
       //}
-      if (res.user && res.user.email) {
-        dispatch({
-          type: REGISTER_SUCCESS,
-          payload: res.data
-        });
-      } else {
-        dispatch({
-          type: REGISTER_FAIL
-        });
-      }
+      
     })
     .catch((err) => {
       console.log("register failed", err)
-      dispatch({
-        type: REGISTER_FAIL
-      });
     });
 };
