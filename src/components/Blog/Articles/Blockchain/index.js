@@ -38,7 +38,7 @@ import {
   LineIcon,
 
 } from 'react-share';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async'
 import '../style.css';
 import sg from "./stellarglobal.png"
 import tag from "./tag.png"

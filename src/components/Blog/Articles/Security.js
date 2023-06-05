@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
 import Footer from '../../Footer';
 import NavBar from '../../NavBar';
-import orderbook from '../img/orderbook.gif';
-import tut7 from '../img/tut7.PNG';
-import tut8 from '../img/tut8.PNG';
-import tut9 from '../img/tut9.PNG';
-import tut10 from '../img/tut10.PNG';
-import tut11 from '../img/tut11.PNG';
-import tut12 from '../img/tut12.PNG';
-import tut13 from '../img/tut13.PNG';
+
 import security from '../cyber-security.png';
 import lobstr from '../lobstr.png';
 import stellarguard from '../stellarguard.png';
@@ -63,6 +56,8 @@ import {
 } from 'react-share';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
+
 
 export default class Kelp extends Component {
   constructor(props) {

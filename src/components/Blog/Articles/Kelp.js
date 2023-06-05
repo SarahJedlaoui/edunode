@@ -66,7 +66,7 @@ import {
 } from "react-share";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async'
 
 
 const HighLight1 = () => {
