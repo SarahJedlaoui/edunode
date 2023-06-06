@@ -21,7 +21,8 @@ import home from './homework.png';
 import Container from '@mui/material/Container';
 import tuto from './tutorial.png';
 import dec from './decision-making.png';
-
+import { ContactsOutlined } from '@material-ui/icons';
+import axios from 'axios';
 
 
 
@@ -38,8 +39,32 @@ class Badge extends Component {
             coursesTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.CoursesTrophy ? this.props.auth.user.CoursesTrophy : 0,
             postsTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.PostsTrophy ? this.props.auth.user.PostsTrophy : 0,
             addCoursesTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.AddCoursesTrophy ? this.props.auth.user.AddCoursesTrophy : 0,
+            users: null
         }
 
+    }
+
+    componentDidMount() {
+        this.fetchUsers();
+    }
+    fetchUsers = async () => {
+    
+
+        const localUser = localStorage.getItem('user');
+        const user = JSON.parse(localUser);
+        const localEmail = user.email;
+        console.log('local email ', user.email)
+        axios.get('https://edunode.herokuapp.com/api/users/user', {
+                body: {
+                    email: localEmail // Pass the email as per your requirement
+                }
+            })
+            .then(response => {
+                this.setState({ users: response.data });
+            })
+            .catch(error => {
+                console.error('Error fetching user:', error);
+            });
     }
 
     render() {
@@ -48,9 +73,14 @@ class Badge extends Component {
             isVerified,
             hasUsername,
             isGranted,
-            user,
-          } = this.props.auth;
-          const hasShownPopupChat = localStorage.getItem('shownPopupChat');
+
+        } = this.props.auth;
+        const hasShownPopupChat = localStorage.getItem('shownPopupChat');
+
+        console.log('local user ', this.state.users)
+
+
+
         //console.log(this.props.auth.user)
         //console.log(this.props.auth.user.pkey)
 
@@ -98,98 +128,98 @@ class Badge extends Component {
                                         )}
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={4}>
-                                    {postsTrophy !== 0 && (
-                                        <Card sx={{ maxWidth: 300 }}>
-                                            <CardActionArea>
-                                                <CardMedia
-                                                    component="img"
-                                                    height="120"
-                                                    image={home}
-                                                    alt="Course badge"
-                                                />
-                                                <CardContent>
-                                                    <Typography gutterBottom variant="h5" component="div">
-                                                        Posts Badge
-                                                    </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        Congratulations! You have added {postsTrophy} post(s)!
-                                                    </Typography>
-                                                </CardContent>
-                                            </CardActionArea>
-                                        </Card>
-                                    )}
+                                        {postsTrophy !== 0 && (
+                                            <Card sx={{ maxWidth: 300 }}>
+                                                <CardActionArea>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="120"
+                                                        image={home}
+                                                        alt="Course badge"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" component="div">
+                                                            Posts Badge
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            Congratulations! You have added {postsTrophy} post(s)!
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        )}
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={4}>
+                                        {addCoursesTrophy !== 0 && (
+                                            <Card sx={{ maxWidth: 300 }}>
+                                                <CardActionArea>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="120"
+                                                        image={elearn}
+                                                        alt="Course badge"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" component="div">
+                                                            Add Course Badge
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            Congratulations! You have added {addCoursesTrophy} course(s)!
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        )}
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={4}>
+                                        {isAuthenticated && isVerified && (
+                                            <Card sx={{ maxWidth: 300 }}>
+                                                <CardActionArea>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="120"
+                                                        image={tuto}
+                                                        alt="Course badge"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" component="div">
+                                                            Community Badge
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            Congratulations! You are a member of our commumnity!
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        )}
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={4}>
+                                        {hasShownPopupChat && (
+                                            <Card sx={{ maxWidth: 300 }}>
+                                                <CardActionArea>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="120"
+                                                        image={dec}
+                                                        alt="Course badge"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" component="div">
+                                                            AI Badge
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            Congratulations! You have an AI Badge!
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        )}
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                {addCoursesTrophy !== 0 && (
-                                    <Card sx={{ maxWidth: 300 }}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                                component="img"
-                                                height="120"
-                                                image={elearn}
-                                                alt="Course badge"
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="div">
-                                                    Add Course Badge
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    Congratulations! You have added {addCoursesTrophy} course(s)!
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                )}
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={4}>
-                                {isAuthenticated && isVerified && (
-                                    <Card sx={{ maxWidth: 300 }}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                                component="img"
-                                                height="120"
-                                                image={tuto}
-                                                alt="Course badge"
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="div">
-                                                    Community Badge 
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    Congratulations! You are a member of our commumnity!
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                )}
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={4}>
-                                {hasShownPopupChat && (
-                                    <Card sx={{ maxWidth: 300 }}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                                component="img"
-                                                height="120"
-                                                image={dec}
-                                                alt="Course badge"
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="div">
-                                                    AI Badge 
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    Congratulations! You have an AI Badge!
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                )}
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </div >
+                            </Container>
+                        </div >
 
-                    <Footer />
+                        <Footer />
 
                     </div >
 
