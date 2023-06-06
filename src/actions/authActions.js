@@ -127,7 +127,7 @@ export const login = ({ email, password }) => dispatch => {
   const body = JSON.stringify({ email, password });
 
 
-  fetch('http://localhost:5001/api/emaillogin', {
+  fetch('https://edunode.herokuapp.com/api/emaillogin', {
     method: 'POST',
     headers: {
       'Access-Control-Allow-Origin': '*',
