@@ -176,6 +176,7 @@ import Signup from "./components/signup";
 import Glossary from "./components/Glossary";
 import Badge from './components/Badges'
 import EduNodeGuide from'./components/teacher'
+import StudentsPage from "./components/student"
 import PasswordPage from './components/Login/password'
 import ResetPasswordPage from './components/Login/reset_password'
 

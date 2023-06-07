@@ -447,8 +447,8 @@ class Login extends Component {
             </Link>
           </div>
           <div>
-            <Link to="/forget_password">
-              Forget your password?
+            <Link to="/forgot_password">
+              Forgot your password?
             </Link>
           </div>
         </form>

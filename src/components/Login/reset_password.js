@@ -1,5 +1,3 @@
-// ResetPasswordPage.js (continued)
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -49,7 +47,7 @@ const ResetPasswordPage = () => {
         // Pass the token and new password to the API endpoint
 
 
-        axios.post(`https://edunode.herokuapp.com/api/password/reset-password/${token}`, { password })
+     axios.post(`https://edunode.herokuapp.com/api/password/reset-password/${token}`, { password })
             .then(response => {
                 // Handle successful password reset
                 console.log(response.data.message);

@@ -41,14 +41,14 @@ export default function MultipleSelect() {
 
         // Redirect to the corresponding page based on the selected item
         if (value === "Learn") {
-            navigate('/courses');
+            navigate('/for-students');
         }
         if (value === "Teach") {
-            navigate('/course');
+            navigate('/for-teachers');
         }
-        if (value === "Certify") {
-            navigate('/certifications');
-        }
+        // if (value === "Certify") {
+        //     navigate('/about-certifications');
+        // }
     };
 
     return (
