@@ -1,11 +1,13 @@
-/*global google*/
-
 import React, { Component } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 import "./style.css";
 import NavBar from "../NavBar";
+
+
+
+
 class PasswordPage extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +33,8 @@ class PasswordPage extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Handle success or error response from the server
+        console.log(data); 
+        alert('A reset link is sent to your Email!');// Handle success or error response from the server
       })
       .catch((error) => {
         console.log(error);
