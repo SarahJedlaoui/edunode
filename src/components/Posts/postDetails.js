@@ -137,7 +137,7 @@ function PostDetails(props) {
                 <h2>{post.title}</h2>
                 <br></br>
                 <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Description :</h1>
-                <p>{post.description}</p>
+                <p  dangerouslySetInnerHTML={{ __html: post.description }} ></p>
                 <br></br>
                 <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Link :</h1>
                 <a href={post.link}>{post.link}</a>

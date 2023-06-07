@@ -364,7 +364,7 @@ function App(props) {
         <Route exact path="/challenges/101" element={<ChallengeQ />} />
         <Route exact path="/for-teachers" element={<EduNodeGuide />} />
         <Route exact path="/forget_password" element={<PasswordPage />} />
-        <Route exact path="/reset-password/:token" element={<ResetPasswordPage />} />
+        <Route exact path="/reset-password" element={<ResetPasswordPage />} />
       </Routes>
     </Provider>
   );

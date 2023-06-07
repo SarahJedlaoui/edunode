@@ -60,9 +60,9 @@ const ResetPasswordPage = () => {
             });
     };
 
-   // if (!tokenValid) {
-      //  return <p>Invalid or expired reset token.</p>;
-   // }
+    if (!tokenValid) {
+       return <p>Invalid or expired reset token.</p>;
+   }
 
     return (
         <div>
