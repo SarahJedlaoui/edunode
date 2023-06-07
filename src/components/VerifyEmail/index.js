@@ -24,9 +24,6 @@ import { Navigate } from "react-router-dom";
 import { loadUser } from '../../actions/authActions';
 import axios from 'axios';
 
-
-
-
 const validate = values => {
   const errors = {};
   const requiredFields = ["confirmationCode"];
@@ -120,7 +117,7 @@ class VerifyEmail extends Component {
     const user = storedUser ? JSON.parse(storedUser) : null;
    console.log('resend email',user.email)
     resend(user.email);
-    alert(`A confirmation code has be sent to your email ${user.email}, please also check your spam folder`);
+    alert(`A confirmation code has be sent to your email ${this.props.auth.user.email}, please also check your spam folder`);
     //   };
   }
   onChange = e => {

@@ -141,7 +141,6 @@ class Login extends Component {
 */
 
 
-
   renderTextField = ({
     label,
     input,
@@ -157,6 +156,8 @@ class Login extends Component {
       {...custom}
     />
   )
+
+
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -197,6 +198,7 @@ class Login extends Component {
 
 
 
+
     const albedoHandler = () => {
 
       albedo.publicKey({
@@ -221,9 +223,7 @@ class Login extends Component {
 
         })
     }
-    // const gLogin = useGoogleLogin({
-    //   onSuccess: tokenResponse => console.log(tokenResponse),
-    // });
+
     const handleMetamask = async (e) => {
       e.preventDefault()
       let provider;
@@ -350,6 +350,21 @@ class Login extends Component {
 
 
           <br></br>
+          
+          <div>
+          {/* <Button
+              style={{ width: '300px' }}
+              onClick={xBullWalletConnectHandle}
+              variant="outlined"
+            >
+
+              Login with xBull
+              
+            </Button> */}
+          </div>
+
+          <br></br>
+          
           <div>
             <Button
               style={{ width: '300px' }}
@@ -362,9 +377,7 @@ class Login extends Component {
             </Button>
 
           </div>
-          <div>
-
-          </div>
+          
           <br></br>
           <div>
             <Button

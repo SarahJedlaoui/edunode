@@ -49,11 +49,10 @@ import {
 } from "react-share";
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async'
-
 import MetaDecorator from './MetaDecorator.jsx';
 const metaDecorator = require("./metaDecorator.json");
 
-
+// const ciid = 'https://edunode.org/blog/automated-market-maker';
 
 function Certificat() {
   const { certificateNumber } = useParams();
@@ -109,7 +108,7 @@ function Certificat() {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content={metaDecorator.twitterUsername} />
-
+        <link rel="canonical" href={shareUrl} />
 
       </Helmet>
       <h1>Share you certification with others : </h1>
