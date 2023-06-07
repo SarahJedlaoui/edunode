@@ -41,14 +41,14 @@ export default function MultipleSelect() {
 
         // Redirect to the corresponding page based on the selected item
         if (value === "Learn") {
-            navigate('/courses');
+            navigate('/for-students');
         }
         if (value === "Teach") {
             navigate('/for-teachers');
         }
-        if (value === "Certify") {
-            navigate('/about-certifications');
-        }
+        // if (value === "Certify") {
+        //     navigate('/about-certifications');
+        // }
     };
 
     return (
@@ -78,13 +78,13 @@ export default function MultipleSelect() {
                         >
                             Teach
                         </MenuItem>
-                        <MenuItem
+                        {/* <MenuItem
                             key="Certify"
                             value="Certify"
                             style={getStyles("Certify", personName, theme)}
                         >
                             Certify
-                        </MenuItem>
+                        </MenuItem> */}
                     </Select>
                 </FormControl>
             </div >

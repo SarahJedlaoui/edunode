@@ -176,6 +176,7 @@ import Signup from "./components/signup";
 import Glossary from "./components/Glossary";
 import Badge from './components/Badges'
 import EduNodeGuide from'./components/teacher'
+import StudentsPage from "./components/student"
 import PasswordPage from './components/Login/password'
 import ResetPasswordPage from './components/Login/reset_password'
 
@@ -363,6 +364,7 @@ function App(props) {
         <Route exact path="/Badges" element={<Badge />} />
         <Route exact path="/challenges/101" element={<ChallengeQ />} />
         <Route exact path="/for-teachers" element={<EduNodeGuide />} />
+        <Route exact path="/for-students" element={<StudentsPage />} />
         <Route exact path="/forget_password" element={<PasswordPage />} />
         <Route exact path="/reset-password/:token" element={<ResetPasswordPage />} />
       </Routes>

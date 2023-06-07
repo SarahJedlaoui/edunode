@@ -16,8 +16,7 @@ import Footer from '../../../Footer';
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../../actions/errorActions';
 import { reduxForm } from 'redux-form';
-import Precourse from "../Precourse.js";
-import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
+import Editor from '@monaco-editor/react';
 import "./styles.css"
 
 const useStyles = makeStyles((theme) => ({
@@ -138,7 +137,7 @@ function VerticalLinearStepper(props) {
           <Editor
             height="60vh"
             defaultLanguage="rust"
-            defaultValue="// some comment"
+            defaultValue="// Please enter your Rust code here."
             onMount={handleEditorDidMount}
             theme="vs-dark"
           />

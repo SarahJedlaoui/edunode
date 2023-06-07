@@ -37,7 +37,35 @@ function EduNodeGuide() {
 
             </Typography>
             <Typography variant="h5" gutterBottom mt={4}>
-              3. Easy Tracking and Assessment
+              3.  Interactive Teaching
+            </Typography>
+            <Typography variant="body1" paragraph>
+            EduNode offers a variety of tools that can make your lessons interactive and engaging. You can use multimedia content, quizzes, discussion forums, and real-time feedback options to facilitate active learning. These tools can help maintain student interest and cater to different learning styles.
+            </Typography>
+            <Typography variant="h5" gutterBottom mt={4}>
+              4.  Personalized Learning Paths
+            </Typography>
+            <Typography variant="body1" paragraph>
+            Understanding that each student is unique, EduNode allows you to customize your courses to meet the specific needs and pace of individual learners. You can easily adjust the difficulty level, change the course content, and provide personalized feedback. This way, you're able to ensure that all your students are on track and fully engaged.
+            </Typography>
+
+            <Typography variant="h5" gutterBottom mt={4}>
+              5.  Collaborating with Other Educators
+            </Typography>
+            <Typography variant="body1" paragraph>
+            EduNode is not just a platform for you and your students; it's also a community of educators. You can collaborate with teachers from all over the world, sharing experiences, strategies, and resources. This can help enrich your teaching practices and expose you to a diversity of pedagogical approaches.
+            </Typography>
+
+            <Typography variant="h5" gutterBottom mt={4}>
+              6.  Enhancing Your Professional Development
+            </Typography>
+            <Typography variant="body1" paragraph>
+            EduNode provides a wealth of resources and courses dedicated to teachers' professional development. You can learn about the latest educational research, pedagogical strategies, and technological tools. By continuously learning and growing, you can enhance your teaching effectiveness and career advancement.
+            </Typography>
+
+
+            <Typography variant="h5" gutterBottom mt={4}>
+              7. Easy Tracking and Assessment
             </Typography>
             <Typography variant="body1" paragraph>
               EduNode provides robust tracking and assessment tools. You can easily monitor students' progress, identify areas where they're struggling, and adjust your teaching accordingly. EduNode's analytical tools also provide insights into the effectiveness of your teaching methods and course materials, helping you continually improve your practice.
@@ -56,3 +84,4 @@ function EduNodeGuide() {
 }
 
 export default EduNodeGuide;
+

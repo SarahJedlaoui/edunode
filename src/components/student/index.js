@@ -1,66 +1,76 @@
 import React from 'react';
-import { Box, Typography, Paper, Container } from '@mui/material';
 import Navbar1 from '../Dashboard/Navbar1';
+import { Box, Typography, Paper, Container } from '@mui/material';
 
-function EduNodeGuide() {
-  return (
-    <>
+class StudentsPage extends React.Component {
+  render() {
+    return (
+      <>
       <Navbar1 />
       <Box mt={4}> {/* For margin top */}
         <Container maxWidth="md">
           <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
             <Typography variant="h3" gutterBottom>
-              Leveraging EduNode for Educators: A Comprehensive Guide
+            Harnessing EduNode for Students: A Complete Guide
             </Typography>
             <Typography variant="body1" paragraph>
-              Welcome teachers! We understand that navigating a new educational platform might seem daunting, so we've put together a comprehensive guide to help you effectively utilize EduNode. EduNode is a revolutionary platform that enables teachers like yourself to connect with students across the globe, expand your teaching resources, and achieve your pedagogical goals.
+            Welcome, students! We understand that each of you has unique learning goals and preferences. That's why we've crafted this guide to help you leverage the benefits of EduNode, a powerful learning platform designed to cater to your individual educational needs and ambitions. Here's how you can use EduNode to optimize your learning journey:
             </Typography>
 
             <Typography variant="h5" gutterBottom mt={4}>
-              1. Expanding Your Reach
+              1. Diverse Learning Opportunities
             </Typography>
             <Typography variant="body1" paragraph>
-              With EduNode, you have the unique opportunity to extend your teaching beyond the four walls of a classroom. You can create and publish online courses, reaching students from different regions and backgrounds. This way, you are not only contributing to making education more accessible, but you're also expanding your influence as an educator.
+            EduNode offers a wide range of courses covering various subjects. Whether you're interested in mastering a new language, learning programming, understanding quantum physics, or exploring creative writing, EduNode is your go-to platform. This opens up a world of knowledge at your fingertips.
             </Typography>
 
             {/* Add other sections here */}
 
             
             <Typography variant="h5" gutterBottom mt={4}>
-              2. Tools and Resources
+              2. Personalized Learning Experience
             </Typography>
             <Typography variant="body1" paragraph>
-           <p>Here you can find some tools that you can leverage:</p>  
-           <p>Here you can create a new course: <a href="https://edunode.org/course">https://edunode.org/course</a> </p> 
-           <p>Here you can create a new post: <a href="https://edunode.org/post">https://edunode.org/post</a> </p> 
-           Additionally, feel free to use our Chat Feature if you need support creating new courses: <a href="https://edunode.org/chat">https://edunode.org/chat</a>
+            EduNode allows you to learn at your own pace. You can tailor your learning path according to your needs and adjust it whenever necessary. With features like replaying lectures, pausing to take notes, and accelerating video speed, you have full control over your learning process.
 
             </Typography>
             <Typography variant="h5" gutterBottom mt={4}>
-              3.  Interactive Teaching
+              3. Interactive and Engaging Content
             </Typography>
             <Typography variant="body1" paragraph>
-            EduNode offers a variety of tools that can make your lessons interactive and engaging. You can use multimedia content, quizzes, discussion forums, and real-time feedback options to facilitate active learning. These tools can help maintain student interest and cater to different learning styles.
+            EduNode's courses are designed to be highly interactive, making learning more enjoyable and effective. They include multimedia content, quizzes, real-life project assignments, and discussion forums. This not only helps you grasp complex concepts but also enables you to apply what you've learned.
             </Typography>
             <Typography variant="h5" gutterBottom mt={4}>
-              4.  Personalized Learning Paths
+              4. Access to Experts and Peers
             </Typography>
             <Typography variant="body1" paragraph>
-            Understanding that each student is unique, EduNode allows you to customize your courses to meet the specific needs and pace of individual learners. You can easily adjust the difficulty level, change the course content, and provide personalized feedback. This way, you're able to ensure that all your students are on track and fully engaged.
+            With EduNode, you get to learn from expert educators across the globe. You can interact with them through discussions, receive personalized feedback, and get your questions answered. Additionally, you can collaborate with your peers, learn from their perspectives, and make learning a social experience.
             </Typography>
 
             <Typography variant="h5" gutterBottom mt={4}>
-              5.  Collaborating with Other Educators
+              5. Skill Development and Portfolio Building
             </Typography>
             <Typography variant="body1" paragraph>
-            EduNode is not just a platform for you and your students; it's also a community of educators. You can collaborate with teachers from all over the world, sharing experiences, strategies, and resources. This can help enrich your teaching practices and expose you to a diversity of pedagogical approaches.
+            EduNode provides opportunities for you to work on real-life projects and gain practical experience. This can significantly enhance your skills and build your portfolio, making you stand out in college applications, internships, or job markets.
             </Typography>
-
             <Typography variant="h5" gutterBottom mt={4}>
-              6.  Enhancing Your Professional Development
+              6. Tools and Resources
             </Typography>
             <Typography variant="body1" paragraph>
-            EduNode provides a wealth of resources and courses dedicated to teachers' professional development. You can learn about the latest educational research, pedagogical strategies, and technological tools. By continuously learning and growing, you can enhance your teaching effectiveness and career advancement.
+            <p>Here you can find some tools that you can leverage:</p>  
+           <p>Here you can find our course: <a href="https://edunode.org/courses">https://edunode.org/courses</a> </p> 
+           <p>Here you can find our blog: <a href="https://edunode.org/blog">https://edunode.org/blog</a> </p> 
+           Additionally, you use our Chat Feature to harness AI for learning purposes: <a href="https://edunode.org/chat">https://edunode.org/chat</a>
+            </Typography>
+            <Typography variant="h5" gutterBottom mt={4}>
+              7. Track Your Progress
+            </Typography>
+            <Typography variant="body1" paragraph>
+            EduNode's built-in tracking and assessment tools allow you to monitor your learning progress, identify areas of improvement, and adapt your study strategies accordingly. This helps you stay focused, motivated, and on the path to reaching your learning goals.
+
+To get started, sign up on the EduNode platform, set up your profile, and explore the courses available. Remember, you also have access to a detailed help section and a responsive customer support team if you need any assistance.
+
+Learning is a lifelong journey, and with EduNode, you get to navigate this journey on your own terms. Embrace the opportunities, engage with the community, and most importantly, enjoy the process! Your educational adventure awaits on EduNode.
             </Typography>
 
 
@@ -80,7 +90,8 @@ function EduNodeGuide() {
         </Container>
       </Box>
     </>
-  );
+    );
+  }
 }
 
-export default EduNodeGuide;
+export default StudentsPage;
