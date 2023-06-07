@@ -433,6 +433,11 @@ class Login extends Component {
               Return
             </Link>
           </div>
+          <div>
+            <Link to="/forget_password">
+              Forget your password?
+            </Link>
+          </div>
         </form>
 
       </div>
