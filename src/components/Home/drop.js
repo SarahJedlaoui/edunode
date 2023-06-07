@@ -44,10 +44,10 @@ export default function MultipleSelect() {
             navigate('/courses');
         }
         if (value === "Teach") {
-            navigate('/course');
+            navigate('/for-teachers');
         }
         if (value === "Certify") {
-            navigate('/certifications');
+            navigate('/about-certifications');
         }
     };
 
@@ -78,13 +78,13 @@ export default function MultipleSelect() {
                         >
                             Teach
                         </MenuItem>
-                        {/* <MenuItem
+                        <MenuItem
                             key="Certify"
                             value="Certify"
                             style={getStyles("Certify", personName, theme)}
                         >
                             Certify
-                        </MenuItem> */}
+                        </MenuItem>
                     </Select>
                 </FormControl>
             </div >
