@@ -52,6 +52,7 @@ class NavBar1 extends Component {
       <Nav.Link href="/chat">Chat</Nav.Link>
       <Nav.Link href="/historyChat">Chat History</Nav.Link>
       <Nav.Link href="/badges">Badges</Nav.Link>
+      <Nav.Link href="/challenges">Challenges</Nav.Link>
     </Nav>
 
     <Nav>
