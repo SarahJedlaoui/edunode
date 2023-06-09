@@ -160,8 +160,9 @@ async function sendImageToServer(base64Image, props) {
     }
 
     const email = loggedInUserEmail;
-
-  fetch('https://edunode.herokuapp.com/api/certificates/increment-trophy', {
+    console.log('loggedInUserEmail')
+    console.log(loggedInUserEmail)
+  fetch('https://edunode.herokuapp.com/api/certificates/challenge/increment-Challenge', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

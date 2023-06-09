@@ -18,6 +18,7 @@ import { CardActionArea } from '@mui/material';
 import growth from './growth.png';
 import elearn from './elearning.png';
 import home from './homework.png';
+import strong from './strong.png';
 import Container from '@mui/material/Container';
 import tuto from './tutorial.png';
 import dec from './decision-making.png';
@@ -39,6 +40,7 @@ class Badge extends Component {
             coursesTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.CoursesTrophy ? this.props.auth.user.CoursesTrophy : 0,
             postsTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.PostsTrophy ? this.props.auth.user.PostsTrophy : 0,
             addCoursesTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.AddCoursesTrophy ? this.props.auth.user.AddCoursesTrophy : 0,
+            challengeTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.ChallengesTrophy ? this.props.auth.user.ChallengesTrophy : 0,
             users: null
         }
 
@@ -85,7 +87,7 @@ class Badge extends Component {
         //console.log(this.props.auth.user.pkey)
 
         const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
-        const { certificateCount, certificates, coursesTrophy, postsTrophy, addCoursesTrophy } = this.state;
+        const { certificateCount, certificates, coursesTrophy, postsTrophy, addCoursesTrophy , challengeTrophy} = this.state;
 
         if (this.props.auth.user) {
             return (
@@ -209,6 +211,28 @@ class Badge extends Component {
                                                         </Typography>
                                                         <Typography variant="body2" color="text.secondary">
                                                             Congratulations! You have an AI Badge!
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        )}
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={4}>
+                                        {challengeTrophy !== 0 && (
+                                            <Card sx={{ maxWidth: 300 }}>
+                                                <CardActionArea>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="120"
+                                                        image={strong}
+                                                        alt="Course badge"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" component="div">
+                                                           Challenge Badge
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            Congratulations! You have finished {challengeTrophy} challenge(s)!
                                                         </Typography>
                                                     </CardContent>
                                                 </CardActionArea>
