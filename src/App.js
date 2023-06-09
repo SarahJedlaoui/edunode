@@ -118,6 +118,7 @@ import Coursedone6 from "./components/Courses6/Coursedone"
 import Coursedone7 from "./components/Courses7/Coursedone"
 import Coursedone8 from "./components/Courses8/Coursedone"
 import Coursedone9 from "./components/Courses9/Coursedone"
+import Challengedone from "./components/Challenges/Challenge/Coursedone"
 import Keybase from "./components/Blog/Articles/Keybase";
 import Issue from "./components/Blog/Articles/Issue";
 import Register from "./components/Register";
@@ -363,6 +364,7 @@ function App(props) {
         <Route exact path="/glossary" element={<Glossary />} />
         <Route exact path="/Badges" element={<Badge />} />
         <Route exact path="/challenges/101" element={<ChallengeQ />} />
+        <Route exact path="/challenges/101/done" element={<Challengedone />} />
         <Route exact path="/for-teachers" element={<EduNodeGuide />} />
         <Route exact path="/forgot_password" element={<PasswordPage />} />
         <Route exact path="/reset-password" element={<ResetPasswordPage />} />

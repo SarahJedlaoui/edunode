@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import NavBar from '../NavBar';
-import Footer from '../Footer';
+import NavBar from '../../NavBar';
+import Footer from '../../Footer';
 import CircularIntegration from './One/CheckFive';
 import {
   Form,
@@ -19,10 +19,10 @@ import {
   setCourseOne,
   setCourseOneGoogle,
   setCourseOneAlbedo
-} from '../../actions/authActions';
+} from '../../../actions/authActions';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { clearErrors } from '../../actions/errorActions';
+import { clearErrors } from '../../../actions/errorActions';
 import { Field, reduxForm } from 'redux-form';
 import Ediploma from "./NFT/Ediploma"
 

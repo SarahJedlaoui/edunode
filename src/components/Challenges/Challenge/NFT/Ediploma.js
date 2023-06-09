@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useEffect } from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
 import { connect } from "react-redux";
-import { clearErrors } from "../../../actions/errorActions";
-import { verifyCode } from "../../../actions/authActions";
+import { clearErrors } from "../../../../actions/errorActions";
+import { verifyCode } from "../../../../actions/authActions";
 import { reduxForm } from "redux-form";
 import albedo from '@albedo-link/intent'
 import "./styles.css";
@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { isConnected, getPublicKey } from "@stellar/freighter-api";
 import axios from "axios";
 import html2canvas from 'html2canvas';
-import dep from "./2.png"
+import dep from "./rust.png"
+import strong from './strong.png';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
@@ -19,7 +20,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-
+import Modal from 'react-modal';
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -64,42 +65,47 @@ IconContainer.propTypes = {
 
 
 
+
 function Ediploma(props) {
   const certificateWrapper = useRef(null);
   const [ratingValue, setRatingValue] = useState(5);
   const [Name, setName] = useState(props.user && props.user.name ? props.user.name : '');
   const [Feedback, setFeedback] = useState('');
   const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
-  const courseId = '644bcdeee1fec0f4f55a7449';
+  const courseId = '644bce41e1fec0f4f55a744f';
+  const [showPopup, setShowPopup] = useState(false);
 
 async function sendImageToServer(base64Image, props) {
-    try {
-      if (props.auth.user.email) {
-        const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma1", {
-          
-          email: props.auth.user.email ? props.auth.user.email : null,
-          name: Name
-        });
-        console.log('hi');
-        console.log(props.auth.user.pkey);
-        console.log(response.data); // Check if the image was saved successfully
+  try {
+    if (props.auth.user.email) {
+      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/challenge1", {
+      
+      pkey: props.auth.user.pkey ? props.auth.user.pkey : null,
+      email: props.auth.user.email ? props.auth.user.email : null,
+      name: Name
+    });
+    console.log('hi'); 
+    console.log(props.auth.user.pkey);
+    console.log(response.data); // Check if the image was saved successfully
+      
+    } else if (props.auth.user.pkey) {
 
-      } else if (props.auth.user.pkey) {
-
-        const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma1", {
-          
-          pkey: props.auth.user.pkey,
-          name: Name
-        });
-        console.log(response.data); // Check if the image was saved successfully
-
-      }
-
-
-    } catch (error) {
-      console.error(error);
+      const response = await axios.post("https://edunode.herokuapp.com/api/certificates/challenge1", {
+      //image: base64Image,
+      pkey: props.auth.user.pkey,
+      name: Name
+    });
+    console.log(response.data); // Check if the image was saved successfully
+    
     }
+    
+   
+  } catch (error) {
+    console.error(error);
   }
+}
+
+
 
   async function getCertificateBase64() {
     const canvas = await html2canvas(certificateWrapper.current, {
@@ -109,6 +115,7 @@ async function sendImageToServer(base64Image, props) {
     return base64Image;
   }
 
+  const navigate = useNavigate();
 
   const handleConfirmDownload = async (e) => {
     e.preventDefault();
@@ -122,7 +129,7 @@ async function sendImageToServer(base64Image, props) {
     });
     setTimeout(function () {
       try {
-       // window.location.href = "/";
+        window.location.href = "/";
       } catch (error) {
         console.log(error);
       }
@@ -152,8 +159,45 @@ async function sendImageToServer(base64Image, props) {
       // Handle submission error
     }
 
+    const email = loggedInUserEmail;
+
+  fetch('https://edunode.herokuapp.com/api/certificates/increment-trophy', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to increment trophy');
+      }
+    })
+    .then(data => {
+      console.log(data.message); // Success message from the server
+      // Perform any additional actions or display a success message on the frontend
+    })
+    .catch(error => {
+      console.error(error);
+      // Handle any errors that occurred during the request
+    });
+
   }
 
+
+
+
+
+  useEffect(() => {
+    setShowPopup(true);
+  }, []);
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+  
 
   return (
     <div className="App">
@@ -205,10 +249,41 @@ async function sendImageToServer(base64Image, props) {
           <img src={dep} alt="eCertificate" />
         </div>
       </div>
+      <Modal
+  isOpen={showPopup}
+  onRequestClose={handleClosePopup}
+  contentLabel="Congratulations"
+  style={{
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    content: {
+      width: '400px',
+      height: '400px',
+      margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '20px',
+      borderRadius: '8px'
+    }
+  }}
+>
+  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+    Congratulations for finishing the challenge! you have claimed this trophy.
+  </p>
+  <img
+    src={strong}
+    alt="Trophy"
+    style={{ width: '150px', marginBottom: '20px' }}
+  />
+  <button onClick={handleClosePopup}>Close</button>
+</Modal>
     </div>
   );
 }
-
 
 const mapStateToProps = (state) => ({
   auth: state.auth,

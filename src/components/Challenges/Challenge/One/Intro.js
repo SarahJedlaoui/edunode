@@ -18,6 +18,15 @@ import { clearErrors } from '../../../../actions/errorActions';
 import { reduxForm } from 'redux-form';
 import Editor from '@monaco-editor/react';
 import "./styles.css"
+import Dialog from '@mui/material/Dialog';
+import space from './space.png'
+import { useNavigate } from 'react-router-dom';
+import store from './1.png'
+import list from './list.png'
+import add from './add.png'
+import findName from './find.png'
+import all from './all.png'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +43,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-
+const stepImages = [
+  store,
+  list,
+  add,
+  findName,
+  all,
+];
 function getSteps() {
   return [
     'Challenge Description:',
@@ -52,7 +67,7 @@ const highlightText = (text) => {
     }
     return chunk;
   });
-};
+}
 
 function getStepContent(step) {
   switch (step) {
@@ -84,80 +99,155 @@ function getStepContent(step) {
 }
 
 function VerticalLinearStepper(props) {
-
+  const [openDialog, setOpenDialog] = useState(false);
   const steps = getSteps();
-  const editorRef = useRef(null);
-  function handleEditorDidMount(editor, monaco) {
-    editorRef.current = editor;
+  const [editorValues, setEditorValues] = useState(Array(steps.length).fill(''));
+  const [activeStep, setActiveStep] = useState(0);
+  const navigate = useNavigate();
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  function handleEditorChange(value, stepIndex) {
+    const updatedValues = [...editorValues];
+    updatedValues[stepIndex] = value;
+    setEditorValues(updatedValues);
   }
 
-  function showValue() {
-    alert(editorRef.current.getValue());
+  function handleNext() {
+    const isAnswerCorrect = validateStep(activeStep, editorValues[activeStep]);
+    if (isAnswerCorrect) {
+      if (activeStep === steps.length - 1) {
+        // Last step reached
+        // Continue with your logic here
+         navigate('/challenges/101/done');
+      } else {
+        setActiveStep(activeStep + 1);
+      }
+    } else {
+      alert('Answer incorrect. Please try again.');
+    }
   }
+
+  function handleChangeValue(value, index) {
+    const newEditorValues = [...editorValues];
+    newEditorValues[index] = value;
+    setEditorValues(newEditorValues);
+  }
+
+  function validateStep(stepIndex, value) {
+    const validationFuncs = [
+      validateStep1,
+      validateStep2,
+      validateStep3,
+      validateStep4,
+      validateStep5
+    ];
+    return validationFuncs[stepIndex](value);
+  }
+
+  function validateStep1(value) {
+    const expectedValueRegex = /^pub\s+struct\s+Spaceship\s+{\s+name:\s+String,\s+destination:\s+String,\s+}$/;
+    return expectedValueRegex.test(value);
+  }
+
+  function validateStep2(value) {
+    const expectedValueRegex = /^impl\s+Spaceship\s+{\s+pub\s+fn\s+new\(name:\s+String,\s+destination:\s+String\)\s+->\s+Spaceship\s+{\s+Spaceship\s+{\s+name,\s+destination\s+}\s+}\s+}$/;
+    return expectedValueRegex.test(value);
+  }
+
+  function validateStep3(value) {
+    const expectedValueRegex = /^pub\s+fn\s+add_spaceship\(spacecrafts:\s+&mut\s+Vec<Spaceship>,\s+spaceship:\s+Spaceship\)\s+{\s+spacecrafts.push\(spaceship\);\s+}$/;
+    return expectedValueRegex.test(value);
+  }
+
+  function validateStep4(value) {
+    const expectedValueRegex = /^pub\s+fn\s+find_spaceship\(spacecrafts:\s+&Vec<Spaceship>,\s+name:\s+String\)\s+->\s+Option<&Spaceship>\s+{\s+spacecrafts.iter\(\).find\(\|s\|\s+s.name\s+==\s+name\)\s+}$/;
+    return expectedValueRegex.test(value);
+  }
+
+  function validateStep5(value) {
+    const expectedValueRegex = /^pub\s+fn\s+spaceships_to_destination\(spacecrafts:\s+&Vec<Spaceship>,\s+destination:\s+String\)\s+->\s+Vec<String>\s+{\s+spacecrafts\s*\.\s*iter\s*\(\s*\)\s*\.\s*filter\s*\(\s*\|s\s*\|\s*s\s*\.\s*destination\s*==\s*destination\s*\)\s*\.\s*map\s*\(\s*\|s\s*\|\s*s\s*\.\s*name\s*\.\s*clone\s*\(\s*\)\s*\)\s*\.\s*collect\s*\(\s*\)\s*}$/;
+    return expectedValueRegex.test(value);
+  }
+  const getStepAnswer = (stepIndex) => {
+    const answers = [
+      'pub struct Spaceship {\n  name: String,\n  destination: String,\n}',
+      'impl Spaceship {\n  pub fn new(name: String, destination: String) -> Spaceship {\n    Spaceship { name, destination }\n  }\n}',
+      'pub fn add_spaceship(spacecrafts: &mut Vec<Spaceship>, spaceship: Spaceship) {\n  spacecrafts.push(spaceship);\n}',
+      'pub fn find_spaceship(spacecrafts: &Vec<Spaceship>, name: String) -> Option<&Spaceship> {\n  spacecrafts.iter().find(|s| s.name == name)\n}',
+      'pub fn spaceships_to_destination(spacecrafts: &Vec<Spaceship>, destination: String) -> Vec<String> {\n  spacecrafts.iter().filter(|s| s.destination == destination).map(|s| s.name.clone()).collect()\n}',
+    ];
+    return answers[stepIndex];
+  };
 
   return (
-
     <div className="page-container">
       <div className="split-view">
         <div className="left-panel">
-          <Stepper activeStep={props.activeStep} orientation="vertical">
+        <img src={space} style={{ width: '550px', height: '300px' }}></img>
+
+          <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((label, index) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
                 <StepContent>
                   <pre className="text">{highlightText(getStepContent(index))}</pre>
+                  <img src={stepImages[activeStep]} alt={`Step ${activeStep + 1}`} />
                   <div>
                     <div>
                       <Button
                         type="button"
                         label="back"
                         id="back"
-                        disabled={props.activeStep === 0}
-                        onClick={props.handleBack}
-
+                        disabled={activeStep === 0}
+                        onClick={() => setActiveStep(activeStep - 1)}
                       >
                         Back
                       </Button>
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick={props.handleNext}
-
+                        onClick={handleNext}
                       >
-                        {props.activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                       </Button>
                     </div>
                   </div>
                 </StepContent>
               </Step>
+              
             ))}
+            
           </Stepper>
+          
         </div>
         <div className="right-panel">
           <Editor
             height="60vh"
             defaultLanguage="rust"
-            defaultValue="// Please enter your Rust code here."
-            onMount={handleEditorDidMount}
+            stepIndex={props.activeStep}
+            value={editorValues[activeStep]}
+            onChange={(value) => handleEditorChange(value, activeStep)}
             theme="vs-dark"
           />
-          <button onClick={showValue}>Show value</button>
+          <Button variant="contained" onClick={handleOpenDialog}>
+            Show Answer
+          </Button>
+          <Dialog open={openDialog} onClose={handleCloseDialog}>
+          <pre>{getStepAnswer(activeStep)}</pre>
+          </Dialog>
         </div>
       </div>
-      {props.activeStep === steps.length && (
-        <Paper square elevation={0} >
-          <Typography>
-            Challenge completed
-          </Typography>
-          <Link to="/courses/101/1" >
-            Continue
-          </Link>
-        </Paper>
-      )}
     </div>
-
   );
 }
+
 
 VerticalLinearStepper.propTypes = {
   activeStep: PropTypes.number.isRequired,
@@ -191,7 +281,7 @@ function Intro(props) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     setActiveProgress((prevActiveProgress) => prevActiveProgress - 20);
   };
-  
+
   const steps = getSteps();
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
@@ -207,14 +297,14 @@ function Intro(props) {
       <NavBar />
 
       <LinearProgressWithLabel value={activeProgress} />
-      
-        
-          <VerticalLinearStepper
-            activeStep={activeStep}
-            handleNext={handleNext}
-            handleBack={handleBack}
-          />
-       
+
+
+      <VerticalLinearStepper
+        activeStep={activeStep}
+        handleNext={handleNext}
+        handleBack={handleBack}
+      />
+
       <Footer />
     </div>
   );
