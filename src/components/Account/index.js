@@ -2,13 +2,9 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import withRouter from '../../withRouter';
 import { reduxForm } from "redux-form";
-import Sidebar from "../Dashboard/Sidebar";
-import Topbar from "../Dashboard/Topbar";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Footer from '../Footer';
-//import { styled } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types'
 import Autocomplete from '@mui/material/Autocomplete';

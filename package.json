@@ -50,6 +50,7 @@
     "ipfs-core": "^0.18.0",
     "jwt-decode": "^3.1.2",
     "mapbox-gl": "^2.14.1",
+    "mdb-react-ui-kit": "^6.1.0",
     "npm": "^9.6.7",
     "openai": "^3.2.1",
     "postscribe": "^2.0.8",

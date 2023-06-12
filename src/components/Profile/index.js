@@ -1,235 +1,400 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import { clearErrors } from "../../actions/errorActions";
-import { resend, saveUsername, saveUsernameAlbedo } from "../../actions/authActions";
-import { Field, reduxForm } from "redux-form";
-import TextField from "@mui/material/TextField";
-import CircularProgress from "@mui/material/CircularProgress"
-import "./style.css";
-import withRouter  from '../../withRouter'
-import {Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import NavBar from "../NavBar";
+import withRouter from '../../withRouter';
+import { reduxForm } from "redux-form";
 import {
-  Redirect, Link
-} from "react-router-dom";
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBCard,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBBtn,
+  MDBBreadcrumb,
+  MDBBreadcrumbItem,
+  MDBProgress,
+  MDBProgressBar,
+  MDBIcon,
+  MDBListGroup,
+  MDBListGroupItem
+} from 'mdb-react-ui-kit';
+import Navbar1 from '../Dashboard/Navbar1';
+import Footer from '../Footer';
+import axios from 'axios';
+import add from'./addcourse.png'
+import ai from './ai.png'
+import challenge from './challenge.png'
+import course from './course.png'
+import community from './community.png'
+import post from './post.png'
 
-const validate = values => {
-  const errors = {};
-  const requiredFields = ["firstName", "secondName"];
-  requiredFields.forEach((field) => {
-    if (!values[field]) {
-      errors[field] = "Required";
-    }
-  });
-
-  if (values.confirmationCode && values.confirmationCode.length < 1) {
-    errors.confirmationCode = "Confirmation Code must be at least 1 characters";
-  }
-  return errors;
-};
-
-class Profile extends Component {
+class ProfilePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      confirmationCode: "",
-      username: "",
-      description: "",
-      isLoading: false,
-      errors: {},
-      results: {},
-      values: {},
-      isVerified: false
-    };
+    const { auth } = this.props;
 
-    this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      tags: auth.user && auth.user.preferences ? auth.user.preferences : [],
+      skills: auth.user && auth.user.skills ? auth.user.skills : [],
+      name: auth.user && auth.user.name ? auth.user.name : "",
+      email: auth.user.email ? auth.user.email : '',
+      preferences: auth.user && auth.user.preferences ? auth.user.preferences : [],
+      age: auth.user && auth.user.age ? auth.user.age : "",
+      bio: auth.user && auth.user.bio ? auth.user.bio : "",
+      location: auth.user && auth.user.location ? auth.user.location : "",
+      _id: auth.user && auth.user._id ? auth.user._id : "",
+      user: {},
+      posts: [],
+      courses: [],
+    };
   }
-  static propTypes = {
-    isAuthenticated: PropTypes.bool,
-    error: PropTypes.object.isRequired,
-    clearErrors: PropTypes.func.isRequired,
-    isVerified: PropTypes.bool,
+
+
+  componentDidMount() {
+
+    const { email } = this.state;
+    axios.get(`https://edunode.herokuapp.com/api/emaillogin/user/${email}`)
+      .then(response => {
+        const data = response.data;
+        this.setState({ user: data }, () => {
+          console.log('trophy', this.state.user.CoursesTrophy)
+          console.log('user', this.state.user)
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    this.fetchPosts();
+    this.fetchCourses();
+  }
+  fetchPosts = async () => {
+    const { email } = this.state;
+    try {
+      const response = await axios.get(`https://edunode.herokuapp.com/api/post/postemail/${email}`);
+      const posts = response.data;
+      this.setState({ posts });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  fetchCourses = async () => {
+    const { email } = this.state;
+    try {
+      const response = await axios.get(`https://edunode.herokuapp.com/api/cours/coursemail/${email}`);
+      const courses = response.data;
+      this.setState({ courses });
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-
-  componentDidUpdate(prevProps) {
-    const { error } = this.props;
-    if (error !== prevProps.error) {
-      if (error.id === "VERIFICATION_FAIL") {
-        this.setState({ msg: error.msg.msg });
-        console.log(error.msg.msg)
-      } else {
-        this.setState({ msg: null });
-      }
-    }
-
-  }
-
-  renderTextField = ({
-    label,
-    input,
-    meta: { touched, invalid, error },
-    ...custom
-  }) => (
-    <TextField
-      label={label}
-      placeholder={label}
-      error={touched && invalid}
-      helperText={touched && error}
-      {...input}
-      {...custom}
-    />
-  );
-
- 
-
-onSubmit = async (values) => {
-  
-  const pubkey = this.props.auth.user.pubkey;
-const email = this.props.auth.user.email;
-const username = values.username;
-
-  if (!username) {
- const noUsername = ""
-      const updUser = {
-        email,
-        noUsername,
-      };
-
-      this.props.saveUsername(updUser);
-    
-  }
-
-if (pubkey) {
-  const updateUser = {
-    pubkey, username
-  }
- 
- this.props.saveUsernameAlbedo(updateUser)
-  
-} else {
-  const updUser = {
-    email, username
-  }
-  
-  this.props.saveUsername(updUser)
-  
-}
-
-
-
-
-
-
-
-};
-
-
-skipName = () => {
-
-
-  console.log("hi")
-
-
-};
-
-
-
   render() {
-
-    const { pristine, submitting } = this.props;
-    const { isLoading, isVerified, isAuthenticated, hasUsername, isGranted,history } = this.props.auth
-
-    
-
-    if (isLoading) {
-
-      return <div style={{
-        position: 'absolute', left: '50%', top: '50%',
-        transform: 'translate(-50%, -50%)'
-    }}> <CircularProgress 
-      color="secondary"
-       />
-          </div>
-    }
-
-
-    if (hasUsername) {
-
-   history.push('/dashbord')
-
-    }
-
-    
-     
-  
-
-    if (isAuthenticated && isVerified) {
-
-   
+    const { posts, courses, user } = this.state;
     return (
-      <>
-        <NavBar />
-        <Container fluid>
-          <Row>
-            <Col xs={12} id="page-content-wrapper">
-              <form
-                id="form"
-                onSubmit={this.props.handleSubmit(this.onSubmit)}
-              >
-                <div>
-                  <Field
-                    component={this.renderTextField}
-                    value={this.state.username}
-                    type="text"
-                    label="Please enter your username"
-                    name="username"
-                    id="code"
+      <section style={{ backgroundColor: '#eee' }}>
+        <Navbar1></Navbar1>
+        <MDBContainer className="py-5">
+          <MDBRow>
+            <MDBCol>
+              <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
+                <MDBBreadcrumbItem>
+                  <a href='/'>Edunode</a>
+                </MDBBreadcrumbItem>
+                <MDBBreadcrumbItem>
+                  <a href="#">Users</a>
+                </MDBBreadcrumbItem>
+                <MDBBreadcrumbItem active>{this.state.user.name}'s Profile</MDBBreadcrumbItem>
+              </MDBBreadcrumb>
+            </MDBCol>
+          </MDBRow>
+
+          <MDBRow>
+            <MDBCol lg="4">
+              <MDBCard className="mb-4">
+                <MDBCardBody className="text-center d-flex justify-content-center flex-column align-items-center">
+                  <MDBCardImage
+                    src={this.state.user.images}
+                    alt="avatar"
+                    className="rounded-circle"
+                    style={{ width: '150px' }}
+                    fluid
                   />
-                </div>
-                <div>
-                  <Button
-                    variant="contained"
-                    id="button"
-                    type="submit"
-                    disabled={pristine || submitting}
-                  >
-                    Continue
-                  </Button>
-           <button onClick={this.skipName} >Skip this step</button>
-                </div>
-                <div>
-                  {/* <p>{this.props.error.msg.msg}</p>
-        <p>{this.props.auth.message}</p> */}
-                </div>
-              </form>
-            </Col>
-          </Row>
-        </Container>
-      </>
+                  <p className="text-muted mb-1">{this.state.user.name}</p>
+
+
+                </MDBCardBody>
+              </MDBCard>
+
+              <MDBCard className="mb-4 mb-lg-4">
+                <MDBCardBody className="p-0">
+                  <MDBListGroup flush className="rounded-3">
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                      <MDBIcon fas icon="globe fa-lg text-warning" />
+                      <MDBCardText>https://edunode.org</MDBCardText>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                      <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
+                      <MDBCardText>edunode</MDBCardText>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                      <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
+                      <MDBCardText>@edunode</MDBCardText>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                      <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
+                      <MDBCardText>edunode</MDBCardText>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                      <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
+                      <MDBCardText>edunode</MDBCardText>
+                    </MDBListGroupItem>
+                  </MDBListGroup>
+                </MDBCardBody>
+              </MDBCard>
+
+              <MDBCard className="mb-4 mb-lg-4">
+                <MDBCardBody className="p-0">
+                  <MDBListGroup flush className="rounded-3">
+                    {this.state.user.CoursesTrophy !== 0 && (
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <img
+                        src={course} // Replace with the actual path or URL of the image
+                        alt="Globe"
+                        className="globe-icon"
+                        style={{ width: '40px', height: '40px' }}
+                      />
+                        <MDBCardText>Courses Badge</MDBCardText>
+                      </MDBListGroupItem>
+                      )}
+                       {this.state.user.AddCoursesTrophy !== 0 && (
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                      <img
+                        src={add} // Replace with the actual path or URL of the image
+                        alt="Globe"
+                        className="globe-icon"
+                        style={{ width: '40px', height: '40px' }}
+                      />
+                      <MDBCardText>Add course Badge</MDBCardText>
+                    </MDBListGroupItem>
+                    )}
+                    {this.state.user.AddCoursesTrophy !== 0 && (
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                    <img
+                        src={community} // Replace with the actual path or URL of the image
+                        alt="Globe"
+                        className="globe-icon"
+                        style={{ width: '40px', height: '40px' }}
+                      />
+                      <MDBCardText>Community Badge</MDBCardText>
+                    </MDBListGroupItem> 
+                    )}
+                    {this.state.user.AddCoursesTrophy !== 0 && (
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                    <img
+                        src={ai} // Replace with the actual path or URL of the image
+                        alt="Globe"
+                        className="globe-icon"
+                        style={{ width: '40px', height: '40px' }}
+                      />
+                      <MDBCardText>AI Badge </MDBCardText>
+                    </MDBListGroupItem> 
+                    )}
+                    {this.state.user.ChallengesTrophy !== 0 && (
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                    <img
+                        src={challenge} // Replace with the actual path or URL of the image
+                        alt="Globe"
+                        className="globe-icon"
+                        style={{ width: '40px', height: '40px' }}
+                      />
+                      <MDBCardText>Challenge Badge</MDBCardText>
+                    </MDBListGroupItem>
+                    )}
+                    {this.state.user.PostsTrophy !== 0 && (
+                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                    <img
+                        src={post} // Replace with the actual path or URL of the image
+                        alt="Globe"
+                        className="globe-icon"
+                        style={{ width: '40px', height: '40px' }}
+                      />
+                      <MDBCardText>Posts Badge</MDBCardText>
+                    </MDBListGroupItem>
+                    )}
+                  </MDBListGroup>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+
+
+
+
+            <MDBCol lg="8">
+              <MDBCard className="mb-4">
+                <MDBCardBody>
+                  <MDBRow>
+                    <MDBCol sm="3">
+                      <MDBCardText>Full Name</MDBCardText>
+                    </MDBCol>
+                    <MDBCol sm="9">
+                      <MDBCardText className="text-muted">{this.state.user.name}</MDBCardText>
+                    </MDBCol>
+                  </MDBRow>
+                  <hr />
+                  <MDBRow>
+                    <MDBCol sm="3">
+                      <MDBCardText>Email</MDBCardText>
+                    </MDBCol>
+                    <MDBCol sm="9">
+                      <MDBCardText className="text-muted">{this.state.user.email}</MDBCardText>
+                    </MDBCol>
+                  </MDBRow>
+                  <hr />
+                  <MDBRow>
+                    <MDBCol sm="3">
+                      <MDBCardText>Preferences</MDBCardText>
+                    </MDBCol>
+                    <MDBCol sm="9">
+                      <MDBCardText className="text-muted">{this.state.user.preferences}</MDBCardText>
+                    </MDBCol>
+                  </MDBRow>
+                  <hr />
+                  <MDBRow>
+                    <MDBCol sm="3">
+                      <MDBCardText>Skills</MDBCardText>
+                    </MDBCol>
+                    <MDBCol sm="9">
+                      <MDBCardText className="text-muted">{this.state.user.skills}</MDBCardText>
+                    </MDBCol>
+                  </MDBRow>
+                  <hr />
+                  <MDBRow>
+                    <MDBCol sm="3">
+                      <MDBCardText>Age</MDBCardText>
+                    </MDBCol>
+                    <MDBCol sm="9">
+                      <MDBCardText className="text-muted">{this.state.user.age}</MDBCardText>
+                    </MDBCol>
+                  </MDBRow>
+                </MDBCardBody>
+              </MDBCard>
+
+              <MDBRow>
+                {posts.map((post) => (
+                  <MDBCol md="6" key={post._id}>
+                    <MDBCard className="mb-4 mb-md-0">
+                      <MDBCardBody>
+                        <MDBCardText className="mb-4">
+                          Post
+                        </MDBCardText>
+                        <MDBCardText className="mb-1" style={{ fontSize: '1.2rem' }}>
+                          Post title
+                        </MDBCardText>
+                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>
+                          {post.title}
+                        </MDBCardText>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
+                          Post description
+                        </MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
+                          {post.description}
+                        </MDBCardText>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
+                          Post link
+                        </MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
+                          <a>{post.link}</a>
+                        </MDBCardText>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
+                          Post tags
+                        </MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
+                          {post.tags.join(', ')}
+                        </MDBCardText>
+
+
+
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+
+                ))}
+              </MDBRow>
+
+              <MDBRow>
+                {courses.map((course) => (
+                  <MDBCol md="6" key={course._id}>
+                    <MDBCard className="mb-4 mb-md-0">
+                      <MDBCardBody>
+                        <MDBCardText className="mb-4">
+                          Courses
+                        </MDBCardText>
+                        <MDBCardText className="mb-1" style={{ fontSize: '1.2rem' }}>
+                          Course title
+                        </MDBCardText>
+                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>
+                          {course.title}
+                        </MDBCardText>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
+                          Course description
+                        </MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
+                          {course.description}
+                        </MDBCardText>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
+                          Course link
+                        </MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
+                          <a>{course.link}</a>
+                        </MDBCardText>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
+                          Course tags
+                        </MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
+                          {course.tags.join(', ')}
+                        </MDBCardText>
+
+
+
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+
+                ))}
+              </MDBRow>
+
+
+
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+        <Footer></Footer>
+      </section>
     );
   }
-  
-  history.push('/');
-  }
 }
 
+
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
-  error: state.error,
+  auth: state.auth
 });
 
-Profile = connect(
-  mapStateToProps, { saveUsername, clearErrors, saveUsernameAlbedo }
-  )(Profile);
+ProfilePage = connect(
+  mapStateToProps,
+)(ProfilePage);
 
-export default Profile = reduxForm({
-  form: "profileForm",
-  fields: ["username"],
-  validate,
-  clearErrors,
-  saveUsername,
-  saveUsernameAlbedo
-})(withRouter(Profile));
+export default ProfilePage = reduxForm({
+  form: "ReduxForm",
+  fields: ["name", "email", "age", "location", "bio"],
+})(withRouter(ProfilePage));
+
+
