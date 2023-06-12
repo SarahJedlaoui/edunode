@@ -13,7 +13,7 @@ import Navbar from '../Dashboard/Navbar1';
 import TextField from '@mui/material/TextField'
 import { makeStyles } from "@mui/styles";
 import UserContext from './UserContext';
-
+import profileImage from './user.png'
 
 const useStyles = makeStyles((theme) => ({
   postContainer: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function PostDetails(props) {
-  
+
   let userDetails = JSON.parse(localStorage.getItem('user'));
   if (!userDetails) {
     userDetails = [];
@@ -60,25 +60,19 @@ function PostDetails(props) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [post, setPost] = useState({});
-
+  const [commentImages, setCommentImages] = useState({});
+  const [commentId, setCommentId] = useState({});
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
-  
-  console.log('userDetails', userDetails)
-  console.log('userDetails', userDetails.email)
-  
 
   const { _id } = useParams();
-  console.log('id :', _id)
 
   useEffect(() => {
     const getPost = async () => {
       try {
         const res = await axios.get(`https://edunode.herokuapp.com/api/post/posts/${_id}`);
         setPost(res.data);
-        console.log('post')
-        console.log(post)
       } catch (err) {
         console.error(err);
       }
@@ -94,6 +88,25 @@ function PostDetails(props) {
           `https://edunode.herokuapp.com/api/post/comments/${_id}`
         );
         setComments(res.data);
+
+        // Extract unique emails from comments
+        const uniqueEmails = Array.from(new Set(res.data.map(comment => comment.email)));
+
+        // Fetch user details for each email
+        const userImages = {};
+        const userId= {};
+        for (const email of uniqueEmails) {
+          const res = await axios.get(`https://edunode.herokuapp.com/api/users/user/${email}`);
+
+          const user = res.data;
+          userImages[email] = user.user.images;
+          userId[email] = user.user._id;
+          console.log('image', userImages)
+        }
+
+        setCommentImages(userImages);
+        setCommentId(userId);
+
       } catch (err) {
         console.error(err);
       }
@@ -104,7 +117,7 @@ function PostDetails(props) {
 
   const handleSubmit = async (event) => {
 
-    console.log('submit email : ',userDetails.email)
+    console.log('submit email : ', userDetails.email)
     event.preventDefault();
     const userEmaill = userDetails?.email ?? 'anonymous';
     const comment = {
@@ -129,21 +142,21 @@ function PostDetails(props) {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={20}>
             <Navbar />
-           
+
             <br></br>
             <div style={{ padding: "10px" }}>
               <div className="post">
-              <h1 style={{fontSize: '20px', fontWeight: 'bold'}} >Title:</h1>
+                <h1 style={{ fontSize: '20px', fontWeight: 'bold' }} >Title:</h1>
                 <h2>{post.title}</h2>
                 <br></br>
-                <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Description :</h1>
-                <p  dangerouslySetInnerHTML={{ __html: post.description }} ></p>
+                <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>Description :</h1>
+                <p dangerouslySetInnerHTML={{ __html: post.description }} ></p>
                 <br></br>
-                <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Link :</h1>
+                <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>Link :</h1>
                 <a href={post.link}>{post.link}</a>
                 <br></br>
                 <div className="comments">
-                <h3 style={{fontSize: '20px', fontWeight: 'bold'}}>Comments</h3>
+                  <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Comments</h3>
 
                   <form onSubmit={handleSubmit}>
                     <TextField
@@ -153,9 +166,21 @@ function PostDetails(props) {
                     <button type="submit">Add Comment</button>
                   </form>
                   {comments.map((comment, index) => (
-                    <div key={index}>
-                      <p>{comment.text}</p>
-                      <p>Comment by: {comment.email}</p>
+                    <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                      {comment.email in commentImages &&   (
+                        <img
+                          src={commentImages[comment.email]}
+                          alt="User Profile"
+                          style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '50%' }}
+                          onClick={() => {
+                            window.location.href = `/profile/${commentId[comment.email]}`;
+                          }}
+                        />
+                      )}
+                      <div>
+                        <p>Comment by: {comment.email}</p>
+                        <p>{comment.text}</p>
+                      </div>
                     </div>
                   ))}
                 </div>

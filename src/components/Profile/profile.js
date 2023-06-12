@@ -28,6 +28,8 @@ import challenge from './challenge.png'
 import course from './course.png'
 import community from './community.png'
 import post from './post.png'
+import { useParams } from 'react-router-dom';
+
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -52,13 +54,15 @@ class ProfilePage extends Component {
 
 
   componentDidMount() {
-
+    const { match } = this.props;
+    const postId = match.params.id; 
+    console.log('profileID',postId);
+  
     const { email } = this.state;
     axios.get(`https://edunode.herokuapp.com/api/emaillogin/user/${email}`)
       .then(response => {
         const data = response.data;
         this.setState({ user: data }, () => {
-          console.log('trophy', this.state.user.CoursesTrophy)
           console.log('user', this.state.user)
         });
       })
