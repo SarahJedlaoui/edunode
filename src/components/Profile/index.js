@@ -93,6 +93,7 @@ class ProfilePage extends Component {
 
   render() {
     const { posts, courses, user } = this.state;
+    const hasShownPopupChat = localStorage.getItem('shownPopupChat');
     return (
       <section style={{ backgroundColor: '#eee' }}>
         <Navbar1></Navbar1>
@@ -191,7 +192,7 @@ class ProfilePage extends Component {
                       <MDBCardText>Community Badge</MDBCardText>
                     </MDBListGroupItem> 
                     )}
-                    {this.state.user.AddCoursesTrophy !== 0 && (
+                    {hasShownPopupChat && (
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <img
                         src={ai} // Replace with the actual path or URL of the image
