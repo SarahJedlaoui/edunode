@@ -180,7 +180,7 @@ import EduNodeGuide from'./components/teacher'
 import StudentsPage from "./components/student"
 import PasswordPage from './components/Login/password'
 import ResetPasswordPage from './components/Login/reset_password'
-import ProfilePage from './components/Profile/profile'
+import WithParams from './components/Profile/profile'
 function App(props) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -351,7 +351,7 @@ function App(props) {
         <Route exact path="/.well-known/ai-plugin.json" element={<AiPlugin />} />
         <Route exact path="/postDetails/:_id" element={<PostDetails />} />
         <Route exact path="/courseDetails/:_id" element={<CourseDetails />} />
-        <Route exact path="/profile/:id" element={<ProfilePage />} />
+        <Route exact path="/profile/:id" element={<WithParams />} />
         <Route
           exact
           path="/loginn"

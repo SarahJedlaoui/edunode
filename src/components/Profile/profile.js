@@ -37,15 +37,7 @@ class ProfilePage extends Component {
     const { auth } = this.props;
 
     this.state = {
-      tags: auth.user && auth.user.preferences ? auth.user.preferences : [],
-      skills: auth.user && auth.user.skills ? auth.user.skills : [],
-      name: auth.user && auth.user.name ? auth.user.name : "",
-      email: auth.user.email ? auth.user.email : '',
-      preferences: auth.user && auth.user.preferences ? auth.user.preferences : [],
-      age: auth.user && auth.user.age ? auth.user.age : "",
-      bio: auth.user && auth.user.bio ? auth.user.bio : "",
-      location: auth.user && auth.user.location ? auth.user.location : "",
-      _id: auth.user && auth.user._id ? auth.user._id : "",
+      email:'',
       user: {},
       posts: [],
       courses: [],
@@ -53,28 +45,29 @@ class ProfilePage extends Component {
   }
 
 
-  componentDidMount() {
-    const { match } = this.props;
-    const postId = match.params.id; 
-    console.log('profileID',postId);
+  async componentDidMount() {
+    try {
+      const { id } = this.props;
+      console.log('profileID', id);
   
-    const { email } = this.state;
-    axios.get(`https://edunode.herokuapp.com/api/emaillogin/user/${email}`)
-      .then(response => {
-        const data = response.data;
-        this.setState({ user: data }, () => {
-          console.log('user', this.state.user)
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
+      const response = await axios.get(`https://edunode.herokuapp.com/api/users/userByid/${id}`);
+      const data = response.data;
+      this.setState({ user: data }, () => {
 
-    this.fetchPosts();
-    this.fetchCourses();
+        // Store user information in local storage
+      localStorage.setItem('userProfile', JSON.stringify(data.user))
+        console.log('userProfile', this.state.user.user);
+        this.setState({ email: this.state.user.user.email });
+        this.fetchPosts();
+        this.fetchCourses();
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
+  
   fetchPosts = async () => {
-    const { email } = this.state;
+    const { email } = this.state.user.user.email;
     try {
       const response = await axios.get(`https://edunode.herokuapp.com/api/post/postemail/${email}`);
       const posts = response.data;
@@ -84,7 +77,7 @@ class ProfilePage extends Component {
     }
   };
   fetchCourses = async () => {
-    const { email } = this.state;
+    const { email } = this.state.user.user.email;
     try {
       const response = await axios.get(`https://edunode.herokuapp.com/api/cours/coursemail/${email}`);
       const courses = response.data;
@@ -96,15 +89,17 @@ class ProfilePage extends Component {
   };
 
   render() {
-    const {
-      isAuthenticated,
-      isVerified,
-      hasUsername,
-      isGranted,
-
-  } = this.props.auth;
+    
     const { posts, courses, user } = this.state;
     const hasShownPopupChat = localStorage.getItem('shownPopupChat');
+   // const name = this.state.user.user.name;
+   const userProfile = localStorage.getItem('userProfile');
+   const userAcoount = JSON.parse(userProfile);
+   console.log('userProfilename ',userAcoount.name)
+   // Check if user information exists before accessing it
+  if (!user) {
+    return ( 'loading'); // or display a loading indicator
+  }
     return (
       <section style={{ backgroundColor: '#eee' }}>
         <Navbar1></Navbar1>
@@ -118,7 +113,7 @@ class ProfilePage extends Component {
                 <MDBBreadcrumbItem>
                   <a href="#">Users</a>
                 </MDBBreadcrumbItem>
-                <MDBBreadcrumbItem active>{this.state.user.name}'s Profile</MDBBreadcrumbItem>
+                <MDBBreadcrumbItem active>{userAcoount.name}'s Profile </MDBBreadcrumbItem>
               </MDBBreadcrumb>
             </MDBCol>
           </MDBRow>
@@ -128,13 +123,13 @@ class ProfilePage extends Component {
               <MDBCard className="mb-4">
                 <MDBCardBody className="text-center d-flex justify-content-center flex-column align-items-center">
                   <MDBCardImage
-                    src={this.state.user.images}
+                    src={userAcoount.images}
                     alt="avatar"
                     className="rounded-circle"
                     style={{ width: '150px' }}
                     fluid
                   />
-                  <p className="text-muted mb-1">{this.state.user.name}</p>
+                  <p className="text-muted mb-1">{userAcoount.name}</p>
 
 
                 </MDBCardBody>
@@ -142,7 +137,7 @@ class ProfilePage extends Component {
 
               <MDBCard className="mb-4 mb-lg-4">
                 <MDBCardBody className="p-0">
-                  <MDBListGroup flush className="rounded-3">
+                  <MDBListGroup  className="rounded-3">
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBIcon fas icon="globe fa-lg text-warning" />
                       <MDBCardText>https://edunode.org</MDBCardText>
@@ -169,8 +164,8 @@ class ProfilePage extends Component {
 
               <MDBCard className="mb-4 mb-lg-4">
                 <MDBCardBody className="p-0">
-                  <MDBListGroup flush className="rounded-3">
-                    {this.state.user.CoursesTrophy !== 0 && (
+                  <MDBListGroup  className="rounded-3">
+                    {userAcoount.CoursesTrophy !== 0 && (
                       <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                         <img
                         src={course} // Replace with the actual path or URL of the image
@@ -181,7 +176,7 @@ class ProfilePage extends Component {
                         <MDBCardText>Courses Badge</MDBCardText>
                       </MDBListGroupItem>
                       )}
-                       {this.state.user.AddCoursesTrophy !== 0 && (
+                       {userAcoount.AddCoursesTrophy !== 0 && (
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <img
                         src={add} // Replace with the actual path or URL of the image
@@ -192,7 +187,7 @@ class ProfilePage extends Component {
                       <MDBCardText>Add course Badge</MDBCardText>
                     </MDBListGroupItem>
                     )}
-                     {isAuthenticated && isVerified && (
+                     {userAcoount.isVerified  && (
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <img
                         src={community} // Replace with the actual path or URL of the image
@@ -214,7 +209,7 @@ class ProfilePage extends Component {
                       <MDBCardText>AI Badge </MDBCardText>
                     </MDBListGroupItem> 
                     )}
-                    {this.state.user.ChallengesTrophy !== 0 && (
+                    {userAcoount.ChallengesTrophy !== 0 && (
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <img
                         src={challenge} // Replace with the actual path or URL of the image
@@ -225,7 +220,7 @@ class ProfilePage extends Component {
                       <MDBCardText>Challenge Badge</MDBCardText>
                     </MDBListGroupItem>
                     )}
-                    {this.state.user.PostsTrophy !== 0 && (
+                    {userAcoount.PostsTrophy !== 0 && (
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <img
                         src={post} // Replace with the actual path or URL of the image
@@ -252,7 +247,7 @@ class ProfilePage extends Component {
                       <MDBCardText>Full Name</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="9">
-                      <MDBCardText className="text-muted">{this.state.user.name}</MDBCardText>
+                      <MDBCardText className="text-muted">{userAcoount.name}</MDBCardText>
                     </MDBCol>
                   </MDBRow>
                   <hr />
@@ -261,7 +256,7 @@ class ProfilePage extends Component {
                       <MDBCardText>Email</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="9">
-                      <MDBCardText className="text-muted">{this.state.user.email}</MDBCardText>
+                      <MDBCardText className="text-muted">{userAcoount.email}</MDBCardText>
                     </MDBCol>
                   </MDBRow>
                   <hr />
@@ -270,7 +265,7 @@ class ProfilePage extends Component {
                       <MDBCardText>Preferences</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="9">
-                      <MDBCardText className="text-muted">{this.state.user.preferences}</MDBCardText>
+                      <MDBCardText className="text-muted">{userAcoount.preferences}</MDBCardText>
                     </MDBCol>
                   </MDBRow>
                   <hr />
@@ -279,7 +274,7 @@ class ProfilePage extends Component {
                       <MDBCardText>Skills</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="9">
-                      <MDBCardText className="text-muted">{this.state.user.skills}</MDBCardText>
+                      <MDBCardText className="text-muted">{userAcoount.skills}</MDBCardText>
                     </MDBCol>
                   </MDBRow>
                   <hr />
@@ -288,7 +283,7 @@ class ProfilePage extends Component {
                       <MDBCardText>Age</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="9">
-                      <MDBCardText className="text-muted">{this.state.user.age}</MDBCardText>
+                      <MDBCardText className="text-muted">{userAcoount.age}</MDBCardText>
                     </MDBCol>
                   </MDBRow>
                 </MDBCardBody>
@@ -394,20 +389,16 @@ class ProfilePage extends Component {
     );
   }
 }
+const WithParams = () => {
+  const { id } = useParams(); // Get the ID from the route parameters
+  return <ProfilePage id={id} />;
+};
 
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated
-});
 
-ProfilePage = connect(
-  mapStateToProps,
-)(ProfilePage);
-
-export default ProfilePage = reduxForm({
+export default reduxForm({
   form: "ReduxForm",
   fields: ["name", "email", "age", "location", "bio"],
-})(withRouter(ProfilePage));
+})(withRouter(WithParams));
 
 
