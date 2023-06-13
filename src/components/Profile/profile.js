@@ -42,10 +42,11 @@ class ProfilePage extends Component {
       posts: [],
       courses: [],
     };
+    this.myFunction();
   }
 
 
-  async componentDidMount() {
+  async myFunction() {
     try {
       const { id } = this.props;
       console.log('profileID', id);

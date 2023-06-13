@@ -269,7 +269,7 @@ componentDidMount(){
                                 <Item><Sidebar props={email} /></Item>
                             </Grid> */}
 
-                            <Grid item xs={12} sm={8} md={9}>
+                            <Grid item xs={12} sm={8} md={20}>
                                 <div>
                                     <div>
                                         <div>
@@ -317,7 +317,7 @@ componentDidMount(){
                                                             <div className="card-body">
                                                             <h6 className="card-title"> Post </h6>
                                                                 <h5 className="card-title">{post.title}</h5>
-                                                                <p className="card-text">{post.description}</p>
+                                                                <p className="card-text" dangerouslySetInnerHTML={{ __html: post.description }} ></p>
                                                                 <a href={post.link} className="card-link">
                                                                     <FontAwesomeIcon icon={faLink} className="mr-2" />
                                                                     {post.link}
