@@ -291,6 +291,7 @@ class ProfilePage extends Component {
               </MDBCard>
 
               <MDBRow>
+              <MDBCardText>Posts : </MDBCardText>
                 {posts.map((post) => (
                   <MDBCol md="6" key={post._id}>
                     <MDBCard className="mb-4 mb-md-0">
@@ -336,6 +337,7 @@ class ProfilePage extends Component {
               </MDBRow>
 
               <MDBRow>
+              <MDBCardText>Courses : </MDBCardText>
                 {courses.map((course) => (
                   <MDBCol md="6" key={course._id}>
                     <MDBCard className="mb-4 mb-md-0">
