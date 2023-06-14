@@ -168,14 +168,17 @@ function PostDetails(props) {
                   {comments.map((comment, index) => (
                     <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                       {comment.email in commentImages &&   (
-                        <button>
+
+                        <button
+                        onClick={() => {
+                          window.location.href = `/profile/${commentId[comment.email]}`;
+                        }}
+                        >
                         <img
                           src={commentImages[comment.email]}
                           alt="User Profile"
                           style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '50%' }}
-                          onClick={() => {
-                            window.location.href = `/profile/${commentId[comment.email]}`;
-                          }}
+                      
                         />
                         </button>
                       )}
