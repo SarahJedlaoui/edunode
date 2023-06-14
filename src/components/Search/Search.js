@@ -8,6 +8,7 @@ import Topbar from "../Dashboard/Topbar";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Footer from '../Footer';
+import Footer1 from '../Footer/Footer';
 import { styled } from '@mui/material/styles';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from "redux-form";
@@ -262,7 +263,7 @@ componentDidMount(){
                 <Navbar1 />
                 <br></br>
                 <br></br>
-                    <Box sx={{ flexGrow: 1 }}>
+                <Box sx={{ flexGrow: 1, width: '500px', height: '500px' }}>
                    
                         <Grid container spacing={2}>
                             {/* <Grid xs={5} sm={3.5} md={2}>
@@ -371,7 +372,7 @@ componentDidMount(){
                         <br></br>
                         <br></br>
                        
-                        <Footer />
+                        
                     </Box>
                 </div>
 

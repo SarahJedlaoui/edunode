@@ -1,6 +1,5 @@
   import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Footer from '../../Footer';
 import NavBar from '../../NavBar';
 import kb1 from "../kb1.png"
 import kb2 from "../kb2.png"
@@ -281,7 +280,7 @@ export default class Keybase extends Component {
           </Row>
         </Container>
 
-        <Footer />
+       
       </div>
     )
   }

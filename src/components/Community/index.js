@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core";
 import Container from "@mui/material/Container";
-import Footer from "../Footer";
+
 import NavBar from "../NavBar";
 import kicon from "./keybaseicon.png";
 import discord from "./discord.png";
@@ -351,7 +351,7 @@ function Community() {
           </p>
         </main>
       </div>
-      <Footer />
+      
     </>
   );
 }

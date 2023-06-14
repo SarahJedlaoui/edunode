@@ -8,7 +8,7 @@ import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
-import Footer from '../Footer';
+
 import mb from "./mainblog.png"
 import sa from "./stellarassets.png"
 import ek from "./keybase_icon_132271.png"
@@ -250,7 +250,7 @@ export default function Blog() {
           </Grid>
         </main>
       </Container>
-      <Footer />
+     
     </React.Fragment>
   );
 }

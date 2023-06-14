@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { store } from "./store";
+import './App.css';
 import Home from "./components/Home";
 import AboutUs from "./components/aboutus";
 import Account from "./components/Account"

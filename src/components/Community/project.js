@@ -12,7 +12,6 @@ import Sidebar from "../Dashboard/Sidebar";
 import Topbar from "../Dashboard/Topbar";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Footer from '../Footer';
 import Box from '@mui/material/Box';
 //import { Editor } from "react-draft-wysiwyg";
 //import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -277,7 +276,7 @@ class Project extends Component {
                             </div>
                         </Grid>
                     </Grid>
-                    <Footer />
+                    
                 </Box>
             </div>
 

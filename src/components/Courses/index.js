@@ -31,7 +31,7 @@ import Course7 from './Course7';
 import Course8 from './Course8';
 import Course9 from './Course9';
 import Course10 from './Course10';
-import Footer from '../Footer';
+
 import Navbar1 from '../Dashboard/Navbar1';
 
 // Import styles
@@ -159,7 +159,7 @@ class Courses extends Component {
           <br></br>
           <br></br>
             </div>
-            <Footer />
+            
           </Grid>
         </Grid>
       </Box>
@@ -215,7 +215,7 @@ class Courses extends Component {
          </div> 
          </Grid> 
       </Grid>
-      <Footer />
+     
     </Box>
        
       );
@@ -270,7 +270,7 @@ class Courses extends Component {
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
       );
     } else {
@@ -315,12 +315,12 @@ class Courses extends Component {
           <Course9 />
           </a>
           <br></br>
-          <Footer />
+         
         </div>
         </Grid>
         
       </Grid>
-      {/* <Footer /> */}
+      
     </Box>
         </>
       );

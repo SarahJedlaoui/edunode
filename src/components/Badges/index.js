@@ -3,7 +3,6 @@ import { clearErrors } from "../../actions/errorActions";
 import { resend, verifyCode } from "../../actions/authActions";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Footer from '../Footer';
 import { connect } from 'react-redux';
 import React, { Component } from 'react'
 import { reduxForm } from "redux-form";
@@ -243,7 +242,7 @@ class Badge extends Component {
                             </Container>
                         </div >
 
-                        <Footer />
+                       
 
                     </div >
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Footer from '../../../Footer';
+
 import NavBar from '../../../NavBar';
 import creator from './creator.png';
 import suave from '../../suave.gif';
@@ -340,7 +340,7 @@ export default class index extends Component {
             </Col> */}
           </Row>
         </Container>
-        <Footer />
+        
       </div>
     );
   }

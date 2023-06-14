@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './tailwind.output.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css';
-
+import Footer from './components/Footer/Footer';
 const helmetContext = {};
 createRoot(document.getElementById('root')).render(
 
@@ -18,9 +18,12 @@ createRoot(document.getElementById('root')).render(
 <GoogleOAuthProvider clientId="463653089707-knhj5ovu0jkdetb0a10h7r9c2rcjl2l7.apps.googleusercontent.com">
 <Provider store={store}>
     <Router>
-   
+    <div className="app-wrapper">
+    <div className="content-wrapper"> 
       <App />
-    
+      <Footer></Footer>
+      </div>
+      </div>
  
     </Router>
     </Provider>

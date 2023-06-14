@@ -2,7 +2,7 @@ import React, { useState ,useRef} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
 import NavBar from '../../../NavBar';
-import Footer from '../../../Footer';
+
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../../actions/errorActions';
 import { reduxForm } from 'redux-form';
@@ -87,7 +87,7 @@ const Intro = ({ clearErrors }) => {
         </div>
       </div>
 
-      <Footer />
+      
     </div>
   );
 };

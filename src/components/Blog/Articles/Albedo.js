@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Footer from '../../Footer';
+
 import NavBar from '../../NavBar';
 import issue from "./issue.png"
 import issue1 from "./issue1.PNG"
@@ -495,7 +495,7 @@ export default class Albedo extends Component {
             </Col>
           </Row>
         </Container>
-        <Footer />
+        
       </div>
     );
   }

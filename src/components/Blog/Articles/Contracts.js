@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Footer from '../../Footer';
+
 import NavBar from '../../NavBar';
 import me from '../mepic.png';
 import sc from '../smartcontract.png';
@@ -339,7 +339,7 @@ Projects experimenting and researching Turrets include <a href="https://www.moza
             </Col>
           </Row>
         </Container>
-        <Footer />
+       
       </div>
     );
   }

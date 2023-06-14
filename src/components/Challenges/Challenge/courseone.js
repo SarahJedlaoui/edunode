@@ -21,7 +21,7 @@ import {
 import './style.css';
 // import SideBar from './sidebar';
 import NavBar from '../NavBar';
-import Footer from '../Footer';
+
 import { Link } from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
 import keybase from './keybaseicon.png';
@@ -78,7 +78,7 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
 
           {/* <LinearWithValueLabel />
                 <br></br>

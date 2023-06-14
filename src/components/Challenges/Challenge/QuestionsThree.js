@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar';
-import Footer from '../Footer';
+
 import CircularIntegration from './One/CheckThree';
 import {
   Form,
@@ -134,7 +134,7 @@ export default class index extends Component {
         </Form.Group>
 
         <CircularIntegration state={this.state} />
-        <Footer />
+        
       </>
     );
   }

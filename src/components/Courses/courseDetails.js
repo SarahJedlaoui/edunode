@@ -3,7 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { clearErrors } from "../../actions/errorActions";
 import Grid from "@mui/material/Grid";
-import Footer from "../Footer";
+
 import Box from "@mui/material/Box";
 import { EditorState } from "draft-js";
 import PropTypes from "prop-types";
@@ -165,7 +165,7 @@ function CourseDetails(props) {
             </div>
           </Grid>
         </Grid>
-        <Footer />
+       
       </Box>
     </div>
   );

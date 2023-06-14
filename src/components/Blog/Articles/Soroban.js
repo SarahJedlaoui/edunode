@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Footer from '../../Footer';
 import NavBar from '../../NavBar';
 import me from '../sara.jpg';
 import sc from '../IPFS.png';
@@ -358,7 +357,7 @@ That's it! You have now stored an image on IPFS using the web3.storage library.<
             </Col>
           </Row>
         </Container>
-        <Footer />
+      
       </div>
     );
   }

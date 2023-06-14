@@ -6,7 +6,7 @@ import Sidebar from "../Dashboard/Sidebar";
 import Topbar from "../Dashboard/Topbar";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Footer from '../Footer';
+
 import { styled } from '@mui/material/styles';
 import { connect } from 'react-redux';
 import React, { Component } from 'react'
@@ -303,7 +303,7 @@ class Certificate extends Component {
                 </Grid>
 
               </Grid>
-              <Footer />
+              
             </Box>
           </div>
         </>

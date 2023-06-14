@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Footer from "../Footer";
 import NavBar from "../NavBar";
 
 function CodeChallenge() {
@@ -77,7 +76,7 @@ function CodeChallenge() {
           </table>
         </div>
       ) : null}
-      <Footer />
+      
     </>
   );
 }

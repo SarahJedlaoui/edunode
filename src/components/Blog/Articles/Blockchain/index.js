@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Footer from '../../../Footer';
+
 import NavBar from '../../../NavBar';
 import me from '../../me.jpg';
 import suave from '../../suave.gif';
@@ -323,7 +323,7 @@ Liechtensteinstraße 111-115, 1090 Wien - Austria</p></a>
             </Col> */}
           </Row>
         </Container>
-        <Footer />
+      
       </div>
     );
   }

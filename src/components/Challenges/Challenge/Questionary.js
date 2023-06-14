@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import NavBar from '../NavBar';
-import Footer from '../Footer';
+
 import CircularIntegration from './One/Check';
 import { Form, Row, Col, Image, Card, Modal, Button } from 'react-bootstrap';
 import {LinearWithValueLabel} from "./One/Intro"
@@ -92,7 +92,7 @@ export default class index extends Component {
               </Col>
             </Form.Group>
             <CircularIntegration state={this.state} />
-            <Footer />
+            
           </>
         );
     }

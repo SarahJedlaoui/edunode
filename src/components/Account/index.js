@@ -4,7 +4,7 @@ import withRouter from '../../withRouter';
 import { reduxForm } from "redux-form";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Footer from '../Footer';
+
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types'
 import Autocomplete from '@mui/material/Autocomplete';
@@ -557,7 +557,7 @@ class Account extends Component {
                 </div>
               </Grid>
             </Grid>
-            <Footer />
+           
           </Box>
         </div>
       </>

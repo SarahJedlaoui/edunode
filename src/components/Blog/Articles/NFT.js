@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Footer from '../../Footer';
 import NavBar from '../../NavBar';
 import snft from './newnft1.png';
 import lite from './litemintlogo.png';
@@ -356,7 +355,7 @@ edunode.org                </a>
             </Col>
           </Row>
         </Container>
-        <Footer />
+        
       </div>
     );
   }

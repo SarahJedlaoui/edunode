@@ -16,7 +16,6 @@ import Sidebar from "../../Dashboard/Sidebar";
 import Topbar from "../../Dashboard/Topbar";
 import {Grid} from '@mui/material';
 import {Paper} from '@mui/material';
-import Footer from '../../Footer';
 import { styled } from '@mui/material/styles';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from "redux-form";
@@ -331,7 +330,7 @@ class Account extends Component {
         
       </Grid>
      {/* <DataTable /> */}
-      <Footer />
+      
     </Box>
         </div>
         

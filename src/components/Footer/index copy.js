@@ -1,1 +1,0 @@
-src/components/Footer/index.js

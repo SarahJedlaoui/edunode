@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
-import Footer from '../../Footer';
 import NavBar from '../../NavBar';
 
 import security from '../cyber-security.png';
@@ -453,7 +452,7 @@ export default class Kelp extends Component {
           </div>
         </Container>
 
-        <Footer />
+       
       </div>
     );
   }

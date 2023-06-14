@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Footer from '../../Footer';
+
 import NavBar from '../../NavBar';
 import me from '../sara.jpg';
 import sc from '../Dockerr.png';
@@ -326,7 +326,7 @@ Whether you're building a private blockchain network for enterprise applications
             </Col>
           </Row>
         </Container>
-        <Footer />
+        
       </div>
     );
   }

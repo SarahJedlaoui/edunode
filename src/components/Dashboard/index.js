@@ -7,6 +7,7 @@ import { Navigate } from 'react-router-dom';
 //import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 import Footer from '../Footer';
+import Footer1 from '../Footer/Footer';
 import withRouter from '../../withRouter';
 import Alert from "@material-ui/lab/Alert";
 import Popup from 'reactjs-popup';
@@ -199,7 +200,8 @@ class Dashboard extends Component {
                 <div className="card-body">
                 <h6 className="card-title"> Post </h6>
                     <h5 className="card-title">{post.title}</h5>
-                    <p className="card-text">{post.description}</p>
+                    
+                    <p className="card-text" dangerouslySetInnerHTML={{ __html: post.description }} ></p>
                     <a href={post.link} className="card-link">
                         <FontAwesomeIcon icon={faLink} className="mr-2" />
                         {post.link}
@@ -284,7 +286,7 @@ class Dashboard extends Component {
                   />
                   <button onClick={this.handleClosePopup}>Close</button>
                 </Modal>
-            <Footer />
+           
           </>
         );
       }
@@ -344,7 +346,7 @@ class Dashboard extends Component {
                 <TwitterFollowButton screenName={'edunodeorg'} />
               </Grid>*/}
             </Grid>
-      <Footer />
+    
       </>
         )
       }

@@ -50,7 +50,28 @@ import {
 } from "react-share";
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async'
-import MetaDecorator from './MetaDecorator.jsx';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import { Button } from '@mui/material';
+
+
+
+
+
+
+
+
+
+
+
 const metaDecorator = require("./metaDecorator.json");
 
 
@@ -64,6 +85,7 @@ function Certificat() {
   const title = "E-certification "
   const stellarLab = "https://horizon-futurenet.stellar.org/accounts/?sponsor=GC4MEJJJMNIBIDZSJOZOPVUQQUKR3AARFLPFYKUFXU2D7PHWJP5S4AEI"
   const shareUrl = `https://edunode.org/certificates/${certificateNumber}`;
+  const theme = useTheme();
   console.log('url', shareUrl);
   useEffect(() => {
     const fetchCertificate = async () => {
@@ -84,7 +106,7 @@ function Certificat() {
   if (!certificate) {
     return <div>Loading...</div>;
   }
-
+  
   const { cid, distributorPublicKey, issuerPublicKey } = certificate;
   const ciid = `https://${cid}.ipfs.w3s.link/newdiplomav2.jpg`
   console.log('cid', cid)
@@ -272,13 +294,37 @@ function Certificat() {
       </div>
 
       <img src={ciid} alt="Certificate" />
-      {qrCode && <img src={qrCode} alt="QR Code" />}
-      <h4>certificate Id:{certificateNumber}</h4>
-      <h4>distributorPublicKey: {distributorPublicKey}</h4>
-      <h4>issuerPublicKey: {issuerPublicKey}</h4>
-      <h4>IPFS: <a href={cid}>{cid}</a></h4>
-      <h4>  <a href={`https://horizon-futurenet.stellar.org/accounts/?sponsor=${issuerPublicKey}`}> Check on the Laboratory </a> </h4>
+     
       
+      <Card sx={{ display: 'flex' }}>
+  <CardContent sx={{ flex: '1 1 auto' }}>
+    <Typography component="div" variant="h5">
+      Certificate informations:
+    </Typography>
+    <Typography variant="subtitle1" color="text.secondary" component="div">
+      distributorPublicKey: {distributorPublicKey}
+    </Typography>
+    <Typography variant="subtitle1" color="text.secondary" component="div">
+      issuerPublicKey: {issuerPublicKey}
+    </Typography>
+    <Typography variant="subtitle1" color="text.secondary" component="div">
+      IPFS: <a href={cid}>{cid}</a>
+    </Typography>
+    <Button
+      href={`https://horizon-futurenet.stellar.org/accounts/?sponsor=${issuerPublicKey}`}
+      size="small"
+      color="primary"
+    >
+      Check on the Laboratory
+    </Button>
+  </CardContent>
+  <CardMedia
+    component="img"
+    sx={{ width: 180 }}
+    image={qrCode}
+    alt="qr code"
+  />
+</Card>
 
 
     </div>

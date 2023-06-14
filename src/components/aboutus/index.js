@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "../Footer";
+
 import NavBar from "../NavBar";
 import { aboutUs } from './config';
 import styles from './style.module.css';
@@ -25,7 +25,7 @@ function AboutUs() {
           </div>
         </section>
       </main>
-      <Footer />
+      
     </>
   );
 }

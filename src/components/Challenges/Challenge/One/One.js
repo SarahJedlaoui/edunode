@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from '../../NavBar';
-import Footer from '../../Footer';
 import LinearWithValueLabel from './ProgressBar';
 import ActionsInAccordionSummary from './MultiSelection';
 import FloatingActionButtonZoom from './Floating';

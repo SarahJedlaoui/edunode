@@ -19,7 +19,7 @@ import {
 import Welcome from './Welcome';
 import Course1 from './Course1';
 
-import Footer from '../../Footer';
+
 import Navbar1 from '../../Dashboard/Navbar1';
 
 // Import styles
@@ -103,13 +103,13 @@ class Challenge extends Component {
           <Course1 />
           <br></br>
           
-          <br></br>
-          <Footer />
+          
+          
         </div>
         </Grid>
         
       </Grid>
-      {/* <Footer /> */}
+     
     </Box>
         </>
       );

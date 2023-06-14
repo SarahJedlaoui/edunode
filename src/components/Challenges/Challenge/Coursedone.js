@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from '../../NavBar';
-import Footer from '../../Footer';
+
 import CircularIntegration from './One/CheckFive';
 import {
   Form,

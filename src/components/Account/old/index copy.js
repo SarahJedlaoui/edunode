@@ -8,7 +8,7 @@ import Topbar from "../Dashboard/Topbar";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Footer from '../Footer';
+
 import { styled } from '@mui/material/styles';
 import "./styles.css"
 
@@ -66,7 +66,7 @@ class UserProfilePage extends Component {
         
       </Grid>
 
-      <Footer />
+      
     </Box>
       </>
       
