@@ -102,6 +102,7 @@ function PostDetails(props) {
           userImages[email] = user.user.images;
           userId[email] = user.user._id;
           console.log('image', userImages)
+          console.log('user', res.data)
         }
 
         setCommentImages(userImages);
@@ -168,17 +169,14 @@ function PostDetails(props) {
                   {comments.map((comment, index) => (
                     <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                       {comment.email in commentImages &&   (
-
-                        <button
-                        onClick={() => {
-                          window.location.href = `/profile/${commentId[comment.email]}`;
-                        }}
-                        >
+                        <button>
                         <img
                           src={commentImages[comment.email]}
                           alt="User Profile"
                           style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '50%' }}
-                      
+                          onClick={() => {
+                            window.location.href = `/profile/${commentId[comment.email]}`;
+                          }}
                         />
                         </button>
                       )}

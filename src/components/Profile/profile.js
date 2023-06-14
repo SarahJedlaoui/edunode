@@ -368,8 +368,8 @@ const WithParams = () => {
         console.log('data',data.user)
         localStorage.setItem('userProfile', JSON.stringify(data.user));
         setEmail(data.user.email);
-        fetchPosts();
-        fetchCourses();
+        fetchPosts(data.user.email);
+        fetchCourses(data.user.email);
         console.log('email',data.user.email)
       } catch (error) {
         console.error(error);
@@ -382,10 +382,10 @@ const WithParams = () => {
   }, [id]);
 
   
-    const fetchPosts = async () => {
-      
+    const fetchPosts = async (email) => {
+      console.log('post email:',email)
       try {
-        const response = await axios.get(`http://localhost:5001/api/post/postemail/${email}`);
+        const response = await axios.get(`https://edunode.herokuapp.com/api/post/postemail/${email}`);
         const posts = response.data;
         setPosts(posts);
       } catch (error) {
@@ -395,10 +395,10 @@ const WithParams = () => {
 
 
   
-    const fetchCourses = async () => {
-      
+    const fetchCourses = async (email) => {
+      console.log('course email:',email)
       try {
-        const response = await axios.get(`http://localhost:5001/api/cours/coursemail/${email}`);
+        const response = await axios.get(`https://edunode.herokuapp.com/api/cours/coursemail/${email}`);
         const courses = response.data;
         setCourses(courses);
       } catch (error) {
@@ -406,7 +406,7 @@ const WithParams = () => {
       }
     };
 
-  if (!user) {
+  if (!user || !posts  || !courses ) {
     // Render a loading state or placeholder component here
     return <div>Loading...</div>;
   }

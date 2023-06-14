@@ -55,6 +55,7 @@
     "openai": "^3.2.1",
     "postscribe": "^2.0.8",
     "prop-types": "^15.8.1",
+    "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-component-export-image": "^1.0.6",

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MetaTags from 'react-meta-tags';
 import { useLocation, useParams } from 'react-router-dom';
 import Certificate from './index';
+import QRCode from 'qrcode';
 import {
   FacebookShareCount,
   RedditShareCount,
@@ -52,11 +53,14 @@ import { Helmet } from 'react-helmet-async'
 import MetaDecorator from './MetaDecorator.jsx';
 const metaDecorator = require("./metaDecorator.json");
 
+
+
 // const ciid = 'https://edunode.org/blog/automated-market-maker';
 
 function Certificat() {
   const { certificateNumber } = useParams();
   const [certificate, setCertificate] = useState(null);
+  const [qrCode, setQRCode] = useState('');
   const title = "E-certification "
   const stellarLab = "https://horizon-futurenet.stellar.org/accounts/?sponsor=GC4MEJJJMNIBIDZSJOZOPVUQQUKR3AARFLPFYKUFXU2D7PHWJP5S4AEI"
   const shareUrl = `https://edunode.org/certificates/${certificateNumber}`;
@@ -67,6 +71,8 @@ function Certificat() {
         const response = await axios.get(`https://edunode.herokuapp.com/api/certificates/cert/${certificateNumber}`);
         setCertificate(response.data);
         console.log('certificatttt', response.data)
+        const qrCodeDataURL = await QRCode.toDataURL(shareUrl);
+        setQRCode(qrCodeDataURL);
       } catch (error) {
         console.error(error);
       }
@@ -266,12 +272,13 @@ function Certificat() {
       </div>
 
       <img src={ciid} alt="Certificate" />
+      {qrCode && <img src={qrCode} alt="QR Code" />}
       <h4>certificate Id:{certificateNumber}</h4>
       <h4>distributorPublicKey: {distributorPublicKey}</h4>
       <h4>issuerPublicKey: {issuerPublicKey}</h4>
       <h4>IPFS: <a href={cid}>{cid}</a></h4>
       <h4>  <a href={`https://horizon-futurenet.stellar.org/accounts/?sponsor=${issuerPublicKey}`}> Check on the Laboratory </a> </h4>
-
+      
 
 
     </div>
