@@ -59,6 +59,7 @@
     "prop-types": "^15.8.1",
     "qrcode": "^1.5.3",
     "react": "^18.2.0",
+    "react-autocomplete": "^1.8.1",
     "react-autosuggest": "^10.1.0",
     "react-bootstrap": "^2.7.4",
     "react-component-export-image": "^1.0.6",
