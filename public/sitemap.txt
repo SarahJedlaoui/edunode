@@ -5,3 +5,4 @@ https://edunode.org/courses
 https://edunode.org/blog
 https://edunode.org/glossary
 https://edunode.org/community
+https://edunode.org/blog/automated-market-maker

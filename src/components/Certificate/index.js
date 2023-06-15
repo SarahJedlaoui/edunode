@@ -276,6 +276,7 @@ class Certificate extends Component {
 
                   <div>
                     <p><h3>Welcome to your Certifications</h3></p>
+                   <a>Learn more about Certifications</a> <b> <a href="about-certificates">here</a></b>
                     <br></br>
 
                     {certificateCount > 0 && (

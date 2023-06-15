@@ -44,6 +44,7 @@ import {
 import '../style.css';
 import aqua from "./aquaimg.png"
 
+
 export default class AMM extends Component {
   constructor(props) {
     super(props);
@@ -53,22 +54,39 @@ export default class AMM extends Component {
     };
   }
   render() {
+   
+  const author = "Olvis E. Gil Ríos"
+  const datePublished = "13/12/2021"
+  const description = 'What are AMMs? Why are they useful? And how they are being used in decentralized finance.'
     const shareUrl = 'https://edunode.org/blog/automated-market-maker';
     const title = 'DeFi Explained: What is an Automated Market Maker?';
     const exampleImage = amm;
      const sc = "https://media0.giphy.com/media/idKeY3nvmdIsM/giphy.gif?cid=ecf05e47m4lxujqwiffgwaoopcey55b4lmhv4xtu24r1cev3&rid=giphy.gif&ct=g"
      const off = "https://media0.giphy.com/media/SEWEmCymjv8XDbsb8I/giphy.gif"
      const ammy = "https://cloudfront-us-east-1.images.arcpublishing.com/coindesk/2JYSUKBZKJDLPAOVBQT2EH2IHI.png"
-
+    //  const jsonLdData = {
+    //   '@context': 'https://schema.org',
+    //   '@type': 'BlogPosting',
+    //   headline: title,
+    //   datePublished: datePublished,
+    //   // dateModified: dateModified,
+    //   author: {
+    //     '@type': 'Person',
+    //     name: author,
+    //   },
+    //   description: description,
+    //   // articleBody: content,
+    //   image: amm,
+    // };
     return (
       <div>
         
       <MetaTags>
       <title>{title}</title>
       <meta name="description" content="DeFi Explained: What is an Automated Market Maker?" />
-      <meta property="og:title" content="EduNode" />
+      <meta property="og:title" content="DeFi Explained: What is an Automated Market Maker?" />
         <meta property="og:image" content={amm} />
-        <meta property="og:image" content="./AMMs.png" />
+        <meta property="og:image" content="https://i.imgur.com/LvD6RFi.png" />
         <meta property="twitter:image" content={amm}></meta>
         
       </MetaTags>
@@ -77,10 +95,13 @@ export default class AMM extends Component {
           <meta charSet="utf-8" />
           <title>{title}</title>
           <link rel="canonical" href={shareUrl} />
-          
           <meta name="description" content="What are AMMs? Why are they useful? And how they are being used in decentralized finance." />
-          <meta property="og:image" key="og:image" content={amm}/> 
-      <meta property="twitter:image" content={amm}></meta>
+          <meta property="og:title" content="DeFi Explained: What is an Automated Market Maker?" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://i.imgur.com/LvD6RFi.png" />
+<meta property="og:url" content="https://edunode.org/blog/automated-market-maker" />
+<meta property="og:image" key="og:image" content={amm}/> 
+<meta property="twitter:image" content="https://i.imgur.com/LvD6RFi.png"></meta>
       
         </Helmet>
         <NavBar />
