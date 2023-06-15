@@ -183,7 +183,7 @@ import StudentsPage from "./components/student"
 import PasswordPage from './components/Login/password'
 import ResetPasswordPage from './components/Login/reset_password'
 import WithParams from './components/Profile/profile'
-
+import CertificatePage from './components/Certificate/about'
 
 function App(props) {
   const location = useLocation();
@@ -373,6 +373,7 @@ function App(props) {
         <Route exact path="/for-students" element={<StudentsPage />} />
         <Route exact path="/forgot_password" element={<PasswordPage />} />
         <Route exact path="/reset-password" element={<ResetPasswordPage />} />
+        <Route exact path="/about-certificates" element={<CertificatePage />} />
         
       </Routes>
       {shouldShowFooter && <Footer />}

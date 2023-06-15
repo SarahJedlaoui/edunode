@@ -545,7 +545,7 @@ class Account extends Component {
                         onChange={this.handleBioChange}
                       />
 
-<input
+{/* <input
           type="text"
           placeholder="Search University"
           onChange={(e) => this.setState({ searchQuery: e.target.value })}
@@ -562,7 +562,7 @@ class Account extends Component {
                 <a href={university.url}>{university.name}</a>
               </li>
             ))}
-        </ul>
+        </ul> */}
 
                       <label>Preferences:</label>
 

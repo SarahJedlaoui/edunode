@@ -366,12 +366,7 @@ export default class AMM extends Component {
             </Col>
           </Row>
         </Container>
-<<<<<<< HEAD
        
-=======
-        <Footer />
-        {/* <JsonLd data={jsonLdData} /> */}
->>>>>>> 6c4349c (sitemap, blog metadata)
       </div>
     );
   }
