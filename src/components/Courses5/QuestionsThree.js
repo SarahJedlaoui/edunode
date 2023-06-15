@@ -134,7 +134,7 @@ export default class index extends Component {
         </Form.Group>
 
         <CircularIntegration state={this.state} />
-        <Footer />
+        
       </>
     );
   }

@@ -39,7 +39,7 @@ export default class index extends Component {
       </p>
     </div>
 </div>
-            <Footer />
+            
           </div>
         );
     }

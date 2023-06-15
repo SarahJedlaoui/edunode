@@ -153,7 +153,7 @@ class QuestionFive extends Component {
           state={this.state}
         props={this.props.auth.user}
         />
-        <Footer />
+        
       </>
     );
   }

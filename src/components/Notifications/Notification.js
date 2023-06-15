@@ -106,7 +106,7 @@ class Notification extends Component {
               </div>
             </Grid>
           </Grid>
-          <Footer />
+          
         </Box>
       </div>
 

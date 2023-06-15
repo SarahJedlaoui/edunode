@@ -44,7 +44,7 @@ export default class Article extends Component {
             </Col>
           </Row>
         </Container>
-        <Footer />
+        
       </div>
     )
   }

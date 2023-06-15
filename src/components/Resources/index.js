@@ -748,7 +748,7 @@ function Resources() {
           </Container>
         </main>
 
-        <Footer />
+        
 
         <br></br>
         <br></br>

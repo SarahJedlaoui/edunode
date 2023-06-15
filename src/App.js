@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
+import Footer from './components/Footer/Footer';
 import { useLocation, useNavigate } from "react-router-dom";
 import { store } from "./store";
 import './App.css';
@@ -182,11 +183,13 @@ import StudentsPage from "./components/student"
 import PasswordPage from './components/Login/password'
 import ResetPasswordPage from './components/Login/reset_password'
 import WithParams from './components/Profile/profile'
+
+
 function App(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-
+  const shouldShowFooter = window.location.pathname !== '/certificates/:certificateNumber';
   return (
     <Provider store={store}>
       <Routes location={location} navigate={navigate}>
@@ -370,7 +373,9 @@ function App(props) {
         <Route exact path="/for-students" element={<StudentsPage />} />
         <Route exact path="/forgot_password" element={<PasswordPage />} />
         <Route exact path="/reset-password" element={<ResetPasswordPage />} />
+        
       </Routes>
+      {shouldShowFooter && <Footer />}
     </Provider>
   );
 }

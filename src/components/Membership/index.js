@@ -215,7 +215,7 @@ class Membership extends Component {
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
         </div>
         </>

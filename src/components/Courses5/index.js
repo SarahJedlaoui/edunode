@@ -110,12 +110,12 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
         </div>
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
        
       );
@@ -142,12 +142,12 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
         </div>
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
        
       );
@@ -174,12 +174,12 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
         </div>
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
       );
     } else {
@@ -189,7 +189,7 @@ class Courses extends Component {
           <p>
             Please <a href="/login">Log In</a> to see the courses.
           </p>
-          <Footer /> */}
+           */}
           <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={5} sm={3.5} md={2}>
@@ -208,12 +208,12 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
         </div>
         </Grid>
         
       </Grid>
-      {/* <Footer /> */}
+      {/*  */}
     </Box>
         </>
       );

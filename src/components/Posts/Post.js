@@ -438,7 +438,7 @@ class Post extends Component {
                 </div>
               </Grid>
             </Grid>
-            <Footer />
+            
           </Box>
         </div>
 

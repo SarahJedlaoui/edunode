@@ -55,7 +55,7 @@ const TermsAndConditions = () => {
         If you have any questions about these Terms or the Platform, please contact us at hi@edunode.org.
 
       </Typography>
-      <Footer />
+      
     </div>
   );
 };

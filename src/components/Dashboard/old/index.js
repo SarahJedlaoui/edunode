@@ -125,7 +125,7 @@ class Dashboard extends Component {
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
         </div>
             </div>

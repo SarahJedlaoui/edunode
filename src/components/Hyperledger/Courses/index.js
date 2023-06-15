@@ -10,7 +10,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import './style.css';
-import Footer from '../../Footer';
+
 import Course1 from './Course1';
 import Course1done from './Course1done';
 import Course1doneclaim from './Course1doneclaim';
@@ -91,12 +91,12 @@ class HyperledgerCourses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
         </div>
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
        
       );
@@ -123,12 +123,12 @@ class HyperledgerCourses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
         </div>
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
        
       );
@@ -155,12 +155,12 @@ class HyperledgerCourses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
         </div>
         </Grid>
         
       </Grid>
-      <Footer />
+      
     </Box>
       );
     } else {
@@ -170,7 +170,7 @@ class HyperledgerCourses extends Component {
           <p>
             Please <a href="/login">Log In</a> to see the courses.
           </p>
-          <Footer /> */}
+           */}
           <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={5} sm={3.5} md={2}>
@@ -189,12 +189,12 @@ class HyperledgerCourses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
         </div>
         </Grid>
         
       </Grid>
-      {/* <Footer /> */}
+      {/*  */}
     </Box>
         </>
       );

@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
      
           </main>
   
-          <Footer />
+          
   
           <br></br>
           <br></br>

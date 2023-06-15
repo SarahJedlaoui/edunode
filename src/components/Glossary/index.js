@@ -466,7 +466,7 @@ class Glossary extends Component {
                             </div>
                         </Grid>
                     </Grid>
-                    <Footer />
+                    
                 </Box>
             </div>
 

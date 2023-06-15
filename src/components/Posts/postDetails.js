@@ -191,7 +191,7 @@ function PostDetails(props) {
             </div>
           </Grid>
         </Grid>
-        <Footer />
+        
       </Box>
     </div>
   );

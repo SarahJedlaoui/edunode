@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import NavBar from '../../NavBar';
-import Footer from '../../Footer';
+
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../actions/errorActions';
 import { reduxForm } from 'redux-form';
@@ -176,7 +176,7 @@ const Introiiiii = (props) => {
       <NavBar></NavBar>
       <LinearProgressWithLabel value={10} />
       <VerticalLinearStepper onChange={console.log(state)} />
-      <Footer />
+      
     </div>
   );
 };

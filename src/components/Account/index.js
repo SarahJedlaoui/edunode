@@ -4,7 +4,7 @@ import withRouter from '../../withRouter';
 import { reduxForm } from "redux-form";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-
+import Papa from 'papaparse';
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types'
 import Autocomplete from '@mui/material/Autocomplete';
@@ -13,6 +13,8 @@ import { Navigate } from "react-router-dom";
 import styled from 'styled-components';
 import Navbar1 from '../Dashboard/Navbar1';
 import ImageUploading from "react-images-uploading";
+import Autosuggest from 'react-autosuggest';
+import CSVReader from 'react-csv-reader';
 
 const Select = styled.select`
   padding: 0.5rem;
@@ -103,6 +105,9 @@ class Account extends Component {
       imagePreviewUrl: 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true',
       images: [],
       maxNumber: 1,
+      universities: [],
+      searchQuery: '',
+      suggestions: []
     };
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
@@ -248,7 +253,7 @@ class Account extends Component {
 
     const imageStrings = this.state.images.map(image => image.data_url); // Extract the image data URLs from the state
     const imagesJoin = imageStrings.join(','); // Convert the image data URLs to a single comma-separated string
-    
+
     const images = imagesJoin || this.state.user.images;
 
     const preferences = this.state.preferences;
@@ -307,7 +312,66 @@ class Account extends Component {
   };
 
 
+  componentDidMount() {
+    Papa.parse('./universities.csv', {
+      download: true,
+      header: false,
+      skipEmptyLines: true,
+      complete: (results) => {
+        const universities = results.data.map((row) => ({
+          countryCode: row[0],
+          name: row[1],
+          url: row[2],
+        }));
+        this.setState({ universities });
+      },
+    });
+  }
+  getSuggestions = (inputValue) => {
+    const inputValueLowerCase = inputValue.toLowerCase();
+    return this.state.universities.filter((universityArray) => {
+      const university = universityArray[0] || universityArray[1];
+      const universityName = university && university.toLowerCase();
+      return universityName && universityName.includes(inputValueLowerCase);
+    });
+  };
+
+
+  getSuggestionValue = (suggestion) => {
+    // Modify the key/index based on the actual structure of your university data
+    return suggestion[0] || suggestion[1];
+  };
+
+  renderSuggestion = (suggestion) => {
+    // Modify the key/index based on the actual structure of your university data
+    return <div>{suggestion[0] || suggestion[1]}</div>;
+  };
+  onChange = (event, { newValue }) => {
+    this.setState({ value: newValue });
+  };
+
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({ suggestions: this.getSuggestions(value) });
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({ suggestions: [] });
+  };
+
+
+
+
   render() {
+    const { universities, searchQuery } = this.state;
+   
+
+
+    const inputProps = {
+      placeholder: 'Choose a university',
+      value: this.state.value,
+      onChange: this.onChange,
+      onBlur: () => { }, // You can add any additional onBlur logic if needed
+    };
     const { isAuthenticated } = this.props.auth
     const { imagePreviewUrl,
       name,
@@ -367,7 +431,7 @@ class Account extends Component {
                         </div>
                       </div>
 
-<p>Please upload only png and jpg</p>
+                      <p>Please upload only png and jpg</p>
                       <ImageUploading
                         multiple
                         value={images}
@@ -480,6 +544,26 @@ class Account extends Component {
                         value={user.bio}
                         onChange={this.handleBioChange}
                       />
+
+<input
+          type="text"
+          placeholder="Search University"
+          onChange={(e) => this.setState({ searchQuery: e.target.value })}
+        />
+        <ul>
+          {universities
+            .filter(
+              (university) =>
+                university.name &&
+                university.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((university, index) => (
+              <li key={index}>
+                <a href={university.url}>{university.name}</a>
+              </li>
+            ))}
+        </ul>
+
                       <label>Preferences:</label>
 
                       <Select fullWidth id="tags" onChange={this.handleTagSelect} style={{ width: '100%' }}>
@@ -557,7 +641,7 @@ class Account extends Component {
                 </div>
               </Grid>
             </Grid>
-           
+
           </Box>
         </div>
       </>

@@ -622,7 +622,7 @@ function Projects() {
           </Container>
         </main>
 
-        <Footer />
+        
       </div>
     </>
   );

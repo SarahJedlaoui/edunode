@@ -95,7 +95,7 @@ class Milestones extends Component {
           <br></br>
           <br></br>
         </div>
-        <Footer />
+        
       </>
     );
   }

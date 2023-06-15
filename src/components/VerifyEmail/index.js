@@ -275,7 +275,7 @@ class VerifyEmail extends Component {
               < br />
               < br />
               < br />
-              <Footer />
+              
             
           </div>
           < br />

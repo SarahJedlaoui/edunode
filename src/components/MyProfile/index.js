@@ -75,7 +75,7 @@ class MyProfile extends Component {
             </Card.Body>
           </Card>
           </div>
-          <Footer />
+          
           <Alert className="text-center" severity="info">
             Welcome to EduNode! Please have in mind that we are currently in beta. Soon we will add more funtionality to the Dashboard. Your feedback will be highly appreciated.
                   </Alert>
@@ -125,7 +125,7 @@ class MyProfile extends Component {
               </Col>
             </Row>
           </Container>
-          <Footer />
+          
           <Alert className="text-center" severity="info">
             Welcome to EduNode! Please have in mind that we are currently in beta. Soon we will add more funtionality to the Dashboard. Your feedback will be highly appreciated.
                     </Alert>

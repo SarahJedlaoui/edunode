@@ -449,7 +449,7 @@ class Teach extends Component {
               </div>
             </Grid>
           </Grid>
-          <Footer />
+          
         </Box>
 
       </div>

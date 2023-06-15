@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import NavBar from '../../NavBar';
-import Footer from '../../Footer';
+
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../actions/errorActions';
 import { Field, reduxForm } from 'redux-form';
@@ -180,7 +180,7 @@ class Introiii extends Component {
         <VerticalLinearStepper  />
         {/* <LinearWithValueLabel props={this.state.progress} /> */}
 
-        <Footer />
+        
       </div>
     );
   }

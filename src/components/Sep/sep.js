@@ -38,7 +38,7 @@ export default class Sep extends Component {
 <pre>{this.state.response}</pre>
     </div>
 </div>
-            {/* <Footer /> */}
+            {/*  */}
           </div>
         );
     }

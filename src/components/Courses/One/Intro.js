@@ -13,7 +13,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 //import ProgressBar from 'react-bootstrap/ProgressBar';
 import Box from '@mui/material/Box';
 import Navbar from '../../Dashboard/Navbar';
-import Footer from '../../Footer';
+
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../actions/errorActions';
 import { reduxForm } from 'redux-form';
@@ -194,7 +194,7 @@ class Intro extends Component {
           handleNext={this.handleNext}
           handleBack={this.handleBack}
         />
-        <Footer />
+        
       </div>
     );
   }

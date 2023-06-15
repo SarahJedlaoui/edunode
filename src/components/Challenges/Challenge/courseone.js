@@ -136,7 +136,7 @@ export default Courses = reduxForm({
 //         <br></br>
 //         <Course3 />
 //         <br></br>
-//         <Footer />
+//         
 
 //         {/* <LinearWithValueLabel />
 //                 <br></br>

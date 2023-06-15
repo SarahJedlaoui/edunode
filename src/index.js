@@ -12,6 +12,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css';
 import Footer from './components/Footer/Footer';
 const helmetContext = {};
+
+const shouldShowFooter = window.location.pathname !== '/certificates/:certificateNumber';
+
+
 createRoot(document.getElementById('root')).render(
 
   <HelmetProvider context={helmetContext}>
@@ -21,7 +25,7 @@ createRoot(document.getElementById('root')).render(
     <div className="app-wrapper">
     <div className="content-wrapper"> 
       <App />
-      <Footer></Footer>
+      
       </div>
       </div>
  

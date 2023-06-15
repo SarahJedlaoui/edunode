@@ -78,7 +78,7 @@ class Courses extends Component {
           <br></br>
           <Course4 />
           <br></br>
-          <Footer />
+          
 
           {/* <LinearWithValueLabel />
                 <br></br>
@@ -136,7 +136,7 @@ export default Courses = reduxForm({
 //         <br></br>
 //         <Course3 />
 //         <br></br>
-//         <Footer />
+//         
 
 //         {/* <LinearWithValueLabel />
 //                 <br></br>
