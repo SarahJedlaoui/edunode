@@ -11,7 +11,6 @@ import { Navigate } from "react-router-dom";
 import styled from 'styled-components';
 import Navbar1 from '../Dashboard/Navbar1';
 import ImageUploading from "react-images-uploading";
-import universitiesData from './universities.json';
 import Autocomplete from '@mui/material/Autocomplete';
 
 
@@ -94,6 +93,7 @@ class Account extends Component {
       preferences: auth.user && auth.user.preferences ? auth.user.preferences : [],
       age: auth.user && auth.user.age ? auth.user.age : "",
       bio: auth.user && auth.user.bio ? auth.user.bio : "",
+      bio: auth.user && auth.user.university ? auth.user.university : "",
       location: auth.user && auth.user.location ? auth.user.location : "",
       _id: auth.user && auth.user._id ? auth.user._id : "",
       isLoading: false,
@@ -116,7 +116,7 @@ class Account extends Component {
     // this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
-  
+
 
   handleUniversityChange = (event, value) => {
     this.setState({ selectedUniversity: value });
@@ -165,16 +165,16 @@ class Account extends Component {
       .catch(error => {
         console.error(error);
       });
+    // Fetch the university names from the backend API
+   {/**  fetch('http://localhost:5001/api/universities/universities')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ universityOptions: data });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });*/}
 
-    console.log('Component mounted');
-    try {
-      const universityNames = universitiesData.map(
-        (item) => item['World Universities']
-      );
-      this.setState({ universityOptions: universityNames });
-    } catch (error) {
-      console.error('Error loading university options:', error);
-    }
   }
 
 
@@ -185,6 +185,14 @@ class Account extends Component {
       user: {
         ...prevState.user,
         name: event.target.value
+      }
+    }));
+  };
+  handleUniversityChange = (event) => {
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        university: event.target.value
       }
     }));
   };
@@ -275,6 +283,7 @@ class Account extends Component {
     const { tags, email } = this.state;
     const formData = {
       name: this.state.user.name,
+      university: this.state.user.university,
       age: this.state.user.age,
       bio: this.state.user.bio,
       _id: this.props.auth.user._id,
@@ -504,20 +513,28 @@ class Account extends Component {
                         onChange={this.handleBioChange}
                       />
                       <label>University:</label>
+                      <TextField
+                        name="university"
+                        type="text"
+                        placeholder="university"
+                        fullWidth
+                        value={user.university}
+                        onChange={this.handleUniversityChange}
+                      />
 
-                      <Autocomplete
-                      id="combo-box-demo"
-                      options={universityOptions} // Use the 'items' prop for compatibility with your code
-          
-                      fullWidth
-          value={selectedUniversity || ''}
-          onChange={this.handleUniversityChange}
-          renderInput={(params) => (
-            <TextField {...params} label="Choose University" variant="outlined" fullWidth />
-          )}
-          
-        />
-   
+
+
+                     {/**  <Autocomplete
+                        id="combo-box-demo"
+                        options={universityOptions}
+                        fullWidth
+                        value={selectedUniversity || ''}
+                        onChange={this.handleUniversityChange}
+                        renderInput={(params) => (
+                          <TextField {...params} label="Choose University" variant="outlined" fullWidth />
+                        )}
+                      />*/}
+
 
 
 

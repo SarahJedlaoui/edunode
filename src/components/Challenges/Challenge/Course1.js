@@ -33,6 +33,11 @@ export function AlertDialog(props) {
      setOpen(false);
      window.location.href = '/challenges/101/';
    };
+   const handleButtonClick = () => {
+    const id1 ='648c95d5d9b084b4ad3def41';
+    window.location.href = `/challengeDetails/${id1}`;
+  };
+
 
   return (
     <div>
@@ -42,6 +47,13 @@ export function AlertDialog(props) {
         onClick={handleClickOpen}
       >
         Select Challenge
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleButtonClick}
+      >
+        Challenge Details
       </Button>
       <Dialog
         open={open}

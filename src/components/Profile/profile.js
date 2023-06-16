@@ -64,7 +64,7 @@ class ProfilePage extends Component {
     return (
       <section style={{ backgroundColor: '#eee' }}>
         <Navbar1></Navbar1>
-        <MDBContainer className="py-5">
+        <MDBContainer className="py-9">
           <MDBRow>
             <MDBCol>
               <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
@@ -101,23 +101,23 @@ class ProfilePage extends Component {
                   <MDBListGroup  className="rounded-3">
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBIcon fas icon="globe fa-lg text-warning" />
-                      <MDBCardText>https://edunode.org</MDBCardText>
+                      <a href={`/profile/${this.state.user._id}`}>Get you Profile link </a>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                      <MDBCardText>edunode</MDBCardText>
+                      <MDBCardText></MDBCardText>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                      <MDBCardText>@edunode</MDBCardText>
+                      <MDBCardText></MDBCardText>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                      <MDBCardText>edunode</MDBCardText>
+                      <MDBCardText></MDBCardText>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                      <MDBCardText>edunode</MDBCardText>
+                      <MDBCardText></MDBCardText>
                     </MDBListGroupItem>
                   </MDBListGroup>
                 </MDBCardBody>
@@ -347,7 +347,7 @@ class ProfilePage extends Component {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
-        <Footer></Footer>
+        
       </section>
     );
   }
