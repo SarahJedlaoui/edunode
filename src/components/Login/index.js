@@ -26,7 +26,7 @@ import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
 import GoogleLog from './Google'
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
-
+import Alert from '@mui/material/Alert';
 
 
 const validate = values => {
@@ -61,8 +61,8 @@ class Login extends Component {
       isLoading: false,
       user: {},
       errors: {},
-      token: ''
-
+      token: '',
+      showError: false 
     }
     this.handleCallBackResponse = this.handleCallBackResponse.bind(this);
 
@@ -164,35 +164,30 @@ class Login extends Component {
   };
 
 
-  onSubmit = async values => {
-
-    const email = values.email
-    const password = values.password
-
-    // create user object
+  onSubmit = (values) => {
+    const email = values.email;
+    const password = values.password;
     const newUser = {
       email,
       password
     };
+  
+    this.props.login(newUser)
+      .then(() => {
+        if (this.props.auth.user) {
+          return <Navigate to="/dashboard" />;
+        } else {
+          this.setState({ error: true });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ showError: true });
+      });
+  };
+  
 
 
-    try {
-
-      await this.props.login(newUser)
-
-      if (this.props.auth.user) {
-        return (
-          <Navigate to="/dashboard" />
-        );
-      }
-
-
-    } catch (error) {
-      console.log(error)
-    }
-
-
-  }
 
   render() {
 
@@ -281,8 +276,8 @@ class Login extends Component {
     }
 
 
-
-    const { pristine, submitting, token } = this.props
+    const { showError } = this.state;
+    const { pristine, submitting, token} = this.props
     const { isLoading, isAuthenticated, isVerified } = this.props.auth
 
     if (isLoading) {
@@ -316,7 +311,7 @@ class Login extends Component {
     return (
       <div>
         <NavBar />
-
+       
         <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <div>
 
@@ -438,9 +433,11 @@ class Login extends Component {
               Login
             </Button>
           </div>
-          <div>
-            <p>{this.props.error.msg.msg}</p>
-          </div>
+          {showError && (
+        <div>
+          <Alert severity="error">Login failed. Please check your credentials and try again!</Alert>
+        </div>
+      )}
           <div>
             <Link to="/">
               Return

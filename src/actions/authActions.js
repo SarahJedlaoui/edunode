@@ -119,60 +119,47 @@ export const register = ({ email, password, confirmationCode }) => dispatch => {
 // login User
 
 export const login = ({ email, password }) => dispatch => {
-  console.log(email)
-  dispatch({ type: USER_LOADING });
-
-  // request body
-
   const body = JSON.stringify({ email, password });
 
-
-  fetch('https://edunode.herokuapp.com/api/emaillogin', {
-    method: 'POST',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-      'Content-Security-Policy': 'script-src',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS'
-    },
-    body
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.user !== undefined) {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: data,
-
-        });
-        if (data.user.isVerified === true) {
-          dispatch({
-            type: VERIFICATION_SUCCESS,
-            payload: data,
-
-          });
-
-          localStorage.setItem('jwt', data.user)
-          localStorage.setItem('user', JSON.stringify(data.user))
-          console.log('users', data.user)
-        }
-        localStorage.setItem('jwt', data.user)
-        localStorage.setItem('user', JSON.stringify(data.user))
-        console.log('users', data.user)
-      }
-
-
+  return new Promise((resolve, reject) => {
+    fetch('https://edunode.herokuapp.com/api/emaillogin', {
+      method: 'POST',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        'Content-Security-Policy': 'script-src',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS'
+      },
+      body
     })
-    .catch((err) => {
-      console.log(err);
-
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: err
+      .then(response => response.json())
+      .then(data => {
+        if (data.user !== undefined) {
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: data,
+          });
+          if (data.user.isVerified === true) {
+            dispatch({
+              type: VERIFICATION_SUCCESS,
+              payload: data,
+            });
+          }
+          localStorage.setItem('jwt', data.user);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          console.log('users', data.user);
+          resolve();
+        } else {
+          reject(new Error('Login failed. Please check your credentials and try again.'));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
       });
-    });
+  });
+};
 
-}
 
 
 
