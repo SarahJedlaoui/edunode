@@ -42,6 +42,9 @@ function Tags() {
 
 const topTags = [
   { title: 'Blockchain' },
+  { title: 'Soroban' },
+  { title: 'Stellar' },
+  { title: 'Ethereum' },
   { title: 'Crypto' },
   { title: 'Smart Contracts' },
   { title: 'Solidity' },
@@ -50,9 +53,11 @@ const topTags = [
   { title: 'Dev' },
   { title: 'E-learning' },
   { title: 'Programming' },
+  { title: 'rust' },
   { title: 'Javascript' },
   { title: 'Nodejs' },
   { title: 'Reactjs' },
+  { title: 'News' },
   { title: 'Other' },
 ];
 

@@ -30,6 +30,9 @@ export default function Tags(props) {
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const topTags = [
   { title: 'Blockchain' },
+  { title: 'Soroban' },
+  { title: 'Stellar' },
+  { title: 'Ethereum' },
   { title: 'Crypto' },
   { title: 'Smart Contracts' },
   { title: 'Solidity' },
@@ -38,8 +41,10 @@ const topTags = [
   { title: 'Dev' },
   { title: 'E-learning' },
   { title: 'Programming' },
+  { title: 'rust' },
   { title: 'Javascript' },
   { title: 'Nodejs' },
   { title: 'Reactjs' },
+  { title: 'News' },
   { title: 'Other' },
 ];
