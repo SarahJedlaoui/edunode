@@ -23,44 +23,61 @@ import {
 import Navbar1 from '../Dashboard/Navbar1';
 import Footer from '../Footer';
 import axios from 'axios';
-import add from'./addcourse.png'
+import add from './addcourse.png'
 import ai from './ai.png'
 import challenge from './challenge.png'
 import course from './course.png'
 import community from './community.png'
 import post from './post.png'
 import { useParams } from 'react-router-dom';
-
+import Alert from '@mui/material/Alert';
 
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
-    
 
+    const { auth } = this.props;
     this.state = {
-      id:this.props.id,
-      email:this.props.user.email,
+      id: this.props.id,
+      email: this.props.user.email,
       user: this.props.user,
-      posts:this.props.posts,
+      posts: this.props.posts,
       courses: this.props.courses,
+      alert:false,
     };
   }
-  
+  sendFriendRequest = async (userId) => {
+    try {
+      const { data } = await axios.post(`http://localhost:5001/api/users/friend-request/${userId}`, {
+        user: this.props.user,
+      });
+      console.log(data.message); 
+      this.setState({ alert: true });
+      console.log('request sent');// Friend request sent
+      // Handle success message or update UI
+    } catch (error) {
+      console.error(error);
+      console.log('request failed')
+      // Handle error or display error message
+    }
+  };
+
  
 
   render() {
-    
-    const { posts, courses, user } = this.state;
-    console.log('userr',user)
+    const logged = localStorage.getItem('user');
+    const loggedUser = JSON.parse(logged);
+    const { posts, courses, user } = this.props;
+    console.log('userr', user)
     const hasShownPopupChat = localStorage.getItem('shownPopupChat');
-   // const name = this.state.user.user.name;
-  // const userProfile = localStorage.getItem('userProfile');
-   //const userAcoount = JSON.parse(userProfile);
-   //console.log('userProfilename ',userAcoount.name)
-   // Check if user information exists before accessing it
-  if (!user) {
-    return ( 'loading'); // or display a loading indicator
-  }
+    // const name = this.state.user.user.name;
+    // const userProfile = localStorage.getItem('userProfile');
+    //const userAcoount = JSON.parse(userProfile);
+    //console.log('userProfilename ',userAcoount.name)
+    // Check if user information exists before accessing it
+    if (!user) {
+      return ('loading'); // or display a loading indicator
+    }
     return (
       <section style={{ backgroundColor: '#eee' }}>
         <Navbar1></Navbar1>
@@ -91,6 +108,27 @@ class ProfilePage extends Component {
                     fluid
                   />
                   <p className="text-muted mb-1">{this.state.user.name}</p>
+                  {!user.friends.includes(loggedUser._id) &&
+                    !user.friendRequests.find(
+                      (request) => request.user === loggedUser._id
+                    ) && (
+                      <button
+                        onClick={() => this.sendFriendRequest(loggedUser._id)}
+                        className="btn btn-primary"
+                      >
+                        Send Friend Request
+                      </button>
+                    )}
+
+{this.state.alert && (
+        <div>
+          <Alert severity="success">Friend Request Sent!</Alert>
+        </div>
+      )}
+
+                 
+
+
 
 
                 </MDBCardBody>
@@ -98,7 +136,7 @@ class ProfilePage extends Component {
 
               <MDBCard className="mb-4 mb-lg-4">
                 <MDBCardBody className="p-0">
-                  <MDBListGroup  className="rounded-3">
+                  <MDBListGroup className="rounded-3">
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBIcon fas icon="globe fa-lg text-warning" />
                       <a href={`/profile/${this.state.user._id}`}>Get you Profile link </a>
@@ -125,72 +163,72 @@ class ProfilePage extends Component {
 
               <MDBCard className="mb-4 mb-lg-4">
                 <MDBCardBody className="p-0">
-                  <MDBListGroup  className="rounded-3">
+                  <MDBListGroup className="rounded-3">
                     {this.state.user.CoursesTrophy !== 0 && (
                       <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                         <img
-                        src={course} // Replace with the actual path or URL of the image
-                        alt="Globe"
-                        className="globe-icon"
-                        style={{ width: '40px', height: '40px' }}
-                      />
+                          src={course} // Replace with the actual path or URL of the image
+                          alt="Globe"
+                          className="globe-icon"
+                          style={{ width: '40px', height: '40px' }}
+                        />
                         <MDBCardText>Courses Badge</MDBCardText>
                       </MDBListGroupItem>
-                      )}
-                       {this.state.user.AddCoursesTrophy !== 0 && (
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <img
-                        src={add} // Replace with the actual path or URL of the image
-                        alt="Globe"
-                        className="globe-icon"
-                        style={{ width: '40px', height: '40px' }}
-                      />
-                      <MDBCardText>Add course Badge</MDBCardText>
-                    </MDBListGroupItem>
                     )}
-                     {this.state.user.isVerified  && (
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <img
-                        src={community} // Replace with the actual path or URL of the image
-                        alt="Globe"
-                        className="globe-icon"
-                        style={{ width: '40px', height: '40px' }}
-                      />
-                      <MDBCardText>Community Badge</MDBCardText>
-                    </MDBListGroupItem> 
+                    {this.state.user.AddCoursesTrophy !== 0 && (
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <img
+                          src={add} // Replace with the actual path or URL of the image
+                          alt="Globe"
+                          className="globe-icon"
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                        <MDBCardText>Add course Badge</MDBCardText>
+                      </MDBListGroupItem>
+                    )}
+                    {this.state.user.isVerified && (
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <img
+                          src={community} // Replace with the actual path or URL of the image
+                          alt="Globe"
+                          className="globe-icon"
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                        <MDBCardText>Community Badge</MDBCardText>
+                      </MDBListGroupItem>
                     )}
                     {hasShownPopupChat && (
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <img
-                        src={ai} // Replace with the actual path or URL of the image
-                        alt="Globe"
-                        className="globe-icon"
-                        style={{ width: '40px', height: '40px' }}
-                      />
-                      <MDBCardText>AI Badge </MDBCardText>
-                    </MDBListGroupItem> 
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <img
+                          src={ai} // Replace with the actual path or URL of the image
+                          alt="Globe"
+                          className="globe-icon"
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                        <MDBCardText>AI Badge </MDBCardText>
+                      </MDBListGroupItem>
                     )}
                     {this.state.user.ChallengesTrophy !== 0 && (
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <img
-                        src={challenge} // Replace with the actual path or URL of the image
-                        alt="Globe"
-                        className="globe-icon"
-                        style={{ width: '40px', height: '40px' }}
-                      />
-                      <MDBCardText>Challenge Badge</MDBCardText>
-                    </MDBListGroupItem>
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <img
+                          src={challenge} // Replace with the actual path or URL of the image
+                          alt="Globe"
+                          className="globe-icon"
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                        <MDBCardText>Challenge Badge</MDBCardText>
+                      </MDBListGroupItem>
                     )}
                     {this.state.user.PostsTrophy !== 0 && (
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <img
-                        src={post} // Replace with the actual path or URL of the image
-                        alt="Globe"
-                        className="globe-icon"
-                        style={{ width: '40px', height: '40px' }}
-                      />
-                      <MDBCardText>Posts Badge</MDBCardText>
-                    </MDBListGroupItem>
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <img
+                          src={post} // Replace with the actual path or URL of the image
+                          alt="Globe"
+                          className="globe-icon"
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                        <MDBCardText>Posts Badge</MDBCardText>
+                      </MDBListGroupItem>
                     )}
                   </MDBListGroup>
                 </MDBCardBody>
@@ -251,7 +289,7 @@ class ProfilePage extends Component {
               </MDBCard>
 
               <MDBRow>
-              <MDBCardText>Posts : </MDBCardText>
+                <MDBCardText>Posts : </MDBCardText>
                 {posts.map((post) => (
                   <MDBCol md="6" key={post._id}>
                     <MDBCard className="mb-4 mb-md-0">
@@ -270,7 +308,7 @@ class ProfilePage extends Component {
                           Post description
                         </MDBCardText>
                         <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
-                        <p dangerouslySetInnerHTML={{ __html: post.description }} ></p>
+                          <p dangerouslySetInnerHTML={{ __html: post.description }} ></p>
                         </MDBCardText>
 
                         <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
@@ -297,7 +335,7 @@ class ProfilePage extends Component {
               </MDBRow>
 
               <MDBRow>
-              <MDBCardText>Courses : </MDBCardText>
+                <MDBCardText>Courses : </MDBCardText>
                 {courses.map((course) => (
                   <MDBCol md="6" key={course._id}>
                     <MDBCard className="mb-4 mb-md-0">
@@ -347,7 +385,7 @@ class ProfilePage extends Component {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
-        
+
       </section>
     );
   }
@@ -365,12 +403,12 @@ const WithParams = () => {
         const response = await axios.get(`https://edunode.herokuapp.com/api/users/userByid/${id}`);
         const data = response.data;
         setUser(data.user);
-        console.log('data',data.user)
+        console.log('data', data.user)
         localStorage.setItem('userProfile', JSON.stringify(data.user));
         setEmail(data.user.email);
         fetchPosts(data.user.email);
         fetchCourses(data.user.email);
-        console.log('email',data.user.email)
+        console.log('email', data.user.email)
       } catch (error) {
         console.error(error);
       }
@@ -378,35 +416,36 @@ const WithParams = () => {
 
     fetchUser();
 
-    
+
   }, [id]);
 
-  
-    const fetchPosts = async (email) => {
-      console.log('post email:',email)
-      try {
-        const response = await axios.get(`https://edunode.herokuapp.com/api/post/postemail/${email}`);
-        const posts = response.data;
-        setPosts(posts);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+
+  const fetchPosts = async (email) => {
+    console.log('post email:', email)
+    try {
+      const response = await axios.get(`https://edunode.herokuapp.com/api/post/postemail/${email}`);
+      const posts = response.data;
+      setPosts(posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
-  
-    const fetchCourses = async (email) => {
-      console.log('course email:',email)
-      try {
-        const response = await axios.get(`https://edunode.herokuapp.com/api/cours/coursemail/${email}`);
-        const courses = response.data;
-        setCourses(courses);
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
-  if (!user || !posts  || !courses ) {
+  const fetchCourses = async (email) => {
+    console.log('course email:', email)
+    try {
+      const response = await axios.get(`https://edunode.herokuapp.com/api/cours/coursemail/${email}`);
+      const courses = response.data;
+      setCourses(courses);
+      console.log('courses ', courses)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (!user) {
     // Render a loading state or placeholder component here
     return <div>Loading...</div>;
   }
