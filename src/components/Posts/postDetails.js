@@ -14,7 +14,12 @@ import TextField from '@mui/material/TextField'
 import { makeStyles } from "@mui/styles";
 import UserContext from './UserContext';
 import profileImage from './user.png'
-
+import CardMedia from "@mui/material/CardMedia";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 const useStyles = makeStyles((theme) => ({
   postContainer: {
     padding: theme.spacing(2),
@@ -42,6 +47,21 @@ const useStyles = makeStyles((theme) => ({
   },
   commentButton: {
     marginTop: theme.spacing(2),
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  cardMedia: {
+    paddingTop: "56.25%", // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
   },
 }));
 
@@ -146,10 +166,13 @@ function PostDetails(props) {
 
             <br></br>
             <div style={{ padding: "10px" }}>
+
+
               <div className="post">
                 <h1 style={{ fontSize: '20px', fontWeight: 'bold' }} >Title:</h1>
                 <h2>{post.title}</h2>
                 <br></br>
+                <img src={post.image}></img>
                 <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>Description :</h1>
                 <p dangerouslySetInnerHTML={{ __html: post.description }} ></p>
                 <br></br>

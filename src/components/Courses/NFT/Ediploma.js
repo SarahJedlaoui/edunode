@@ -219,18 +219,11 @@ function Ediploma(props) {
         />
         <br></br>
         <br></br>
-
-        <h1>EduNode eCertificate</h1>
-        <p>Please enter your name.</p>
-        <input
-          disabled
-          type="text"
-          placeholder={props.auth.user.name}
-          value={Name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        />
+        {!props.auth.user.name && (
+          <p>Please update your name in the profile page so we can provide you with certificate !</p>
+        )}
+        
+        
         <button onClick={handleConfirmDownload}>
           Confirm and Download
         </button>

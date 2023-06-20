@@ -192,7 +192,8 @@ class Post extends Component {
       editorState: EditorState.createEmpty(),
       errors: {},
       privatee: false,
-      showPopup: false
+      showPopup: false,
+      image:''
     };
 
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
@@ -256,7 +257,8 @@ class Post extends Component {
       tags: this.state.tags,
       link: this.state.link,
       description: convertToHTML(this.state.editorState.getCurrentContent()),
-      privatee: this.state.privatee
+      privatee: this.state.privatee,
+      image: this.state.image,
     };
     try {
       {/**   const response = await fetch("https://edunode.herokuapp.com/api/post", {
@@ -281,6 +283,16 @@ class Post extends Component {
       console.error(error);
     }
   }
+  onChangeImage = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+      
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const imageString = reader.result;
+          this.setState({ image: imageString });
+        };
+      };
 
   handleClosePopup = () => {
     this.setState({ showPopup: false });
@@ -376,6 +388,15 @@ class Post extends Component {
                         onChange={(e) => this.setState({ link: e.target.value })}
                       />
                     </FormGroup>
+
+                    <FormGroup>
+                      <Label htmlFor="image">Image:</Label>
+                      <Input
+                        type="file"
+                        id="image"
+                        onChange={this.onChangeImage}
+                      />
+                    </FormGroup>
                     <FormGroup>
                       <Label htmlFor="description">Description:</Label>
 
@@ -438,7 +459,7 @@ class Post extends Component {
                 </div>
               </Grid>
             </Grid>
-            
+
           </Box>
         </div>
 

@@ -808,11 +808,11 @@ export const mozartAuth = (email, pkey, amount, currency) => dispatch => {
 }
 
 //  user new post
-export const newPost = ({ email, tags, title, link, description, privatee }) => async dispatch => {
+export const newPost = ({ email, tags, title, link, description, privatee,image }) => async dispatch => {
   dispatch({ type: USER_LOADING });
 
   // request body
-  const body = JSON.stringify({ email, tags, title, link, description, privatee });
+  const body = JSON.stringify({ email, tags, title, link, description, privatee,image });
 
   fetch('https://edunode.herokuapp.com/api/post/', {
     method: 'POST',

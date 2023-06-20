@@ -16,6 +16,8 @@ import discord from "./discord.png";
 import "./style.css";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -47,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
 }));
+
+
+
 function Community() {
   const [projects, setProjects] = useState([]);
   const classes = useStyles();
@@ -304,10 +309,10 @@ function Community() {
                   </Button>
                 </CardActions>
               </Card>
-             </Grid>
+            </Grid>
 
 
-              {projects.map(project => (
+            {projects.map(project => (
               <Grid item xs={12} sm={6} md={4} key={project._id}>
                 <Card className={classes.card}>
                   <CardMedia
@@ -328,20 +333,20 @@ function Community() {
                   </CardActions>
                 </Card>
               </Grid>
-                ))}
+            ))}
 
 
 
 
 
 
-           </Grid>
+          </Grid>
 
           <h4>Communities of enthusiasts around the world.</h4>
           <br></br>
           <p>To open the links, please click for half a second</p>
           <div>
-      
+
           </div>
           <br></br>
           <br></br>
@@ -351,7 +356,7 @@ function Community() {
           </p>
         </main>
       </div>
-      
+
     </>
   );
 }
