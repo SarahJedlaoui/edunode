@@ -48,7 +48,7 @@ class ProfilePage extends Component {
   }
   sendFriendRequest = async (userId) => {
     try {
-      const { data } = await axios.post(`http://localhost:5001/api/users/friend-request/${userId}`, {
+      const { data } = await axios.post(`https://edunode.herokuapp.com/api/users/friend-request/${userId}`, {
         user: this.props.user,
       });
       console.log(data.message); 

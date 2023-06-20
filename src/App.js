@@ -185,6 +185,7 @@ import ResetPasswordPage from './components/Login/reset_password'
 import WithParams from './components/Profile/profile'
 import CertificatePage from './components/Certificate/about'
 import ChallengeDetails from'./components/Challenges/Challenge/challengeDetails'
+import Page from'./admin'
 function App(props) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -375,6 +376,7 @@ function App(props) {
         <Route exact path="/reset-password" element={<ResetPasswordPage />} />
         <Route exact path="/about-certificates" element={<CertificatePage />} />
         <Route exact path="/challengeDetails/:_id" element={<ChallengeDetails />} />
+        <Route exact path="/admin" element={<Page />} />
       </Routes>
       {shouldShowFooter && <Footer />}
     </Provider>
