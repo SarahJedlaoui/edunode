@@ -97,6 +97,8 @@ function getStepContent(step) {
   }
 }
 
+
+
 function VerticalLinearStepper(props) {
   const [openDialog, setOpenDialog] = useState(false);
   const steps = getSteps();
@@ -139,6 +141,7 @@ function VerticalLinearStepper(props) {
     setEditorValues(newEditorValues);
   }
 
+  
   function validateStep(stepIndex, value) {
     const validationFuncs = [
       validateStep1,

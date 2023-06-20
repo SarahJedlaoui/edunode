@@ -44,3 +44,26 @@
   .editor-wrapper.active {
     border: 2px solid blue; /* Add a border to highlight the active editor */
   }
+
+  /* Add media query for mobile layout */
+@media (max-width: 600px) {
+  .split-view {
+    flex-direction: column;
+  }
+
+  .right-panel {
+    position: relative;
+    width: 100%;
+  }
+
+  .editor-panel {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .editor-wrapper {
+    flex: 1;
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
+}
