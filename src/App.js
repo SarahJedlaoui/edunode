@@ -1,12 +1,15 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { Provider, connect } from "react-redux";
+import { BrowserRouter } from 'react-router-dom';
 import { useEffect } from "react";
 import axios from "axios";
 import Footer from './components/Footer/Footer';
 import { useLocation, useNavigate } from "react-router-dom";
 import { store } from "./store";
 import './App.css';
+import { StyledChart } from './admin/src/components/chart';
+import ScrollToTop from './admin/src/components/scroll-to-top';
 import Home from "./components/Home";
 import AboutUs from "./components/aboutus";
 import Account from "./components/Account"
@@ -151,7 +154,7 @@ import Gcallback from "./components/Gcallback";
 import Hyperledger from "./components/Hyperledger"
 import HyperledgerCourses from "./components/Hyperledger/Courses"
 import Challenge from "./components/Challenges/Challenge";
-import ChallengeQ  from './components/Challenges/Challenge/One/Intro.js';
+import ChallengeQ from './components/Challenges/Challenge/One/Intro.js';
 import CodeEditor from "./components/CodeEditor";
 import ContactUs from "./components/contactus";
 import Loggedout from "./components/Loggedout";
@@ -178,14 +181,46 @@ import Loginn from './components/authentif'
 import Signup from "./components/signup";
 import Glossary from "./components/Glossary";
 import Badge from './components/Badges'
-import EduNodeGuide from'./components/teacher'
+import EduNodeGuide from './components/teacher'
 import StudentsPage from "./components/student"
 import PasswordPage from './components/Login/password'
 import ResetPasswordPage from './components/Login/reset_password'
 import WithParams from './components/Profile/profile'
 import CertificatePage from './components/Certificate/about'
-import ChallengeDetails from'./components/Challenges/Challenge/challengeDetails'
-import Page from'./admin'
+import ChallengeDetails from './components/Challenges/Challenge/challengeDetails'
+import Routerrr from './admin/routes'
+import ThemeProvider from './admin/src/theme';
+import DashboardLayout from './admin/src/layouts/dashboard';
+import SimpleLayout from './admin/src/layouts/simple';
+//
+import BlogPage from './admin/src/pages/BlogPage';
+import UserPage from './admin/src/pages/UserPage';
+import LoginPage from './admin/src/pages/LoginPage';
+import Page404 from './admin/src/pages/Page404';
+import ProductsPage from './admin/src/pages/ProductsPage';
+import DashboardAppPage from './admin/src/pages/DashboardAppPage';
+
+
+
+const ThemedRoutes = () => (
+  <ThemeProvider>
+    <Routes>
+     
+      <Route path="/AdminDashboard" element={<DashboardLayout />}>
+        <Route index element={<Navigate to="/AdminDashboard/app" />} />
+        <Route path="app" element={<DashboardAppPage />} />
+        <Route path="user" element={<UserPage />} />
+        <Route path="products" element={<ProductsPage />} />
+        <Route path="blog" element={<BlogPage />} />
+      </Route>
+
+      <Route exact path="/Adminlogin" element={<LoginPage />} />
+      <Route path="*" element={<Navigate to="/404" replace />} />
+    </Routes>
+  </ThemeProvider>
+);
+
+
 function App(props) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -376,10 +411,14 @@ function App(props) {
         <Route exact path="/reset-password" element={<ResetPasswordPage />} />
         <Route exact path="/about-certificates" element={<CertificatePage />} />
         <Route exact path="/challengeDetails/:_id" element={<ChallengeDetails />} />
-        <Route exact path="/admin" element={<Page />} />
+        <Route path="/*" element={<ThemedRoutes />} />
       </Routes>
-      {shouldShowFooter && <Footer />}
+
+
+
+
     </Provider>
+
   );
 }
 
