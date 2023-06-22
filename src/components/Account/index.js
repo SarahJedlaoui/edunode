@@ -22,7 +22,6 @@ const Select = styled.select`
   margin-bottom: 1rem;
 `;
 
-
 const SelectedTagsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -166,14 +165,17 @@ class Account extends Component {
         console.error(error);
       });
     // Fetch the university names from the backend API
-   {/**  fetch('http://localhost:5001/api/universities/universities')
+    fetch('http://localhost:5001/api/universities/universities')
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ universityOptions: data });
+
+        const worldUniversities = data
+        this.setState({ universityOptions: worldUniversities });
+        console.log('worldUniversities', worldUniversities);
       })
       .catch((error) => {
         console.error('Error:', error);
-      });*/}
+      });
 
   }
 
@@ -524,7 +526,7 @@ class Account extends Component {
 
 
 
-                     {/**  <Autocomplete
+                      <Autocomplete
                         id="combo-box-demo"
                         options={universityOptions}
                         fullWidth
@@ -533,7 +535,7 @@ class Account extends Component {
                         renderInput={(params) => (
                           <TextField {...params} label="Choose University" variant="outlined" fullWidth />
                         )}
-                      />*/}
+                      />
 
 
 

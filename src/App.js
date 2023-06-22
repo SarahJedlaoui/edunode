@@ -169,6 +169,7 @@ import Settings from "./components/Settings";
 import Profile from "./components/Profile";
 import Post from "./components/Posts/Post";
 import Cours from "./components/Teach/teach";
+import ValidCertificate from "./components/Teach/validCertificate";
 import Certificat from "./components/Certificate/certificat";
 import Notification from './components/Notifications/Notification';
 import Search from "./components/Search/Search";
@@ -392,6 +393,9 @@ function App(props) {
         <Route exact path="/postDetails/:_id" element={<PostDetails />} />
         <Route exact path="/courseDetails/:_id" element={<CourseDetails />} />
         <Route exact path="/profile/:id" element={<WithParams />} />
+        <Route exact path="/validCertificate" element={<ValidCertificate />} />
+
+
         <Route
           exact
           path="/loginn"
