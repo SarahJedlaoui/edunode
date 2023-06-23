@@ -120,7 +120,7 @@ export default function UserPage() {
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/validCertificate/certificates');
+        const response = await axios.get('https://edunode.herokuapp.com/api/validCertificate/certificates');
         const certificates = response.data;
         console.log('certificates', certificates)
         setUserList(certificates);
@@ -204,7 +204,7 @@ export default function UserPage() {
     try {
       const newStatus = window.prompt('Enter the new status (accepted or rejected):');
       if (newStatus !== null) {
-        await axios.put(`http://localhost:5001/api/validCertificate/edit-valid-certificates/${certificateId}`, {
+        await axios.put(`https://edunode.herokuapp.com/api/validCertificate/edit-valid-certificates/${certificateId}`, {
           status: newStatus,
         });
         // Update the userList state with the updated certificate status
@@ -224,7 +224,7 @@ export default function UserPage() {
     try {
       const confirmed = window.confirm('Are you sure you want to delete this certificate?');
       if (confirmed) {
-        await axios.delete(`http://localhost:5001/api/validCertificate/delete-valid-certificates/${certificateId}`);
+        await axios.delete(`https://edunode.herokuapp.com/api/validCertificate/delete-valid-certificates/${certificateId}`);
         // Remove the deleted certificate from the userList state
         setUserList((prevList) => prevList.filter((certificate) => certificate._id !== certificateId));
         console.log('Successfully deleted certificate.');
