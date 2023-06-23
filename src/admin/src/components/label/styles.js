@@ -1,7 +1,7 @@
 // @mui
 import { alpha, styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
-
+import palette from '../../theme/palette';
 // ----------------------------------------------------------------------
 
 export const StyledLabel = styled(Box)(({ theme, ownerState }) => {
@@ -23,8 +23,8 @@ export const StyledLabel = styled(Box)(({ theme, ownerState }) => {
       }),
       // SOFT
       ...(softVariant && {
-        color: isLight ? theme.palette.text.primary : theme.palette.common.white,
-        backgroundColor: alpha(theme.palette.grey[500], 0.16),
+        color: isLight ? palette.text.primary : palette.common.white,
+        backgroundColor: alpha(palette.grey[500], 0.16),
       }),
     }),
   };
@@ -43,10 +43,7 @@ export const StyledLabel = styled(Box)(({ theme, ownerState }) => {
         border: `1px solid ${theme.palette[ownerState.color].main}`,
       }),
       // SOFT
-      ...(softVariant && {
-        color: theme.palette[ownerState.color][isLight ? 'dark' : 'light'],
-        backgroundColor: alpha(theme.palette[ownerState.color].main, 0.16),
-      }),
+    
     }),
   };
 

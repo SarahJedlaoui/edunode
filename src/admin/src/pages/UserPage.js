@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // @mui
 import {
   Card,
@@ -30,12 +30,21 @@ import Scrollbar from '../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
 import USERLIST from '../_mock/user';
+import { makeStyles } from '@mui/styles';
+import React from 'react';
+import axios from 'axios';
+
 
 // ----------------------------------------------------------------------
-
+const useStyles = makeStyles((theme) => ({
+  blueButton: {
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
+  },
+}));
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
+  { id: 'university', label: 'university', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
@@ -74,22 +83,65 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function UserPage() {
+  const classes = useStyles();
   const [open, setOpen] = useState(null);
-
   const [page, setPage] = useState(0);
-
   const [order, setOrder] = useState('asc');
-
   const [selected, setSelected] = useState([]);
-
   const [orderBy, setOrderBy] = useState('name');
-
   const [filterName, setFilterName] = useState('');
-
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [userList, setUserList] = useState([]);
+  const [deleteCertificateId, setDeleteCertificateId] = useState(null);
+  const [editCertificateId, setEditCertificateId] = useState(null);
+  const [editPopupOpen, setEditPopupOpen] = useState(false);
+  const [deletePopupOpen, setDeletePopupOpen] = useState(false);
+  const [selectedCertificateId, setSelectedCertificateId] = useState(null);
 
-  const handleOpenMenu = (event) => {
+  const handleOpenEditPopup = (certificateId) => {
+    setSelectedCertificateId(certificateId);
+    setEditPopupOpen(true);
+  };
+
+  const handleOpenDeletePopup = (certificateId) => {
+    setSelectedCertificateId(certificateId);
+    setDeletePopupOpen(true);
+  };
+
+  const handleCloseEditPopup = () => {
+    setEditPopupOpen(false);
+  };
+
+  const handleCloseDeletePopup = () => {
+    setDeletePopupOpen(false);
+  };
+
+
+  useEffect(() => {
+    const fetchCertificates = async () => {
+      try {
+        const response = await axios.get('http://localhost:5001/api/validCertificate/certificates');
+        const certificates = response.data;
+        console.log('certificates', certificates)
+        setUserList(certificates);
+      } catch (error) {
+        console.error('Error fetching certificates:', error);
+      }
+    };
+
+    fetchCertificates();
+  }, []);
+
+
+  const handleOpenMenu = (event, certificateId) => {
     setOpen(event.currentTarget);
+
+    // Check if the delete or edit button was clicked and set the corresponding state variable
+    if (event.currentTarget.getAttribute('data-action') === 'delete') {
+      setDeleteCertificateId(certificateId);
+    } else if (event.currentTarget.getAttribute('data-action') === 'edit') {
+      setEditCertificateId(certificateId);
+    }
   };
 
   const handleCloseMenu = () => {
@@ -142,14 +194,49 @@ export default function UserPage() {
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+  const filteredUsers = userList.filter((certificate) =>
+    certificate.name.toLowerCase().includes(filterName.toLowerCase())
+  );
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
+  const handleEditCertificate = async (certificateId) => {
+    try {
+      const newStatus = window.prompt('Enter the new status (accepted or rejected):');
+      if (newStatus !== null) {
+        await axios.put(`http://localhost:5001/api/validCertificate/edit-valid-certificates/${certificateId}`, {
+          status: newStatus,
+        });
+        // Update the userList state with the updated certificate status
+        setUserList((prevList) =>
+          prevList.map((certificate) =>
+            certificate._id === certificateId ? { ...certificate, status: newStatus } : certificate
+          )
+        );
+        console.log('Successfully updated certificate status.');
+      }
+    } catch (error) {
+      console.error('Error updating certificate status:', error);
+    }
+  };
+
+  const handleDeleteCertificate = async (certificateId) => {
+    try {
+      const confirmed = window.confirm('Are you sure you want to delete this certificate?');
+      if (confirmed) {
+        await axios.delete(`http://localhost:5001/api/validCertificate/delete-valid-certificates/${certificateId}`);
+        // Remove the deleted certificate from the userList state
+        setUserList((prevList) => prevList.filter((certificate) => certificate._id !== certificateId));
+        console.log('Successfully deleted certificate.');
+      }
+    } catch (error) {
+      console.error('Error deleting certificate:', error);
+    }
+  };
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> User  </title>
       </Helmet>
 
       <Container>
@@ -157,7 +244,7 @@ export default function UserPage() {
           <Typography variant="h4" gutterBottom>
             User
           </Typography>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
+          <Button variant="contained" className={classes.blueButton} startIcon={<Iconify icon="eva:plus-fill" />}>
             New User
           </Button>
         </Stack>
@@ -172,45 +259,50 @@ export default function UserPage() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={userList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                    const selectedUser = selected.indexOf(name) !== -1;
+                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((certificate) => {
+                    const { _id, name, status, university, avatarUrl, isVerified, url } = certificate;
+                    const isSelected = selected.indexOf(_id) !== -1
 
                     return (
-                      <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
+                      <TableRow hover key={_id} tabIndex={-1} role="checkbox" selected={isSelected}>
                         <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
+                          <Checkbox checked={isSelected} onChange={(event) => handleClick(event, _id)} />
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
+                            {/**<Avatar alt={name} src={avatarUrl} /> */}
                             <Typography variant="subtitle2" noWrap>
                               {name}
                             </Typography>
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{company}</TableCell>
+                        <TableCell align="left">{university}</TableCell>
 
-                        <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{url}</TableCell>
 
                         <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
 
                         <TableCell align="left">
-                          <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
+                          <Label color={(status === 'accepted' && 'success') || 'error'}>{status}</Label>
                         </TableCell>
 
                         <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
-                            <Iconify icon={'eva:more-vertical-fill'} />
+                          <IconButton size="large" color="inherit" onClick={() => handleOpenEditPopup(_id)}>
+                            <Iconify icon={'eva:edit-fill'} />
                           </IconButton>
+
+                          <IconButton size="large" color="inherit" onClick={() => handleOpenDeletePopup(_id)}>
+                            <Iconify icon={'eva:trash-2-outline'} />
+                          </IconButton>
+
                         </TableCell>
                       </TableRow>
                     );
@@ -252,7 +344,7 @@ export default function UserPage() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={userList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -262,9 +354,9 @@ export default function UserPage() {
       </Container>
 
       <Popover
-        open={Boolean(open)}
+        open={editPopupOpen}
         anchorEl={open}
-        onClose={handleCloseMenu}
+        onClose={handleCloseEditPopup}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
@@ -279,16 +371,40 @@ export default function UserPage() {
           },
         }}
       >
-        <MenuItem>
-          <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }} />
-          Edit
+        <MenuItem onClick={() => handleEditCertificate(selectedCertificateId, 'accepted')}>
+          <Iconify icon={'eva:checkmark-square-2-outline'} sx={{ mr: 2 }} />
+          Accept
         </MenuItem>
+        <MenuItem onClick={() => handleEditCertificate(selectedCertificateId, 'rejected')}>
+          <Iconify icon={'eva:close-square-outline'} sx={{ mr: 2 }} />
+          Reject
+        </MenuItem>
+      </Popover>
 
-        <MenuItem sx={{ color: 'error.main' }}>
+      <Popover
+        open={deletePopupOpen}
+        anchorEl={open}
+        onClose={handleCloseDeletePopup}
+        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        PaperProps={{
+          sx: {
+            p: 1,
+            width: 140,
+            '& .MuiMenuItem-root': {
+              px: 1,
+              typography: 'body2',
+              borderRadius: 0.75,
+            },
+          },
+        }}
+      >
+        <MenuItem onClick={() => handleDeleteCertificate(selectedCertificateId)}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>
       </Popover>
+
     </>
   );
 }
