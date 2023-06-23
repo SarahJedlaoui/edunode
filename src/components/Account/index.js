@@ -165,17 +165,14 @@ class Account extends Component {
         console.error(error);
       });
     // Fetch the university names from the backend API
-    fetch('http://localhost:5001/api/universities/universities')
+   {/**  fetch('http://localhost:5001/api/universities/universities')
       .then((response) => response.json())
       .then((data) => {
-
-        const worldUniversities = data
-        this.setState({ universityOptions: worldUniversities });
-        console.log('worldUniversities', worldUniversities);
+        this.setState({ universityOptions: data });
       })
       .catch((error) => {
         console.error('Error:', error);
-      });
+      });*/}
 
   }
 
@@ -526,7 +523,7 @@ class Account extends Component {
 
 
 
-                      <Autocomplete
+                     {/**  <Autocomplete
                         id="combo-box-demo"
                         options={universityOptions}
                         fullWidth
@@ -535,7 +532,7 @@ class Account extends Component {
                         renderInput={(params) => (
                           <TextField {...params} label="Choose University" variant="outlined" fullWidth />
                         )}
-                      />
+                      />*/}
 
 
 

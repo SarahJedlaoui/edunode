@@ -9,6 +9,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './tailwind.output.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { useState } from 'react';
+import { Profiler } from 'react';
 import './index.css';
 import Footer from './components/Footer/Footer';
 const helmetContext = {};
@@ -24,8 +26,9 @@ createRoot(document.getElementById('root')).render(
     <Router>
     <div className="app-wrapper">
     <div className="content-wrapper"> 
+    <Profiler id="App" onRender={(id, phase, actualDuration, baseDuration, startTime, commitTime) => console.log({ id, phase, actualDuration, baseDuration, startTime, commitTime })}>
       <App />
-      
+    </Profiler>
       </div>
       </div>
  
