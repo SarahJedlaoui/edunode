@@ -130,7 +130,7 @@ class ProfilePage extends Component {
   fetchFriendsList = () => {
 
     const { email } = this.state;
-
+    
     axios.get(`https://edunode.herokuapp.com/api/users/friends/${email}`)
       .then(response => {
         this.setState({
