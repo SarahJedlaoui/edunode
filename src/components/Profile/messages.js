@@ -13,7 +13,8 @@ import {
   MDBCardHeader,
 } from 'mdb-react-ui-kit';
 import moment from 'moment';
-
+import Navbar1 from '../Dashboard/Navbar1';
+import Footer from '../Footer/Footer';
 class Messages extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +24,7 @@ class Messages extends Component {
       messages: [],
       messageText: '',
       receiverEmail: '',
+      socket: null,
     };
     this.socket = null;
   }
@@ -33,12 +35,25 @@ class Messages extends Component {
   }
 
   setupSocket = () => {
-    this.socket = new WebSocket('ws://localhost:5001/api/ws');
-    this.socket.onmessage = (event) => {
+    const socket = new WebSocket('ws://localhost:5002/api/ws');
+
+    socket.onopen = () => {
+      console.log('WebSocket connection established.');
+    };
+
+    socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       this.handleIncomingMessage(message);
     };
+
+    socket.onclose = () => {
+      console.log('WebSocket connection closed.');
+    };
+
+    this.setState({ socket });
   };
+  
+  
 
   handleIncomingMessage = (message) => {
     const { messages } = this.state;
@@ -119,10 +134,13 @@ class Messages extends Component {
     const user = JSON.parse(localUser);
     const senderEmail = user.email;
     return (
+      <section style={{ backgroundColor: '#eee' }}>
+         <Navbar1></Navbar1>
+         <br></br>
       <MDBContainer fluid className="py-5" style={{ backgroundColor: '#eee' }}>
         <MDBRow>
           <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0">
-            <h5 className="font-weight-bold mb-3 text-center text-lg-start">Member</h5>
+            <h5 className="font-weight-bold mb-3 text-center text-lg-start">Friends:</h5>
             <MDBCard>
               <MDBCardBody>
                 <MDBTypography listUnStyled className="mb-0">
@@ -218,6 +236,8 @@ class Messages extends Component {
 
         </MDBRow>
       </MDBContainer>
+      <Footer></Footer>
+      </section>
     );
   }
   

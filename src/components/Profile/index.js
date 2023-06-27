@@ -249,7 +249,7 @@ class ProfilePage extends Component {
                 
               <MDBCard className="mb-4">
       <MDBCardBody className="text-center d-flex justify-content-center flex-column align-items-center">
-        <h4>Friend Requests:</h4>
+        <h4>Friends list:</h4>
         <ul>
           {friends.map(friend => (
             <li key={friend._id}>
