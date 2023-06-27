@@ -118,6 +118,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "buildMax": "node --max-old-space-size=4096 node_modules/react-scripts/scripts/build.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "git pull": "git status && git add . && git commit -am 'commit' && git pull",
