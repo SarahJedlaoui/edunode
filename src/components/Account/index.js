@@ -106,6 +106,8 @@ class Account extends Component {
       value: '',
       selectedUniversity: null,
       universityOptions: [],
+      showSpecifyField: false,
+      showSpecify: false,
     };
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleTagRemove = this.handleTagRemove.bind(this);
@@ -124,17 +126,19 @@ class Account extends Component {
   handleTagSelect(e) {
 
     const selectedTag = e.target.value;
-    if (!this.state.tags.includes(selectedTag)) {
+    if (selectedTag === "Other") {
+      this.setState({ showSpecifyField: true });
+    } else if (!this.state.tags.includes(selectedTag)) {
       this.setState({ tags: [...this.state.tags, selectedTag] });
     }
   }
 
   handleSkillsSelect(e) {
-    //console.log('handleSkillsSelect ',this.props.auth.user)
-    console.log('handleSkillsSelect ', this.state.preferences)
-    const selectedTag1 = e.target.value;
-    if (!this.state.skills.includes(selectedTag1)) {
-      this.setState({ skills: [...this.state.skills, selectedTag1] });
+    const selectedTag = e.target.value;
+    if (selectedTag === "Other") {
+      this.setState({ showSpecify: true });
+    } else if (!this.state.skills.includes(selectedTag)) {
+      this.setState({ skills: [...this.state.skills, selectedTag] });
     }
   }
 
@@ -279,7 +283,7 @@ class Account extends Component {
 
     const preferences = this.state.preferences;
     const skills = this.state.skills;
-    const { tags, email } = this.state;
+    const { tags, email, specify ,specify2 } = this.state;
     const formData = {
       name: this.state.user.name,
       university: this.state.user.university,
@@ -300,7 +304,7 @@ class Account extends Component {
         .catch(error => {
           console.error(error);
         });
-      axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: tags, email: email })
+      axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: [...tags, ...(specify ? [specify] : [])], email: email })
         .then(response => {
           console.log(response.data); // Log the response from the backend
         })
@@ -308,7 +312,7 @@ class Account extends Component {
           console.error(error); // Log any errors that occur
         });
 
-      axios.post('https://edunode.herokuapp.com/api/users/skills', { skills: skills, email: email })
+      axios.post('https://edunode.herokuapp.com/api/users/skills', { skills: [...skills, ...(specify2 ? [specify2] : [])], email: email })
         .then(response => {
           console.log(response.data); // Log the response from the backend
         })
@@ -332,7 +336,12 @@ class Account extends Component {
     this.setState({ images: imageList });
     console.log('image', this.state.images)
   };
-
+  handleSpecifyChange = (event) => {
+    this.setState({ specify: event.target.value });
+  };
+  handleSpecifyChange2 = (event) => {
+    this.setState({ specify2: event.target.value });
+  };
 
 
 
@@ -352,6 +361,42 @@ class Account extends Component {
     const { tags, skills, user, images, maxNumber } = this.state;
     const { isUpdated } = this.state; // get isUpdated from state
     const email = this.props.auth.user.email ? this.props.auth.user.email : '';
+
+
+    let specifyField = null;
+  if (this.state.showSpecifyField) {
+    specifyField = (
+      <div>
+        <label>Please specify preferences:</label>
+        <TextField
+          name="specify"
+          type="text"
+          placeholder="Please specify"
+          fullWidth
+          value={this.state.specify}
+          onChange={this.handleSpecifyChange}
+        />
+      </div>
+    );
+  }
+
+  let specify = null;
+  if (this.state.showSpecify) {
+    specify = (
+      <div>
+        <label>Please specify skills:</label>
+        <TextField
+          name="specify"
+          type="text"
+          placeholder="Please specify"
+          fullWidth
+          value={this.state.specify2}
+          onChange={this.handleSpecifyChange2}
+        />
+      </div>
+    );
+  }
+
     return (
       <>
 
@@ -564,7 +609,8 @@ class Account extends Component {
                         ))}
                       </SelectedTagsContainer>
 
-
+                      {specifyField}
+                            
                       <label>Skills:</label>
 
                       <Select fullWidth id="tags" onChange={this.handleSkillsSelect} style={{ width: '100%' }}>
@@ -587,6 +633,8 @@ class Account extends Component {
                           </SelectedTag>
                         ))}
                       </SelectedTagsContainer>
+
+                      {specify}
                     </>
                     <br></br>
                     <button

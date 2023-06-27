@@ -125,13 +125,13 @@ class ProfilePage extends Component {
       console.error(error);
       // Handle error or display error message
     }
-   
+
   }
   fetchFriendsList = () => {
-    
+
     const { email } = this.state;
-    
-    axios.get(`http://localhost:5001/api/users/friends/${email}`)
+
+    axios.get(`https://edunode.herokuapp.com/api/users/friends/${email}`)
       .then(response => {
         this.setState({
           friends: response.data.friends,
@@ -139,7 +139,7 @@ class ProfilePage extends Component {
           error: null,
         });
         console.log('')
-        console.log('friends list :',response.data.friends)
+        console.log('friends list :', response.data.friends)
       })
       .catch(error => {
         this.setState({
@@ -163,7 +163,7 @@ class ProfilePage extends Component {
     // Implement your logic to send a message to the friend
     console.log('Sending a message to:', friend);
   };
-  
+
   render() {
     const {
       isAuthenticated,
@@ -244,28 +244,28 @@ class ProfilePage extends Component {
 
                 </MDBCardBody>
               </MDBCard>
-              
-              
-                
+
+
+
               <MDBCard className="mb-4">
-      <MDBCardBody className="text-center d-flex justify-content-center flex-column align-items-center">
-        <h4>Friends list:</h4>
-        <ul>
-          {friends.map(friend => (
-            <li key={friend._id}>
-              {friend.email}
-              <a className="btn btn-primary" 
-   style={{ fontSize: '12px', padding: '4px 8px' }} 
-   href="/messages"
->
-  Send Message
-</a>
-            </li>
-          ))}
-        </ul>
-      </MDBCardBody>
-    </MDBCard>
-        
+                <MDBCardBody className="text-center d-flex justify-content-center flex-column align-items-center">
+                  <h4>Friends list:</h4>
+                  <ul>
+                    {friends.map(friend => (
+                      <li key={friend._id}>
+                        {friend.email}
+                        <a className="btn btn-primary"
+                          style={{ fontSize: '12px', padding: '4px 8px' }}
+                          href="/messages"
+                        >
+                          Send Message
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </MDBCardBody>
+              </MDBCard>
+
               <MDBCard className="mb-4 mb-lg-4">
                 <MDBCardBody className="p-0">
                   <MDBListGroup flush className="rounded-3">

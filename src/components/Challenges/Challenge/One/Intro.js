@@ -104,6 +104,7 @@ function VerticalLinearStepper(props) {
   const steps = getSteps();
   const [editorValues, setEditorValues] = useState(Array(steps.length).fill(''));
   const [activeStep, setActiveStep] = useState(0);
+  const [grade, setGrade] = useState(0);
   const navigate = useNavigate();
 
   const handleOpenDialog = () => {
@@ -123,15 +124,18 @@ function VerticalLinearStepper(props) {
   function handleNext() {
     const isAnswerCorrect = validateStep(activeStep, editorValues[activeStep]);
     if (isAnswerCorrect) {
-      if (activeStep === steps.length - 1) {
-        // Last step reached
-        // Continue with your logic here
-         navigate('/challenges/101/done');
-      } else {
-        setActiveStep(activeStep + 1);
-      }
+      setGrade(grade + 1);
+      
     } else {
-      alert('Answer incorrect. Please try again.');
+      alert('Your answer incorrect. Please review it!');
+    }
+    if (activeStep === steps.length - 1) {
+      // Last step reached
+      if (grade>3) { navigate('/challenges/101/done');}
+      else { alert( `Sorry you only have ${grade} answers right! You didn't pass the challenge! Please do it again ! `);}
+      
+    } else {
+      setActiveStep(activeStep + 1);
     }
   }
 
