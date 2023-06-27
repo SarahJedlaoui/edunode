@@ -131,7 +131,7 @@ class ProfilePage extends Component {
     
     const { email } = this.state;
     
-    axios.get(`http://localhost:5001/api/users/friends/${email}`)
+    axios.get(`https://edunode.herokuapp.com/api/users/friends/${email}`)
       .then(response => {
         this.setState({
           friends: response.data.friends,
