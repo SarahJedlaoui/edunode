@@ -51,6 +51,9 @@ class ProfilePage extends Component {
       showPopup: false,
       popupMessage: '',
       selectedRequestId: '',
+      friends: [],
+      loading: true,
+      error: null,
     };
   }
   acceptFriendRequest = async (userId) => {
@@ -71,7 +74,7 @@ class ProfilePage extends Component {
 
 
   componentDidMount() {
-
+    this.fetchFriendsList();
     const { email } = this.state;
     axios.get(`https://edunode.herokuapp.com/api/emaillogin/user/${email}`)
       .then(response => {
@@ -124,7 +127,29 @@ class ProfilePage extends Component {
     }
    
   }
-
+  fetchFriendsList = () => {
+    
+    const { email } = this.state;
+    
+    axios.get(`http://localhost:5001/api/users/friends/${email}`)
+      .then(response => {
+        this.setState({
+          friends: response.data.friends,
+          loading: false,
+          error: null,
+        });
+        console.log('')
+        console.log('friends list :',response.data.friends)
+      })
+      .catch(error => {
+        this.setState({
+          friends: [],
+          loading: false,
+          error: 'Failed to fetch friends list.',
+        });
+        console.log('Failed to fetch friends list.');
+      });
+  };
 
   closePopup = () => {
     // Hide the popup
@@ -134,7 +159,11 @@ class ProfilePage extends Component {
       selectedRequestId: '',
     });
   };
-
+  sendMessage = (friend) => {
+    // Implement your logic to send a message to the friend
+    console.log('Sending a message to:', friend);
+  };
+  
   render() {
     const {
       isAuthenticated,
@@ -145,6 +174,7 @@ class ProfilePage extends Component {
     } = this.props.auth;
     const { posts, courses, user } = this.state;
     const hasShownPopupChat = localStorage.getItem('shownPopupChat');
+    const { friends, loading, error } = this.state;
     return (
       <section style={{ backgroundColor: '#eee' }}>
         <Navbar1></Navbar1>
@@ -215,7 +245,26 @@ class ProfilePage extends Component {
                 </MDBCardBody>
               </MDBCard>
               
-            
+              
+                
+              <MDBCard className="mb-4">
+      <MDBCardBody className="text-center d-flex justify-content-center flex-column align-items-center">
+        <h4>Friend Requests:</h4>
+        <ul>
+          {friends.map(friend => (
+            <li key={friend._id}>
+              {friend.email}
+              <a className="btn btn-primary" 
+   style={{ fontSize: '12px', padding: '4px 8px' }} 
+   href="/messages"
+>
+  Send Message
+</a>
+            </li>
+          ))}
+        </ul>
+      </MDBCardBody>
+    </MDBCard>
         
               <MDBCard className="mb-4 mb-lg-4">
                 <MDBCardBody className="p-0">

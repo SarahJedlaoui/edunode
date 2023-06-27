@@ -200,7 +200,7 @@ import LoginPage from './admin/src/pages/LoginPage';
 import Page404 from './admin/src/pages/Page404';
 import ProductsPage from './admin/src/pages/ProductsPage';
 import DashboardAppPage from './admin/src/pages/DashboardAppPage';
-
+import Messages from './components/Profile/messages'
 
 
 const ThemedRoutes = () => (
@@ -394,7 +394,7 @@ function App(props) {
         <Route exact path="/courseDetails/:_id" element={<CourseDetails />} />
         <Route exact path="/profile/:id" element={<WithParams />} />
         <Route exact path="/validCertificate" element={<ValidCertificate />} />
-
+        <Route exact path="/messages" element={<Messages />} />
 
         <Route
           exact

@@ -26,9 +26,9 @@ createRoot(document.getElementById('root')).render(
     <Router>
     <div className="app-wrapper">
     <div className="content-wrapper"> 
-    <Profiler id="App" onRender={(id, phase, actualDuration, baseDuration, startTime, commitTime) => console.log({ id, phase, actualDuration, baseDuration, startTime, commitTime })}>
+   
       <App />
-    </Profiler>
+   
       </div>
       </div>
  

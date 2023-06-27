@@ -28,7 +28,7 @@ class Dashboard extends Component {
       preferences: this.props.auth.user.preferences ? this.props.auth.user.preferences: [],
       skills:this.props.auth.user.skills ? this.props.auth.user.skills: [],
       email:  this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
-      tags: ['web3', 'Stellar', 'Programming', 'NFT', 'Blockchain', 'Crypto', 'E-learning', 'IT', 'Soroban'],
+      tags: ['Web3','Ethereum', 'Bitcoin','JavaScript','Rust','AI','Stellar', 'Programming', 'NFT', 'Blockchain', 'Crypto', 'E-learning', 'IT', 'Soroban'],
       selectedTags: [],
       showAlert: true, //  a state variable to control the visibility of the alert,
       preference:[],
