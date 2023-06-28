@@ -8,6 +8,7 @@ import Topbar from "../Dashboard/Topbar";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Footer from '../Footer';
+import Navbar2 from '../Dashboard/Navbar2';
 import Footer1 from '../Footer/Footer';
 import { styled } from '@mui/material/styles';
 import { connect } from 'react-redux';

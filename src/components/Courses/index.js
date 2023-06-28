@@ -57,17 +57,19 @@ class Courses extends Component {
 
   componentDidMount() {
     const { email} = this.state;
-
+    console.log('email', email)
     fetch(`https://edunode.herokuapp.com/api/users/user?email=${email}`)
     .then(response => response.json())
     .then(data => {
       this.setState({ user: data });
+      console.log('data', data)
+     
     })
     .catch(error => {
       console.error(error);
     });
 
-
+    console.log('user', this.state.user)
 
 
 
@@ -94,6 +96,7 @@ class Courses extends Component {
   }
   render() {
     const { user } = this.state;
+    console.log('role',user.role)
     const Item = styled(Paper)(({ theme }) => ({
       ...theme.typography.body2,
       padding: theme.spacing(1),
@@ -135,6 +138,7 @@ class Courses extends Component {
       return (
 
         <Box sx={{ flexGrow: 1 }}>
+        
           <Grid container spacing={2}>
             {/* <Grid item xs={12} sm={4} md={3}>
             <Item><Sidebar props={email}/></Item>
@@ -146,10 +150,11 @@ class Courses extends Component {
 
               <div style={{ padding: '10px' }}>
                 <br></br>
-
+                
+            
                 <Course1 />
                 <br></br>
-
+               
                 <Course2 />
                 <br></br>
 
@@ -191,11 +196,11 @@ class Courses extends Component {
 
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            {/* <Grid xs={5} sm={3.5} md={2}>
-          <Item><Sidebar props={email} /></Item>
-        </Grid> */}
+            
             <Grid item xs={12} sm={8} md={20}>
-              <Navbar1 />
+            {user.role === 'Learner' && <Navbar2 />}
+            {user.role === 'Teacher' && <Navbar1 />}
+            {user.role === 'University' && <Navbar1 />}
 
               <div className="myDiv">
 
@@ -249,7 +254,10 @@ class Courses extends Component {
           <Item><Sidebar  props={email}/></Item>
         </Grid> */}
             <Grid item xs={12} sm={8} md={20}>
-              <Navbar1 />
+            {user.role === 'Learner' && <Navbar2 />}
+            {user.role === 'Teacher' && <Navbar1 />}
+            {user.role === 'University' && <Navbar1 />}
+
 
               <div className="myDiv">
 
@@ -302,7 +310,10 @@ class Courses extends Component {
           <Item><Sidebar props={email}/></Item>
         </Grid> */}
               <Grid item xs={12} sm={8} md={20}>
-                <Navbar1 />
+              {user.role === 'Learner' && <Navbar2 />}
+            {user.role === 'Teacher' && <Navbar1 />}
+            {user.role === 'University' && <Navbar1 />}
+
 
                 <div className="myDiv">
 
