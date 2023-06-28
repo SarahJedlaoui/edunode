@@ -45,35 +45,20 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return [
-    '1. Introduction: ',
-    '2. Money, Ledgers, and Bitcoin:',
-    '3. Blockchain Basics & Cryptography:',
-    '4. Blockchain Basics & Consensus',
-    '5. Blockchain Basics & Transactions, UTXO and Script Code:',
-    '6. Smart Contracts and DApps:',
-    '7. Technical Challenges:',
-    '8. Public Policy:',
-    '9. Permissioned Systems: ',
-    '10. Financial System Challenges & Opportunities',
-    '11. Blockchain Economics',
-    '12. Assessing Use Cases',
-    '13. Payments, Part 1',
-    '14. Payments, Part 2',
-    '15. Central Banks & Commercial Banking, Part 1',
-    '16. Central Banks & Commercial Banking, Part 2',
-    '17. Secondary Markets & Crypto-Exchanges',
-    '19. Primary Markets, ICOs & Venture Capital, Part 1',
-    '20. Primary Markets, ICOs & Venture Capital, Part 2',
-    '21. Post Trade Clearing, Settlement & Processing',
-    '22. Trade Finance & Supply Chain',
-    '23. Digital ID',
-    '24. Conclusion',
-
-
-
-
-
-
+    '1. Infusing Active Learning into 6.033 Recitations: ',
+    '2. What is Active Learning:',
+    '3. Unique Aspects of the Course:',
+    '4. Why Infuse Active Learning into 6.033 Recitations?:',
+    '5. Getting Everyone on Board:',
+    '6. The Importance of Extensive Planning:',
+    '7. Supporting Staff as Individuals:',
+    '8. Supporting Staff as a Group:',
+    '9. Group Work to Class-wide Discussion: ',
+    '10. Debates:',
+    '11. Drawing Pictures:',
+    '12. Acting Things Out:',
+    '13. Did Active Learning Work?:',
+    
   ];
 }
 
@@ -82,36 +67,20 @@ function getStepContent(step) {
     case 0:
       return (
         <div>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/EH6vE97qIP4"
-            title="Session 1: Introduction:"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+       <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
     case 1:
       return (
         <div>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/5auv_xrvoJk"
-            title="Session 2: Money, Ledgers, and Bitcoin:"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=22" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
     case 2:
       return (
         <div>
 
-          <ReactPlayer url='https://www.youtube.com/watch?v=0UvVOMZqpEA' />
+<iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=107" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
         </div>
@@ -119,44 +88,44 @@ function getStepContent(step) {
     case 3:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/w7HDA8gUbpQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=270" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       )
     case 4:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/zGDTt9Q3vyM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=585" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
     case 5:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/JPkgJwJHYSc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=892" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
     case 6:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/GLVrOlHLJ1U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=1117" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
     case 7:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/sMnBl0g3Ev4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=1177" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
     case 8:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/vPJ8oQ99r9c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=1303" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
 
     case 9:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/l0vD_FBWk0g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=1502" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
 
@@ -164,81 +133,22 @@ function getStepContent(step) {
     case 10:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/_eGNSuTBc60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=1595" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
     case 11:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/ObGYNQLG3us" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=1675" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
     case 12:
       return (
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/ojcOUtUwIe4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/r2_-2KW76ec?start=2648" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       );
-    case 13:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/_Ycy0Dy-B1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-    case 14:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/lPD9fx8fK1k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-    case 15:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/uNqMBBbb6UI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-    case 16:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/KHBi3n0hUSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-    case 17:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/iWpQpPbo7rM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-    case 18:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/7EXcHqLg7BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-    case 19:
-      return (
-        <div>
-         <iframe width="560" height="315" src="https://www.youtube.com/embed/-cZPoqnRZq4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-    case 20:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/DsSzQfejwMk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-      case 21:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/W06Le8fw0vU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
-      case 22:
-      return (
-        <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/CJCKTixMb70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      );
+   
     default:
       return 'Unknown step';
   }
