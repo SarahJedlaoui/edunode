@@ -254,15 +254,16 @@ class ProfilePage extends Component {
                     {friends.map(friend => (
                       <li key={friend._id}>
                         {friend.email}
-                        <a className="btn btn-primary"
-                          style={{ fontSize: '12px', padding: '4px 8px' }}
-                          href="/messages"
-                        >
-                          Send Message
-                        </a>
+                       
                       </li>
                     ))}
                   </ul>
+                  <a className="btn btn-primary"
+                          style={{ fontSize: '12px', padding: '4px 8px' }}
+                          href="/messages"
+                        >
+                          Send Messages
+                        </a>
                 </MDBCardBody>
               </MDBCard>
 

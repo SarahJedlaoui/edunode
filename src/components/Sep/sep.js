@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import NavBar from '../NavBar';
-import Footer from '../Footer';
+import NavBar from '../Dashboard/Navbar1';
+import Footer from '../Footer/Footer';
 
 export default class Sep extends Component {
     constructor(props) {
@@ -32,13 +32,14 @@ export default class Sep extends Component {
         
         return (
           <div>
-            {/* <NavBar /> */}
+            <NavBar /> 
+            <br></br>
 <div>
 <div>
 <pre>{this.state.response}</pre>
     </div>
 </div>
-            {/*  */}
+           <Footer></Footer>
           </div>
         );
     }

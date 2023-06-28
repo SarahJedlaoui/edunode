@@ -47,12 +47,10 @@ class NavBar1 extends Component {
               <Nav.Link href="/feed">Feed</Nav.Link>
               <Nav.Link href="/certificate">Certificates</Nav.Link>
               <Nav.Link href="/post">New Post</Nav.Link>
-              <Nav.Link href="/course">Add Course</Nav.Link>
               <Nav.Link href="/chat">Chat</Nav.Link>
               <Nav.Link href="/historyChat">Chat History</Nav.Link>
               <Nav.Link href="/badges">Badges</Nav.Link>
               <Nav.Link href="/challenges">Challenges</Nav.Link>
-              <Nav.Link href="/validCertificate">Add Certificate</Nav.Link>
             </Nav>
 
             <Nav>

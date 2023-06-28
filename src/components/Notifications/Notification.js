@@ -6,11 +6,10 @@ import { connect } from 'react-redux'
 import NavBar from "../NavBar"
 import { clearErrors } from "../../actions/errorActions";
 import { newPost } from "../../actions/authActions";
-import Sidebar from "../Dashboard/Sidebar";
-import Topbar from "../Dashboard/Topbar";
+import Footer from "../Footer/Footer";
+import Topbar from "../Dashboard/Navbar1";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Footer from '../Footer';
 import Box from '@mui/material/Box';
 import axios from "axios";
 import List from '@mui/material/List';
@@ -76,10 +75,7 @@ class Notification extends Component {
       <div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4} md={3}>
-              <Item><Sidebar props={email} /></Item>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9}>
+            <Grid item xs={12} sm={8} md={20}>
               <Item><Topbar /></Item>
               <div style={{ padding: '10px' }}>
                 
@@ -106,7 +102,7 @@ class Notification extends Component {
               </div>
             </Grid>
           </Grid>
-          
+          <Footer></Footer>
         </Box>
       </div>
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import NavBar from '../Dashboard/Navbar1';
+import Footer from '../Footer/Footer';
 export default class AiPlugin extends Component {
     constructor(props) {
         super(props);
@@ -30,13 +31,14 @@ export default class AiPlugin extends Component {
         
         return (
           <div>
-     
+       <NavBar /> 
+            <br></br>
 <div>
 <div>
 <pre>{this.state.response}</pre>
     </div>
 </div>
-         
+<Footer></Footer>
           </div>
         );
     }

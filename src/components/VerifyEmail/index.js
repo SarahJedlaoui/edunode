@@ -13,7 +13,7 @@ import withRouter from '../../withRouter'
 //import { useNavigate, BrowserRouter } from "react-router-dom";
 import "./style.css";
 import { styled } from '@mui/material/styles';
-//import NavBar from "../NavBar"
+import NavBar from "../NavBar"
 import Navbar1 from "../Dashboard/Navbar1";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -197,7 +197,7 @@ class VerifyEmail extends Component {
 
               <Grid container spacing={2}>
                 <Grid item={true} xs={7} sm={8.5} md={20}>
-                  <Navbar1 />
+                  <NavBar />
                   <div>
                     <div className="centered">
 
