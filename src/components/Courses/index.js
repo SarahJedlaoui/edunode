@@ -230,7 +230,7 @@ class Courses extends Component {
                 <Course8 />
                 <br></br>
 
-                {/* <Course9 /> */}
+                <Course9 />
 
                 <br></br>
                 <Course10 />
@@ -287,7 +287,7 @@ class Courses extends Component {
                 <Course8 />
                 <br></br>
 
-                {/* <Course9 /> */}
+                 <Course9 /> 
 
                 <br></br>
                 <Course10 />

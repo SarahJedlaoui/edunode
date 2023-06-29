@@ -154,7 +154,7 @@ export default function Course9() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  In this course you will learn Blockchain And Money.
+                  In this course you will learn Computer System Engineering.
                 </Typography>
                 <p className="card-text">
                 <small className="text-muted">

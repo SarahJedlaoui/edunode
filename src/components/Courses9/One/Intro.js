@@ -13,7 +13,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 //import ProgressBar from 'react-bootstrap/ProgressBar';
 import Box from '@mui/material/Box';
 import NavBar from '../../NavBar';
-import Navbar1 from '../../Dashboard/Navbar1';
+import Navbar from '../../Dashboard/Navbar1';
 
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../actions/errorActions';
@@ -318,7 +318,7 @@ class Intro extends Component {
     const progress = this.state.progress
     return (
       <div>
-        <Navbar1></Navbar1>
+        <Navbar></Navbar>
         <LinearProgressWithLabel value={activeProgress} />
         <VerticalLinearStepper
           activeStep={activeStep}

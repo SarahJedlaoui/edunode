@@ -8,6 +8,7 @@ import Logout from '../auth/Logout';
 import favicon from "./favicon.png"
 import "./style.css"
 import { NavDropdown } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -62,6 +63,7 @@ class NavBar1 extends Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               {/* Add an empty Nav.Link to push the NavLinks to the right */}
+              <Nav.Link />
               <Nav.Link />
             </Nav>
            
@@ -118,7 +120,8 @@ class NavBar1 extends Component {
             </a>
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle className="custom-navbar-toggle" aria-controls="basic-navbar-nav" />
+
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               {/* Add an empty Nav.Link to push the NavLinks to the right */}

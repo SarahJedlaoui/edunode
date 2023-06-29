@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import NavBar from '../../../NavBar';
+import Navbar from '../../../Dashboard/Navbar1';
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../../actions/errorActions';
 import { reduxForm } from 'redux-form';
@@ -300,7 +301,7 @@ function Intro(props) {
 
   return (
     <div className="page-container">
-      <NavBar />
+      <Navbar />
 
       <LinearProgressWithLabel value={activeProgress} />
 

@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function CourseDetails(props) {
- 
+
   let userDetails = JSON.parse(localStorage.getItem('user'));
   if (!userDetails) {
     userDetails = [];
@@ -60,15 +60,15 @@ function CourseDetails(props) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [course, setCourse] = useState({});
-  
+
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
-  
+
   console.log('userDetails', userDetails)
   console.log('userDetails', userDetails.email)
-  
+
 
   const { _id } = useParams();
   console.log('id :', _id)
@@ -105,7 +105,7 @@ function CourseDetails(props) {
 
   const handleSubmit = async (event) => {
 
-    console.log('submit email : ',userDetails.email)
+    console.log('submit email : ', userDetails.email)
     event.preventDefault();
     const userEmaill = userDetails?.email ?? 'anonymous';
     const comment = {
@@ -134,19 +134,25 @@ function CourseDetails(props) {
             <br></br>
             <div style={{ padding: "10px" }}>
               <div className="post">
-                <h1 style={{fontSize: '20px', fontWeight: 'bold'}} >Titlee :</h1>
-                
+                <h1 style={{ fontSize: '20px', fontWeight: 'bold' }} >Titlee :</h1>
+
                 <h2>{course.title}</h2>
                 <br></br>
-                <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Description :</h1>
+                <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>Description :</h1>
                 <p>{course.description}</p>
                 <br></br>
-                <h1 style={{fontSize: '20px', fontWeight: 'bold'}}>Link :</h1>
+                <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>Link :</h1>
                 <a href={course.link}>{course.link}</a>
                 <br></br>
+                {course.mit && (
+                  <div>
+                    <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>MIT terms of use:</h1>
+                    <a href={course.mit}>{course.mit}</a>
+                  </div>
+                )}
                 <br></br>
                 <div className="comments">
-                  <h3 style={{fontSize: '20px', fontWeight: 'bold'}}>Comments</h3>
+                  <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Comments</h3>
                   <form onSubmit={handleSubmit}>
                     <TextField
                       value={newComment}
@@ -165,7 +171,7 @@ function CourseDetails(props) {
             </div>
           </Grid>
         </Grid>
-       
+
       </Box>
     </div>
   );
