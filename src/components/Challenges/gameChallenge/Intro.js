@@ -29,7 +29,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Countdown from 'react-countdown';
-
+import {useParams } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -349,9 +349,12 @@ function Intro(props) {
   const [winnerEmail, setWinnerEmail] = useState('');
   const editorRef = useRef(null);
   const classes = useStyles();
+  const { randomNumber } = useParams();
+
 
   useEffect(() => {
     setModalVisible(true);
+    console.log('random number',randomNumber)
   }, []);
 
   const handleReadyClick = async () => {
@@ -456,10 +459,16 @@ function Intro(props) {
         </DialogTitle>
         <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Challenge Link :  https://edunode.org/challengeGame/101/
+          Challenge Link :  https://edunode.org/challengeGame/{randomNumber}/
+          
           </DialogContentText>
           <DialogContentText id="alert-dialog-description">
            (Please copy this link and send it to you friend in order to start the challenge! ) 
+          
+          </DialogContentText>
+          <DialogContentText id="alert-dialog-description">
+          
+           This challenge will last 20 minutes the first who finish wins !
           </DialogContentText>
           <DialogContentText id="alert-dialog-description">
            Are you ready to start the game? 

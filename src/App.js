@@ -410,7 +410,7 @@ function App(props) {
         <Route exact path="/glossary" element={<Glossary />} />
         <Route exact path="/Badges" element={<Badge />} />
         <Route exact path="/challenges/101" element={<ChallengeQ />} />
-        <Route exact path="/challengeGame/101" element={<ChallengeGameQ />} />
+        <Route exact path="/challengeGame/:randomNumber" element={<ChallengeGameQ />} />
         <Route exact path="/challenges/101/done" element={<Challengedone />} />
         <Route exact path="/for-teachers" element={<EduNodeGuide />} />
         <Route exact path="/for-students" element={<StudentsPage />} />

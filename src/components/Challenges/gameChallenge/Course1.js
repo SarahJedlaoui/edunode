@@ -28,10 +28,12 @@ export function AlertDialog(props) {
     setOpen(false);
   };
 
-   const handleConfirm = (e) => {
-     setOpen(false);
-     window.location.href = '/challengeGame/101/';
-   };
+  const handleConfirm = (e) => {
+    setOpen(false);
+    const randomNumber = Math.floor(Math.random() * 10000); 
+    const redirectUrl = `/challengeGame/${randomNumber}/`;
+    window.location.href = redirectUrl; 
+  };
    const handleButtonClick = () => {
     const id1 ='648c95d5d9b084b4ad3def41';
     window.location.href = `/challengeDetails/${id1}`;
