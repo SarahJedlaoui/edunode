@@ -73,6 +73,7 @@
     "react-bootstrap": "^2.7.4",
     "react-component-export-image": "^1.0.6",
     "react-cookie-consent": "^8.0.1",
+    "react-countdown": "^2.3.5",
     "react-csv-reader": "^4.0.0",
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0",

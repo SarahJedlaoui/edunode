@@ -154,6 +154,8 @@ import Gcallback from "./components/Gcallback";
 import Hyperledger from "./components/Hyperledger"
 import HyperledgerCourses from "./components/Hyperledger/Courses"
 import Challenge from "./components/Challenges/Challenge";
+import ChallengeGame from "./components/Challenges/gameChallenge";
+import ChallengeGameQ from "./components/Challenges/gameChallenge/Intro";
 import ChallengeQ from './components/Challenges/Challenge/One/Intro.js';
 import CodeEditor from "./components/CodeEditor";
 import ContactUs from "./components/contactus";
@@ -193,7 +195,6 @@ import Routerrr from './admin/routes'
 import ThemeProvider from './admin/src/theme';
 import DashboardLayout from './admin/src/layouts/dashboard';
 import SimpleLayout from './admin/src/layouts/simple';
-//
 import BlogPage from './admin/src/pages/BlogPage';
 import UserPage from './admin/src/pages/UserPage';
 import LoginPage from './admin/src/pages/LoginPage';
@@ -366,6 +367,7 @@ function App(props) {
         <Route exact path="/hyperledger" element={<Hyperledger />} />
         <Route exact path="/hyperledger/courses" element={<HyperledgerCourses />} />
         <Route exact path="/challenges" element={<Challenge />} />
+        <Route exact path="/challengeGame" element={<ChallengeGame />} />
         <Route exact path="/codeeditor" element={<CodeEditor />} />
         <Route exact path="/contactus" element={<ContactUs />} />
         <Route exact path="/loggedout" element={<Loggedout />} />
@@ -408,6 +410,7 @@ function App(props) {
         <Route exact path="/glossary" element={<Glossary />} />
         <Route exact path="/Badges" element={<Badge />} />
         <Route exact path="/challenges/101" element={<ChallengeQ />} />
+        <Route exact path="/challengeGame/101" element={<ChallengeGameQ />} />
         <Route exact path="/challenges/101/done" element={<Challengedone />} />
         <Route exact path="/for-teachers" element={<EduNodeGuide />} />
         <Route exact path="/for-students" element={<StudentsPage />} />
