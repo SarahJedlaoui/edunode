@@ -418,6 +418,15 @@ class ProfilePage extends Component {
                       <MDBCardText className="text-muted">{this.state.user.age}</MDBCardText>
                     </MDBCol>
                   </MDBRow>
+                  <hr />
+                  <MDBRow>
+                    <MDBCol sm="3">
+                      <MDBCardText>Role</MDBCardText>
+                    </MDBCol>
+                    <MDBCol sm="9">
+                      <MDBCardText className="text-muted">{this.state.user.role}</MDBCardText>
+                    </MDBCol>
+                  </MDBRow>
                 </MDBCardBody>
               </MDBCard>
 
