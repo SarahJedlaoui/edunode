@@ -183,9 +183,8 @@ class Dashboard extends Component {
       if (!showAlert) {
         return (
           <>
-            {user.role === 'Learner' && <Navbar2 />}
-            {user.role === 'Teacher' && <Navbar1 />}
-            {user.role === 'University' && <Navbar1 />}
+           
+            <Navbar1 />
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12}>
 
