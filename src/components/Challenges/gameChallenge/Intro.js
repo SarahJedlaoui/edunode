@@ -112,7 +112,7 @@ function VerticalLinearStepper(props) {
   const [winnerEmail, setWinnerEmail] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
-
+  const { randomNumber } = useParams();
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
@@ -142,11 +142,16 @@ function VerticalLinearStepper(props) {
     }
     if (activeStep === steps.length - 1) {
       // Last step reached
-      if (grade>3) {
+      if (grade>=3) {
         setModalVisible(true);
-         try {
+        try {
           // Send a POST request to the backend to submit the challenge and check the grade
-          const response = await axios.post('http://localhost:5001/api/challenge/submit');
+          const response = await axios.post('https://edunode.herokuapp.com/api/gamechallenge/submit', {
+            localEmail: localEmail,
+            challengeFinished: true,
+            grade: grade,
+            gameNumber:randomNumber
+          });
     
           // Once the backend responds with the winner's email, show the winner modal
           setWinnerEmail(localEmail); // Assuming the response contains the winner's email
@@ -163,19 +168,7 @@ function VerticalLinearStepper(props) {
       setActiveStep(activeStep + 1);
     }
   }
-  const handleFinishClick = async () => {
-    try {
-      // Send a POST request to the backend to submit the challenge and check the grade
-      const response = await axios.post('http://localhost:5001/api/challenge/submit');
 
-      // Once the backend responds with the winner's email, show the winner modal
-      setWinnerEmail(response.data.winnerEmail); // Assuming the response contains the winner's email
-      setChallengeFinished(true);
-    } catch (error) {
-      console.error('Error:', error);
-      // Handle error if needed
-    }
-  };
 
   function handleChangeValue(value, index) {
     const newEditorValues = [...editorValues];
@@ -342,6 +335,7 @@ function Intro(props) {
   const [activeStep, setActiveStep] = useState(0);
   const [activeProgress, setActiveProgress] = useState(0);
   const [modalVisible, setModalVisible] = useState(true);
+  const [modalFinishVisible, setModalFinishVisible] = useState(false);
   const [timerVisible, setTimerVisible] = useState(false);
   const [timerDuration, setTimerDuration] = useState(1200000); // 20 minutes
   const [challengeStarted, setChallengeStarted] = useState(false);
@@ -352,50 +346,105 @@ function Intro(props) {
   const { randomNumber } = useParams();
 
 
-  useEffect(() => {
+  useEffect(async() => {
     setModalVisible(true);
     console.log('random number',randomNumber)
+    
   }, []);
 
-  const handleReadyClick = async () => {
-    try {
-      // Send a POST request to the backend to notify readiness
-      await axios.post('http://localhost:5001/api/challenge/ready').
-      then(response => {
-        
-        console.log('ready response',response.data); 
-        setModalVisible(!response.data);
-        setTimerVisible(response.data);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://edunode.herokuapp.com/api/gamechallenge/start');
         setChallengeStarted(response.data);
-      })
-      .catch(error => {
-      
-        console.error(error);
-      });;
-      // Once the backend responds, hide the modal and start the timer
-     
-     
-      setChallengeStarted(true);
-    } catch (error) {
-      console.error('Error:', error);
-     
-    }
-  };
+        setModalVisible(!response.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    fetchData(); // Initial fetch
+  
+    const intervalId = setInterval(() => {
+      fetchData(); // Fetch data every 2 seconds
+    }, 5000);
+  
+    return () => {
+      clearInterval(intervalId); // Clean up the interval on component unmount
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchGameChallenge = async (gameNumber) => {
+      try {
+        const response = await axios.get(`https://edunode.herokuapp.com/api/gamechallenge/finish/${gameNumber}`);
+        const data = response.data;
+    
+        if (data) {
+          // Data retrieval successful
+          const { challengeFinished, winner } = data;
+          // Use the retrieved data as needed
+          if (challengeFinished){
+            setModalFinishVisible(challengeFinished);
+            setWinnerEmail(winner);
+          }
+          console.log('Challenge Finished:', challengeFinished);
+          console.log('Winner:', winner);
+          return data;
+        } else {
+          // Error or data not found
+          console.log('Unable to fetch game challenge');
+          return null;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle error if needed
+        return null;
+      }
+    };
+    const gameNumber = randomNumber;
+  
+    fetchGameChallenge(gameNumber)
+  
+  
+    const intervalId = setInterval(() => {
+      fetchGameChallenge(gameNumber); // Fetch data every 2 seconds
+    }, 5000);
+  
+    return () => {
+      clearInterval(intervalId); // Clean up the interval on component unmount
+    };
+  }, []);
+
 
   
-    const handleFinishClick = async () => {
-    try {
-      // Send a POST request to the backend to submit the challenge and check the grade
-      const response = await axios.post('http://localhost:5001/api/challenge/submit');
 
-      // Once the backend responds with the winner's email, show the winner modal
-      setWinnerEmail(response.data.winnerEmail); // Assuming the response contains the winner's email
-      setChallengeFinished(true);
+
+
+  const handleReadyClick = async () => {
+    const localUser = localStorage.getItem('user');
+    const user = JSON.parse(localUser);
+    const localEmail = user.email;
+    console.log('local email ', user.email);
+  
+    try {
+      // Send a POST request to the backend to notify readiness
+      const response = await axios.post('https://edunode.herokuapp.com/api/gamechallenge/ready', {
+        gameNumber: randomNumber,
+        localEmail: localEmail
+      });
+  
+      console.log('ready response', response.data); 
+      setModalVisible(!response.data);
+      setTimerVisible(response.data);
+      setChallengeStarted(response.data);
     } catch (error) {
       console.error('Error:', error);
-      // Handle error if needed
     }
   };
+  
+ 
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
   }
@@ -426,7 +475,10 @@ function Intro(props) {
     setModalVisible(false);
   };
 
-  
+  const handlefinishClose = () => {
+    setModalFinishVisible(false);
+  };
+
 
 
 
@@ -435,7 +487,7 @@ function Intro(props) {
       <Navbar />
 
       <LinearProgressWithLabel value={activeProgress} />
-     time left : <Countdown date={Date.now() + 10000} 
+     time left : <Countdown date={Date.now() + 1200000} 
      renderer={renderer}
      />
       
@@ -482,20 +534,37 @@ function Intro(props) {
         </DialogActions>
       </Dialog>
     </div>
- 
-      {timerVisible && (
-        <div className="timer">
-          {/* Display the timer here */}
-        </div>
-      )}
+    <div>
 
-      {challengeFinished && (
-        <div className="winner-modal">
-          <p>Winner: {winnerEmail}</p>
-        </div>
-      )}
+<Dialog
+  open={modalFinishVisible}
+  
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+>
+  <DialogTitle id="alert-dialog-title">
+    {"Challenge finished"}
+  </DialogTitle>
+  <DialogContent>
+  <DialogContentText id="alert-dialog-description">
+    Challenge Finished! {winnerEmail} has won the game !
+    
+    </DialogContentText>
+    
+    
+  </DialogContent>
+  <DialogActions>
+    
+    <Button onClick={handlefinishClose} >
+      ok 
+    </Button>
+  </DialogActions>
+</Dialog>
+</div>
+     
+     
 
-      <button onClick={handleFinishClick}>Finish</button>
+      
     </div>
     </div>
   );
