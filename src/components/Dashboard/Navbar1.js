@@ -9,7 +9,7 @@ import favicon from "./favicon.png"
 import "./style.css"
 import { NavDropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import axios from 'axios';
 
 
 class NavBar1 extends Component {
@@ -19,6 +19,7 @@ class NavBar1 extends Component {
     this.state = {
       email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       user: [],
+      NotificationCount:0
     };
 
   }
@@ -45,7 +46,17 @@ class NavBar1 extends Component {
       });
 
     }
-
+    /** async  Count(){
+      const { email } = this.state;
+      //console.log(props.auth);
+      console.log('email in side bar',email);
+     
+        const response = await axios.get(`https://edunode.herokuapp.com/api/certificates/notification/count/${email}`);
+        if (response.data.length > 0) {
+          (response.data[0].count);
+          console.log('sidebar',response.data)
+        }
+      } */
   render() {
     const { isAuthenticated } = this.props.auth;
     const { user } = this.state;
@@ -208,6 +219,7 @@ class NavBar1 extends Component {
                 <NavDropdown title="Account" id="account-dropdown">
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                   <NavDropdown.Item href="/account">Profile Setting</NavDropdown.Item>
+                  <NavDropdown.Item href="/AdminDashboard">University Dashboard</NavDropdown.Item>
                   <NavDropdown.Item href="/messages">Messages</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => {
                     window.location.href =

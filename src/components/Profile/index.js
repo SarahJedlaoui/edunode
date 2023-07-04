@@ -58,11 +58,12 @@ class ProfilePage extends Component {
   }
   acceptFriendRequest = async (userId) => {
     const userr = this.state.user;
-    alert('Invitation accepted');
+    
     try {
       const { data } = await axios.post(`https://edunode.herokuapp.com/api/users/accept-friend-request/${userId}`, {
         user: userr,
       });
+      alert('Invitation accepted');
       console.log(data.message); // Friend request accepted
       // Handle success message or update UI
     } catch (error) {

@@ -5,30 +5,74 @@ import { clearErrors } from "../../actions/errorActions";
 import Grid from '@mui/material/Grid';
 import Footer from '../Footer';
 import Box from '@mui/material/Box';
-import Navbar from '../Dashboard/Navbar';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavBar from "../NavBar";
-
+import { TextField } from '@mui/material';
 
 
 class Glossary extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
-            email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous",
-
+          email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : 'anonymous',
+          showAddGlossary: false,
+          newWord: '',
+          newDefinition: '',
         };
-    }
-
+      }
+    
+      handleAddGlossaryClick = () => {
+        this.setState({ showAddGlossary: true });
+      };
+    
+      handleWordChange = (event) => {
+        this.setState({ newWord: event.target.value });
+      };
+    
+      handleDefinitionChange = (event) => {
+        this.setState({ newDefinition: event.target.value });
+      };
+    
+      handleSubmit = () => {
+        const { email, newWord, newDefinition } = this.state;
+    
+        // Validate the inputs
+        if (!email || !newWord || !newDefinition) {
+          return;
+        }
+    
+        // Create the request body
+        const requestBody = {
+          email,
+          word: newWord,
+          definition: newDefinition,
+        };
+    
+        // Send a POST request to store the glossary entry
+        fetch('https://edunode.herokuapp.com/api/glossary', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        })
+          .then((response) => response.json())
+          .then(() => {
+            // Clear the input fields and hide the add glossary form
+            this.setState({ newWord: '', newDefinition: '', showAddGlossary: false });
+          })
+          .catch((error) => {
+            console.error('Error storing glossary entry:', error);
+          });
+      };
 
     render() {
 
-
+        const { showAddGlossary, newWord, newDefinition } = this.state;
         const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
         return (
 
@@ -462,7 +506,39 @@ class Glossary extends Component {
                                     </Accordion>
                                     
                                 </div>
-
+                                <br></br>
+                                
+                                {showAddGlossary ? (
+                    <div>
+                        <div>
+                      <TextField fullWidth type="text" placeholder="Enter word" value={newWord} onChange={this.handleWordChange} />
+                      </div>
+                      <div>
+                      <TextField fullWidth type="text" placeholder="Enter definition" value={newDefinition} onChange={this.handleDefinitionChange} />
+                      </div>
+                      <button  style={{
+                        backgroundColor: "#007bff",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "4px",
+                        padding: "10px 20px",
+                        fontSize: "1.2em",
+                        boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)"
+                      }}
+                      onClick={this.handleSubmit}>Submit</button>
+                    </div>
+                  ) : (
+                    <button  style={{
+                        backgroundColor: "#007bff",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "4px",
+                        padding: "10px 20px",
+                        fontSize: "1.2em",
+                        boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)"
+                      }}
+                      onClick={this.handleAddGlossaryClick}>Add your own Glossary</button>
+                  )}
                             </div>
                         </Grid>
                     </Grid>
