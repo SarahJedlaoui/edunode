@@ -295,11 +295,11 @@ class Dashboard extends Component {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12}>
 
-                <TwitterTimelineEmbed
+                {/* <TwitterTimelineEmbed
                   sourceType="profile"
                   screenName="edunodeorg"
                   options={{ height: 800 }}
-                />
+                /> */}
                 <TwitterFollowButton screenName={'edunodeorg'} />
               </Grid>
             </Grid>
