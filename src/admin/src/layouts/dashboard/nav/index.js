@@ -38,7 +38,12 @@ export default function Nav({ openNav, onCloseNav }) {
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
+  const localUser = localStorage.getItem('user');
+  const user = JSON.parse(localUser);
+  const localEmail = user.email;
+  const localName = user.name;
 
+  
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -60,15 +65,15 @@ export default function Nav({ openNav, onCloseNav }) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
-            <Avatar src={account.photoURL} alt="photoURL" />
+            <Avatar src={user.images} alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {localName}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+                {user.role}
               </Typography>
             </Box>
           </StyledAccount>
@@ -77,7 +82,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
       <NavSection data={navConfig} />
 
-      <Box sx={{ flexGrow: 1 }} />
+     
 
       
     </Scrollbar>

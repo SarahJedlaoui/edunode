@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
+
 // @mui
 import {
   Card,
@@ -22,6 +23,9 @@ import {
   TableContainer,
   TablePagination,
 } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 // components
 import Label from '../components/label';
 import Iconify from '../components/iconify';
@@ -44,9 +48,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  { id: 'university', label: 'university', alignRight: false },
+  { id: 'university', label: 'University', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
+  { id: 'link', label: 'Link', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
@@ -97,7 +101,7 @@ export default function UserPage() {
   const [editPopupOpen, setEditPopupOpen] = useState(false);
   const [deletePopupOpen, setDeletePopupOpen] = useState(false);
   const [selectedCertificateId, setSelectedCertificateId] = useState(null);
-
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
   const handleOpenEditPopup = (certificateId) => {
     setSelectedCertificateId(certificateId);
     setEditPopupOpen(true);
@@ -115,7 +119,15 @@ export default function UserPage() {
   const handleCloseDeletePopup = () => {
     setDeletePopupOpen(false);
   };
+  // Function to handle opening the modal
+  const handleOpenModal = (certificate) => {
+    setSelectedCertificate(certificate);
+  };
 
+  // Function to handle closing the modal
+  const handleCloseModal = () => {
+    setSelectedCertificate(null);
+  };
 
   useEffect(() => {
     const fetchCertificates = async () => {
@@ -236,16 +248,16 @@ export default function UserPage() {
   return (
     <>
       <Helmet>
-        <title> User  </title>
+        <title> Certificates   </title>
       </Helmet>
 
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            User
+            Certificates
           </Typography>
           <Button variant="contained" className={classes.blueButton} startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
+            New Certificate
           </Button>
         </Stack>
 
@@ -266,7 +278,7 @@ export default function UserPage() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((certificate) => {
-                    const { _id, name, status, university, avatarUrl, isVerified, url } = certificate;
+                    const { _id, name, status, university, image, isVerified, url } = certificate;
                     const isSelected = selected.indexOf(_id) !== -1
 
                     return (
@@ -288,7 +300,18 @@ export default function UserPage() {
 
                         <TableCell align="left">{url}</TableCell>
 
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
+                        <TableCell align="left">
+                          <a href="#" onClick={() => handleOpenModal(image)}>
+                            link
+                          </a>
+                        </TableCell>
+
+                        <Dialog open={!!selectedCertificate} onClose={handleCloseModal} >
+                          <DialogTitle>Certificate Image</DialogTitle>
+                          <DialogContent>
+                            {selectedCertificate && <img src={selectedCertificate} alt="Certificate" />}
+                          </DialogContent>
+                        </Dialog>
 
                         <TableCell align="left">
                           <Label color={(status === 'accepted' && 'success') || 'error'}>{status}</Label>

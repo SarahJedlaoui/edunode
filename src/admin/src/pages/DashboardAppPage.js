@@ -1,6 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
+import React, { useState, useEffect } from "react";
 // @mui
+import { Icon } from '@mui/material';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 // components
@@ -22,11 +26,31 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
+  const [certificateCount, setCertificateCount] = useState(0);
+  const [acceptedCount, setAcceptedCount] = useState(0);
+  const [rejectedCount, setRejectedCount] = useState(0);
 
+  useEffect(() => {
+    // Fetch the certificate counts
+    fetch("https://edunode.herokuapp.com/api/validCertificate/count")
+      .then((response) => response.json())
+      .then((data) => setCertificateCount(data.count))
+      .catch((error) => console.error(error));
+
+    fetch("https://edunode.herokuapp.com/api/validCertificate/acceptedCount")
+      .then((response) => response.json())
+      .then((data) => setAcceptedCount(data.count))
+      .catch((error) => console.error(error));
+
+    fetch("https://edunode.herokuapp.com/api/validCertificate/rejectedCount")
+      .then((response) => response.json())
+      .then((data) => setRejectedCount(data.count))
+      .catch((error) => console.error(error));
+  }, []);
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard</title>
       </Helmet>
 
       <Container maxWidth="xl">
@@ -36,20 +60,17 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+          <AppWidgetSummary title="Number of Certificate Verification Requests" total={certificateCount} icon={'bi:pass-fill'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
+            <AppWidgetSummary title="Number of Approved Certificates" total={acceptedCount} color="success" icon={'bi:check-circle-fill'}/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
+            <AppWidgetSummary title="Number of Rejected Certificates" total={rejectedCount} color="error" icon={'bi:x-circle-fill'} />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-          </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits

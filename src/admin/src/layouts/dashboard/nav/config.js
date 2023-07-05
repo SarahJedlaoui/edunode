@@ -12,10 +12,14 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'user',
+    title: 'Certificates',
     path: '/AdminDashboard/user',
     icon: icon('ic_user'),
   },
+
+
+
+  /**
   {
     title: 'product',
     path: '/AdminDashboard/products',
@@ -30,7 +34,7 @@ const navConfig = [
     title: 'Not found',
     path: '/404',
     icon: icon('ic_disabled'),
-  },
+  }, */
 ];
 
 export default navConfig;
