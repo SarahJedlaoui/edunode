@@ -10,7 +10,6 @@ import NavBar from "../NavBar"
 import withRouter from '../../withRouter';
 import Alert from "@material-ui/lab/Alert";
 import Popup from 'reactjs-popup';
-import Button from "@mui/material/Button";
 import axios from "axios";
 import 'reactjs-popup/dist/index.css';
 import Navbar1 from './Navbar1';
@@ -19,7 +18,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
 import tuto from './tutorial.png'
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { Popover, Button } from '@mui/material';
 
+const styles = {
+  popupContent: {
+    maxHeight: '300px',
+    overflowY: 'auto',
+    padding: '10px',
+  },
+  saveButton: {
+    backgroundColor: 'blue',
+    color: 'white',
+  },
+};
 
 class Dashboard extends Component {
   constructor(props) {
@@ -183,7 +196,7 @@ class Dashboard extends Component {
       if (!showAlert) {
         return (
           <>
-           
+
             <Navbar1 />
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12}>
@@ -348,92 +361,67 @@ class Dashboard extends Component {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12}>
                 <Alert className="text-center" severity="warning">
-                  Please select your preferences so we can provide you with a personalized experience!
+                  Please select your preferences and role so we can provide you with a personalized experience!
                   <Popup trigger=
                     {<Button> Click here </Button>}
                     position="right center">
                     {close => (
-                      <div> Select your preferences
+                      <div style={styles.popupContent}>
+                        Select your preferences
                         {tags.map(tag => (
                           <div key={tag}>
-                            <input
-                              type="checkbox"
-                              name={tag}
-                              checked={selectedTags.includes(tag)}
-                              onChange={this.handleTagChange}
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  name={tag}
+                                  checked={selectedTags.includes(tag)}
+                                  onChange={this.handleTagChange}
+                                />
+                              }
+                              label={tag}
                             />
-                            <label>{tag}</label>
                           </div>
                         ))}
 
-                        <button
-                          onClick={() => {
-                            this.handleSave();
-                            close();
-                          }}
-                        >
-                          Save
-                        </button>
-                      </div>
-                    )}
-                  </Popup>
-                </Alert>
-              </Grid>
-
-              <Grid item xs={12} sm={12} md={12}>
-                <Alert className="text-center" severity="warning">
-                  Please select your purpose of joining our plateform so we can provide you with a personalized experience!
-                  <Popup trigger=
-                    {<Button> Click here </Button>}
-                    position="right center">
-                    {close => (
-                      <div> Select your role
+                        Select your role
                         {role.map(role => (
                           <div key={role}>
-                            <input
-                              type="checkbox"
-                              name={role}
-                              checked={role === selectedRole}
-                              onChange={this.handleRoleChange}
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  name={role}
+                                  checked={role === selectedRole}
+                                  onChange={this.handleRoleChange}
+                                />
+                              }
+                              label={role}
                             />
-                            <label>{role}</label>
                           </div>
                         ))}
 
-                        <button
+                        <Button
+                          variant="outlined"
                           onClick={() => {
+                            this.handleSave();
                             this.handleSaveRole();
                             close();
                           }}
                         >
                           Save
-                        </button>
+                        </Button>
                       </div>
                     )}
                   </Popup>
                 </Alert>
               </Grid>
-
-
-
-
-
             </Grid>
-            <Grid container spacing={2}>
 
 
 
-              <br></br>
-              {/**  /* <Grid item xs={12} sm={12} md={12}>
 
-                <TwitterTimelineEmbed
-                  sourceType="profile"
-                  screenName="edunodeorg"
-                  options={{ height: 800 }}
-                />
-                <TwitterFollowButton screenName={'edunodeorg'} />
-              </Grid>*/}
-            </Grid>
+
+
+
 
           </>
         )

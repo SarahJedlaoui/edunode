@@ -27,46 +27,13 @@ import Navbar1 from '../Dashboard/Navbar1';
 import Modal from 'react-modal';
 import home from './elearning.png'
 import { TextField } from '@mui/material';
-// Initialize editorState
-{/*const editorState = EditorState.createEmpty();
+import Alert from '@mui/material/Alert';
 
 
-const options = {
-  inlineStyles: {
-    BOLD: { element: 'strong' },
-    ITALIC: { element: 'em' },
-    UNDERLINE: { element: 'u' },
-    STRIKETHROUGH: { element: 'del' },
-  },
-  blockTypes: {
-    'header-one': { element: 'h1' },
-    'header-two': { element: 'h2' },
-    'header-three': { element: 'h3' },
-    'header-four': { element: 'h4' },
-    'header-five': { element: 'h5' },
-    'header-six': { element: 'h6' },
-    'unordered-list-item': { element: 'li', nest: 'ul' },
-    'ordered-list-item': { element: 'li', nest: 'ol' },
-    blockquote: { element: 'blockquote' },
-    'code-block': { element: 'pre' },
-  },
-  entityStyleFn: (entity) => {
-    const entityType = entity.getType().toLowerCase();
-    if (entityType === 'link') {
-      const data = entity.getData();
-      return {
-        element: 'a',
-        attributes: {
-          href: data.url,
-          rel: data.rel,
-          target: data.target,
-        },
-      };
-    }
-    // Add more conditions to preserve other entity types, if necessary
-  },
-};
-*/}
+
+
+
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -80,15 +47,7 @@ const Form = styled.form`
   border-radius: 5px;
   box-sizing: border-box; // Include padding and border in the form's dimensions
 `;
-// const Form = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 2rem;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-// `;
+
 
 const FormGroup = styled.div`
   display: flex;
@@ -192,7 +151,7 @@ class Teach extends Component {
       link: "",
       description: '',
       questions: '',
-      grade:0,
+      grade: 0,
       email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       success: false,
       isLoading: false,
@@ -229,9 +188,31 @@ class Teach extends Component {
   }
 
   async handleSubmit(e) {
+    e.preventDefault();
+    // Validate the form fields
+    const errors = {};
+    if (this.state.title.trim() === "") {
+      errors.title = "Title is required.";
+    }
+    if (this.state.questions.trim() === "") {
+      errors.questions = "Questions are required.";
+    }
+    if (this.state.grade === 0) {
+      errors.grade = "Grade is required.";
+    }
+    if (this.state.tags.length === 0) {
+      errors.tags = "At least one tag must be selected.";
+    }
+    if (Object.keys(errors).length > 0) {
+      // Display error messages and return if there are validation errors
+      this.setState({ errors });
+      return;
+    }
+
+
     this.setState({ showPopup: true });
 
-    const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
+    const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
     fetch('https://edunode.herokuapp.com/api/cours/increment-trophy', {
       method: 'PUT',
       headers: {
@@ -247,12 +228,12 @@ class Teach extends Component {
         }
       })
       .then(data => {
-        console.log(data.message); 
+        console.log(data.message);
       })
       .catch(error => {
         console.error(error);
       });
-      this.setState({ showPopup: true });
+    this.setState({ showPopup: true });
 
     e.preventDefault();
     //const email= this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
@@ -264,7 +245,7 @@ class Teach extends Component {
       description: convertToHTML(this.state.editorState.getCurrentContent()),
       privatee: this.state.privatee,
       questions: this.state.questions,
-      grade:this.state.grade
+      grade: this.state.grade
     };
     try {
       const response = await fetch("https://edunode.herokuapp.com/api/cours", {
@@ -289,9 +270,9 @@ class Teach extends Component {
       console.error(error);
     }
 
-   
 
 
+    this.setState({ errors: {} });
 
 
   }
@@ -331,7 +312,8 @@ class Teach extends Component {
       textAlign: 'center',
       color: theme.palette.text.secondary,
     }));
-    const { tags, title, link, description, success, questions,grade, showPopup } = this.state;
+    const { errors } = this.state;
+    const { tags, title, link, description, success, questions, grade, showPopup } = this.state;
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     return (
 
@@ -360,6 +342,7 @@ class Teach extends Component {
                         </option>
                       ))}
                     </Select>
+                    {errors.tags && <Alert severity="error">{errors.tags}</Alert>}
                     <SelectedTagsContainer>
                       {tags.map((tag) => (
                         <SelectedTag key={tag}>
@@ -374,18 +357,19 @@ class Teach extends Component {
                   <FormGroup>
                     <Label htmlFor="title">Title:</Label>
                     <Input
-                    fullWidth
+                      fullWidth
                       type="text"
                       id="title"
                       value={title}
                       onChange={(e) => this.setState({ title: e.target.value })}
                     />
+                    {errors.title && <Alert severity="error">{errors.title}</Alert>}
                   </FormGroup>
-                  
+
                   <FormGroup>
                     <Label htmlFor="link">Link:</Label>
                     <Input
-                    fullWidth
+                      fullWidth
                       type="text"
                       id="link"
                       value={link}
@@ -407,26 +391,28 @@ class Teach extends Component {
                   <FormGroup>
                     <Label htmlFor="title">Questions:</Label>
                     <TextField
-                        name="questions"
-                        multiline
-                        id="questions"
-                        rows={4}
-                        placeholder="questions"
-                        fullWidth
-                        value={questions}
-                        onChange={(e) => this.setState({ questions: e.target.value })}
-                      />
+                      name="questions"
+                      multiline
+                      id="questions"
+                      rows={4}
+                      placeholder="questions"
+                      fullWidth
+                      value={questions}
+                      onChange={(e) => this.setState({ questions: e.target.value })}
+                    />
+                    {errors.questions && <Alert severity="error">{errors.questions}</Alert>}
                   </FormGroup>
                   <FormGroup>
                     <Label htmlFor="title">Grade(how many right questions in order to have the certificate):</Label>
                     <TextField
-                        name="grade"
-                        id="grade"
-                        placeholder="grade"
-                        fullWidth
-                        value={grade}
-                        onChange={(e) => this.setState({ grade: e.target.value })}
-                      />
+                      name="grade"
+                      id="grade"
+                      placeholder="grade"
+                      fullWidth
+                      value={grade}
+                      onChange={(e) => this.setState({ grade: e.target.value })}
+                    />
+                    {errors.grade && <Alert severity="error">{errors.grade}</Alert>}
                   </FormGroup>
                   <FormControlLabel
                     value="private"
@@ -479,7 +465,7 @@ class Teach extends Component {
               </div>
             </Grid>
           </Grid>
-          
+
         </Box>
 
       </div>

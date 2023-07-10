@@ -22,46 +22,9 @@ import Navbar1 from '../Dashboard/Navbar1';
 import UserContext from './UserContext';
 import home from './homework.png'
 import Modal from 'react-modal';
-// Initialize editorState
-{/*const editorState = EditorState.createEmpty();
+import Alert from '@mui/material/Alert';
 
 
-const options = {
-  inlineStyles: {
-    BOLD: { element: 'strong' },
-    ITALIC: { element: 'em' },
-    UNDERLINE: { element: 'u' },
-    STRIKETHROUGH: { element: 'del' },
-  },
-  blockTypes: {
-    'header-one': { element: 'h1' },
-    'header-two': { element: 'h2' },
-    'header-three': { element: 'h3' },
-    'header-four': { element: 'h4' },
-    'header-five': { element: 'h5' },
-    'header-six': { element: 'h6' },
-    'unordered-list-item': { element: 'li', nest: 'ul' },
-    'ordered-list-item': { element: 'li', nest: 'ol' },
-    blockquote: { element: 'blockquote' },
-    'code-block': { element: 'pre' },
-  },
-  entityStyleFn: (entity) => {
-    const entityType = entity.getType().toLowerCase();
-    if (entityType === 'link') {
-      const data = entity.getData();
-      return {
-        element: 'a',
-        attributes: {
-          href: data.url,
-          rel: data.rel,
-          target: data.target,
-        },
-      };
-    }
-    // Add more conditions to preserve other entity types, if necessary
-  },
-};
-*/}
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -75,15 +38,6 @@ const Form = styled.form`
   border-radius: 5px;
   box-sizing: border-box; // Include padding and border in the form's dimensions
 `;
-// const Form = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 2rem;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-// `;
 
 const FormGroup = styled.div`
   display: flex;
@@ -193,7 +147,7 @@ class Post extends Component {
       errors: {},
       privatee: false,
       showPopup: false,
-      image:''
+      image: ''
     };
 
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
@@ -223,8 +177,23 @@ class Post extends Component {
   }
 
   async handleSubmit(e) {
-
-
+    e.preventDefault();
+    // Validate the form fields
+    const errors = {};
+    if (this.state.title.trim() === "") {
+      errors.title = "Title is required.";
+    }
+    if (this.state.editorState.getCurrentContent() === "") {
+      errors.description = "Description is required.";
+    }
+    if (this.state.tags.length === 0) {
+      errors.tags = "At least one tag must be selected.";
+    }
+    if (Object.keys(errors).length > 0) {
+      // Display error messages and return if there are validation errors
+      this.setState({ errors });
+      return;
+    }
     this.setState({ showPopup: true });
 
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
@@ -261,15 +230,7 @@ class Post extends Component {
       image: this.state.image,
     };
     try {
-      {/**   const response = await fetch("https://edunode.herokuapp.com/api/post", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });  */}
-      //const result = await response.json();
-      //console.log(result);
+
       this.setState({ success: true }); // Set success state to true
       console.log(data)
       await this.props.newPost(data)
@@ -282,17 +243,21 @@ class Post extends Component {
     } catch (error) {
       console.error(error);
     }
+    this.setState({ errors: {} });
+
+
+
   }
   onChangeImage = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-      
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const imageString = reader.result;
-          this.setState({ image: imageString });
-        };
-      };
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const imageString = reader.result;
+      this.setState({ image: imageString });
+    };
+  };
 
   handleClosePopup = () => {
     this.setState({ showPopup: false });
@@ -332,14 +297,12 @@ class Post extends Component {
     }));
     const { tags, title, link, description, success, showPopup } = this.state;
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
+    const { errors } = this.state;
     return (
       <UserContext.Provider value={this.state.email}>
         <div>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              {/* <Grid item xs={12} sm={4} md={3}>
-              <Item><Sidebar props={email}/></Item>
-            </Grid> */}
               <Grid item xs={12} sm={8} md={20}>
                 <Navbar1 />
                 <br></br>
@@ -353,12 +316,14 @@ class Post extends Component {
                       <Label htmlFor="tags">Tags:</Label>
                       <Select id="tags" onChange={this.handleTagSelect}>
                         <option value="">Select a tag</option>
+                        
                         {tagsList.map((tag) => (
                           <option key={tag} value={tag}>
                             {tag}
                           </option>
                         ))}
                       </Select>
+                      {errors.tags && <Alert severity="error">{errors.tags}</Alert>}
                       <SelectedTagsContainer>
                         {tags.map((tag) => (
                           <SelectedTag key={tag}>
@@ -378,6 +343,8 @@ class Post extends Component {
                         value={title}
                         onChange={(e) => this.setState({ title: e.target.value })}
                       />
+                      {errors.title && <Alert severity="error">{errors.title}</Alert>}
+                    
                     </FormGroup>
                     <FormGroup>
                       <Label htmlFor="link">Link:</Label>
@@ -415,7 +382,9 @@ class Post extends Component {
                       label="Private"
                       labelPlacement="start"
                     />
-
+                    {/* Render error messages */}
+                    
+                    {errors.description && <Alert severity="error">{errors.description}</Alert>}
                     <SubmitButton type="submit">Submit</SubmitButton>
                     {success && (
                       <div style={{ backgroundColor: 'green', color: 'white', padding: '10px' }}>
