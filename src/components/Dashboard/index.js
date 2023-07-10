@@ -61,19 +61,21 @@ class Dashboard extends Component {
       this.setState({ showPopup: true });
     }
     fetch(`https://edunode.herokuapp.com/api/users/user?email=${email}`)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ user: data });
-      })
+    .then(response => response.json())
+    .then(data => {
+      this.setState({ user: data }, () => {
+        console.log('user:', this.state.user);
+      });
+    })
       .catch(error => {
         console.error(error);
       });
 
-
+      console.log('usssssseeeeeeeeerrrrrrrrrrrr', this.state.user)
 
 
     console.log('email', email)
-    if (this.props.auth.user.preferences && this.props.auth.user.preferences.length === 0) {
+    if (this.state.user.preferences && this.state.user.preferences.length === 0) {
       // preferences array is empty
       console.log("Preferences array is empty");
       this.setState({ showAlert: true });
