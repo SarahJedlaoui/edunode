@@ -343,6 +343,7 @@ function Intro(props) {
   const [winnerEmail, setWinnerEmail] = useState('');
   const editorRef = useRef(null);
   const classes = useStyles();
+  const [isDialogClosed, setIsDialogClosed] = useState(false);
   const { randomNumber } = useParams();
 
 
@@ -355,8 +356,9 @@ function Intro(props) {
 
   useEffect(() => {
     const fetchData = async () => {
+      const gameNumber = randomNumber;
       try {
-        const response = await axios.get('https://edunode.herokuapp.com/api/gamechallenge/start');
+        const response = await axios.get(`https://edunode.herokuapp.com/api/gamechallenge/start/${gameNumber}`);
         setChallengeStarted(response.data);
         setModalVisible(!response.data);
       } catch (error) {
@@ -380,12 +382,12 @@ function Intro(props) {
       try {
         const response = await axios.get(`https://edunode.herokuapp.com/api/gamechallenge/finish/${gameNumber}`);
         const data = response.data;
-    
+
         if (data) {
           // Data retrieval successful
           const { challengeFinished, winner } = data;
           // Use the retrieved data as needed
-          if (challengeFinished){
+          if (challengeFinished) {
             setModalFinishVisible(challengeFinished);
             setWinnerEmail(winner);
           }
@@ -403,19 +405,21 @@ function Intro(props) {
         return null;
       }
     };
+
     const gameNumber = randomNumber;
-  
-    fetchGameChallenge(gameNumber)
-  
-  
+
+    fetchGameChallenge(gameNumber);
+
     const intervalId = setInterval(() => {
-      fetchGameChallenge(gameNumber); // Fetch data every 2 seconds
-    }, 5000);
-  
+      if (!isDialogClosed) {
+        fetchGameChallenge(gameNumber); // Fetch data every 5 seconds if dialog is not closed
+      }
+    }, 10000);
+
     return () => {
       clearInterval(intervalId); // Clean up the interval on component unmount
     };
-  }, []);
+  }, [isDialogClosed]); // Add isDialogClosed as a dependency
 
 
   
@@ -476,6 +480,7 @@ function Intro(props) {
   };
 
   const handlefinishClose = () => {
+    setIsDialogClosed(true);
     setModalFinishVisible(false);
   };
 
