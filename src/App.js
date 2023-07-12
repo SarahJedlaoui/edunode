@@ -174,6 +174,7 @@ import Cours from "./components/Teach/teach";
 import ValidCertificate from "./components/Teach/validCertificate";
 import Certificat from "./components/Certificate/certificat";
 import Notification from './components/Notifications/Notification';
+import Achievement from './components/Achievment/Achievment';
 import Search from "./components/Search/Search";
 import Sep from './components/Sep/sep'
 import AiPlugin from './components/AiPlugin'
@@ -385,6 +386,7 @@ function App(props) {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/post" element={<Post />} />
         <Route exact path="/notification" element={<Notification />} />
+        <Route exact path="/achievement" element={<Achievement />} />
         <Route exact path="/Course" element={<Cours />} />
         <Route exact path="/terms" element={<TermsAndConditions />} />
         <Route exact path="/search" element={<Search />} />

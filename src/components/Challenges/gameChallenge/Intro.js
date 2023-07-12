@@ -414,7 +414,7 @@ function Intro(props) {
       if (!isDialogClosed) {
         fetchGameChallenge(gameNumber); // Fetch data every 5 seconds if dialog is not closed
       }
-    }, 10000);
+    }, 15000);
 
     return () => {
       clearInterval(intervalId); // Clean up the interval on component unmount

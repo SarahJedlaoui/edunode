@@ -13,7 +13,7 @@ import Popup from 'reactjs-popup';
 import axios from "axios";
 import 'reactjs-popup/dist/index.css';
 import Navbar1 from './Navbar1';
-import Navbar2 from './Navbar2';
+import { makeStyles } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
@@ -21,6 +21,26 @@ import tuto from './tutorial.png'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Popover, Button } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import CommentIcon from '@mui/icons-material/Comment';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import IconButton from '@mui/material/IconButton';
+import CardMedia from "@mui/material/CardMedia";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import PostCard from "./postCard";
+import CourseCard from "./courseCard";
+
+
+
+
+
+
+
+
 
 const styles = {
   popupContent: {
@@ -33,6 +53,56 @@ const styles = {
     color: 'white',
   },
 };
+const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    marginTop: '10px',
+  },
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 0, 6),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  cardMedia: {
+    paddingTop: "56.25%", // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6),
+  },
+  cardDescription: {
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 4,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    position: 'relative'
+  },
+  overlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1))', // Add gradient for the overlay effect
+  },
+}));
 
 class Dashboard extends Component {
   constructor(props) {
@@ -48,10 +118,32 @@ class Dashboard extends Component {
       showAlert: true, //  a state variable to control the visibility of the alert,
       preference: [],
       user: [],
+      notifications: [],
+      achievement: [],
       showPopup: false
     };
 
   }
+  componentDidMount() {
+
+  }
+
+
+
+  async fetchNotifications(props) {
+    try {
+      const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : ""
+      this.setState({ isLoading: true });
+      const response = await axios.get(`https://edunode.herokuapp.com/api/notif/notification`);
+      const notifications = response.data;
+      console.log('email', email);
+      console.log('hiii', response.data);
+      this.setState({ isLoading: false, notifications });
+    } catch (error) {
+      console.error(error);
+      this.setState({ isLoading: false, errors: error.response.data });
+    }
+  };
 
   componentDidMount() {
     const { isAuthenticated, isVerified } = this.props.auth;
@@ -61,17 +153,17 @@ class Dashboard extends Component {
       this.setState({ showPopup: true });
     }
     fetch(`https://edunode.herokuapp.com/api/users/user?email=${email}`)
-    .then(response => response.json())
-    .then(data => {
-      this.setState({ user: data }, () => {
-        console.log('user:', this.state.user);
-      });
-    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ user: data }, () => {
+          console.log('user:', this.state.user);
+        });
+      })
       .catch(error => {
         console.error(error);
       });
 
-      console.log('usssssseeeeeeeeerrrrrrrrrrrr', this.state.user)
+    console.log('usssssseeeeeeeeerrrrrrrrrrrr', this.state.user)
 
 
     console.log('email', email)
@@ -85,7 +177,7 @@ class Dashboard extends Component {
       this.setState({ showAlert: false });
     }
 
-
+    this.fetchNotifications();
     //const showAlert = !localStorage.getItem('selectedTags'); // check if the flag is set
     // update the state based on the flag
     console.log(this.state.preferences)
@@ -99,6 +191,20 @@ class Dashboard extends Component {
       .catch(error => {
         console.error(error);
       });
+
+    fetch('https://edunode.herokuapp.com/api/gamechallenge/winners') // Make sure this matches the endpoint you defined on the backend
+      .then((response) => response.json())
+      .then((data) => this.setState({ achievement: data }))
+      .catch((error) => console.error(error));
+
+
+
+
+
+
+
+
+
   }
 
 
@@ -178,7 +284,7 @@ class Dashboard extends Component {
 
     } = this.props.auth;
     const email = user && user.email ? user.email : '';
-
+    const { notifications, achievement } = this.state;
 
 
     if (!isGranted && !isVerified && !isAuthenticated && !hasUsername) {
@@ -233,71 +339,24 @@ class Dashboard extends Component {
                     </h1>
                     <div className="row justify-content card-deck d-flex">
                       {preference.courses && preference.courses.map(course => (
-                        <div className="col-md-4 mb-4 h-100" key={course.id}>
-                          <div className="card shadow h-100">
-                            <div className="card-body">
-                              <h6 className="card-title">Course</h6>
-                              <h5 className="card-title">{course.title}</h5>
-                              <p className="card-text">{course.description}</p>
-                              <p className="card-text">
-                                <a href={course.link} className="card-link">
-                                  <FontAwesomeIcon icon={faLink} className="mr-2" />
-                                  {course.link}
-                                </a>
-                              </p>
-                              <p className="card-text">
-                                <small className="text-muted">
-                                  Tags: {course.tags.join(", ")}
-                                </small>
-                              </p>
-                            </div>
-                          </div>
+                        <div className="col-md-4 mb-4 h-100" key={course._id}>
+                          <CourseCard course={course} />
                         </div>
                       ))}
+
                       {preference.posts && preference.posts.map(post => (
-                        <div className="col-md-4 mb-4 h-100" key={post.id}>
-                          <div className="card shadow h-100">
-                            <div className="card-body">
-                              <h6 className="card-title">Post</h6>
-                              <h5 className="card-title">{post.title}</h5>
-                              <p
-                                className="card-text"
-                                dangerouslySetInnerHTML={{ __html: post.description }}
-                              ></p>
-                              <a href={post.link} className="card-link">
-                                <FontAwesomeIcon icon={faLink} className="mr-2" />
-                                {post.link}
-                              </a>
-                              <p className="card-text">
-                                <small className="text-muted">
-                                  Tags: {post.tags.join(", ")}
-                                </small>
-                              </p>
-                            </div>
-                          </div>
+                        <div className="col-md-4 mb-4 h-100" key={post._id}>
+                          <PostCard post={post} />
                         </div>
+
                       ))}
+
+
+
                       {preference.blogs && preference.blogs.map(blog => (
-                        <div className="col-md-4 mb-4 h-100" key={blog.id}>
-                          <div className="card shadow h-100">
-                            <div className="card-body">
-                              <h6 className="card-title">Blog</h6>
-                              <h5 className="card-title">{blog.title}</h5>
-                              <p className="card-text">{blog.description}</p>
-                              <p className="card-text">
-                                <a href={blog.link} className="card-link">
-                                  <FontAwesomeIcon icon={faLink} className="mr-2" />
-                                  {blog.link}
-                                </a>
-                              </p>
-                              <p className="card-text">
-                                <small className="text-muted">
-                                  Tags: {blog.tags.join(", ")}
-                                </small>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                      <div className="col-md-4 mb-4 h-100" key={blog._id}>
+                      <PostCard blog={blog} />
+                    </div>
                       ))}
                     </div>
                   </div>
@@ -306,7 +365,51 @@ class Dashboard extends Component {
               </Grid>
             </Grid>
             <br></br>
+            <div style={{ padding: '10px' }}>
 
+              <h4 style={{ fontSize: "2em", textAlign: "left" }}>Actualities:</h4>
+              <div>
+
+                <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
+                  {notifications.map(notification => {
+                    const message = notification.notificationMessage.replace('Congrats! You ', '');
+                    return (
+                      <ListItem
+                        key={notification._id}
+                        disableGutters
+                        secondaryAction={
+                          <IconButton href="#" aria-label="comment">
+                            <EmojiEventsIcon />
+                          </IconButton>
+                        }
+                      >
+                        <ListItemText primary={`${notification.email} ${message}`} />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+                <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
+                  {achievement.map((notification) => {
+                    const message = 'won a challenge game! ';
+                    return (
+                      <ListItem
+                        key={achievement._id}
+                        disableGutters
+                        secondaryAction={
+                          <IconButton href="#" aria-label="comment">
+                            <EmojiEventsIcon />
+                          </IconButton>
+                        }
+                      >
+                        <ListItemText primary={`${achievement.winnerEmail} ${message}`} />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+
+              </div>
+
+            </div>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12}>
 
