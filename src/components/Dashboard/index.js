@@ -192,7 +192,7 @@ class Dashboard extends Component {
         console.error(error);
       });
 
-    fetch('https://edunode.herokuapp.com/api/gamechallenge/winners') // Make sure this matches the endpoint you defined on the backend
+    fetch('https://edunode.herokuapp.com/api/gamechallenge/winners') 
       .then((response) => response.json())
       .then((data) => this.setState({ achievement: data }))
       .catch((error) => console.error(error));
@@ -384,11 +384,12 @@ class Dashboard extends Component {
                         }
                       >
                         <ListItemText primary={`${notification.email} ${message}`} />
+                        <ListItemText primary={notification.date}/>
                       </ListItem>
                     );
                   })}
                 </List>
-                <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
+             {/**   <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
                   {achievement.map((notification) => {
                     const message = 'won a challenge game! ';
                     return (
@@ -405,7 +406,7 @@ class Dashboard extends Component {
                       </ListItem>
                     );
                   })}
-                </List>
+                </List>*/} 
 
               </div>
 

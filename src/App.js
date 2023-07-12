@@ -156,6 +156,7 @@ import HyperledgerCourses from "./components/Hyperledger/Courses"
 import Challenge from "./components/Challenges/Challenge";
 import ChallengeGame from "./components/Challenges/gameChallenge";
 import ChallengeGameQ from "./components/Challenges/gameChallenge/Intro";
+import LeaderBoard from "./components/Challenges/gameChallenge/leaderBoard";
 import ChallengeQ from './components/Challenges/Challenge/One/Intro.js';
 import CodeEditor from "./components/CodeEditor";
 import ContactUs from "./components/contactus";
@@ -369,6 +370,7 @@ function App(props) {
         <Route exact path="/hyperledger/courses" element={<HyperledgerCourses />} />
         <Route exact path="/challenges" element={<Challenge />} />
         <Route exact path="/challengeGame" element={<ChallengeGame />} />
+        <Route exact path="/challengeGame/leaderBoard" element={<LeaderBoard/>} />
         <Route exact path="/codeeditor" element={<CodeEditor />} />
         <Route exact path="/contactus" element={<ContactUs />} />
         <Route exact path="/loggedout" element={<Loggedout />} />
