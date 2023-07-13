@@ -15,22 +15,22 @@ export default function Footer() {
           </div>
 
           <div>
-            <a href='' className='me-4 text-reset'>
+         {/**   <a href='' className='me-4 text-reset'>
               <MDBIcon fab icon="facebook-f" />
-            </a>
-            <a href='' className='me-4 text-reset'>
+            </a>*/}
+            <a href='https://twitter.com/intent/follow?original_referer=http%3A%2F%2Flocalhost%3A3000%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5Eedunodeorg&screen_name=edunodeorg' className='me-4 text-reset'>
               <MDBIcon fab icon="twitter" />
             </a>
-            <a href='' className='me-4 text-reset'>
+            <a href="mailto:hi@ogtechnologies.co?subject=Reports" className='me-4 text-reset'>
               <MDBIcon fab icon="google" />
             </a>
-            <a href='' className='me-4 text-reset'>
+           {/**  <a href='' className='me-4 text-reset'>
               <MDBIcon fab icon="instagram" />
-            </a>
-            <a href='' className='me-4 text-reset'>
+            </a>*/}
+            <a href='https://www.linkedin.com/company/edunodeorg/' className='me-4 text-reset'>
               <MDBIcon fab icon="linkedin" />
             </a>
-            <a href='' className='me-4 text-reset'>
+            <a href='https://github.com/EduNodeOrg' className='me-4 text-reset'>
               <MDBIcon fab icon="github" />
             </a>
           </div>

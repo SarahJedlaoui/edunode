@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { verifyCode } from '../../actions/authActions';
 import { TwitterTimelineEmbed, TwitterFollowButton } from 'react-twitter-embed';
 import { Navigate } from 'react-router-dom';
 //import Sidebar from './Sidebar';
-import Footer1 from '../Footer/Footer';
+import Footer from '../Footer/Footer';
 import NavBar from "../NavBar"
 import withRouter from '../../withRouter';
 import Alert from "@material-ui/lab/Alert";
@@ -33,9 +33,9 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import PostCard from "./postCard";
 import CourseCard from "./courseCard";
-
-
-
+import { ThemeContext ,ThemeProviders} from '../../ThemeContext';
+import ToggleSwitch from '../../ToggleSwitch';
+import './dashboard.css';
 
 
 
@@ -105,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 class Dashboard extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -124,9 +125,9 @@ class Dashboard extends Component {
     };
 
   }
-  componentDidMount() {
 
-  }
+
+
 
 
 
@@ -144,6 +145,7 @@ class Dashboard extends Component {
       this.setState({ isLoading: false, errors: error.response.data });
     }
   };
+
 
   componentDidMount() {
     const { isAuthenticated, isVerified } = this.props.auth;
@@ -192,17 +194,10 @@ class Dashboard extends Component {
         console.error(error);
       });
 
-    fetch('https://edunode.herokuapp.com/api/gamechallenge/winners') 
+    fetch('https://edunode.herokuapp.com/api/gamechallenge/winners')
       .then((response) => response.json())
       .then((data) => this.setState({ achievement: data }))
       .catch((error) => console.error(error));
-
-
-
-
-
-
-
 
 
   }
@@ -275,6 +270,7 @@ class Dashboard extends Component {
   };
 
   render() {
+
     const { tags, role, selectedTags, selectedRole, showAlert, preference, skills, preferences, showPopup, user } = this.state;
     const {
       isAuthenticated,
@@ -303,93 +299,97 @@ class Dashboard extends Component {
 
       if (!showAlert) {
         return (
-          <>
+          <ThemeProviders>
+        <ThemeContext.Consumer>
+          {theme => (
+            <div className={`app ${theme}`}>
+            <ToggleSwitch />
+                  <Navbar1 />
 
-            <Navbar1 />
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={12}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={12} md={12}>
 
-                {this.state.preferences.length > 0 || this.state.skills.length > 0 ? (
-                  <div>
-                    <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                      These are your preferences and skills:
-                    </h1>
-                    {this.state.preferences.length > 0 && (
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Preferences: {this.state.preferences.join(", ")}
-                        </small>
-                      </p>
-                    )}
-                    {this.state.skills.length > 0 && (
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Skills: {this.state.skills.join(", ")}
-                        </small>
-                      </p>
-                    )}
-                  </div>
-                ) : null}
-
-
-                {this.state.preferences.length > 0 || this.state.skills.length > 0 ? (
-                  <div>
-                    <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                      These are some search results based on your interests and skills:
-                    </h1>
-                    <div className="row justify-content card-deck d-flex">
-                      {preference.courses && preference.courses.map(course => (
-                        <div className="col-md-4 mb-4 h-100" key={course._id}>
-                          <CourseCard course={course} />
+                      {this.state.preferences.length > 0 || this.state.skills.length > 0 ? (
+                        <div>
+                          <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                            These are your preferences and skills:
+                          </h1>
+                          {this.state.preferences.length > 0 && (
+                            <p className="card-text">
+                              <small className="text-muted">
+                                Preferences: {this.state.preferences.join(", ")}
+                              </small>
+                            </p>
+                          )}
+                          {this.state.skills.length > 0 && (
+                            <p className="card-text">
+                              <small className="text-muted">
+                                Skills: {this.state.skills.join(", ")}
+                              </small>
+                            </p>
+                          )}
                         </div>
-                      ))}
+                      ) : null}
 
-                      {preference.posts && preference.posts.map(post => (
-                        <div className="col-md-4 mb-4 h-100" key={post._id}>
-                          <PostCard post={post} />
+
+                      {this.state.preferences.length > 0 || this.state.skills.length > 0 ? (
+                        <div>
+                          <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                            These are some search results based on your interests and skills:
+                          </h1>
+                          <div className="row justify-content card-deck d-flex">
+                            {preference.courses && preference.courses.map(course => (
+                              <div className="col-md-4 mb-4 h-100" key={course._id}>
+                                <CourseCard course={course} />
+                              </div>
+                            ))}
+
+                            {preference.posts && preference.posts.map(post => (
+                              <div className="col-md-4 mb-4 h-100" key={post._id}>
+                                <PostCard post={post} />
+                              </div>
+
+                            ))}
+
+
+
+                            {preference.blogs && preference.blogs.map(blog => (
+                              <div className="col-md-4 mb-4 h-100" key={blog._id}>
+                                <PostCard blog={blog} />
+                              </div>
+                            ))}
+                          </div>
                         </div>
+                      ) : null}
 
-                      ))}
+                    </Grid>
+                  </Grid>
+                  <br></br>
+                  <div style={{ padding: '10px' }}>
 
+                    <h4 style={{ fontSize: "2em", textAlign: "left" }}>Actualities:</h4>
+                    <div>
 
-
-                      {preference.blogs && preference.blogs.map(blog => (
-                      <div className="col-md-4 mb-4 h-100" key={blog._id}>
-                      <PostCard blog={blog} />
-                    </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-
-              </Grid>
-            </Grid>
-            <br></br>
-            <div style={{ padding: '10px' }}>
-
-              <h4 style={{ fontSize: "2em", textAlign: "left" }}>Actualities:</h4>
-              <div>
-
-                <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
-                  {notifications.map(notification => {
-                    const message = notification.notificationMessage.replace('Congrats! You ', '');
-                    return (
-                      <ListItem
-                        key={notification._id}
-                        disableGutters
-                        secondaryAction={
-                          <IconButton href="#" aria-label="comment">
-                            <EmojiEventsIcon />
-                          </IconButton>
-                        }
-                      >
-                        <ListItemText primary={`${notification.email} ${message}`} />
-                        <ListItemText primary={notification.date}/>
-                      </ListItem>
-                    );
-                  })}
-                </List>
-             {/**   <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
+                      <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
+                        {notifications.map(notification => {
+                          const message = notification.notificationMessage.replace('Congrats! You ', '');
+                          return (
+                            <ListItem
+                              key={notification._id}
+                              disableGutters
+                              secondaryAction={
+                                <IconButton href="#" aria-label="comment">
+                                  <EmojiEventsIcon />
+                                </IconButton>
+                              }
+                            >
+                              <ListItemText primary={`${notification.email} ${message}`} />
+                              <ListItemText primary={notification.date} />
+                            </ListItem>
+                          );
+                        })}
+                      </List>
+                      {/**   <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
                   {achievement.map((notification) => {
                     const message = 'won a challenge game! ';
                     return (
@@ -406,56 +406,59 @@ class Dashboard extends Component {
                       </ListItem>
                     );
                   })}
-                </List>*/} 
+                </List>*/}
 
-              </div>
+                    </div>
 
-            </div>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={12}>
+                  </div>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={12} md={12}>
 
-                {/* <TwitterTimelineEmbed
+                      {/* <TwitterTimelineEmbed
                   sourceType="profile"
                   screenName="edunodeorg"
                   options={{ height: 800 }}
                 /> */}
-                <TwitterFollowButton screenName={'edunodeorg'} />
-              </Grid>
-            </Grid>
-            <Modal
-              isOpen={showPopup}
-              onRequestClose={this.handleClosePopup}
-              contentLabel="Congratulations"
-              style={{
-                overlay: {
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)'
-                },
-                content: {
-                  width: '400px',
-                  height: '400px',
-                  margin: '0 auto',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: '20px',
-                  borderRadius: '8px'
-                }
-              }}
-            >
-              <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
-              <p style={{ marginBottom: '20px', textAlign: 'center' }}>
-                Thank you for joining our community!
-              </p>
-              <img
-                src={tuto}
-                alt="Trophy"
-                style={{ width: '150px', marginBottom: '20px' }}
-              />
-              <button onClick={this.handleClosePopup}>Close</button>
-            </Modal>
-
-          </>
+                      <TwitterFollowButton screenName={'edunodeorg'} />
+                    </Grid>
+                  </Grid>
+                  <Modal
+                    isOpen={showPopup}
+                    onRequestClose={this.handleClosePopup}
+                    contentLabel="Congratulations"
+                    style={{
+                      overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                      },
+                      content: {
+                        width: '400px',
+                        height: '400px',
+                        margin: '0 auto',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '20px',
+                        borderRadius: '8px'
+                      }
+                    }}
+                  >
+                    <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+                    <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+                      Thank you for joining our community!
+                    </p>
+                    <img
+                      src={tuto}
+                      alt="Trophy"
+                      style={{ width: '150px', marginBottom: '20px' }}
+                    />
+                    <button onClick={this.handleClosePopup}>Close</button>
+                  </Modal>
+                  <Footer></Footer>
+                  </div>
+          )}
+        </ThemeContext.Consumer>
+      </ThemeProviders>
         );
       }
       // show the alert and the popup if the flag is not set

@@ -3,53 +3,57 @@ import withRouter from '../../withRouter';
 import { clearErrors } from "../../actions/errorActions";
 import { resend, verifyCode } from "../../actions/authActions";
 import Box from '@mui/material/Box';
-import Sidebar from "../Dashboard/Sidebar";
-import Topbar from "../Dashboard/Topbar";
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Footer from '../Footer';
-import Navbar2 from '../Dashboard/Navbar2';
 import Footer1 from '../Footer/Footer';
-import { styled } from '@mui/material/styles';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from "redux-form";
-import TextField from '@mui/material/TextField'
-import PropTypes from 'prop-types'
 import { updateAccount, saveUsernameAlbedo, pkeyGoogleUser } from "../../actions/authActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-import NavBar from '../Dashboard/Navbar';
 import Navbar1 from '../Dashboard/Navbar1';
-
-const style = {
-    height: 30,
-    border: "1px solid green",
-    margin: 6,
-    padding: 8
-};
+import axios from 'axios';
 
 class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
-            userName: "",
-            pkey: "",
-            pubkey: "",
             isLoading: false,
             errors: {},
             items: Array.from({ length: 20 }),
-            hasMore: true,
             searchQuery: '',
             results: [],
-            preferences:[]
+            preferences:[],
+            coinGecko:[]
+            
         }
 
         this.onChange = this.onChange.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
+        
 
     }
 
+/**
+    fetchCoinGeckoData = (searchQuery) => {
+        const apiKey = 'YOUR_API_KEY'; // Replace with your CoinGecko API key
+        const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${searchQuery}&order=market_cap_desc&per_page=10&page=1&sparkline=false`;
+      
+        axios
+          .get(url, {
+            headers: {
+              'Content-Type': 'application/json',
+              // Add any additional headers if required
+            },
+          })
+          .then((response) => {
+            const coinGeckoResults = response.data;
+            // Do something with the CoinGecko results, such as updating state or merging with existing results
+          })
+          .catch((error) => {
+            console.error('Error fetching CoinGecko data:', error);
+          });
+      };
+       */
 
     handleInputChange = event => {
         const searchQuery = event.target.value;
@@ -58,18 +62,34 @@ class Search extends Component {
         });
     }
 
-
     performSearch = () => {
         const { searchQuery } = this.state;
+      
+        // Fetch data from your MongoDB
         fetch(`https://edunode.herokuapp.com/api/search?searchQuery=${searchQuery}`)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ results: data });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
+          .then((response) => response.json())
+          .then((data) => {
+            const mongoResults = data;
+            this.setState({ results: mongoResults });
+      
+            // Fetch data from CoinGecko
+            axios
+              .get(`https://api.coingecko.com/api/v3/search?query=${searchQuery}`)
+              .then((response) => {
+                const coinGeckoResults = response.data;
+                this.setState({ coinGecko: coinGeckoResults });
+                console.log(coinGeckoResults)
+                console.log(coinGeckoResults.coins)
+              })
+              .catch((error) => {
+                console.error('Error fetching CoinGecko data:', error);
+              });
+          })
+          .catch((error) => {
+            console.error('Error fetching data from MongoDB:', error);
+          });
+      };
+      
 
 componentDidMount(){
     const { email } = this.state;
@@ -84,194 +104,29 @@ componentDidMount(){
 
 }
 
-    componentDidUpdate(prevProps) {
-        const { error } = this.props;
-        if (error !== prevProps.error) {
-            if (error.id === 'LOGIN_FAIL') {
-                this.setState({ msg: error.msg.msg });
-                // this.setState({ msg: error.msg.msg });
-            } else {
-                this.setState({ msg: null });
-            }
-        }
-    }
-
-    static propTypes = {
-        isAuthenticated: PropTypes.bool,
-        error: PropTypes.object.isRequired,
-        clearErrors: PropTypes.func.isRequired
-    }
-
-    renderTextField = ({
-        label,
-        input,
-        meta: { touched, invalid, error },
-        ...custom
-    }) => (
-        <TextField
-            label={label}
-            placeholder={label}
-            error={touched && invalid}
-            helperText={touched && error}
-            {...input}
-            {...custom}
-        />
-    )
-
-    fetchMoreData = () => {
-        if (this.state.items.length >= 50) {
-            this.setState({ hasMore: false });
-            return;
-        }
-        // a fake async api call like which sends
-        // 20 more records in .5 secs
-        setTimeout(() => {
-            this.setState({
-                items: this.state.items.concat(Array.from({ length: 20 }))
-            });
-        }, 500);
-    };
-
-
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
 
     };
-    onSubmit = async values => {
-
-        const email = this.props.auth.user.email
-        const userName = values.userName
-        const pkey = values.pkey
-
-
-        // create user object
-        const updateAccount = {
-            email,
-            userName,
-            pkey
-        };
-
-        try {
-
-            await this.props.updateAccount(updateAccount)
-
-            if (this.props.auth.user) {
-
-                this.props.history.push("/dashboard")
-            }
-
-
-        } catch (error) {
-            console.log(error)
-        }
-
-    }
-
-    onSubmitAlbedo = async values => {
-
-
-        const userName = values.userName
-        const pubkey = this.props.auth.user.pubkey
-
-        // create user object
-        const updateAccount = {
-            userName,
-            pubkey
-
-        };
-
-
-        try {
-
-            await this.props.saveUsernameAlbedo(updateAccount)
-
-
-            if (this.props.auth.user.pubkey) {
-
-                // this.props.history.push("/dashboard")
-                alert("Username is updated and will take effect of your next login")
-            }
-
-
-        } catch (error) {
-            console.log(error)
-        }
-
-    }
-
-    onSubmitGoogle = async values => {
-
-
-        const email = this.props.auth.user.email
-        const pkey = values.pkey
-
-        // create user object
-        const updateAccount = {
-            email,
-            pkey
-
-        };
-
-
-        try {
-
-            await this.props.pkeyGoogleUser(updateAccount)
-
-
-            if (this.props.auth.user.googleProfilePic) {
-
-                // this.props.history.push("/dashboard")
-                alert("Your public key has been updated and will take effect of your next login")
-            }
-
-
-        } catch (error) {
-            console.log(error)
-        }
-
-    }
+    
 
     render() {
-        const { searchQuery, results,preferences } = this.state;
+        const { searchQuery, results,preferences,coinGecko } = this.state;
         const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
-
-
-        const Item = styled(Paper)(({ theme }) => ({
-            ...theme.typography.body2,
-            padding: theme.spacing(1),
-            textAlign: 'center',
-            color: theme.palette.text.secondary,
-        }));
-        const { pristine, submitting } = this.props
-
-        const {
-            isLoading,
-            isAuthenticated,
-            isVerified,
-            hasUsername,
-            googleProfilePic,
-            isGranted,
-            isFirstCourseSelected,
-            courseOneDone,
-        } = this.props.auth;
-
-
-
-
         return (
             <>
                 <div>
                 <Navbar1 />
                 <br></br>
                 <br></br>
-                <Box sx={{ flexGrow: 1, width: '500px', height: '500px' }}>
+                
                    
                         <Grid container spacing={2}>
                             {/* <Grid xs={5} sm={3.5} md={2}>
                                 <Item><Sidebar props={email} /></Item>
                             </Grid> */}
 
-                            <Grid item xs={12} sm={8} md={20}>
+                            <Grid item xs={12} sm={10} md={100}>
                                 <div>
                                     <div>
                                         <div>
@@ -357,6 +212,62 @@ componentDidMount(){
                                                     </div>
                                                 ))}
                                             </div>
+
+                                            <div className="row justify-content-center card-deck d-flex">
+                                                {coinGecko.coins && coinGecko.coins.slice(0, 10).map(coin => (
+                                                    <div className="col-md-4 mb-4 h-100" key={coin.id}>
+                                                        <div className="card shadow h-100">
+                                                            <div className="card-body">
+                                                                <h6 className="card-title"> Coins </h6>
+                                                                <img src={coin.large}></img>
+                                                                <label>Coin Name:</label>
+                                                                <h5 className="card-title">{coin.name}</h5>
+                                                                <label>Coin Symbol:</label>
+                                                                <p className="card-text">{coin.symbol}</p>
+                                                                <label>Market Rank:</label>
+                                                                <p className="card-text">{coin.market_cap_rank}</p>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                </div>
+                                                <div className="row justify-content-center card-deck d-flex">
+                                                {coinGecko.exchanges && coinGecko.exchanges.slice(0, 10).map(exchange => (
+                                                    <div className="col-md-4 mb-4 h-100" key={exchange.id}>
+                                                        <div className="card shadow h-100">
+                                                            <div className="card-body">
+                                                                <h6 className="card-title"> Exchanges </h6>
+                                                                <img src={exchange.large}></img>
+                                                                <label>Exchange Name:</label>
+                                                                <h5 className="card-title">{exchange.name}</h5>
+                                                                <label>Market Type:</label>
+                                                                <p className="card-text">{exchange.market_type}</p>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                </div>
+                                                <div className="row justify-content-center card-deck d-flex">
+                                                {coinGecko.nfts && coinGecko.nfts.slice(0, 10).map(nft => (
+                                                    <div className="col-md-4 mb-4 h-100" key={nft.id}>
+                                                        <div className="card shadow h-100">
+                                                            <div className="card-body">
+                                                                <h6 className="card-title"> Nfts </h6>
+                                                                <img src={nft.thumb}></img>
+                                                                <label>Nft Name:</label>
+                                                                <h5 className="card-title">{nft.name}</h5>
+                                                                <label>Nft Symbol:</label>
+                                                                <p className="card-text">{nft.symbol}</p>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                </div>
+
+
                                         </div>
 
 
@@ -374,7 +285,7 @@ componentDidMount(){
                         <br></br>
                        
                         
-                    </Box>
+                   
                 </div>
 
 

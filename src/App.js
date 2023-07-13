@@ -205,7 +205,7 @@ import ProductsPage from './admin/src/pages/ProductsPage';
 import DashboardAppPage from './admin/src/pages/DashboardAppPage';
 import Messages from './components/Profile/messages'
 
-
+import { ThemeProviders } from './ThemeContext';
 const ThemedRoutes = () => (
   <ThemeProvider>
     <Routes>
@@ -224,6 +224,15 @@ const ThemedRoutes = () => (
   </ThemeProvider>
 );
 
+const ThemedDash = () => (
+  <ThemeProviders>
+    <Routes>
+     
+    <Route exact path="/dashboard" element={<Dashboard />} />
+    </Routes>
+  </ThemeProviders>
+);
+
 
 function App(props) {
   const location = useLocation();
@@ -233,6 +242,7 @@ function App(props) {
   return (
     <Provider store={store}>
       <Routes location={location} navigate={navigate}>
+     
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<AboutUs />} />
         <Route exact path="/account" element={<Account />} />
@@ -379,7 +389,7 @@ function App(props) {
         <Route exact path="/dashboard/newpost" element={<NewPost />} />
         <Route exact path="/privacy" element={<Privacy />} />
         <Route exact path="/submitpost" element={<SubmitPost />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route path="/*" element={<ThemedDash />} />
         <Route exact path="/VerifyEmail" element={<VerifyEmail />} />
         <Route exact path="/blog/docker" element={<Docker />} />
         <Route exact path="/blog/ipfs" element={<Ipfs />} />
@@ -401,7 +411,7 @@ function App(props) {
         <Route exact path="/profile/:id" element={<WithParams />} />
         <Route exact path="/validCertificate" element={<ValidCertificate />} />
         <Route exact path="/messages" element={<Messages />} />
-
+        
         <Route
           exact
           path="/loginn"

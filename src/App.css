@@ -12,3 +12,12 @@
   footer {
     flex-shrink: 0;
   }
+  .app.light {
+    background-color: #fff;
+    color: #000;
+}
+
+.app.dark {
+    background-color: #333;
+    color: #fff;
+}
