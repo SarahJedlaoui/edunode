@@ -8,8 +8,8 @@ import './style.css'
 export default function Footer() {
   return (
     <div className="content-wrapper">
-      <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
-        <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
+      <MDBFooter bgColor='light' className='  text-muted'>
+        <section className='d-flex justify-content-center justify-content-lg-between p-10 border-bottom'>
           <div className='me-5 d-none d-lg-block'>
             <span>Get connected with us on social networks:</span>
           </div>
@@ -37,8 +37,8 @@ export default function Footer() {
         </section>
 
         <section className=''>
-          <MDBContainer className='text-center text-md-start mt-5'>
-            <MDBRow className='mt-3'>
+          <MDBContainer className=' text-md-start mt-5'>
+            <MDBRow className='mt-3 justify-content-center'>
               <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
                 <h6 className='text-uppercase fw-bold mb-4'>
                  

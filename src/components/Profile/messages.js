@@ -113,7 +113,7 @@ class Messages extends Component {
     const senderEmail = user.email;
 
     // Reset the message count to 0 for the selected friend
-    axios.put('https://edunode.herokuapp.com/api/messages/messages/reset', { sender: senderEmail, receiver: receiverEmail })
+    axios.put('https://edunode.herokuapp.com/api/messages/reset', { sender: senderEmail, receiver: receiverEmail })
       .then(() => {
         const { friends } = this.state;
         const updatedFriends = friends.map((friend) => {
