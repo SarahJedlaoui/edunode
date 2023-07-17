@@ -303,7 +303,7 @@ class Dashboard extends Component {
         <ThemeContext.Consumer>
           {theme => (
             <div className={`app ${theme}`}>
-            <ToggleSwitch />
+            
                   <Navbar1 />
 
                   <Grid container spacing={2}>
