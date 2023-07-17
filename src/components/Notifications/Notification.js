@@ -25,6 +25,7 @@ class Notification extends Component {
       isLoading: false, 
       errors: {},
       notifications: [],
+      messageNotifications: [],
       email:''
     }; 
   }
@@ -40,6 +41,7 @@ class Notification extends Component {
   componentDidMount() {
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : ""
     this.fetchNotifications(email);
+    this.fetchMessageNotifications(email);
   }
 
  async fetchNotifications(props) {
@@ -57,6 +59,18 @@ class Notification extends Component {
     }
   };
 
+  async fetchMessageNotifications(props) {
+    try {
+        const receiver = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : ""
+      this.setState({ isLoading: true });
+      const response = await axios.get(`https://edunode.herokuapp.com/api/messageNotif/${receiver}`);
+      const notifications = response.data;
+      this.setState({ isLoading: false, messageNotifications: notifications });
+    } catch (error) {
+      console.error(error);
+      this.setState({ isLoading: false, errors: error.response.data });
+    }
+  };
 
   render() {
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : ""
@@ -66,7 +80,7 @@ class Notification extends Component {
         textAlign: 'center',
         color: theme.palette.text.secondary,
       }));
-      const { isLoading, notifications } = this.state;
+      const { isLoading, notifications,messageNotifications } = this.state;
       if (isLoading) {
         return <div>Loading...</div>;
       }
@@ -93,6 +107,21 @@ class Notification extends Component {
           }
         >
           <ListItemText primary={notification.notificationMessage} />
+        </ListItem>
+      ))}
+    </List>
+    <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
+      {messageNotifications.map(notification => (
+        <ListItem
+          key={notification._id}
+          disableGutters
+          secondaryAction={
+            <IconButton href="/certificate" aria-label="comment">
+              <CommentIcon />
+            </IconButton>
+          }
+        >
+          <ListItemText primary={notification.message} />
         </ListItem>
       ))}
     </List>

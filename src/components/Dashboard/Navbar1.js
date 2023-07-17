@@ -19,7 +19,8 @@ class NavBar1 extends Component {
     this.state = {
       email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       user: [],
-      NotificationCount:0
+      NotificationCount:0,
+      messageCount: 0,
     };
 
   }
@@ -46,6 +47,30 @@ class NavBar1 extends Component {
       });
 
     }
+
+    componentDidMount() {
+      const { email } = this.state;
+      fetch('https://edunode.herokuapp.com/api/messages/countAll', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // You can pass any required data in the request body if needed
+        body: JSON.stringify({ sender: email }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Update the state with the received message count
+          this.setState({ messageCount: data.count });
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          // Handle error state here
+        });
+    }
+
+
+
     /** async  Count(){
       const { email } = this.state;
       //console.log(props.auth);
@@ -60,7 +85,7 @@ class NavBar1 extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     const { user } = this.state;
-   
+    const { messageCount } = this.state;
   if (user.role !== 'Teacher' && user.role !== 'University') {
     return (
       <Navbar bg="light" expand="lg">
@@ -90,7 +115,22 @@ class NavBar1 extends Component {
               <NavDropdown title="Account" id="account-dropdown">
                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item href="/account">Profile Setting</NavDropdown.Item>
-                <NavDropdown.Item href="/messages">Messages</NavDropdown.Item>
+                <NavDropdown.Item href="/messages">Messages
+                {messageCount > 0 && (
+                <span
+                  style={{
+                    marginLeft: '5px',
+                    padding: '2px 5px',
+                    borderRadius: '50%',
+                    backgroundColor: 'red',
+                    color: 'white',
+                  }}
+                >
+                  {messageCount}
+                </span>
+              )}
+                
+                </NavDropdown.Item>
                 <NavDropdown.Item onClick={() => {
                   window.location.href = "mailto:hi@ogtechnologies.co?subject=Reports";
                 }}>
@@ -231,7 +271,12 @@ class NavBar1 extends Component {
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                   <NavDropdown.Item href="/account">Profile Setting</NavDropdown.Item>
                   <NavDropdown.Item href="/AdminDashboard">University Dashboard</NavDropdown.Item>
-                  <NavDropdown.Item href="/messages">Messages</NavDropdown.Item>
+                  <NavDropdown.Item href="/messages">Messagesss
+                  
+                  
+                  
+                  
+                  </NavDropdown.Item>
                   <NavDropdown.Item onClick={() => {
                     window.location.href =
                       "mailto:hi@ogtechnologies.co?subject=Reports";
