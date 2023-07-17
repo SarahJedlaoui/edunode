@@ -204,7 +204,7 @@ import Page404 from './admin/src/pages/Page404';
 import ProductsPage from './admin/src/pages/ProductsPage';
 import DashboardAppPage from './admin/src/pages/DashboardAppPage';
 import Messages from './components/Profile/messages'
-
+import Game from './components/Challenges/gameChallenge/addGame'
 import { ThemeProviders } from './ThemeContext';
 const ThemedRoutes = () => (
   <ThemeProvider>
@@ -411,7 +411,7 @@ function App(props) {
         <Route exact path="/profile/:id" element={<WithParams />} />
         <Route exact path="/validCertificate" element={<ValidCertificate />} />
         <Route exact path="/messages" element={<Messages />} />
-        
+        <Route exact path="/addGame" element={<Game />} />
         <Route
           exact
           path="/loginn"
