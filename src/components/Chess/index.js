@@ -1,6 +1,6 @@
 import React from "react";
 import Chessboard from "chessboardjsx";
-
+import ThemeSwitcher from "./themeSwitcher";
 class ChessBoardEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -30,12 +30,13 @@ class ChessBoardEditor extends React.Component {
 
     return (
       <div>
-        <Chessboard
+      <Chessboard
           position={position}
           onDrop={this.handleDrop}
           squareStyles={squareStyles}
           draggable={draggable}
         />
+   
       </div>
     );
   }
