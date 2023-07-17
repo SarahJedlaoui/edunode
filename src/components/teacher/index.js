@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Typography, Paper, Container } from '@mui/material';
-import Navbar1 from '../Dashboard/Navbar1';
+import NavBar from "../NavBar"
 
 function EduNodeGuide() {
   return (
     <>
-      <Navbar1 />
+      <NavBar />
       <Box mt={4}> {/* For margin top */}
         <Container maxWidth="md">
           <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>

@@ -206,6 +206,7 @@ import DashboardAppPage from './admin/src/pages/DashboardAppPage';
 import Messages from './components/Profile/messages'
 import Game from './components/Challenges/gameChallenge/addGame'
 import { ThemeProviders } from './ThemeContext';
+
 const ThemedRoutes = () => (
   <ThemeProvider>
     <Routes>
@@ -224,14 +225,7 @@ const ThemedRoutes = () => (
   </ThemeProvider>
 );
 
-const ThemedDash = () => (
-  <ThemeProviders>
-    <Routes>
-     
-    <Route exact path="/dashboard" element={<Dashboard />} />
-    </Routes>
-  </ThemeProviders>
-);
+
 
 
 function App(props) {
@@ -248,6 +242,7 @@ function App(props) {
         <Route exact path="/account" element={<Account />} />
         <Route exact path="/resources" element={<Resources />} />
         <Route exact path="/community" element={<Community />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/community/project" element={<Project />} />
         <Route exact path="/milestones" element={<Milestones />} />
         <Route exact path="/courses" element={<Courses />} />
@@ -389,7 +384,6 @@ function App(props) {
         <Route exact path="/dashboard/newpost" element={<NewPost />} />
         <Route exact path="/privacy" element={<Privacy />} />
         <Route exact path="/submitpost" element={<SubmitPost />} />
-        <Route path="/*" element={<ThemedDash />} />
         <Route exact path="/VerifyEmail" element={<VerifyEmail />} />
         <Route exact path="/blog/docker" element={<Docker />} />
         <Route exact path="/blog/ipfs" element={<Ipfs />} />

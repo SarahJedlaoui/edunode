@@ -1,12 +1,12 @@
 import React from 'react';
-import Navbar1 from '../Dashboard/Navbar1';
+import NavBar from "../NavBar"
 import { Box, Typography, Paper, Container } from '@mui/material';
 
 class StudentsPage extends React.Component {
   render() {
     return (
       <>
-      <Navbar1 />
+      <NavBar />
       <Box mt={4}> {/* For margin top */}
         <Container maxWidth="md">
           <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
