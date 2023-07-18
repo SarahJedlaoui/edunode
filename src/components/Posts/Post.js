@@ -289,12 +289,7 @@ class Post extends Component {
 
   render() {
     const { editorState } = this.state;
-    const Item = muiStyled(Paper)(({ theme }) => ({
-      ...theme.typography.body2,
-      padding: theme.spacing(1),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    }));
+ 
     const { tags, title, link, description, success, showPopup } = this.state;
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
     const { errors } = this.state;

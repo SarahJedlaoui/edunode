@@ -15,8 +15,10 @@ import {
 import moment from 'moment';
 import Navbar1 from '../Dashboard/Navbar1';
 import Footer from '../Footer/Footer';
-
-
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { convertToHTML } from 'draft-convert';
 
 class Messages extends Component {
   constructor(props) {
@@ -28,36 +30,21 @@ class Messages extends Component {
       messageText: '',
       receiverEmail: '',
       socket: null,
-      currentTime: ''
-
+      currentTime: '',
+      editorState: EditorState.createEmpty(),
     };
+    this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.socket = null;
   }
-
+  onEditorStateChange(editorState) {
+    this.setState({
+      editorState
+    });
+  };
   componentDidMount() {
     this.fetchFriendsList();
-    this.setupSocket();
+
   }
-
-  setupSocket = () => {
-    const socket = new WebSocket('ws://localhost:5002/api/ws');
-
-    socket.onopen = () => {
-      console.log('WebSocket connection established.');
-    };
-
-    socket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      this.handleIncomingMessage(message);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket connection closed.');
-    };
-
-    this.setState({ socket });
-  };
-
 
 
   handleIncomingMessage = (message) => {
@@ -157,11 +144,11 @@ class Messages extends Component {
     const senderEmail = user.email;
     const { receiverEmail, messageText } = this.state;
 
-    if (messageText.trim() !== '') {
+   
       const messageData = {
         senderEmail,
         receiverEmail,
-        content: messageText,
+        content: convertToHTML(this.state.editorState.getCurrentContent()),
       };
 
       axios
@@ -178,7 +165,7 @@ class Messages extends Component {
           console.error(error);
         });
     }
-  };
+  
   formatTimestamp = (timestamp) => {
     const currentTime = moment();
     const messageTime = moment(timestamp).local(); // Convert to user's local time zone
@@ -194,6 +181,7 @@ class Messages extends Component {
     }
   };
   render() {
+    const { editorState } = this.state;
     const { friends, messages, messageText, receiverEmail } = this.state;
     const localUser = localStorage.getItem('user');
     const user = JSON.parse(localUser);
@@ -271,7 +259,8 @@ class Messages extends Component {
                           </p>
                         </MDBCardHeader>
                         <MDBCardBody>
-                          <p className="mb-0">{message.content}</p>
+                          
+                          <p className="mb-0" dangerouslySetInnerHTML={{ __html: message.content }} ></p>
                         </MDBCardBody>
                       </MDBCard>
                       {isUserMessage && (
@@ -287,14 +276,16 @@ class Messages extends Component {
                 })}
               </MDBTypography>
 
-
-              <MDBTextArea
+              <div style={{ border: '1px solid black', padding: '10px' }}>
+              <Editor
                 label="Message"
-                id="textAreaExample"
-                rows={4}
-                value={messageText}
-                onChange={(e) => this.setState({ messageText: e.target.value })}
+                editorState={editorState}
+                toolbarClassName="toolbarClassName"
+                wrapperClassName="wrapperClassName"
+                editorClassName="editorClassName"
+                onEditorStateChange={this.onEditorStateChange}
               />
+             </div>
 
               <MDBBtn color="info" rounded className="float-end" onClick={this.handleSendMessage}>
                 Send

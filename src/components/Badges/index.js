@@ -57,7 +57,7 @@ class Badge extends Component {
         console.log('local email ', user.email)
         axios.get('https://edunode.herokuapp.com/api/users/user', {
                 body: {
-                    email: localEmail // Pass the email as per your requirement
+                    email: localEmail 
                 }
             })
             .then(response => {

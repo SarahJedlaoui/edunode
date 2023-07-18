@@ -137,8 +137,6 @@ class Dashboard extends Component {
       this.setState({ isLoading: true });
       const response = await axios.get(`https://edunode.herokuapp.com/api/notif/notification`);
       const notifications = response.data;
-      console.log('email', email);
-      console.log('hiii', response.data);
       this.setState({ isLoading: false, notifications });
     } catch (error) {
       console.error(error);
@@ -158,17 +156,12 @@ class Dashboard extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({ user: data }, () => {
-          console.log('user:', this.state.user);
+        
         });
       })
       .catch(error => {
         console.error(error);
       });
-
-    console.log('usssssseeeeeeeeerrrrrrrrrrrr', this.state.user)
-
-
-    console.log('email', email)
     if (this.state.user.preferences && this.state.user.preferences.length === 0) {
       // preferences array is empty
       console.log("Preferences array is empty");
