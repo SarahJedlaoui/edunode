@@ -12,6 +12,7 @@ import { StyledChart } from './admin/src/components/chart';
 import ScrollToTop from './admin/src/components/scroll-to-top';
 import Home from "./components/Home";
 import AboutUs from "./components/aboutus";
+import Node from "./components/NodeStllar";
 import Account from "./components/Account"
 //import Dashboard from "./components/Dashboard";
 import Resources from "./components/Resources";
@@ -239,6 +240,7 @@ function App(props) {
      
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<AboutUs />} />
+        <Route exact path="/node" element={<Node />} />
         <Route exact path="/account" element={<Account />} />
         <Route exact path="/resources" element={<Resources />} />
         <Route exact path="/community" element={<Community />} />
