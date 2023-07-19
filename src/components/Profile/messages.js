@@ -143,7 +143,9 @@ class Messages extends Component {
     const user = JSON.parse(localUser);
     const senderEmail = user.email;
     const { receiverEmail, messageText } = this.state;
-
+    this.setState({
+      editorState: '',
+    });
    
       const messageData = {
         senderEmail,
