@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./blogPage.css";
 import NavBar from "../NavBar";
-
+import node from './node.png'
 function BlogPage() {
   const [blog, setBlog] = useState(null);
 
@@ -11,7 +11,7 @@ function BlogPage() {
     const fetchBlogData = async () => {
       try {
         // Replace 'your_backend_url' with the actual URL of your backend server
-        const response = await axios.get("http://localhost:5001/api/blogDy/64b7e92cc936ac1ec16dbddc");
+        const response = await axios.get("https://edunode.herokuapp.com/api/blogDy/64b7e92cc936ac1ec16dbddc");
         setBlog(response.data);
       } catch (error) {
         console.error("Error fetching blog data:", error);
@@ -31,6 +31,11 @@ function BlogPage() {
       <NavBar />
       <br></br>
       <div className="blog-content">
+        
+        <div align="center"> 
+        <img src={node} width="400" height="150"  />
+    </div>
+    <br></br>
         <h1 className="blog-title">{blog.title}</h1>
         {blog.subtitles.map((subtitle, index) => (
           <div key={index} className="blog-section">

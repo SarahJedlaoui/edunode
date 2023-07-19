@@ -504,6 +504,19 @@ class Glossary extends Component {
                                             A security feature that requires multiple parties to sign a transaction before it can be executed. Stellar supports multi-signature transactions, enhancing the security of the network.                                            </Typography>
                                         </AccordionDetails>
                                     </Accordion>
+                                    <Accordion>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel2a-content"
+                                            id="panel2a-header"
+                                        >
+                                            <Typography>Node</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography>
+                                            A node is a fundamental unit in a network or data structure, representing a point of connection or an element in a graph. In computing, it often refers to an individual element in a linked data structure or a computing device within a network.                                           </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
                                     
                                 </div>
                                 <br></br>
