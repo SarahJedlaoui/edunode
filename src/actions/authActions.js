@@ -70,13 +70,12 @@ export const register = ({ email, password, confirmationCode }) => dispatch => {
   fetch('https://edunode.herokuapp.com/api/emailauth/', {
     method: 'POST',
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      
       'Content-Type': 'application/json',
-      'Content-Security-Policy': 'script-src',
-      // 'self' :'https://accounts.google.com',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS'
+      
     },
-    body
+    body,
+    mode: 'no-cors' 
   })
     .then(response => response.json())
     .then((res) => {
