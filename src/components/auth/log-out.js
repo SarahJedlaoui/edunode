@@ -45,27 +45,12 @@ class LogoutModal extends Component {
 
         return (
             <>
-                <Form>
-                    <Button outline onClick={this.toggleModal} size="lg">
+               
+                    <Button outline onClick={this.handleLogout} size="lg">
                         Logout
                     </Button>
-                </Form>
+               
 
-                <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
-                    <ModalHeader toggle={this.toggleModal}>Logout</ModalHeader>
-                    <ModalBody>
-                        Are you sure you want to logout?
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button outline onClick={this.toggleModal}>
-                            Cancel
-                        </Button>
-                        <Button color="primary"
-                            outline onClick={this.handleLogout}>
-                            Confirm
-                        </Button>
-                    </ModalFooter>
-                </Modal>
             </>
         );
     }
