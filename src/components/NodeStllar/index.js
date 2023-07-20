@@ -70,7 +70,7 @@ function BlogPage() {
         <h2 className="blog-conclusion-title">{blog.subtitle4}</h2>
         <p className="blog-conclusion-text">{blog.conclusion}</p>
         <div className="row justify-content-center card-deck d-flex">
-          {nodes.slice(0, 20).map((node) => (
+          {nodes.slice(0, 100).map((node) => (
             <div className="col-md-4 mb-4 h-100" key={node.publicKey}>
               <div className="card shadow h-100">
                 <div className="card-body">

@@ -30,8 +30,8 @@ export function AlertDialog(props) {
 
   const handleConfirm = (e) => {
     setOpen(false);
-    const randomNumber = Math.floor(Math.random() * 1000000); 
-    const redirectUrl = `/challengeGame1/${randomNumber}/`;
+    const randomNumber = Math.floor(Math.random() * 10000); 
+    const redirectUrl = `/challengeGame2/${randomNumber}/`;
     window.location.href = redirectUrl; 
   };
    const handleButtonClick = () => {
@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function Course1(props) {
+function Challenge2(props) {
   
   const classes = useStyles();
 
@@ -132,7 +132,7 @@ function Course1(props) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  This challenge is called 'The Intergalactic Space Agency'.
+                  This challenge is called 'Soroban Hello world challenge'.
                 </Typography>
                 <Typography variant="body2" gutterBottom></Typography>
                 <Typography
@@ -163,4 +163,4 @@ function Course1(props) {
   );
 }
 
-export default Course1;
+export default Challenge2;

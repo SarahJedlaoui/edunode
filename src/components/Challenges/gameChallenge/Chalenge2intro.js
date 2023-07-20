@@ -1,4 +1,4 @@
-import React, { useState, useRef ,useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -29,7 +29,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Countdown from 'react-countdown';
-import {useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -46,19 +46,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const stepImages = [
-  store,
+  all,
   list,
   add,
-  findName,
-  all,
+
 ];
 function getSteps() {
   return [
     'Challenge Description:',
-    'function implementation(1):',
-    'function implementation(2):',
-    'function implementation(3):',
-    'function implementation(4):',
+    'Write a Contract:',
+    'Testing:',
+
   ];
 }
 const highlightText = (text) => {
@@ -74,27 +72,57 @@ const highlightText = (text) => {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return ` The Intergalactic Space Agency is developing a new tracking system for their spaceships. They need a program that will help them keep track of all the ships and their destinations.\n
-      The challenge is to create a Rust program that can:\n
-      1. Store the information of a spaceship.\n
-      2. Store a list of multiple spaceships.\n
-      3. Add a new spaceship to the list.\n
-      4. Find a spaceship in the list by its name.\n
-      5. Print the names of all spaceships headed to a specific destination.\n
-      Requirements:\n
-      1. Create a struct **\`Spaceship\`** with the following fields: **\`name: String\`** and **\`destination: String\`**.\n`;
+      return ` The Intergalactic Space Agency has decided to experiment with Rust-based smart contracts using the Soroban SDK. Your task is to create a basic "Hello World" contract that takes a Symbol as input and returns a Vec<Symbol> as output.\n
+      The challenge involves three components:\n
+      1. Cargo.toml: The configuration file for the Rust package.\n
+      2. lib.rs: The main library file where the contract is defined.\n
+      3. test.rs: A testing file to ensure that the contract works as expected.\n
+      Now let's go throught the process step by step :\n
+      T o create your Soroban contract these are the requirements:\n
+      1. Create New Project\n
+      **\`cargo new --lib [project-name]\`**\n
+      2. Open the Cargo.toml, it should look something like this: \n
+         ** [package]**
+         ** name = "project-name" **
+         ** version = "0.1.0"**
+         ** edition = "2021"**\n
+      3. Configure the Library Type:\n
+          **[lib]**
+          ** crate-type = ["cdylib"]**
+      4.Import soroban-sdk and Features:  \n
+         **[dependencies]**
+         ** soroban-sdk = "0.9.2"**
+      
+         **[dev_dependencies]**
+        **soroban-sdk = { version = "0.9.2", features = ["testutils"] }**
+      
+        **[features]**
+        **testutils = ["soroban-sdk/testutils"]**
+      5.Configure the release Profile:  \n
+           **[profile.release]**
+           ** opt-level = "z"**
+           ** overflow-checks = true**
+           ** debug = 0**
+           ** strip = "symbols"**
+           ** debug-assertions = false**
+           ** panic = "abort"**
+           ** codegen-units = 1**
+           ** lto = true**
+      6.Configure the release-with-logs Profile\n
+           **[profile.release-with-logs]**
+           **inherits = "release"**
+           **debug-assertions = true**\n
+       Questions:
+      1. Now you need to wrap up the Cargo.toml file :
+      `;
     case 1:
-      return `Implement the following function/method:\n
-      - **\`new_spaceship(name: String, destination: String) -> Spaceship\`**: Creates a new **\`Spaceship\`**.\n`;
+      return `Write a Contract:\n
+      - Once you've created a project, writing a contract involves writing Rust code in the projects lib.rs file\n
+      - All contracts should begin with #![no_std] to ensure that the Rust standard library is not included in the build. The Rust standard library is large and not well suited to being deployed into small programs like those deployed to blockchains.\n
+      `;
     case 2:
-      return `Implement the following function/method:\n
-      - **\`add_spaceship(spacecrafts: &mut Vec<Spaceship>, spaceship: Spaceship)\`**: Adds a **\`Spaceship\`** to **\`spacecrafts\`**.\n`;
-    case 3:
-      return `Implement the following function/method:\n
-      - **\`find_spaceship(spacecrafts: &Vec<Spaceship>, name: String) -> Option<&Spaceship>\`**: Returns a reference to the **\`Spaceship\`** with the given **\`name\`**, or **\`None\`** if no such **\`Spaceship\`** is found.\n`;
-    case 4:
-      return `Implement the following function/method:\n
-      - **\`spaceships_to_destination(spacecrafts: &Vec<Spaceship>, destination: String) -> Vec<String>\`**: Returns the names of all **\`Spaceships\`** that are headed to the given **\`destination\`**. `;
+      return `Testing:\n
+      - Writing tests for Soroban contracts involves writing Rust code using the test facilities and toolchain that you'd use for testing any Rust code.\n`;
     default:
       return 'Unknown step';
   }
@@ -136,13 +164,19 @@ function VerticalLinearStepper(props) {
     const isAnswerCorrect = validateStep(activeStep, editorValues[activeStep]);
     if (isAnswerCorrect) {
       setGrade(grade + 1);
-      
+
     } else {
       alert('Your answer incorrect. Please review it!');
     }
     if (activeStep === steps.length - 1) {
+      if (isAnswerCorrect) {
+        setGrade(grade + 1);
+  
+      } else {
+        alert('Your answer incorrect. Please review it!');
+      }
       // Last step reached
-      if (grade>=3) {
+      if (grade >= 2) {
         setModalVisible(true);
         try {
           // Send a POST request to the backend to submit the challenge and check the grade
@@ -150,9 +184,9 @@ function VerticalLinearStepper(props) {
             localEmail: localEmail,
             challengeFinished: true,
             grade: grade,
-            gameNumber:randomNumber
+            gameNumber: randomNumber
           });
-    
+
           // Once the backend responds with the winner's email, show the winner modal
           setWinnerEmail(localEmail); // Assuming the response contains the winner's email
           setChallengeFinished(true);
@@ -160,10 +194,10 @@ function VerticalLinearStepper(props) {
           console.error('Error:', error);
           // Handle error if needed
         }
-    
-    }
-      else { alert( `Sorry you only have ${grade} answers right! You didn't pass the challenge! Please do it again ! `);}
-      
+
+      }
+      else { alert(`Sorry you only have ${grade} answers right! You didn't pass the challenge! Please do it again ! `); }
+
     } else {
       setActiveStep(activeStep + 1);
     }
@@ -176,49 +210,179 @@ function VerticalLinearStepper(props) {
     setEditorValues(newEditorValues);
   }
 
-  
+
   function validateStep(stepIndex, value) {
     const validationFuncs = [
       validateStep1,
       validateStep2,
-      validateStep3,
-      validateStep4,
-      validateStep5
+      validateStep3
     ];
     return validationFuncs[stepIndex](value);
   }
 
   function validateStep1(value) {
-    const expectedValueRegex = /^pub\s+struct\s+Spaceship\s+{\s+name:\s+String,\s+destination:\s+String,\s+}$/;
-    return expectedValueRegex.test(value);
+    const lines = value.trim().split('\n');
+    const expectedLines = [
+      '[package]',
+      'name = "project-name"',
+      'version = "0.1.0"',
+      'edition = "2021"',
+      '',
+      '[lib]',
+      'crate-type = ["cdylib"]',
+      '',
+      '[features]',
+      'testutils = ["soroban-sdk/testutils"]',
+      '',
+      '[dependencies]',
+      'soroban-sdk = "0.9.2"',
+      '',
+      '[dev_dependencies]',
+      'soroban-sdk = { version = "0.9.2", features = ["testutils"] }',
+      '',
+      '[profile.release]',
+      'opt-level = "z"',
+      'overflow-checks = true',
+      'debug = 0',
+      'strip = "symbols"',
+      'debug-assertions = false',
+      'panic = "abort"',
+      'codegen-units = 1',
+      'lto = true',
+      '',
+      '[profile.release-with-logs]',
+      'inherits = "release"',
+      'debug-assertions = true',
+    ];
+
+    if (lines.length !== expectedLines.length) {
+      return false;
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].trim() !== expectedLines[i]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   function validateStep2(value) {
-    const expectedValueRegex = /^impl\s+Spaceship\s+{\s+pub\s+fn\s+new\(name:\s+String,\s+destination:\s+String\)\s+->\s+Spaceship\s+{\s+Spaceship\s+{\s+name,\s+destination\s+}\s+}\s+}$/;
-    return expectedValueRegex.test(value);
+    const requiredComponents = [
+      '#![no_std]',
+      'use soroban_sdk::{contract, contractimpl, symbol_short, vec, Env, Symbol, Vec};',
+      '',
+      '#[contract]',
+      'pub struct Contract;',
+      '',
+      '#[contractimpl]',
+      'impl Contract {',
+      '    pub fn hello(env: Env, to: Symbol) -> Vec<Symbol> {',
+      '        vec![&env, symbol_short!("Hello"), to]',
+      '    }',
+      '}',
+      '',
+      '#[cfg(test)]',
+      'mod test;',
+    ];
+
+    return requiredComponents.every((component) => value.includes(component));
   }
+
+
 
   function validateStep3(value) {
-    const expectedValueRegex = /^pub\s+fn\s+add_spaceship\(spacecrafts:\s+&mut\s+Vec<Spaceship>,\s+spaceship:\s+Spaceship\)\s+{\s+spacecrafts.push\(spaceship\);\s+}$/;
-    return expectedValueRegex.test(value);
+    const requiredComponents = [
+      'use crate::{Contract, ContractClient};',
+      'use soroban_sdk::{vec, Env, Symbol, symbol_short};',
+      '',
+      '#[test]',
+      'fn test() {',
+      '    let env = Env::default();',
+      '    let contract_id = env.register_contract(None, Contract);',
+      '    let client = ContractClient::new(&env, &contract_id);',
+      '',
+      '    let words = client.hello(&symbol_short!("Dev"));',
+      '    assert_eq!(',
+      '        words,',
+      '        vec![&env, symbol_short!("Hello"), symbol_short!("Dev"),]',
+      '    );',
+      '}',
+    ];
+
+    return requiredComponents.every((component) => value.includes(component));
   }
 
-  function validateStep4(value) {
-    const expectedValueRegex = /^pub\s+fn\s+find_spaceship\(spacecrafts:\s+&Vec<Spaceship>,\s+name:\s+String\)\s+->\s+Option<&Spaceship>\s+{\s+spacecrafts.iter\(\).find\(\|s\|\s+s.name\s+==\s+name\)\s+}$/;
-    return expectedValueRegex.test(value);
-  }
 
-  function validateStep5(value) {
-    const expectedValueRegex = /^pub\s+fn\s+spaceships_to_destination\(spacecrafts:\s+&Vec<Spaceship>,\s+destination:\s+String\)\s+->\s+Vec<String>\s+{\s+spacecrafts\s*\.\s*iter\s*\(\s*\)\s*\.\s*filter\s*\(\s*\|s\s*\|\s*s\s*\.\s*destination\s*==\s*destination\s*\)\s*\.\s*map\s*\(\s*\|s\s*\|\s*s\s*\.\s*name\s*\.\s*clone\s*\(\s*\)\s*\)\s*\.\s*collect\s*\(\s*\)\s*}$/;
-    return expectedValueRegex.test(value);
-  }
+
   const getStepAnswer = (stepIndex) => {
     const answers = [
-      'pub struct Spaceship {\n  name: String,\n  destination: String,\n}',
-      'impl Spaceship {\n  pub fn new(name: String, destination: String) -> Spaceship {\n    Spaceship { name, destination }\n  }\n}',
-      'pub fn add_spaceship(spacecrafts: &mut Vec<Spaceship>, spaceship: Spaceship) {\n  spacecrafts.push(spaceship);\n}',
-      'pub fn find_spaceship(spacecrafts: &Vec<Spaceship>, name: String) -> Option<&Spaceship> {\n  spacecrafts.iter().find(|s| s.name == name)\n}',
-      'pub fn spaceships_to_destination(spacecrafts: &Vec<Spaceship>, destination: String) -> Vec<String> {\n  spacecrafts.iter().filter(|s| s.destination == destination).map(|s| s.name.clone()).collect()\n}',
+      `
+[package]
+name = "project-name"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+testutils = ["soroban-sdk/testutils"]
+
+[dependencies]
+soroban-sdk = "0.9.2"
+
+[dev_dependencies]
+soroban-sdk = { version = "0.9.2", features = ["testutils"] }
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true
+
+[profile.release-with-logs]
+inherits = "release"
+debug-assertions = true
+`,
+      `
+#![no_std]
+use soroban_sdk::{contract, contractimpl, symbol_short, vec, Env, Symbol, Vec};
+
+#[contract]
+pub struct Contract;
+
+#[contractimpl]
+impl Contract {
+    pub fn hello(env: Env, to: Symbol) -> Vec<Symbol> {
+        vec![&env, symbol_short!("Hello"), to]
+    }
+}
+#[cfg(test)]
+mod test;
+`,
+      `
+use crate::{Contract, ContractClient};
+use soroban_sdk::{vec, Env, Symbol, symbol_short};
+
+#[test]
+fn test() {
+    let env = Env::default();
+    let contract_id = env.register_contract(None, Contract);
+    let client = ContractClient::new(&env, &contract_id);
+
+    let words = client.hello(&symbol_short!("Dev"));
+    assert_eq!(
+        words,
+        vec![&env, symbol_short!("Hello"), symbol_short!("Dev"),]
+    );
+}
+`,
     ];
     return answers[stepIndex];
   };
@@ -231,7 +395,7 @@ function VerticalLinearStepper(props) {
     <div className="page-container">
       <div className="split-view">
         <div className="left-panel">
-        <img src={space} style={{ width: '550px', height: '300px' }}></img>
+          <img src={space} style={{ width: '550px', height: '300px' }}></img>
 
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((label, index) => (
@@ -262,32 +426,32 @@ function VerticalLinearStepper(props) {
                   </div>
                 </StepContent>
               </Step>
-              
+
             ))}
-            
+
           </Stepper>
-          
+
         </div>
         <div>
 
-      <Dialog
-        open={modalVisible}
-        
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          { `Congrats you are the first to finish the challenge with ${grade} questions right!`}
-        </DialogTitle>
-       
-        <DialogActions>
-          
-          <Button onClick={handleClose} >
-            OK! 
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+          <Dialog
+            open={modalVisible}
+
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {`Congrats you are the first to finish the challenge with ${grade} questions right!`}
+            </DialogTitle>
+
+            <DialogActions>
+
+              <Button onClick={handleClose} >
+                OK!
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
         <div className="right-panel">
           <Editor
             height="60vh"
@@ -301,7 +465,7 @@ function VerticalLinearStepper(props) {
             Show Answer
           </Button>
           <Dialog open={openDialog} onClose={handleCloseDialog}>
-          <pre>{getStepAnswer(activeStep)}</pre>
+            <pre>{getStepAnswer(activeStep)}</pre>
           </Dialog>
         </div>
       </div>
@@ -327,7 +491,7 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
     // Render a completed state
     return <Completionist />;
   } else {
-    
+
     return <span>{hours}:{minutes}:{seconds}</span>;
   }
 };
@@ -345,12 +509,12 @@ function Intro(props) {
   const classes = useStyles();
   const [isDialogClosed, setIsDialogClosed] = useState(false);
   const { randomNumber } = useParams();
+  const [readyClicked, setReadyClicked] = useState(false);
 
-
-  useEffect(async() => {
+  useEffect(async () => {
     setModalVisible(true);
-    console.log('random number',randomNumber)
-    
+    console.log('random number', randomNumber)
+
   }, []);
 
 
@@ -365,13 +529,13 @@ function Intro(props) {
         console.error('Error:', error);
       }
     };
-  
+
     fetchData(); // Initial fetch
-  
+
     const intervalId = setInterval(() => {
       fetchData(); // Fetch data every 2 seconds
     }, 5000);
-  
+
     return () => {
       clearInterval(intervalId); // Clean up the interval on component unmount
     };
@@ -422,24 +586,25 @@ function Intro(props) {
   }, [isDialogClosed]); // Add isDialogClosed as a dependency
 
 
-  
+
 
 
 
   const handleReadyClick = async () => {
+    setReadyClicked(true);
     const localUser = localStorage.getItem('user');
     const user = JSON.parse(localUser);
     const localEmail = user.email;
     console.log('local email ', user.email);
-  
+
     try {
       // Send a POST request to the backend to notify readiness
       const response = await axios.post('https://edunode.herokuapp.com/api/gamechallenge/ready', {
         gameNumber: randomNumber,
         localEmail: localEmail
       });
-  
-      console.log('ready response', response.data); 
+
+      console.log('ready response', response.data);
       setModalVisible(!response.data);
       setTimerVisible(response.data);
       setChallengeStarted(response.data);
@@ -447,8 +612,8 @@ function Intro(props) {
       console.error('Error:', error);
     }
   };
-  
- 
+
+
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
   }
@@ -477,6 +642,7 @@ function Intro(props) {
   }
   const handleClose = () => {
     setModalVisible(false);
+    window.location.href = '/challengeGame';window.location.href = '/challengeGame';
   };
 
   const handlefinishClose = () => {
@@ -492,85 +658,87 @@ function Intro(props) {
       <Navbar />
 
       <LinearProgressWithLabel value={activeProgress} />
-     time left : <Countdown date={Date.now() + 1200000} 
-     renderer={renderer}
-     />
-      
+      time left : <Countdown date={Date.now() + 1200000}
+        renderer={renderer}
+      />
+
       <VerticalLinearStepper
         activeStep={activeStep}
         handleNext={handleNext}
         handleBack={handleBack}
       />
 
-<div>
-<div>
+      <div>
+        <div>
 
-      <Dialog
-        open={modalVisible}
-        
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Challenge Game"}
-        </DialogTitle>
-        <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Challenge Link :  https://edunode.org/challengeGame1/{randomNumber}/
-          
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-description">
-           (Please copy this link and send it to you friend in order to start the challenge! ) 
-          
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-description">
-          
-           This challenge will last 20 minutes the first who finish wins !
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-description">
-           Are you ready to start the game? 
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleReadyClick} autoFocus>Ready</Button>
-          <Button onClick={handleClose} >
-            No 
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-    <div>
+          <Dialog
+            open={modalVisible}
 
-<Dialog
-  open={modalFinishVisible}
-  
-  aria-labelledby="alert-dialog-title"
-  aria-describedby="alert-dialog-description"
->
-  <DialogTitle id="alert-dialog-title">
-    {"Challenge finished"}
-  </DialogTitle>
-  <DialogContent>
-  <DialogContentText id="alert-dialog-description">
-    Challenge Finished! {winnerEmail} has won the game !
-    
-    </DialogContentText>
-    
-    
-  </DialogContent>
-  <DialogActions>
-    
-    <Button onClick={handlefinishClose} >
-      ok 
-    </Button>
-  </DialogActions>
-</Dialog>
-</div>
-     
-     
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Challenge Game"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Challenge Link :  https://edunode.org/challengeGame2/{randomNumber}/
 
-      
-    </div>
+              </DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+                (Please copy this link and send it to you friend in order to start the challenge! )
+
+              </DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+
+                This challenge will last 20 minutes the first who finish wins !
+              </DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+                Are you ready to start the game?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleReadyClick} autoFocus disabled={readyClicked}>
+                Ready
+              </Button>
+              <Button onClick={handleClose} >
+                No
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+        <div>
+
+          <Dialog
+            open={modalFinishVisible}
+
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Challenge finished"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Challenge Finished! {winnerEmail} has won the game !
+
+              </DialogContentText>
+
+
+            </DialogContent>
+            <DialogActions>
+
+              <Button onClick={handlefinishClose} >
+                ok
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+
+
+
+
+      </div>
     </div>
   );
 }

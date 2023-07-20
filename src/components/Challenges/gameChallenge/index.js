@@ -18,6 +18,7 @@ import {
 
 import Course1 from './Course1';
 
+import Challenge2 from './Challenge2';
 
 import Navbar1 from '../../Dashboard/Navbar1';
 
@@ -101,7 +102,7 @@ class Challenge extends Component {
           <br></br>
           <Course1 />
           <br></br>
-          
+          <Challenge2 />
           
           
         </div>
