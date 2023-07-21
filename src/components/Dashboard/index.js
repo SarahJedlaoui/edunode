@@ -32,6 +32,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import PostCard from "./postCard";
+import BlogCard from "./blogCard";
 import CourseCard from "./courseCard";
 import { ThemeContext ,ThemeProviders} from '../../ThemeContext';
 import ToggleSwitch from '../../ToggleSwitch';
@@ -348,7 +349,7 @@ class Dashboard extends Component {
 
                             {preference.blogs && preference.blogs.map(blog => (
                               <div className="col-md-4 mb-4 h-100" key={blog._id}>
-                                <PostCard blog={blog} />
+                                <BlogCard blog={blog} />
                               </div>
                             ))}
                           </div>

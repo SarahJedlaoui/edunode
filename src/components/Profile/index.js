@@ -29,7 +29,9 @@ import challenge from './challenge.png'
 import course from './course.png'
 import community from './community.png'
 import post from './post.png'
-
+import PostCard from "../Dashboard/postCard";
+import BlogCard from "../Dashboard/blogCard";
+import CourseCard from "../Dashboard/courseCard";
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
@@ -179,7 +181,7 @@ class ProfilePage extends Component {
     return (
       <section style={{ backgroundColor: '#eee' }}>
         <Navbar1></Navbar1>
-        <MDBContainer className="py 5">
+        <div className="py-20">
           <MDBRow>
             <MDBCol>
               <MDBBreadcrumb className="bg-light rounded-3 p-3 mb 20">
@@ -196,6 +198,7 @@ class ProfilePage extends Component {
 
           <MDBRow>
             <MDBCol lg="4">
+              <div>
               <MDBCard className="mb-4">
                 <MDBCardBody className="text-center d-flex justify-content-center flex-column align-items-center">
                   <MDBCardImage
@@ -367,6 +370,7 @@ class ProfilePage extends Component {
                   </MDBListGroup>
                 </MDBCardBody>
               </MDBCard>
+              </div>
             </MDBCol>
 
 
@@ -435,89 +439,17 @@ class ProfilePage extends Component {
                 <MDBCardText>Posts : </MDBCardText>
                 {posts.map((post) => (
                   <MDBCol md="6" key={post._id}>
-                    <MDBCard className="mb-4 mb-md-0">
-                      <MDBCardBody>
-                        <MDBCardText className="mb-4">
-                          Post
-                        </MDBCardText>
-                        <MDBCardText className="mb-1" style={{ fontSize: '1.2rem' }}>
-                          Post title
-                        </MDBCardText>
-                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>
-                          {post.title}
-                        </MDBCardText>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
-                          Post description
-                        </MDBCardText>
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
-                          {post.description}
-                        </MDBCardText>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
-                          Post link
-                        </MDBCardText>
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
-                          <a>{post.link}</a>
-                        </MDBCardText>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
-                          Post tags
-                        </MDBCardText>
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
-                          {post.tags.join(', ')}
-                        </MDBCardText>
-
-
-
-                      </MDBCardBody>
-                    </MDBCard>
+                     <PostCard post={post} />
                   </MDBCol>
 
                 ))}
               </MDBRow>
-
+                <br></br>
               <MDBRow>
                 <MDBCardText>Courses : </MDBCardText>
                 {courses.map((course) => (
                   <MDBCol md="6" key={course._id}>
-                    <MDBCard className="mb-4 mb-md-0">
-                      <MDBCardBody>
-                        <MDBCardText className="mb-4">
-                          Courses
-                        </MDBCardText>
-                        <MDBCardText className="mb-1" style={{ fontSize: '1.2rem' }}>
-                          Course title
-                        </MDBCardText>
-                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>
-                          {course.title}
-                        </MDBCardText>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
-                          Course description
-                        </MDBCardText>
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
-                          {course.description}
-                        </MDBCardText>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
-                          Course link
-                        </MDBCardText>
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
-                          <a>{course.link}</a>
-                        </MDBCardText>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '1.2rem' }}>
-                          Course tags
-                        </MDBCardText>
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>
-                          {course.tags.join(', ')}
-                        </MDBCardText>
-
-
-
-                      </MDBCardBody>
-                    </MDBCard>
+                     <CourseCard course={course} />
                   </MDBCol>
 
                 ))}
@@ -527,7 +459,7 @@ class ProfilePage extends Component {
 
             </MDBCol>
           </MDBRow>
-        </MDBContainer>
+        </div>
 
       </section>
     );
