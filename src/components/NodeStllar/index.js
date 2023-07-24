@@ -24,7 +24,8 @@ function BlogPage() {
         const response = await axios.get(
           "https://api.stellarbeat.io/v1/node"
         );
-        setNodes(response.data); // Assuming the response is an array of node objects
+        setNodes(response.data);
+        console.log('dataaaa',response.data)
       } catch (error) {
         console.error("Error fetching node data:", error);
       }

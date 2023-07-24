@@ -19,11 +19,13 @@ import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { convertToHTML } from 'draft-convert';
+import { Navigate } from "react-router-dom";
 
 class Messages extends Component {
   constructor(props) {
     super(props);
     const { auth } = this.props;
+    this.editorRef = React.createRef();
     this.state = {
       friends: [],
       messages: [],
@@ -31,6 +33,7 @@ class Messages extends Component {
       receiverEmail: '',
       socket: null,
       currentTime: '',
+      isFriendSelected: false,
       editorState: EditorState.createEmpty(),
     };
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
@@ -41,8 +44,15 @@ class Messages extends Component {
       editorState
     });
   };
+
   componentDidMount() {
-    this.fetchFriendsList();
+    const localUser = localStorage.getItem('user');
+    if (!localUser) {
+      // Redirect to login if the user is not logged in
+      Navigate('/login');
+    } else {
+      this.fetchFriendsList();
+    }
 
   }
 
@@ -136,6 +146,11 @@ class Messages extends Component {
       .catch((error) => {
         console.error(error);
       });
+
+    this.setState({ isFriendSelected: true }, () => {
+
+      this.editorRef.current.scrollIntoView({ behavior: 'smooth' });
+    });
   };
 
   handleSendMessage = () => {
@@ -146,28 +161,28 @@ class Messages extends Component {
     this.setState({
       editorState: '',
     });
-   
-      const messageData = {
-        senderEmail,
-        receiverEmail,
-        content: convertToHTML(this.state.editorState.getCurrentContent()),
-      };
 
-      axios
-        .post('https://edunode.herokuapp.com/api/messages', messageData)
-        .then((response) => {
-          const savedMessage = response.data.message;
-          this.setState((prevState) => ({
-            messages: [...prevState.messages, savedMessage],
-            messageText: '',
-          }));
-          this.socket.send(JSON.stringify(savedMessage));
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  
+    const messageData = {
+      senderEmail,
+      receiverEmail,
+      content: convertToHTML(this.state.editorState.getCurrentContent()),
+    };
+
+    axios
+      .post('https://edunode.herokuapp.com/api/messages', messageData)
+      .then((response) => {
+        const savedMessage = response.data.message;
+        this.setState((prevState) => ({
+          messages: [...prevState.messages, savedMessage],
+          messageText: '',
+        }));
+        this.socket.send(JSON.stringify(savedMessage));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   formatTimestamp = (timestamp) => {
     const currentTime = moment();
     const messageTime = moment(timestamp).local(); // Convert to user's local time zone
@@ -184,7 +199,7 @@ class Messages extends Component {
   };
   render() {
     const { editorState } = this.state;
-    const { friends, messages, messageText, receiverEmail } = this.state;
+    const { friends, messages, messageText, receiverEmail, isFriendSelected } = this.state;
     const localUser = localStorage.getItem('user');
     const user = JSON.parse(localUser);
     const senderEmail = user.email;
@@ -194,9 +209,9 @@ class Messages extends Component {
 
         <MDBContainer fluid className="py-5" style={{ backgroundColor: '#eee' }}>
           <MDBRow>
-            <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0">
+          <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0 friendsCol">
               <h5 className="font-weight-bold mb-3 text-center text-lg-start">Friends:</h5>
-              <MDBCard>
+              <MDBCard  style={{ height: 'auto' }} >
                 <MDBCardBody>
                   <MDBTypography listUnStyled className="mb-0">
                     {friends.map((friend) => (
@@ -261,7 +276,7 @@ class Messages extends Component {
                           </p>
                         </MDBCardHeader>
                         <MDBCardBody>
-                          
+
                           <p className="mb-0" dangerouslySetInnerHTML={{ __html: message.content }} ></p>
                         </MDBCardBody>
                       </MDBCard>
@@ -278,20 +293,30 @@ class Messages extends Component {
                 })}
               </MDBTypography>
 
-              <div style={{ border: '1px solid black', padding: '10px' }}>
-              <Editor
-                label="Message"
-                editorState={editorState}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
-                onEditorStateChange={this.onEditorStateChange}
-              />
-             </div>
 
-              <MDBBtn color="info" rounded className="float-end" onClick={this.handleSendMessage}>
-                Send
-              </MDBBtn>
+              {isFriendSelected && (
+                <div>
+                  <div style={{ border: '1px solid black', padding: '10px' }} ref={this.editorRef} >
+                    <Editor
+                      label="Message"
+                      editorState={editorState}
+                      toolbarClassName="toolbarClassName"
+                      wrapperClassName="wrapperClassName"
+                      editorClassName="editorClassName"
+                      onEditorStateChange={this.onEditorStateChange}
+                    />
+
+
+                  </div>
+
+                  <MDBBtn color="info" rounded className="float-end" onClick={this.handleSendMessage}>
+                    Send
+                  </MDBBtn>
+                </div>
+
+              )}
+
+
             </MDBCol>
 
           </MDBRow>
