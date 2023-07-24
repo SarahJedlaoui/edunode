@@ -642,12 +642,14 @@ function Intro(props) {
   }
   const handleClose = () => {
     setModalVisible(false);
-    window.location.href = '/challengeGame';window.location.href = '/challengeGame';
+    window.location.href = '/challengeGame';
+    window.location.href = '/challengeGame';
   };
 
   const handlefinishClose = () => {
     setIsDialogClosed(true);
     setModalFinishVisible(false);
+    window.location.href = '/challengeGame/leaderBoard';
   };
 
 

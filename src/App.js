@@ -235,6 +235,18 @@ function App(props) {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const shouldShowFooter = window.location.pathname !== '/certificates/:certificateNumber';
+
+
+  useEffect(() => {
+    const isLoggedIn = Boolean(localStorage.getItem('user'));
+
+    if (!isLoggedIn) {
+      // User is not logged in, redirect to the login page
+      navigate('/login');
+    } else {
+      setUser({ username: 'exampleUser' });
+    }
+  }, [navigate]);
   return (
     <Provider store={store}>
       <Routes location={location} navigate={navigate}>
@@ -255,36 +267,6 @@ function App(props) {
         <Route exact path="/courses/104/" element={<Intro3 />} />
         <Route exact path="/courses/105/" element={<Intro4 />} />
         <Route exact path="/courses/106/" element={<Intro5 />} />
-        <Route exact path="/courses/101/i" element={<Introi />} />
-        <Route exact path="/courses/101/ii" element={<Introii />} />
-        <Route exact path="/courses/101/iii" element={<Introiii />} />
-        <Route exact path="/courses/101/iiii" element={<Introiiii />} />
-        <Route exact path="/courses/101/iiiii" element={<Introiiiii />} />
-        <Route exact path="/courses/102/i" element={<Introi1 />} />
-        <Route exact path="/courses/102/ii" element={<Introii1 />} />
-        <Route exact path="/courses/102/iii" element={<Introiii1 />} />
-        <Route exact path="/courses/102/iiii" element={<Introiiii1 />} />
-        <Route exact path="/courses/102/iiiii" element={<Introiiiii1 />} />
-        <Route exact path="/courses/103/i" element={<Introi2 />} />
-        <Route exact path="/courses/103/ii" element={<Introii2 />} />
-        <Route exact path="/courses/103/iii" element={<Introiii2 />} />
-        <Route exact path="/courses/103/iiii" element={<Introiiii2 />} />
-        <Route exact path="/courses/103/iiiii" element={<Introiiiii2 />} />
-        <Route exact path="/courses/104/i" element={<Introi3 />} />
-        <Route exact path="/courses/104/ii" element={<Introii3 />} />
-        <Route exact path="/courses/104/iii" element={<Introiii3 />} />
-        <Route exact path="/courses/104/iiii" element={<Introiiii3 />} />
-        <Route exact path="/courses/104/iiiii" element={<Introiiiii3 />} />
-        <Route exact path="/courses/105/i" element={<Introi4 />} />
-        <Route exact path="/courses/105/ii" element={<Introii4 />} />
-        <Route exact path="/courses/105/iii" element={<Introiii4 />} />
-        <Route exact path="/courses/105/iiii" element={<Introiiii4 />} />
-        <Route exact path="/courses/105/iiiii" element={<Introiiiii4 />} />
-        <Route exact path="/courses/106/i" element={<Introi5 />} />
-        <Route exact path="/courses/106/ii" element={<Introii5 />} />
-        <Route exact path="/courses/106/iii" element={<Introiii5 />} />
-        <Route exact path="/courses/106/iiii" element={<Introiiii5 />} />
-        <Route exact path="/courses/106/iiiii" element={<Introiiiii5 />} />
         <Route exact path="/courses/107" element={<Intro6 />} />
         <Route exact path="/courses/108" element={<Intro7 />} />
         <Route exact path="/courses/109" element={<Intro8 />} />

@@ -81,7 +81,7 @@ class ProfilePage extends Component {
     return (
       <section style={{ backgroundColor: '#eee' }}>
         <Navbar1></Navbar1>
-        <MDBContainer className="py-9">
+        <div className="py-20">
           <MDBRow>
             <MDBCol>
               <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
@@ -384,7 +384,7 @@ class ProfilePage extends Component {
 
             </MDBCol>
           </MDBRow>
-        </MDBContainer>
+        </div>
 
       </section>
     );

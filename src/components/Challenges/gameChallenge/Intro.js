@@ -152,13 +152,10 @@ function VerticalLinearStepper(props) {
             grade: grade,
             gameNumber:randomNumber
           });
-    
-          // Once the backend responds with the winner's email, show the winner modal
-          setWinnerEmail(localEmail); // Assuming the response contains the winner's email
+          setWinnerEmail(localEmail); 
           setChallengeFinished(true);
         } catch (error) {
           console.error('Error:', error);
-          // Handle error if needed
         }
     
     }
@@ -345,7 +342,7 @@ function Intro(props) {
   const classes = useStyles();
   const [isDialogClosed, setIsDialogClosed] = useState(false);
   const { randomNumber } = useParams();
-
+  const [readyClicked, setReadyClicked] = useState(false);
 
   useEffect(async() => {
     setModalVisible(true);
@@ -431,7 +428,7 @@ function Intro(props) {
     const user = JSON.parse(localUser);
     const localEmail = user.email;
     console.log('local email ', user.email);
-  
+    setReadyClicked(true);
     try {
       // Send a POST request to the backend to notify readiness
       const response = await axios.post('https://edunode.herokuapp.com/api/gamechallenge/ready', {
@@ -477,11 +474,13 @@ function Intro(props) {
   }
   const handleClose = () => {
     setModalVisible(false);
+    window.location.href = '/challengeGame';
   };
 
   const handlefinishClose = () => {
     setIsDialogClosed(true);
     setModalFinishVisible(false);
+    window.location.href = '/challengeGame/leaderBoard';
   };
 
 
@@ -532,7 +531,7 @@ function Intro(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleReadyClick} autoFocus>Ready</Button>
+          <Button onClick={handleReadyClick} autoFocus disabled={readyClicked} >Ready</Button>
           <Button onClick={handleClose} >
             No 
           </Button>
