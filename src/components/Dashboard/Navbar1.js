@@ -37,7 +37,6 @@ class NavBar1 extends Component {
 
   componentDidMount() {
     const { email } = this.state;
-    console.log('naaaaaaaaaaaaaaaaaaaav email',email )
     fetch(`https://edunode.herokuapp.com/api/users/user?email=${email}`)
       .then(response => response.json())
       .then(data => {
@@ -81,10 +80,15 @@ class NavBar1 extends Component {
     const { user } = this.state;
     const { messageCount } = this.state;
 
-     console.log('nav roleeeeeee',user.role)
+     
+
+     if (!user ) {
+      window.location.href = '/login';
+    }
+  
 
 
-    if (user.role === 'University') {
+   else if (user.role === 'University') {
       return (
           <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/">
@@ -172,7 +176,7 @@ class NavBar1 extends Component {
           </Navbar>);
     }
 
-  if (user.role !== 'Teacher' && user.role !== 'University') {
+  else if (user.role !== 'Teacher' && user.role !== 'University') {
     return (
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/">
@@ -245,7 +249,7 @@ class NavBar1 extends Component {
   }
 
 
-  if (user.role === 'Teacher') {
+ else if (user.role === 'Teacher') {
     return (
         <Navbar bg="light" expand="lg">
           <Navbar.Brand href="/">
