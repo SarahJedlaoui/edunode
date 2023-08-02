@@ -60,11 +60,23 @@ class Search extends Component {
         const searchQuery = event.target.value;
         this.setState({ searchQuery }, () => {
             this.performSearch();
-
+            this.performSearchWiki();
         });
     }
 
-
+    performSearchWiki = async () => {
+        const { searchQuery } = this.state;
+    
+        try {
+          const response = await fetch(`https://edunode.herokuapp.com/api/search/wiki/${searchQuery}`);
+          const data = await response.json();
+          console.log('wikiiiiiiiiiiiii')
+          console.log('wiki data', data)
+          this.setState({ wiki: data });
+        } catch (error) {
+          console.error('Error fetching wiki data:', error.message);
+        }
+      };
 
 
     performSearch = () => {
@@ -83,25 +95,11 @@ class Search extends Component {
                     .then((response) => {
                         const coinGeckoResults = response.data;
                         this.setState({ coinGecko: coinGeckoResults });
-                        console.log(coinGeckoResults)
-                        console.log(coinGeckoResults.coins)
                     })
                     .catch((error) => {
                         console.error('Error fetching CoinGecko data:', error);
                     });
 
-                axios
-                    .get(`https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${searchQuery}`)
-                    .then((response) => {
-                        const wikiResults = response.data;
-                        console.log('Wikipedia API Response:', wikiResults);
-                        this.setState({ wiki: wikiResults });
-                        console.log(wikiResults)
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching wiki data:', error.message); 
-                        console.error(error); 
-                    });
             })
             .catch((error) => {
                 console.error('Error fetching data from MongoDB:', error);
