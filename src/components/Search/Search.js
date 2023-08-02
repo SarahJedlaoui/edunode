@@ -66,17 +66,17 @@ class Search extends Component {
 
     performSearchWiki = async () => {
         const { searchQuery } = this.state;
-    
+
         try {
-          const response = await fetch(`https://edunode.herokuapp.com/api/search/wiki/${searchQuery}`);
-          const data = await response.json();
-          console.log('wikiiiiiiiiiiiii')
-          console.log('wiki data', data)
-          this.setState({ wiki: data });
+            const response = await fetch(`https://edunode.herokuapp.com/api/search/wiki/${searchQuery}`);
+            const data = await response.json();
+            console.log('wikiiiiiiiiiiiii')
+            console.log('wiki data', data)
+            this.setState({ wiki: data });
         } catch (error) {
-          console.error('Error fetching wiki data:', error.message);
+            console.error('Error fetching wiki data:', error.message);
         }
-      };
+    };
 
 
     performSearch = () => {
@@ -157,25 +157,7 @@ class Search extends Component {
                                         <button onClick={this.performSearch} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', padding: '5px' }} >Search</button>
 
 
-                                        <div className="row justify-content-center card-deck d-flex">
-                                            {wiki[1] &&
-                                                wiki[1].map((title, index) => (
-                                                    <div className="col-md-4 mb-4 h-100" key={index}>
-                                                        <div className="card shadow h-100">
-                                                            <div className="card-body">
-                                                                <h6 className="card-title"> wiki </h6>
-                                                                <h5 className="card-title">{title}</h5>
-                                                                <p className="card-text">
-                                                                    <a href={wiki[3][index]} className="card-link">
-                                                                        <FontAwesomeIcon icon={faLink} className="mr-2" />
-                                                                        {wiki[3][index]}
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                        </div>
+
 
                                         <div className="row justify-content-center card-deck d-flex">
                                             {results.courses && results.courses.map(course => (
@@ -246,7 +228,25 @@ class Search extends Component {
                                                 </div>
                                             ))}
                                         </div>
-
+                                        <div className="row justify-content-center card-deck d-flex">
+                                            {wiki[1] &&
+                                                wiki[1].map((title, index) => (
+                                                    <div className="col-md-4 mb-4 h-100" key={index}>
+                                                        <div className="card shadow h-100">
+                                                            <div className="card-body">
+                                                                <h6 className="card-title"> wiki </h6>
+                                                                <h5 className="card-title">{title}</h5>
+                                                                <p className="card-text">
+                                                                    <a href={wiki[3][index]} className="card-link">
+                                                                        <FontAwesomeIcon icon={faLink} className="mr-2" />
+                                                                        {wiki[3][index]}
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                        </div>
                                         <div className="row justify-content-center card-deck d-flex">
                                             {coinGecko.coins && coinGecko.coins.slice(0, 10).map(coin => (
                                                 <div className="col-md-4 mb-4 h-100" key={coin.id}>
