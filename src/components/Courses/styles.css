@@ -1,3 +1,8 @@
 .myDiv {
     background-image: url("learn.png");
 }
+.learn {
+    background-image: url('learn.png');
+    background-size: cover; /* This property ensures the image covers the entire div */
+    background-position: center; /* This property centers the image within the div */
+  }

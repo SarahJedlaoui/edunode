@@ -30,6 +30,52 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Countdown from 'react-countdown';
 import { useParams } from 'react-router-dom';
+import dev from './developer.png';
+import {
+  FacebookShareCount,
+  RedditShareCount,
+  TumblrShareCount,
+  FacebookShareButton,
+  FacebookMessengerShareButton,
+  FacebookMessengerIcon,
+  LinkedinShareButton,
+  TwitterShareButton,
+  PinterestShareButton,
+  VKShareButton,
+  OKShareButton,
+  TelegramShareButton,
+  WhatsappShareButton,
+  RedditShareButton,
+  EmailShareButton,
+  TumblrShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  ViberShareButton,
+  WorkplaceShareButton,
+  LineShareButton,
+  WeiboShareButton,
+  PocketShareButton,
+  InstapaperShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  VKIcon,
+  OKIcon,
+  TelegramIcon,
+  WhatsappIcon,
+  RedditIcon,
+  TumblrIcon,
+  MailruIcon,
+  EmailIcon,
+  LivejournalIcon,
+  ViberIcon,
+  WorkplaceIcon,
+  LineIcon,
+  PocketIcon,
+  InstapaperIcon,
+  WeiboIcon,
+} from "react-share";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -140,6 +186,7 @@ function VerticalLinearStepper(props) {
   const [winnerEmail, setWinnerEmail] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
+  const title = "Game Challenge Edunode!"
   const { randomNumber } = useParams();
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -434,23 +481,181 @@ fn test() {
         </div>
         <div>
 
-          <Dialog
-            open={modalVisible}
+        <Dialog
+        open={modalVisible}
+        
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          { `Congrats you are the first to finish the challenge with ${grade} questions right!`}
+        </DialogTitle>
+        <DialogContent>
+        <img src={dev} alt="Achievement" />
+          <DialogContentText id="alert-dialog-description">
+            Share this acheivement with others :
 
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
+          </DialogContentText>
+          <div className="Demo__container">
+        <div className="Demo__some-network">
+          <FacebookShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            quote={title}
+            className="Demo__some-network__share-button"
           >
-            <DialogTitle id="alert-dialog-title">
-              {`Congrats you are the first to finish the challenge with ${grade} questions right!`}
-            </DialogTitle>
+            <FacebookIcon size={32} round />
+          </FacebookShareButton>
 
-            <DialogActions>
+          <div>
+            <FacebookShareCount
+              url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+              className="Demo__some-network__share-count"
+            >
+              {(count) => count}
+            </FacebookShareCount>
+          </div>
+        </div>
 
-              <Button onClick={handleClose} >
-                OK!
-              </Button>
-            </DialogActions>
-          </Dialog>
+        <div className="Demo__some-network">
+          <FacebookMessengerShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            appId="521270401588372"
+            className="Demo__some-network__share-button"
+          >
+            <FacebookMessengerIcon size={32} round />
+          </FacebookMessengerShareButton>
+        </div>
+
+        <div className="Demo__some-network">
+          <TwitterShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            title={title}
+            className="Demo__some-network__share-button"
+          >
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+
+          <div className="Demo__some-network__share-count">
+            &nbsp;
+          </div>
+        </div>
+
+        <div className="Demo__some-network">
+          <TelegramShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            title={title}
+            className="Demo__some-network__share-button"
+          >
+            <TelegramIcon size={32} round />
+          </TelegramShareButton>
+
+          <div className="Demo__some-network__share-count">
+            &nbsp;
+          </div>
+        </div>
+
+        <div className="Demo__some-network">
+          <WhatsappShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            title={title}
+            separator=":: "
+            className="Demo__some-network__share-button"
+          >
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+
+          <div className="Demo__some-network__share-count">
+            &nbsp;
+          </div>
+        </div>
+
+        <div className="Demo__some-network">
+          <LinkedinShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            className="Demo__some-network__share-button"
+          >
+            <LinkedinIcon size={32} round />
+          </LinkedinShareButton>
+        </div>
+
+        <div className="Demo__some-network">
+          <RedditShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            title={title}
+            windowWidth={660}
+            windowHeight={460}
+            className="Demo__some-network__share-button"
+          >
+            <RedditIcon size={32} round />
+          </RedditShareButton>
+
+          <div>
+            <RedditShareCount
+              url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+              className="Demo__some-network__share-count"
+            />
+          </div>
+        </div>
+
+        <div className="Demo__some-network">
+          <TumblrShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            title={title}
+            className="Demo__some-network__share-button"
+          >
+            <TumblrIcon size={32} round />
+          </TumblrShareButton>
+        </div>
+
+        <div className="Demo__some-network">
+          <EmailShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            subject={title}
+            body="body"
+            className="Demo__some-network__share-button"
+          >
+            <EmailIcon size={32} round />
+          </EmailShareButton>
+        </div>
+        <div className="Demo__some-network">
+          <ViberShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            title={title}
+            className="Demo__some-network__share-button"
+          >
+            <ViberIcon size={32} round />
+          </ViberShareButton>
+        </div>
+
+        <div className="Demo__some-network">
+          <WorkplaceShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            quote={title}
+            className="Demo__some-network__share-button"
+          >
+            <WorkplaceIcon size={32} round />
+          </WorkplaceShareButton>
+        </div>
+
+        <div className="Demo__some-network">
+          <LineShareButton
+            url={'https://www.dropbox.com/scl/fi/2zehwx7108co0aqbeohs3/developer.png?rlkey=rjgnnzdpoa8wuk360xiz9eqkm&dl=0'}
+            title={title}
+            className="Demo__some-network__share-button"
+          >
+            <LineIcon size={32} round />
+          </LineShareButton>
+        </div>
+
+      </div>
+        </DialogContent>
+        <DialogActions>
+          
+          <Button onClick={handleClose} >
+            OK! 
+          </Button>
+        </DialogActions>
+      </Dialog>
         </div>
         <div className="right-panel">
           <Editor

@@ -31,7 +31,7 @@ import Course7 from './Course7';
 import Course8 from './Course8';
 import Course9 from './Course9';
 import Course10 from './Course10';
-
+import learn from './learn.png'
 import Navbar1 from '../Dashboard/Navbar1';
 
 // Import styles
@@ -202,7 +202,7 @@ class Courses extends Component {
             {user.role === 'Teacher' && <Navbar1 />}
             {user.role === 'University' && <Navbar1 />}
 
-              <div className="myDiv">
+            <div class="learn">
 
                 <br></br>
 
@@ -248,7 +248,7 @@ class Courses extends Component {
 
     if (isVerified && !courseOneDone) {
       return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, backgroundAttachment:learn}}>
           <Grid container spacing={2}>
             {/* <Grid xs={5} sm={3.5} md={2}>
           <Item><Sidebar  props={email}/></Item>
@@ -259,7 +259,7 @@ class Courses extends Component {
             {user.role === 'University' && <Navbar1 />}
 
 
-              <div className="myDiv">
+            <div class="learn">
 
                 <br></br>
 
@@ -315,7 +315,7 @@ class Courses extends Component {
             {user.role === 'University' && <Navbar1 />}
 
 
-                <div className="myDiv">
+            <div class="learn">
 
                   <a href={`/courseDetails/${id1}`} target="_blank" rel="noopener noreferrer">
                     <Course1 /></a>
