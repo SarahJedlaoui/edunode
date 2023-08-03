@@ -107,6 +107,7 @@ export default function AccountPopover() {
         <MenuItem sx={{ m: 1 }}>
         <Logout />
         </MenuItem>
+        
       </Popover>
     </>
   );
