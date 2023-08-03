@@ -402,8 +402,9 @@ class Teach extends Component {
                     />
                     {errors.questions && <Alert severity="error">{errors.questions}</Alert>}
                   </FormGroup>
+                 
                   <FormGroup>
-                    <Label htmlFor="title">Grade(how many right questions in order to have the certificate):</Label>
+                    <Label htmlFor="title">Grade(how many right questions in order to have the certificate?):</Label>
                     <TextField
                       name="grade"
                       id="grade"

@@ -112,6 +112,7 @@ class NavBar1 extends Component {
                 <Nav.Link href="/certificate">Certificates</Nav.Link>
                 <Nav.Link href="/post">New Post</Nav.Link>
                 <Nav.Link href="/course">Add Course</Nav.Link>
+                <Nav.Link href="/addBadge">Add Badge</Nav.Link>
                 <Nav.Link href="/chat">Chat</Nav.Link>
                 <Nav.Link href="/historyChat">Chat History</Nav.Link>
                 <Nav.Link href="/badges">Badges</Nav.Link>
@@ -274,6 +275,7 @@ class NavBar1 extends Component {
               <Nav.Link href="/certificate">Certificates</Nav.Link>
               <Nav.Link href="/post">New Post</Nav.Link>
               <Nav.Link href="/course">Add Course</Nav.Link>
+              <Nav.Link href="/addBadge">Add Badge</Nav.Link>
               <Nav.Link href="/chat">Chat</Nav.Link>
               <Nav.Link href="/historyChat">Chat History</Nav.Link>
               <Nav.Link href="/badges">Badges</Nav.Link>

@@ -174,6 +174,7 @@ import Settings from "./components/Settings";
 import Profile from "./components/Profile";
 import Post from "./components/Posts/Post";
 import Cours from "./components/Teach/teach";
+import Badge from "./components/Teach/badge";
 import ValidCertificate from "./components/Teach/validCertificate";
 import Certificat from "./components/Certificate/certificat";
 import Notification from './components/Notifications/Notification';
@@ -187,7 +188,7 @@ import { useState } from 'react';
 import Loginn from './components/authentif'
 import Signup from "./components/signup";
 import Glossary from "./components/Glossary";
-import Badge from './components/Badges'
+import Badges from './components/Badges'
 import EduNodeGuide from './components/teacher'
 import StudentsPage from "./components/student"
 import PasswordPage from './components/Login/password'
@@ -401,7 +402,8 @@ function App(props) {
           element={user ? <Navigate to="/" /> : <Signup />}
         />
         <Route exact path="/glossary" element={<Glossary />} />
-        <Route exact path="/Badges" element={<Badge />} />
+        <Route exact path="/Badges" element={<Badges />} />
+        <Route exact path="/addBadge" element={<Badge />} />
         <Route exact path="/challenges/101" element={<ChallengeQ />} />
         <Route exact path="/challengeGame1/:randomNumber" element={<ChallengeGameQ />} />
         <Route exact path="/challengeGame2/:randomNumber" element={<ChallengeGame2Q />} />
