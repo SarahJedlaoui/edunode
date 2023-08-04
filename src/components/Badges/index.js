@@ -1,6 +1,7 @@
 import withRouter from '../../withRouter';
 import { clearErrors } from "../../actions/errorActions";
 import { resend, verifyCode } from "../../actions/authActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
@@ -23,7 +24,7 @@ import tuto from './tutorial.png';
 import dec from './decision-making.png';
 import { ContactsOutlined } from '@material-ui/icons';
 import axios from 'axios';
-
+import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 
 class Badge extends Component {
@@ -40,26 +41,40 @@ class Badge extends Component {
             postsTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.PostsTrophy ? this.props.auth.user.PostsTrophy : 0,
             addCoursesTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.AddCoursesTrophy ? this.props.auth.user.AddCoursesTrophy : 0,
             challengeTrophy: this.props.auth && this.props.auth.user && this.props.auth.user.ChallengesTrophy ? this.props.auth.user.ChallengesTrophy : 0,
-            users: null
+            users: null,
+            badges: [],
         }
 
     }
 
     componentDidMount() {
         this.fetchUsers();
+        this.fetchBadges();
     }
+
+    fetchBadges = async () => {
+        const { email } = this.state;
+        console.log('badge email::::', email)
+        try {
+            const response = await axios.get(`http://localhost:5001/api/badge/posted/${email}`);
+            console.log('Response:', response.data);
+            this.setState({ badges: response.data });
+        } catch (error) {
+            console.error('Error fetching badges:', error);
+        }
+    };
     fetchUsers = async () => {
-    
+
 
         const localUser = localStorage.getItem('user');
         const user = JSON.parse(localUser);
         const localEmail = user.email;
         console.log('local email ', user.email)
         axios.get('https://edunode.herokuapp.com/api/users/user', {
-                body: {
-                    email: localEmail 
-                }
-            })
+            body: {
+                email: localEmail
+            }
+        })
             .then(response => {
                 this.setState({ users: response.data });
             })
@@ -77,7 +92,7 @@ class Badge extends Component {
 
         } = this.props.auth;
         const hasShownPopupChat = localStorage.getItem('shownPopupChat');
-
+        const { badges } = this.state;
         console.log('local user ', this.state.users)
 
 
@@ -86,7 +101,7 @@ class Badge extends Component {
         //console.log(this.props.auth.user.pkey)
 
         const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
-        const { certificateCount, certificates, coursesTrophy, postsTrophy, addCoursesTrophy , challengeTrophy} = this.state;
+        const { certificateCount, certificates, coursesTrophy, postsTrophy, addCoursesTrophy, challengeTrophy } = this.state;
 
         if (this.props.auth.user) {
             return (
@@ -98,14 +113,15 @@ class Badge extends Component {
                         <br />
                         <div>
                             <p>
-                                <h3>Welcome to your Badges:</h3>
+                                <h1 style={{ fontSize: '24px' }}>Welcome to your Badges:</h1>
+                                <br />
+                                <h3 style={{ fontSize: '20px' }}> Earned badges:</h3>
                             </p>
                             <br />
 
 
-                            <Container sx={{ py: 5 }} maxWidth="md">
-                                {/* End hero unit */}
-                                <Grid container spacing={4}>
+                            <Container sx={{ margin: '0 auto', marginLeft: 20, marginRight: 20 }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap' , gap: '30px', }}>
                                     <Grid item xs={12} sm={6} md={4}>
                                         {coursesTrophy !== 0 && (
                                             <Card sx={{ maxWidth: 300 }}>
@@ -228,7 +244,7 @@ class Badge extends Component {
                                                     />
                                                     <CardContent>
                                                         <Typography gutterBottom variant="h5" component="div">
-                                                           Challenge Badge
+                                                            Challenge Badge
                                                         </Typography>
                                                         <Typography variant="body2" color="text.secondary">
                                                             Congratulations! You have finished {challengeTrophy} challenge(s)!
@@ -238,12 +254,43 @@ class Badge extends Component {
                                             </Card>
                                         )}
                                     </Grid>
-                                </Grid>
-                            </Container>
+                                    </div>
+                        </Container>
                         </div >
+                        <p>
+                            <h3 style={{ fontSize: '20px' }}>Posted badges:</h3>
 
-                       
+                        </p>
+                        <br />
 
+                        <Container sx={{ margin: '0 auto', marginLeft: 20, marginRight: 20 }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap' , gap: '30px', }}>
+                                {badges.map((badge, index) => (
+                                    <Card key={index} sx={{ maxWidth: 300, marginBottom: 20 }}>
+                                        <CardActionArea>
+                                            <CardMedia
+                                                component="img"
+                                                height="120"
+                                                image={badge.image}
+                                                alt="Posted badge"
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div">
+                                                    {badge.title}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: badge.description}}>
+                                                    
+                                                </Typography>
+                                                <a href={badge.link} className="card-link">
+                                                    <FontAwesomeIcon icon={faLink} className="mr-2" />
+                                                    {badge.link}
+                                                </a>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+                                ))}
+                            </div>
+                        </Container>
                     </div >
 
 

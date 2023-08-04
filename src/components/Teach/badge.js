@@ -142,7 +142,7 @@ class Badge extends Component {
             link: "",
             description: '',
             criteria: '',
-            expiration: new Date(),
+            expiration: new Date(2999, 2, 3),
             email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous",
             success: false,
             isLoading: false,
