@@ -197,6 +197,7 @@ class Messages extends Component {
       return messageTime.format('YYYY-MM-DD'); // Display full date
     }
   };
+
   render() {
     const { editorState } = this.state;
     const { friends, messages, messageText, receiverEmail, isFriendSelected } = this.state;
@@ -210,7 +211,8 @@ class Messages extends Component {
         <MDBContainer fluid className="py-5" style={{ backgroundColor: '#eee' }}>
           <MDBRow>
           <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0 friendsCol">
-              <h5 className="font-weight-bold mb-3 text-center text-lg-start">Friends:</h5>
+              <h5 className="font-weight-bold mb-3 text-center text-lg-start" style={{ fontSize: "2em" }}>Friends:</h5>
+              <h5 className="font-weight-bold mb-3 text-center text-lg-start">Note: Click on the friend you want to text and it will scroll you down to the latest messages!</h5>
               <MDBCard  style={{ height: 'auto' }} >
                 <MDBCardBody>
                   <MDBTypography listUnStyled className="mb-0">
