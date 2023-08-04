@@ -56,7 +56,7 @@ class Badge extends Component {
         const { email } = this.state;
         console.log('badge email::::', email)
         try {
-            const response = await axios.get(`http://localhost:5001/api/badge/posted/${email}`);
+            const response = await axios.get(`https://edunode.herokuapp.com/api/badge/posted/${email}`);
             console.log('Response:', response.data);
             this.setState({ badges: response.data });
         } catch (error) {
