@@ -38,8 +38,6 @@ import { makeStyles } from '@mui/styles';
 import React from 'react';
 import axios from 'axios';
 
-
-// ----------------------------------------------------------------------
 const useStyles = makeStyles((theme) => ({
   blueButton: {
     backgroundColor: theme.palette.primary.main,
@@ -47,10 +45,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'university', label: 'University', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'link', label: 'Link', alignRight: false },
+  { id: 'title', label: 'Title', alignRight: false },
+  { id: 'email', label: 'Email', alignRight: false },
+  { id: 'Description', label: 'Description', alignRight: false },
+  { id: 'link', label: 'URL', alignRight: false },
+  { id: 'questions', label: 'Questions', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
@@ -132,12 +131,12 @@ export default function UserPage() {
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
-        const response = await axios.get('https://edunode.herokuapp.com/api/validCertificate/certificates');
+        const response = await axios.get('http://localhost:5001/api/addedcours/cours');
         const certificates = response.data;
-        console.log('certificates', certificates)
+        console.log('courses', certificates)
         setUserList(certificates);
       } catch (error) {
-        console.error('Error fetching certificates:', error);
+        console.error('Error fetching courses:', error);
       }
     };
 
@@ -207,16 +206,17 @@ export default function UserPage() {
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
   const filteredUsers = userList.filter((certificate) =>
-    certificate.name.toLowerCase().includes(filterName.toLowerCase())
+    certificate.title.toLowerCase().includes(filterName.toLowerCase())
   );
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
   const handleEditCertificate = async (certificateId) => {
+    setEditPopupOpen(false);
     try {
       const newStatus = window.prompt('Enter the new status (accepted or rejected):');
       if (newStatus !== null) {
-        await axios.put(`https://edunode.herokuapp.com/api/validCertificate/edit-valid-certificates/${certificateId}`, {
+        await axios.put(`http://localhost:5001/api/addedcours/edit/${certificateId}`, {
           status: newStatus,
         });
         // Update the userList state with the updated certificate status
@@ -225,36 +225,36 @@ export default function UserPage() {
             certificate._id === certificateId ? { ...certificate, status: newStatus } : certificate
           )
         );
-        console.log('Successfully updated certificate status.');
+        console.log('Successfully updated course status.');
       }
     } catch (error) {
-      console.error('Error updating certificate status:', error);
+      console.error('Error updating course status:', error);
     }
   };
 
   const handleDeleteCertificate = async (certificateId) => {
     try {
-      const confirmed = window.confirm('Are you sure you want to delete this certificate?');
+      const confirmed = window.confirm('Are you sure you want to delete this course?');
       if (confirmed) {
-        await axios.delete(`https://edunode.herokuapp.com/api/validCertificate/delete-valid-certificates/${certificateId}`);
+        await axios.delete(`http://localhost:5001/api/addedcours/delete/${certificateId}`);
         // Remove the deleted certificate from the userList state
         setUserList((prevList) => prevList.filter((certificate) => certificate._id !== certificateId));
-        console.log('Successfully deleted certificate.');
+        console.log('Successfully deleted course.');
       }
     } catch (error) {
-      console.error('Error deleting certificate:', error);
+      console.error('Error deleting course:', error);
     }
   };
   return (
     <>
       <Helmet>
-        <title> Certificates</title>
+        <title> Badges</title>
       </Helmet>
 
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Certificates
+            Added Badges
           </Typography>
         </Stack>
 
@@ -275,7 +275,7 @@ export default function UserPage() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((certificate) => {
-                    const { _id, name, status, university, image, isVerified, url } = certificate;
+                    const { _id, title, description ,status, email,link,questions } = certificate;
                     const isSelected = selected.indexOf(_id) !== -1
 
                     return (
@@ -288,27 +288,18 @@ export default function UserPage() {
                           <Stack direction="row" alignItems="center" spacing={2}>
                             {/**<Avatar alt={name} src={avatarUrl} /> */}
                             <Typography variant="subtitle2" noWrap>
-                              {name}
+                              {title}
                             </Typography>
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{university}</TableCell>
+                        <TableCell align="left">{email}</TableCell>
 
-                        <TableCell align="left">{url}</TableCell>
+                        <TableCell align="left"><p dangerouslySetInnerHTML={{ __html: description }} ></p></TableCell>
 
-                        <TableCell align="left">
-                          <a href="#" onClick={() => handleOpenModal(image)}>
-                            link
-                          </a>
-                        </TableCell>
+                        <TableCell align="left">{link}</TableCell>
 
-                        <Dialog open={!!selectedCertificate} onClose={handleCloseModal} >
-                          <DialogTitle>Certificate Image</DialogTitle>
-                          <DialogContent>
-                            {selectedCertificate && <img src={selectedCertificate} alt="Certificate" />}
-                          </DialogContent>
-                        </Dialog>
+                        <TableCell align="left">{questions}</TableCell>
 
                         <TableCell align="left">
                           <Label

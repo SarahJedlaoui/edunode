@@ -16,6 +16,16 @@ const navConfig = [
     path: '/AdminDashboard/user',
     icon: icon('ic_user'),
   },
+  {
+    title: 'Badges',
+    path: '/AdminDashboard/badges',
+    icon: icon('ic_user'),
+  },
+  {
+    title: 'Courses',
+    path: '/AdminDashboard/courses',
+    icon: icon('ic_user'),
+  },
 
 
 

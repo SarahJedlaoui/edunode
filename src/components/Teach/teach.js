@@ -213,7 +213,7 @@ class Teach extends Component {
     this.setState({ showPopup: true });
 
     const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "anonymous";
-    fetch('https://edunode.herokuapp.com/api/cours/increment-trophy', {
+    fetch('http://localhost:5001/api/addedcours/increment-trophy', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ class Teach extends Component {
       grade: this.state.grade
     };
     try {
-      const response = await fetch("https://edunode.herokuapp.com/api/cours", {
+      const response = await fetch("http://localhost:5001/api/addedcours", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

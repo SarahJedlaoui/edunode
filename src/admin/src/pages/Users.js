@@ -1,9 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 
 // @mui
+import {
+    FormControl,
+    FormLabel,
+    RadioGroup,
+    FormControlLabel,
+    Radio,
+  } from '@mui/material';
+  
+  
 import {
   Card,
   Table,
@@ -37,7 +45,7 @@ import USERLIST from '../_mock/user';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import axios from 'axios';
-
+import { TextField, DialogActions } from '@mui/material';
 
 // ----------------------------------------------------------------------
 const useStyles = makeStyles((theme) => ({
@@ -48,14 +56,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  { id: 'university', label: 'University', alignRight: false },
+  { id: 'email', label: 'Email', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
-  { id: 'link', label: 'Link', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
 
-// ----------------------------------------------------------------------
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -67,24 +72,7 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
 
-function applySortFilter(array, comparator, query) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-  }
-  return stabilizedThis.map((el) => el[0]);
-}
 
 export default function UserPage() {
   const classes = useStyles();
@@ -96,19 +84,75 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [userList, setUserList] = useState([]);
-  const [deleteCertificateId, setDeleteCertificateId] = useState(null);
-  const [editCertificateId, setEditCertificateId] = useState(null);
+  const [deleteRequestId, setDeleteRequestId] = useState(null);
+  const [editRequestId, setEditRequestId] = useState(null);
   const [editPopupOpen, setEditPopupOpen] = useState(false);
   const [deletePopupOpen, setDeletePopupOpen] = useState(false);
-  const [selectedCertificateId, setSelectedCertificateId] = useState(null);
-  const [selectedCertificate, setSelectedCertificate] = useState(null);
-  const handleOpenEditPopup = (certificateId) => {
-    setSelectedCertificateId(certificateId);
+  const [selectedRequestId, setSelectedRequestId] = useState(null);
+  const [selectedRequestEmail, setSelectedRequestEmail] = useState(null);
+  const [selectedRequestRole, setSelectedRequestRole] = useState(null);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [selectedRole, setSelectedRole] = useState('');
+  const [newUser, setNewUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: '',
+  });
+
+  const handleRoleChange = (event) => {
+    setSelectedRole(event.target.value);
+  };
+  
+  
+  const handleOpenCreateModal = () => {
+    setOpenCreateModal(true);
+  };
+  
+  const handleCloseCreateModal = () => {
+    setOpenCreateModal(false);
+  };
+  
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
+  };
+  
+  const handleCreateUser = async () => {
+    try {
+      const response = await axios.post('http://localhost:5001/api/users/create', {
+        name: newUser.name,
+        email: newUser.email,
+        password: newUser.password,
+        role: selectedRole, 
+      });
+      const createdUser = response.data;
+      setUserList((prevList) => [...prevList, createdUser]);
+      console.log('Successfully created user.');
+      handleCloseCreateModal();
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }
+  };
+  
+  
+
+  const handleOpenEditPopup = (certificateId ,email,role) => {
+    setSelectedRequestId(certificateId);
+    setSelectedRequestEmail(email)
+    setSelectedRequestRole(role)
     setEditPopupOpen(true);
+  };
+  const handlecloseEditPopup = () => {
+    setEditPopupOpen(false);
   };
 
   const handleOpenDeletePopup = (certificateId) => {
-    setSelectedCertificateId(certificateId);
+    setSelectedRequestId(certificateId);
     setDeletePopupOpen(true);
   };
 
@@ -121,27 +165,26 @@ export default function UserPage() {
   };
   // Function to handle opening the modal
   const handleOpenModal = (certificate) => {
-    setSelectedCertificate(certificate);
+    setSelectedRequest(certificate);
   };
 
   // Function to handle closing the modal
   const handleCloseModal = () => {
-    setSelectedCertificate(null);
+    setSelectedRequest(null);
   };
 
   useEffect(() => {
-    const fetchCertificates = async () => {
+    const fetchRequests = async () => {
       try {
-        const response = await axios.get('https://edunode.herokuapp.com/api/validCertificate/certificates');
+        const response = await axios.get('http://localhost:5001/api/users/all');
         const certificates = response.data;
-        console.log('certificates', certificates)
         setUserList(certificates);
       } catch (error) {
         console.error('Error fetching certificates:', error);
       }
     };
 
-    fetchCertificates();
+    fetchRequests();
   }, []);
 
 
@@ -150,9 +193,9 @@ export default function UserPage() {
 
     // Check if the delete or edit button was clicked and set the corresponding state variable
     if (event.currentTarget.getAttribute('data-action') === 'delete') {
-      setDeleteCertificateId(certificateId);
+      setDeleteRequestId(certificateId);
     } else if (event.currentTarget.getAttribute('data-action') === 'edit') {
-      setEditCertificateId(certificateId);
+      setEditRequestId(certificateId);
     }
   };
 
@@ -207,55 +250,72 @@ export default function UserPage() {
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
   const filteredUsers = userList.filter((certificate) =>
-    certificate.name.toLowerCase().includes(filterName.toLowerCase())
+  
+
+    certificate.name?.toLowerCase().includes(filterName.toLowerCase())
+
+
   );
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
-  const handleEditCertificate = async (certificateId) => {
+  const handleEditRequest = async (certificateId,email,role) => {
+       setEditPopupOpen(false); 
+      const requestEmail= email ;
+      
+      
     try {
-      const newStatus = window.prompt('Enter the new status (accepted or rejected):');
+      const newStatus = window.prompt('Enter the new role(Student or University or Admin or Teacher):');
       if (newStatus !== null) {
-        await axios.put(`https://edunode.herokuapp.com/api/validCertificate/edit-valid-certificates/${certificateId}`, {
-          status: newStatus,
+        await axios.post(`http://localhost:5001/api/users/role`, {
+          email: requestEmail,
+          role: newStatus
         });
         // Update the userList state with the updated certificate status
         setUserList((prevList) =>
           prevList.map((certificate) =>
-            certificate._id === certificateId ? { ...certificate, status: newStatus } : certificate
+            certificate._id === certificateId ? { ...certificate, role: newStatus } : certificate
           )
         );
-        console.log('Successfully updated certificate status.');
+        console.log('Successfully updated User role.');
       }
     } catch (error) {
-      console.error('Error updating certificate status:', error);
+      console.error('Error updating User role:', error);
     }
   };
 
-  const handleDeleteCertificate = async (certificateId) => {
+  const handleDeleteRequest = async (certificateId) => {
     try {
-      const confirmed = window.confirm('Are you sure you want to delete this certificate?');
+      const confirmed = window.confirm('Are you sure you want to delete this user?');
       if (confirmed) {
-        await axios.delete(`https://edunode.herokuapp.com/api/validCertificate/delete-valid-certificates/${certificateId}`);
+        await axios.delete(`http://localhost:5001/api/users/delete/${certificateId}`);
         // Remove the deleted certificate from the userList state
         setUserList((prevList) => prevList.filter((certificate) => certificate._id !== certificateId));
-        console.log('Successfully deleted certificate.');
+        console.log('Successfully deleted User.');
       }
     } catch (error) {
-      console.error('Error deleting certificate:', error);
+      console.error('Error deleting User:', error);
     }
   };
   return (
     <>
       <Helmet>
-        <title> Certificates</title>
+        <title> Users </title>
       </Helmet>
 
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Certificates
+            Users
           </Typography>
+          <Button
+  variant="contained"
+  className={classes.blueButton}
+  startIcon={<Iconify icon="eva:plus-fill" />}
+  onClick={handleOpenCreateModal}
+>
+  New User
+</Button>
         </Stack>
 
         <Card>
@@ -275,61 +335,29 @@ export default function UserPage() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((certificate) => {
-                    const { _id, name, status, university, image, isVerified, url } = certificate;
+                    const { _id, name, status, university, teachingsProof, role, url,email } = certificate;
                     const isSelected = selected.indexOf(_id) !== -1
-
                     return (
                       <TableRow hover key={_id} tabIndex={-1} role="checkbox" selected={isSelected}>
                         <TableCell padding="checkbox">
                           <Checkbox checked={isSelected} onChange={(event) => handleClick(event, _id)} />
                         </TableCell>
-
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            {/**<Avatar alt={name} src={avatarUrl} /> */}
                             <Typography variant="subtitle2" noWrap>
                               {name}
                             </Typography>
                           </Stack>
                         </TableCell>
-
-                        <TableCell align="left">{university}</TableCell>
-
-                        <TableCell align="left">{url}</TableCell>
-
-                        <TableCell align="left">
-                          <a href="#" onClick={() => handleOpenModal(image)}>
-                            link
-                          </a>
-                        </TableCell>
-
-                        <Dialog open={!!selectedCertificate} onClose={handleCloseModal} >
-                          <DialogTitle>Certificate Image</DialogTitle>
-                          <DialogContent>
-                            {selectedCertificate && <img src={selectedCertificate} alt="Certificate" />}
-                          </DialogContent>
-                        </Dialog>
-
-                        <TableCell align="left">
-                          <Label
-                            style={{
-                              color: status === 'accepted' ? 'green' : status === 'pending' ? 'grey' : 'red',
-                            }}
-                          >
-                            {status}
-                          </Label>
-                        </TableCell>
-
-
+                        <TableCell align="left">{email}</TableCell>
+                        <TableCell align="left">{role}</TableCell>
                         <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={() => handleOpenEditPopup(_id)}>
+                          <IconButton size="large" color="inherit" onClick={() => handleOpenEditPopup(_id,email,role)}>
                             <Iconify icon={'eva:edit-fill'} />
                           </IconButton>
-
                           <IconButton size="large" color="inherit" onClick={() => handleOpenDeletePopup(_id)}>
                             <Iconify icon={'eva:trash-2-outline'} />
                           </IconButton>
-
                         </TableCell>
                       </TableRow>
                     );
@@ -340,7 +368,6 @@ export default function UserPage() {
                     </TableRow>
                   )}
                 </TableBody>
-
                 {isNotFound && (
                   <TableBody>
                     <TableRow>
@@ -353,7 +380,6 @@ export default function UserPage() {
                           <Typography variant="h6" paragraph>
                             Not found
                           </Typography>
-
                           <Typography variant="body2">
                             No results found for &nbsp;
                             <strong>&quot;{filterName}&quot;</strong>.
@@ -367,7 +393,6 @@ export default function UserPage() {
               </Table>
             </TableContainer>
           </Scrollbar>
-
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
@@ -379,7 +404,50 @@ export default function UserPage() {
           />
         </Card>
       </Container>
-
+      <Dialog open={openCreateModal} onClose={handleCloseCreateModal} maxWidth="sm" fullWidth>
+  <DialogTitle>Create New User</DialogTitle>
+  <DialogContent>
+    <Stack spacing={2}>
+      <TextField
+        label="Name"
+        name="name"
+        value={newUser.name}
+        onChange={handleInputChange}
+        fullWidth
+      />
+      <TextField
+        label="Email"
+        name="email"
+        value={newUser.email}
+        onChange={handleInputChange}
+        fullWidth
+      />
+      <TextField
+        label="Password"
+        type="password"
+        name="password"
+        value={newUser.password}
+        onChange={handleInputChange}
+        fullWidth
+      />
+      <FormControl component="fieldset">
+  <FormLabel component="legend">Role</FormLabel>
+  <RadioGroup aria-label="role" name="role" value={selectedRole} onChange={handleRoleChange}>
+    <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
+    <FormControlLabel value="Student" control={<Radio />} label="Student" />
+    <FormControlLabel value="Teacher" control={<Radio />} label="Teacher" />
+    <FormControlLabel value="University" control={<Radio />} label="University" />
+  </RadioGroup>
+</FormControl>
+    </Stack>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleCloseCreateModal}>Cancel</Button>
+    <Button onClick={handleCreateUser} variant="contained" className={classes.blueButton}>
+      Create User
+    </Button>
+  </DialogActions>
+</Dialog>
       <Popover
         open={editPopupOpen}
         anchorEl={open}
@@ -398,13 +466,13 @@ export default function UserPage() {
           },
         }}
       >
-        <MenuItem onClick={() => handleEditCertificate(selectedCertificateId, 'accepted')}>
+        <MenuItem onClick={() => handleEditRequest(selectedRequestId,selectedRequestEmail,selectedRequestRole, 'accepted')}>
           <Iconify icon={'eva:checkmark-square-2-outline'} sx={{ mr: 2 }} />
-          Accept
+          Change
         </MenuItem>
-        <MenuItem onClick={() => handleEditCertificate(selectedCertificateId, 'rejected')}>
+        <MenuItem onClick={() => handlecloseEditPopup('Cancel')}>
           <Iconify icon={'eva:close-square-outline'} sx={{ mr: 2 }} />
-          Reject
+          Cancel
         </MenuItem>
       </Popover>
 
@@ -426,7 +494,7 @@ export default function UserPage() {
           },
         }}
       >
-        <MenuItem onClick={() => handleDeleteCertificate(selectedCertificateId)}>
+        <MenuItem onClick={() => handleDeleteRequest(selectedRequestId)}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>

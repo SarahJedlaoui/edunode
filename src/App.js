@@ -174,6 +174,7 @@ import Settings from "./components/Settings";
 import Profile from "./components/Profile";
 import Post from "./components/Posts/Post";
 import Cours from "./components/Teach/teach";
+import Tutor from "./components/Teach/teachRole";
 import Badge from "./components/Teach/badge";
 import ValidCertificate from "./components/Teach/validCertificate";
 import Certificat from "./components/Certificate/certificat";
@@ -199,13 +200,20 @@ import ChallengeDetails from './components/Challenges/Challenge/challengeDetails
 import Routerrr from './admin/routes'
 import ThemeProvider from './admin/src/theme';
 import DashboardLayout from './admin/src/layouts/dashboard';
+import DashboardAdmin from './admin/src/layouts/adminDashboard';
 import SimpleLayout from './admin/src/layouts/simple';
 import BlogPage from './admin/src/pages/BlogPage';
 import UserPage from './admin/src/pages/UserPage';
+import AddedBadges from './admin/src/pages/Badges';
+import AddedCourses from './admin/src/pages/Courses';
+import Users from './admin/src/pages/Users';
+import Glossaires from './admin/src/pages/Glossaires';
+import UserAdmin from './admin/src/pages/UserAdmin';
 import LoginPage from './admin/src/pages/LoginPage';
 import Page404 from './admin/src/pages/Page404';
 import ProductsPage from './admin/src/pages/ProductsPage';
 import DashboardAppPage from './admin/src/pages/DashboardAppPage';
+import DashboardAppAdmin from './admin/src/pages/DashboardAdmin';
 import Messages from './components/Profile/messages'
 import Game from './components/Challenges/gameChallenge/addGame'
 import { ThemeProviders } from './ThemeContext';
@@ -218,8 +226,17 @@ const ThemedRoutes = () => (
         <Route index element={<Navigate to="/AdminDashboard/app" />} />
         <Route path="app" element={<DashboardAppPage />} />
         <Route path="user" element={<UserPage />} />
+        <Route path="badges" element={<AddedBadges />} />
+        <Route path="courses" element={<AddedCourses />} />
         <Route path="products" element={<ProductsPage />} />
         <Route path="blog" element={<BlogPage />} />
+      </Route>
+      <Route path="/Admin" element={<DashboardAdmin />}>
+        <Route index element={<Navigate to="/Admin/app" />} />
+        <Route path="users" element={<Users />} />
+        <Route path="glossary" element={<Glossaires />} />
+        <Route path="app" element={<DashboardAppAdmin />} />
+        <Route path="roles" element={<UserAdmin/>} />
       </Route>
 
       <Route exact path="/Adminlogin" element={<LoginPage />} />
@@ -380,6 +397,7 @@ function App(props) {
         <Route exact path="/notification" element={<Notification />} />
         <Route exact path="/achievement" element={<Achievement />} />
         <Route exact path="/Course" element={<Cours />} />
+        <Route exact path="/tutor" element={<Tutor />} />
         <Route exact path="/terms" element={<TermsAndConditions />} />
         <Route exact path="/search" element={<Search />} />
         <Route exact path="/certificates/:certificateNumber" element={<Certificat />} />
