@@ -124,7 +124,7 @@ export default function UserPage() {
   
   const handleCreateUser = async () => {
     try {
-      const response = await axios.post('http://localhost:5001/api/users/create', {
+      const response = await axios.post('https://edunode.herokuapp.com/api/users/create', {
         name: newUser.name,
         email: newUser.email,
         password: newUser.password,
@@ -176,7 +176,7 @@ export default function UserPage() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/users/all');
+        const response = await axios.get('https://edunode.herokuapp.com/api/users/all');
         const certificates = response.data;
         setUserList(certificates);
       } catch (error) {
@@ -267,7 +267,7 @@ export default function UserPage() {
     try {
       const newStatus = window.prompt('Enter the new role(Student or University or Admin or Teacher):');
       if (newStatus !== null) {
-        await axios.post(`http://localhost:5001/api/users/role`, {
+        await axios.post(`https://edunode.herokuapp.com/api/users/role`, {
           email: requestEmail,
           role: newStatus
         });
@@ -288,7 +288,7 @@ export default function UserPage() {
     try {
       const confirmed = window.confirm('Are you sure you want to delete this user?');
       if (confirmed) {
-        await axios.delete(`http://localhost:5001/api/users/delete/${certificateId}`);
+        await axios.delete(`https://edunode.herokuapp.com/api/users/delete/${certificateId}`);
         // Remove the deleted certificate from the userList state
         setUserList((prevList) => prevList.filter((certificate) => certificate._id !== certificateId));
         console.log('Successfully deleted User.');

@@ -109,6 +109,7 @@ class Dashboard extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       preferences: this.props.auth.user.preferences ? this.props.auth.user.preferences : [],
       skills: this.props.auth.user.skills ? this.props.auth.user.skills : [],
@@ -117,19 +118,20 @@ class Dashboard extends Component {
       role: ['Learner', 'Teacher', 'University'],
       selectedTags: [],
       selectedRole: '',
-      showAlert: true, //  a state variable to control the visibility of the alert,
+      showAlert: true,
       preference: [],
       user: [],
       notifications: [],
       achievement: [],
-      showPopup: false
+      showPopup: false,
+     
     };
 
   }
 
+  
 
-
-
+ 
 
 
   async fetchNotifications(props) {
@@ -146,18 +148,23 @@ class Dashboard extends Component {
   };
 
 
-  componentDidMount() {
+ async componentDidMount() {
+    const localUser = localStorage.getItem('user')
+    const user = JSON.parse(localUser)
+    const localEmail = user.email
     const { isAuthenticated, isVerified } = this.props.auth;
     const hasShownPopup = localStorage.getItem('shownPopup');
     const { email, showAlert } = this.state;
     if (isAuthenticated && isVerified && !hasShownPopup) {
       this.setState({ showPopup: true });
     }
-    fetch(`https://edunode.herokuapp.com/api/users/user?email=${email}`)
+    await fetch(`https://edunode.herokuapp.com/api/users/user?email=${email}`)
       .then(response => response.json())
       .then(data => {
+        
         this.setState({ user: data }, () => {
         
+        this.setState({ preference: data.preferences })
         });
       })
       .catch(error => {
@@ -228,14 +235,15 @@ class Dashboard extends Component {
     // Make an HTTP request to your backend to save the selected tags
     axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: selectedTags, email: email })
       .then(response => {
-        console.log(response.data); // Log the response from the backend
+        console.log(response.data); 
       })
       .catch(error => {
-        console.error(error); // Log any errors that occur
+        console.error(error); 
       });
     // set the flag in localStorage
     localStorage.setItem('selectedTags', 'true');
     // Hide the popup after saving
+    this.setState({ showAlert: true });
 
   };
 
@@ -264,7 +272,7 @@ class Dashboard extends Component {
   };
 
   render() {
-
+    const hasShownPopup = localStorage.getItem('shownPopup');
     const { tags, role, selectedTags, selectedRole, showAlert, preference, skills, preferences, showPopup, user } = this.state;
     const {
       isAuthenticated,
@@ -291,7 +299,7 @@ class Dashboard extends Component {
 
     if (isAuthenticated) {
 
-      if (!showAlert) {
+      if (hasShownPopup) {
         return (
           <ThemeProviders>
         <ThemeContext.Consumer>
@@ -464,7 +472,7 @@ class Dashboard extends Component {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12}>
                 <Alert className="text-center" severity="warning">
-                  Please select your preferences and role so we can provide you with a personalized experience!
+                  Please select your preferences so we can provide you with a personalized experience!
                   <Popup trigger=
                     {<Button> Click here </Button>}
                     position="right center">
@@ -486,27 +494,12 @@ class Dashboard extends Component {
                           </div>
                         ))}
 
-                        Select your role
-                        {role.map(role => (
-                          <div key={role}>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  name={role}
-                                  checked={role === selectedRole}
-                                  onChange={this.handleRoleChange}
-                                />
-                              }
-                              label={role}
-                            />
-                          </div>
-                        ))}
+                     
 
                         <Button
                           variant="outlined"
                           onClick={() => {
                             this.handleSave();
-                            this.handleSaveRole();
                             close();
                           }}
                         >

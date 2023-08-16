@@ -132,7 +132,7 @@ export default function UserPage() {
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/badge/');
+        const response = await axios.get('https://edunode.herokuapp.com/api/badge/');
         const certificates = response.data;
         console.log('badges', certificates)
         setUserList(certificates);
@@ -217,7 +217,7 @@ export default function UserPage() {
     try {
       const newStatus = window.prompt('Enter the new status (accepted or rejected):');
       if (newStatus !== null) {
-        await axios.put(`http://localhost:5001/api/badge/edit/${certificateId}`, {
+        await axios.put(`https://edunode.herokuapp.com/api/badge/edit/${certificateId}`, {
           status: newStatus,
         });
         // Update the userList state with the updated certificate status
@@ -237,7 +237,7 @@ export default function UserPage() {
     try {
       const confirmed = window.confirm('Are you sure you want to delete this badge?');
       if (confirmed) {
-        await axios.delete(`http://localhost:5001/api/badge/delete/${certificateId}`);
+        await axios.delete(`https://edunode.herokuapp.com/api/badge/delete/${certificateId}`);
         // Remove the deleted certificate from the userList state
         setUserList((prevList) => prevList.filter((certificate) => certificate._id !== certificateId));
         console.log('Successfully deleted badge.');

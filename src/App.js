@@ -255,7 +255,7 @@ function App(props) {
   const shouldShowFooter = window.location.pathname !== '/certificates/:certificateNumber';
 
 
-  useEffect(() => {
+{/**  useEffect(() => {
     const isLoggedIn = Boolean(localStorage.getItem('user'));
 
     if (!isLoggedIn) {
@@ -264,7 +264,8 @@ function App(props) {
     } else {
       setUser({ username: 'exampleUser' });
     }
-  }, [navigate]);
+  }, [navigate]);*/} 
+  
   return (
     <Provider store={store}>
       <Routes location={location} navigate={navigate}>

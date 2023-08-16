@@ -135,7 +135,7 @@ export default function UserPage() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/glossary/');
+        const response = await axios.get('https://edunode.herokuapp.com/api/glossary/');
         const certificates = response.data;
         console.log('glossary', certificates)
         setUserList(certificates);
@@ -220,7 +220,7 @@ export default function UserPage() {
     try {
       const newStatus = window.prompt('Enter the new status (accepted or rejected):');
       if (newStatus !== null) {
-        await axios.put(`http://localhost:5001/api/glossary/edit/${certificateId}`, {
+        await axios.put(`https://edunode.herokuapp.com/api/glossary/edit/${certificateId}`, {
           status: newStatus,
         });
         // Update the userList state with the updated certificate status
@@ -240,7 +240,7 @@ export default function UserPage() {
     try {
       const confirmed = window.confirm('Are you sure you want to delete this glossary?');
       if (confirmed) {
-        await axios.delete(`http://localhost:5001/api/glossary/delete/${certificateId}`);
+        await axios.delete(`https://edunode.herokuapp.com/api/glossary/delete/${certificateId}`);
         // Remove the deleted certificate from the userList state
         setUserList((prevList) => prevList.filter((certificate) => certificate._id !== certificateId));
         console.log('Successfully deleted glossary.');

@@ -13,6 +13,13 @@ export default function DashboardAppPage() {
   const [certificateCount, setCertificateCount] = useState(0);
   const [acceptedCount, setAcceptedCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
+  const [badgeCount, setBadgeCount] = useState(0);
+  const [acceptedBadgesCount, setAcceptedBadgesCount] = useState(0);
+  const [rejectedBadgesCount, setRejectedBadgesCount] = useState(0);
+  const [coursCount, setCoursCount] = useState(0);
+  const [acceptedCoursCount, setAcceptedCoursCount] = useState(0);
+  const [rejectedCoursCount, setRejectedCoursCount] = useState(0);
+
 
   useEffect(() => {
     // Fetch the certificate counts
@@ -30,6 +37,36 @@ export default function DashboardAppPage() {
       .then((response) => response.json())
       .then((data) => setRejectedCount(data.count))
       .catch((error) => console.error(error));
+    // Fetch the badge counts
+    fetch("https://edunode.herokuapp.com/api/badge/count")
+      .then((response) => response.json())
+      .then((data) => setBadgeCount(data.count))
+      .catch((error) => console.error(error));
+
+    fetch("https://edunode.herokuapp.com/api/badge/acceptedCount")
+      .then((response) => response.json())
+      .then((data) => setAcceptedBadgesCount(data.count))
+      .catch((error) => console.error(error));
+
+    fetch("https://edunode.herokuapp.com/api/badge/rejectedCount")
+      .then((response) => response.json())
+      .then((data) => setRejectedBadgesCount(data.count))
+      .catch((error) => console.error(error));
+       // Fetch the Courses counts
+    fetch("https://edunode.herokuapp.com/api/addedcours/count")
+    .then((response) => response.json())
+    .then((data) => setCoursCount(data.count))
+    .catch((error) => console.error(error));
+
+  fetch("https://edunode.herokuapp.com/api/addedcours/acceptedCount")
+    .then((response) => response.json())
+    .then((data) => setAcceptedCoursCount(data.count))
+    .catch((error) => console.error(error));
+
+  fetch("https://edunode.herokuapp.com/api/addedcours/rejectedCount")
+    .then((response) => response.json())
+    .then((data) => setRejectedCoursCount(data.count))
+    .catch((error) => console.error(error));
   }, []);
   return (
     <>
@@ -44,19 +81,47 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Number of Certificate Verification Requests" total={certificateCount} icon={'bi:pass-fill'} />
+            <AppWidgetSummary title="Number of Certificate Verification Requests" total={certificateCount} icon={'bi:pass-fill'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Number of Approved Certificates" total={acceptedCount} color="success" icon={'bi:check-circle-fill'}/>
+            <AppWidgetSummary title="Number of Approved Certificates" total={acceptedCount} color="success" icon={'bi:check-circle-fill'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Number of Rejected Certificates" total={rejectedCount} color="error" icon={'bi:x-circle-fill'} />
           </Grid>
+        </Grid>
+        <br></br>
+        <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Badge Verification Requests" total={badgeCount} icon={'bi:pass-fill'} />
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Approved Badge Requests " total={acceptedBadgesCount} color="success" icon={'bi:check-circle-fill'} />
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Rejected Badge Requests" total={rejectedBadgesCount} color="error" icon={'bi:x-circle-fill'} />
+          </Grid>
+          </Grid>
+          <br></br>
+        <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Course Verification Requests" total={coursCount} icon={'bi:pass-fill'} />
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Approved Course Requests " total={acceptedCoursCount} color="success" icon={'bi:check-circle-fill'} />
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Rejected Course Requests" total={rejectedCoursCount} color="error" icon={'bi:x-circle-fill'} />
+          </Grid>
 
 
-        {/**   <Grid item xs={12} md={6} lg={8}>
+          {/**   <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
               title="Website Visits"
               subheader="(+43%) than last year"

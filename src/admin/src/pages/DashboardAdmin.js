@@ -13,23 +13,41 @@ export default function DashboardAppPage() {
   const [requestCount, setRequestCount] = useState(0);
   const [acceptedCount, setAcceptedCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
+  const [requestGlossaryCount, setRequestGlossaryCount] = useState(0);
+  const [acceptedGlossaryCount, setAcceptedGlossaryCount] = useState(0);
+  const [rejectedGlossaryCount, setRejectedGlossaryCount] = useState(0);
 
   useEffect(() => {
-    // Fetch the certificate counts
-    fetch("http://localhost:5001/api/tutors/count")
+    // Fetch the tutor counts
+    fetch("https://edunode.herokuapp.com/api/tutors/count")
       .then((response) => response.json())
       .then((data) => setRequestCount(data.count))
       .catch((error) => console.error(error));
 
-    fetch("http://localhost:5001/api/tutors/acceptedCount")
+    fetch("https://edunode.herokuapp.com/api/tutors/acceptedCount")
       .then((response) => response.json())
       .then((data) => setAcceptedCount(data.count))
       .catch((error) => console.error(error));
 
-    fetch("http://localhost:5001/api/tutors/rejectedCount")
+    fetch("https://edunode.herokuapp.com/api/tutors/rejectedCount")
       .then((response) => response.json())
       .then((data) => setRejectedCount(data.count))
       .catch((error) => console.error(error));
+       // Fetch the Glossary counts
+    fetch("https://edunode.herokuapp.com/api/glossary/count")
+    .then((response) => response.json())
+    .then((data) => setRequestGlossaryCount(data.count))
+    .catch((error) => console.error(error));
+
+  fetch("https://edunode.herokuapp.com/api/glossary/acceptedCount")
+    .then((response) => response.json())
+    .then((data) => setAcceptedGlossaryCount(data.count))
+    .catch((error) => console.error(error));
+
+  fetch("https://edunode.herokuapp.com/api/glossary/rejectedCount")
+    .then((response) => response.json())
+    .then((data) => setRejectedGlossaryCount(data.count))
+    .catch((error) => console.error(error));
   }, []);
   return (
     <>
@@ -54,7 +72,20 @@ export default function DashboardAppPage() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Number of Rejected Teacher Roles" total={rejectedCount} color="error" icon={'bi:x-circle-fill'} />
           </Grid>
+          </Grid>
+          <br></br>
+        <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Glossary Verification Requests" total={requestGlossaryCount} icon={'bi:pass-fill'} />
+          </Grid>
 
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Approved Glossary Requests " total={acceptedGlossaryCount} color="success" icon={'bi:check-circle-fill'} />
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Number of Rejected Glossary Requests" total={rejectedGlossaryCount} color="error" icon={'bi:x-circle-fill'} />
+          </Grid>
 
         {/**   <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
