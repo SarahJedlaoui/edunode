@@ -24,7 +24,6 @@ import { Navigate } from "react-router-dom";
 class Messages extends Component {
   constructor(props) {
     super(props);
-    const { auth } = this.props;
     this.editorRef = React.createRef();
     this.state = {
       friends: [],
@@ -35,6 +34,7 @@ class Messages extends Component {
       currentTime: '',
       isFriendSelected: false,
       editorState: EditorState.createEmpty(),
+      imageFile: null,
     };
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.socket = null;
@@ -166,17 +166,17 @@ class Messages extends Component {
       senderEmail,
       receiverEmail,
       content: convertToHTML(this.state.editorState.getCurrentContent()),
+      image: this.state.imageFile,
     };
 
     axios
-      .post('https://edunode.herokuapp.com/api/messages', messageData)
+      .post('http://localhost:5001/api/messages', messageData)
       .then((response) => {
         const savedMessage = response.data.message;
         this.setState((prevState) => ({
           messages: [...prevState.messages, savedMessage],
           messageText: '',
         }));
-        this.socket.send(JSON.stringify(savedMessage));
       })
       .catch((error) => {
         console.error(error);
@@ -197,6 +197,16 @@ class Messages extends Component {
       return messageTime.format('YYYY-MM-DD'); // Display full date
     }
   };
+  handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.setState({ imageFile: e.target.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   render() {
     const { editorState } = this.state;
@@ -204,16 +214,19 @@ class Messages extends Component {
     const localUser = localStorage.getItem('user');
     const user = JSON.parse(localUser);
     const senderEmail = user.email;
+     const image=user.images
+    console.log('user email',senderEmail)
+    console.log('user image',image)
     return (
       <section style={{ backgroundColor: '#eee' }}>
         <Navbar1></Navbar1>
 
         <MDBContainer fluid className="py-5" style={{ backgroundColor: '#eee' }}>
           <MDBRow>
-          <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0 friendsCol">
+            <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0 friendsCol">
               <h5 className="font-weight-bold mb-3 text-center text-lg-start" style={{ fontSize: "2em" }}>Friends:</h5>
               <h5 className="font-weight-bold mb-3 text-center text-lg-start">Note: Click on the friend you want to text and it will scroll you down to the latest messages!</h5>
-              <MDBCard  style={{ height: 'auto' }} >
+              <MDBCard style={{ height: 'auto' }} >
                 <MDBCardBody>
                   <MDBTypography listUnStyled className="mb-0">
                     {friends.map((friend) => (
@@ -258,14 +271,13 @@ class Messages extends Component {
                   const isUserMessage = sender && sender.email === receiverEmail;
                   const messageContainerClass = isUserMessage ? 'user-message' : 'friend-message';
                   const avatar = sender && sender.email === receiverEmail ? sender.images : receiver.images;
-
+                  
 
                   return (
                     <li className={`d-flex justify-content-between mb-4 ${messageContainerClass}`} key={message._id}>
                       {!isUserMessage && (
                         <img
                           src={user.images}
-                          alt="avatar"
                           className="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
                           width="60"
                         />
@@ -278,8 +290,13 @@ class Messages extends Component {
                           </p>
                         </MDBCardHeader>
                         <MDBCardBody>
-
-                          <p className="mb-0" dangerouslySetInnerHTML={{ __html: message.content }} ></p>
+                          <p className="mb-0" dangerouslySetInnerHTML={{ __html: message.content }}></p>
+                          {message.image !== null && (
+                            <img
+                              src={message.image}
+                              style={{ width: '200px', height: 'auto' }}
+                            />
+                          )}
                         </MDBCardBody>
                       </MDBCard>
                       {isUserMessage && (
@@ -310,7 +327,12 @@ class Messages extends Component {
 
 
                   </div>
-
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={this.handleImageChange}
+                    style={{ marginBottom: '10px' }}
+                  />
                   <MDBBtn color="info" rounded className="float-end" onClick={this.handleSendMessage}>
                     Send
                   </MDBBtn>

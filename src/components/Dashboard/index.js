@@ -24,20 +24,15 @@ import { Popover, Button } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import CommentIcon from '@mui/icons-material/Comment';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import IconButton from '@mui/material/IconButton';
-import CardMedia from "@mui/material/CardMedia";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import PostCard from "./postCard";
 import BlogCard from "./blogCard";
 import CourseCard from "./courseCard";
-import { ThemeContext ,ThemeProviders} from '../../ThemeContext';
+import { ThemeContext, ThemeProviders } from '../../ThemeContext';
 import ToggleSwitch from '../../ToggleSwitch';
 import './dashboard.css';
-
+import { Card, CardContent, Typography } from '@mui/material';
 
 
 
@@ -124,14 +119,14 @@ class Dashboard extends Component {
       notifications: [],
       achievement: [],
       showPopup: false,
-     
+      videos: [],
     };
 
   }
 
-  
 
- 
+
+
 
 
   async fetchNotifications(props) {
@@ -148,7 +143,7 @@ class Dashboard extends Component {
   };
 
 
- async componentDidMount() {
+  async componentDidMount() {
     const localUser = localStorage.getItem('user')
     const user = JSON.parse(localUser)
     const localEmail = user.email
@@ -161,10 +156,10 @@ class Dashboard extends Component {
     await fetch(`https://edunode.herokuapp.com/api/users/user?email=${email}`)
       .then(response => response.json())
       .then(data => {
-        
+
         this.setState({ user: data }, () => {
-        
-        this.setState({ preference: data.preferences })
+
+          this.setState({ preference: data.preferences })
         });
       })
       .catch(error => {
@@ -200,10 +195,18 @@ class Dashboard extends Component {
       .then((data) => this.setState({ achievement: data }))
       .catch((error) => console.error(error));
 
-
+    this.fetchVideos();
   }
 
-
+  fetchVideos = async () => {
+    const { email } = this.state;
+    try {
+      const response = await axios.get(`http://localhost:5001/api/search/youtube/${email}`); 
+      this.setState({ videos: response.data.videos });
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+    }
+  };
 
   handleTagChange = (event) => {
     const tagName = event.target.name;
@@ -235,10 +238,10 @@ class Dashboard extends Component {
     // Make an HTTP request to your backend to save the selected tags
     axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: selectedTags, email: email })
       .then(response => {
-        console.log(response.data); 
+        console.log(response.data);
       })
       .catch(error => {
-        console.error(error); 
+        console.error(error);
       });
     // set the flag in localStorage
     localStorage.setItem('selectedTags', 'true');
@@ -272,6 +275,7 @@ class Dashboard extends Component {
   };
 
   render() {
+    const { videos } = this.state;
     const hasShownPopup = localStorage.getItem('shownPopup');
     const { tags, role, selectedTags, selectedRole, showAlert, preference, skills, preferences, showPopup, user } = this.state;
     const {
@@ -302,10 +306,10 @@ class Dashboard extends Component {
       if (hasShownPopup) {
         return (
           <ThemeProviders>
-        <ThemeContext.Consumer>
-          {theme => (
-            <div className={`app ${theme}`}>
-            
+            <ThemeContext.Consumer>
+              {theme => (
+                <div className={`app ${theme}`}>
+
                   <Navbar1 />
 
                   <Grid container spacing={2}>
@@ -367,6 +371,28 @@ class Dashboard extends Component {
                     </Grid>
                   </Grid>
                   <br></br>
+                  <Grid container spacing={3}>
+        {videos.map(video => (
+          <Grid item xs={12} sm={6} md={4} key={video.id.videoId}>
+            <Card>
+              <iframe
+                width="100%"
+                height="315"
+                src={`https://www.youtube.com/embed/${video.id.videoId}`}
+                title={video.snippet.title}
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              ></iframe>
+              <CardContent>
+                <Typography variant="h6" component="div">
+                  {video.snippet.title}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
                   <div style={{ padding: '10px' }}>
 
                     <h4 style={{ fontSize: "2em", textAlign: "left" }}>Actualities:</h4>
@@ -457,10 +483,10 @@ class Dashboard extends Component {
                     <button onClick={this.handleClosePopup}>Close</button>
                   </Modal>
                   <Footer></Footer>
-                  </div>
-          )}
-        </ThemeContext.Consumer>
-      </ThemeProviders>
+                </div>
+              )}
+            </ThemeContext.Consumer>
+          </ThemeProviders>
         );
       }
       // show the alert and the popup if the flag is not set
@@ -494,7 +520,7 @@ class Dashboard extends Component {
                           </div>
                         ))}
 
-                     
+
 
                         <Button
                           variant="outlined"

@@ -3,7 +3,6 @@ import withRouter from '../../withRouter';
 import { clearErrors } from "../../actions/errorActions";
 import { resend, verifyCode } from "../../actions/authActions";
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Footer1 from '../Footer/Footer';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from "redux-form";
@@ -12,6 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import Navbar1 from '../Dashboard/Navbar1';
 import axios from 'axios';
+import { Card, CardContent, Typography, Grid } from '@mui/material';
+
+
 
 class Search extends Component {
     constructor(props) {
@@ -25,7 +27,8 @@ class Search extends Component {
             results: [],
             preferences: [],
             coinGecko: [],
-            wiki: []
+            wiki: [],
+            videos: [],
 
         }
 
@@ -91,6 +94,16 @@ class Search extends Component {
 
                 // Fetch data from CoinGecko
                 axios
+                    .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyA88nAAzmcEnMBeWHA-tMHePt5XfhzEo8E&type=video&q=${searchQuery}`)
+                    .then((response) => {
+                        const vids = response.data.items;
+                        this.setState({ videos: vids });
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching youtube data:', error);
+                    });
+                // Fetch data from CoinGecko
+                axios
                     .get(`https://api.coingecko.com/api/v3/search?query=${searchQuery}`)
                     .then((response) => {
                         const coinGeckoResults = response.data;
@@ -127,7 +140,7 @@ class Search extends Component {
 
 
     render() {
-        const { searchQuery, results, preferences, coinGecko, wiki } = this.state;
+        const { searchQuery, results, preferences, coinGecko, wiki,videos } = this.state;
         const email = this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "";
         return (
             <>
@@ -247,6 +260,29 @@ class Search extends Component {
                                                     </div>
                                                 ))}
                                         </div>
+                                        <Grid container spacing={3}>
+                                            {videos.map(video => (
+                                                <Grid item xs={12} sm={6} md={4} key={video.id.videoId}>
+                                                    <Card>
+                                                        <iframe
+                                                            width="100%"
+                                                            height="315"
+                                                            src={`https://www.youtube.com/embed/${video.id.videoId}`}
+                                                            title={video.snippet.title}
+                                                            frameBorder="0"
+                                                            allow="autoplay; encrypted-media"
+                                                            allowFullScreen
+                                                        ></iframe>
+                                                        <CardContent>
+                                                            <Typography variant="h6" component="div">
+                                                                {video.snippet.title}
+                                                            </Typography>
+                                                        </CardContent>
+                                                    </Card>
+                                                </Grid>
+                                            ))}
+                                        </Grid>
+
                                         <div className="row justify-content-center card-deck d-flex">
                                             {coinGecko.coins && coinGecko.coins.slice(0, 10).map(coin => (
                                                 <div className="col-md-4 mb-4 h-100" key={coin.id}>
