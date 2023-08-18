@@ -180,7 +180,7 @@ class VerifyEmail extends Component {
     }
     if (isVerified) {
       return (
-        <Navigate to="/dashboard" />
+        <Navigate to="/preferences" />
       );
     }
     if (!isAuthenticated && !isVerified) {
@@ -231,6 +231,7 @@ class VerifyEmail extends Component {
                                 label="Confirmation Code"
                                 name="confirmationCode"
                                 id="code"
+                                style={{ width: '350px' }}
                               />
                             </div>
                             <div>
@@ -239,6 +240,7 @@ class VerifyEmail extends Component {
                                 id="button"
                                 type="submit"
                                 disabled={pristine || submitting}
+                                style={{ width: '350px' }}
                               >
                                 Verify
                               </Button>

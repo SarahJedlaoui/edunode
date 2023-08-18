@@ -129,6 +129,7 @@ import Keybase from "./components/Blog/Articles/Keybase";
 import Issue from "./components/Blog/Articles/Issue";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Pref from "./components/Dashboard/preferences";
 import Chat from "./components/Chat";
 import History from "./components/Chat/history";
 import Blog from "./components/Blog";
@@ -277,6 +278,7 @@ function App(props) {
         <Route exact path="/resources" element={<Resources />} />
         <Route exact path="/community" element={<Community />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/preferences" element={<Pref />} />
         <Route exact path="/community/project" element={<Project />} />
         <Route exact path="/milestones" element={<Milestones />} />
         <Route exact path="/courses" element={<Courses />} />

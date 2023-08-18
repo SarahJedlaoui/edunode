@@ -106,14 +106,14 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
-      preferences: this.props.auth.user.preferences ? this.props.auth.user.preferences : [],
+      preferences: [],
       skills: this.props.auth.user.skills ? this.props.auth.user.skills : [],
       email: this.props.auth && this.props.auth.user && this.props.auth.user.email ? this.props.auth.user.email : "",
       tags: ['Web3', 'Ethereum', 'Bitcoin', 'JavaScript', 'Rust', 'AI', 'Stellar', 'Programming', 'NFT', 'Blockchain', 'Crypto', 'E-learning', 'IT', 'Soroban'],
       role: ['Learner', 'Teacher', 'University'],
       selectedTags: [],
       selectedRole: '',
-      showAlert: true,
+      showAlert: false,
       preference: [],
       user: [],
       notifications: [],
@@ -157,10 +157,9 @@ class Dashboard extends Component {
       .then(response => response.json())
       .then(data => {
 
-        this.setState({ user: data }, () => {
+        this.setState({ user: data, preferences: data.preferences });
 
-          this.setState({ preference: data.preferences })
-        });
+        
       })
       .catch(error => {
         console.error(error);
@@ -168,11 +167,11 @@ class Dashboard extends Component {
     if (this.state.user.preferences && this.state.user.preferences.length === 0) {
       // preferences array is empty
       console.log("Preferences array is empty");
-      this.setState({ showAlert: true });
+
     } else {
       // preferences array is not empty
       console.log("Preferences array is not empty");
-      this.setState({ showAlert: false });
+
     }
 
     this.fetchNotifications();
@@ -199,74 +198,17 @@ class Dashboard extends Component {
   }
 
   fetchVideos = async () => {
-    const { email } = this.state;
+    const { email } = this.state
     try {
-      const response = await axios.get(`http://localhost:5001/api/search/youtube/${email}`); 
+      const response = await axios.get(`https://edunode.herokuapp.com/api/search/youtube/${email}`);
       this.setState({ videos: response.data.videos });
     } catch (error) {
       console.error('Error fetching videos:', error);
     }
   };
 
-  handleTagChange = (event) => {
-    const tagName = event.target.name;
-    const isChecked = event.target.checked;
-    this.setState(prevState => {
-      const selectedTags = new Set(prevState.selectedTags);
-      if (isChecked) {
-        selectedTags.add(tagName);
-      } else {
-        selectedTags.delete(tagName);
-      }
-      return { selectedTags: [...selectedTags] };
-    });
-  };
 
 
-  handleRoleChange = (event) => {
-    const { name } = event.target;
-    this.setState({ selectedRole: name });
-  };
-
-
-
-  handleSave = () => {
-    const email = this.props.auth.user ? this.props.auth.user.email : '';
-    // Get the selected tags from state
-    const { selectedTags } = this.state;
-    console.log(selectedTags);
-    // Make an HTTP request to your backend to save the selected tags
-    axios.post('https://edunode.herokuapp.com/api/users/preferences', { preferences: selectedTags, email: email })
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    // set the flag in localStorage
-    localStorage.setItem('selectedTags', 'true');
-    // Hide the popup after saving
-    this.setState({ showAlert: true });
-
-  };
-
-
-  handleSaveRole = () => {
-    const email = this.props.auth.user ? this.props.auth.user.email : '';
-    const { selectedRole } = this.state;
-    console.log(selectedRole);
-    axios.post('https://edunode.herokuapp.com/api/users/role', { role: selectedRole, email: email })
-      .then(response => {
-        console.log(response.data); // Log the response from the backend
-      })
-      .catch(error => {
-        console.error(error); // Log any errors that occur
-      });
-    // set the flag in localStorage
-    localStorage.setItem('selectedRole', 'true');
-    // Hide the popup after saving
-    this.setState({ showAlert: false });
-  };
 
 
   handleClosePopup = () => {
@@ -303,121 +245,121 @@ class Dashboard extends Component {
 
     if (isAuthenticated) {
 
-      if (hasShownPopup) {
-        return (
-          <ThemeProviders>
-            <ThemeContext.Consumer>
-              {theme => (
-                <div className={`app ${theme}`}>
 
-                  <Navbar1 />
+      return (
+        <ThemeProviders>
+          <ThemeContext.Consumer>
+            {theme => (
+              <div className={`app ${theme}`}>
 
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={12} md={12}>
+                <Navbar1 />
 
-                      {this.state.preferences.length > 0 || this.state.skills.length > 0 ? (
-                        <div>
-                          <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                            These are your preferences and skills:
-                          </h1>
-                          {this.state.preferences.length > 0 && (
-                            <p className="card-text">
-                              <small className="text-muted">
-                                Preferences: {this.state.preferences.join(", ")}
-                              </small>
-                            </p>
-                          )}
-                          {this.state.skills.length > 0 && (
-                            <p className="card-text">
-                              <small className="text-muted">
-                                Skills: {this.state.skills.join(", ")}
-                              </small>
-                            </p>
-                          )}
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={12} md={12}>
+
+                  {(preferences.length > 0 || skills.length > 0) ? (
+                      <div>
+                        <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                          These are your preferences and skills:
+                        </h1>
+                        {this.state.preferences.length > 0 && (
+                          <p className="card-text">
+                            <small className="text-muted">
+                              Preferences: {this.state.preferences.join(", ")}
+                            </small>
+                          </p>
+                        )}
+                        {this.state.skills.length > 0 && (
+                          <p className="card-text">
+                            <small className="text-muted">
+                              Skills: {this.state.skills.join(", ")}
+                            </small>
+                          </p>
+                        )}
+                      </div>
+                    ) : null}
+
+
+                    {(preferences.length > 0 || skills.length > 0) ? (
+                      <div>
+                        <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                          These are some search results based on your interests :
+                        </h1>
+                        <div className="row justify-content card-deck d-flex">
+                          {preference.courses && preference.courses.map(course => (
+                            <div className="col-md-4 mb-4 h-100" key={course._id}>
+                              <CourseCard course={course} />
+                            </div>
+                          ))}
+
+                          {preference.posts && preference.posts.map(post => (
+                            <div className="col-md-4 mb-4 h-100" key={post._id}>
+                              <PostCard post={post} />
+                            </div>
+
+                          ))}
+
+
+
+                          {preference.blogs && preference.blogs.map(blog => (
+                            <div className="col-md-4 mb-4 h-100" key={blog._id}>
+                              <BlogCard blog={blog} />
+                            </div>
+                          ))}
                         </div>
-                      ) : null}
+                      </div>
+                    ) : (null)}
 
-
-                      {this.state.preferences.length > 0 || this.state.skills.length > 0 ? (
-                        <div>
-                          <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                            These are some search results based on your interests and skills:
-                          </h1>
-                          <div className="row justify-content card-deck d-flex">
-                            {preference.courses && preference.courses.map(course => (
-                              <div className="col-md-4 mb-4 h-100" key={course._id}>
-                                <CourseCard course={course} />
-                              </div>
-                            ))}
-
-                            {preference.posts && preference.posts.map(post => (
-                              <div className="col-md-4 mb-4 h-100" key={post._id}>
-                                <PostCard post={post} />
-                              </div>
-
-                            ))}
-
-
-
-                            {preference.blogs && preference.blogs.map(blog => (
-                              <div className="col-md-4 mb-4 h-100" key={blog._id}>
-                                <BlogCard blog={blog} />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-
-                    </Grid>
                   </Grid>
-                  <br></br>
-                  <Grid container spacing={3}>
-        {videos.map(video => (
-          <Grid item xs={12} sm={6} md={4} key={video.id.videoId}>
-            <Card>
-              <iframe
-                width="100%"
-                height="315"
-                src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                title={video.snippet.title}
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              ></iframe>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  {video.snippet.title}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-                  <div style={{ padding: '10px' }}>
+                </Grid>
+                <br></br>
+                <Grid container spacing={3}>
+                  {videos.map(video => (
+                    <Grid item xs={12} sm={6} md={4} key={video.id.videoId}>
+                      <Card>
+                        <iframe
+                          width="100%"
+                          height="315"
+                          src={`https://www.youtube.com/embed/${video.id.videoId}`}
+                          title={video.snippet.title}
+                          frameBorder="0"
+                          allow="autoplay; encrypted-media"
+                          allowFullScreen
+                        ></iframe>
+                        <CardContent>
+                          <Typography variant="h6" component="div">
+                            {video.snippet.title}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+                <div style={{ padding: '10px' }}>
 
-                    <h4 style={{ fontSize: "2em", textAlign: "left" }}>Actualities:</h4>
-                    <div>
+                  <h4 style={{ fontSize: "2em", textAlign: "left" }}>Actualities:</h4>
+                  <div>
 
-                      <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
-                        {notifications.map(notification => {
-                          const message = notification.notificationMessage.replace('Congrats! You ', '');
-                          return (
-                            <ListItem
-                              key={notification._id}
-                              disableGutters
-                              secondaryAction={
-                                <IconButton href="#" aria-label="comment">
-                                  <EmojiEventsIcon />
-                                </IconButton>
-                              }
-                            >
-                              <ListItemText primary={`${notification.email} ${message}`} />
-                              <ListItemText primary={notification.date} />
-                            </ListItem>
-                          );
-                        })}
-                      </List>
-                      {/**   <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
+                    <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
+                      {notifications.map(notification => {
+                        const message = notification.notificationMessage.replace('Congrats! You ', '');
+                        return (
+                          <ListItem
+                            key={notification._id}
+                            disableGutters
+                            secondaryAction={
+                              <IconButton href="#" aria-label="comment">
+                                <EmojiEventsIcon />
+                              </IconButton>
+                            }
+                          >
+                            <ListItemText primary={`${notification.email} ${message}`} />
+                            <ListItemText primary={notification.date} />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                    {/**   <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
                   {achievement.map((notification) => {
                     const message = 'won a challenge game! ';
                     return (
@@ -436,118 +378,58 @@ class Dashboard extends Component {
                   })}
                 </List>*/}
 
-                    </div>
-
                   </div>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={12} md={12}>
 
-                      {/* <TwitterTimelineEmbed
+                </div>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={12} md={12}>
+
+                    {/* <TwitterTimelineEmbed
                   sourceType="profile"
                   screenName="edunodeorg"
                   options={{ height: 800 }}
                 /> */}
-                      <TwitterFollowButton screenName={'edunodeorg'} />
-                    </Grid>
+                    <TwitterFollowButton screenName={'edunodeorg'} />
                   </Grid>
-                  <Modal
-                    isOpen={showPopup}
-                    onRequestClose={this.handleClosePopup}
-                    contentLabel="Congratulations"
-                    style={{
-                      overlay: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-                      },
-                      content: {
-                        width: '400px',
-                        height: '400px',
-                        margin: '0 auto',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: '20px',
-                        borderRadius: '8px'
-                      }
-                    }}
-                  >
-                    <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
-                    <p style={{ marginBottom: '20px', textAlign: 'center' }}>
-                      Thank you for joining our community!
-                    </p>
-                    <img
-                      src={tuto}
-                      alt="Trophy"
-                      style={{ width: '150px', marginBottom: '20px' }}
-                    />
-                    <button onClick={this.handleClosePopup}>Close</button>
-                  </Modal>
-                  <Footer></Footer>
-                </div>
-              )}
-            </ThemeContext.Consumer>
-          </ThemeProviders>
-        );
-      }
-      // show the alert and the popup if the flag is not set
-      else {
-        return (
-          <>
-            <NavBar />
-            <br></br>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={12}>
-                <Alert className="text-center" severity="warning">
-                  Please select your preferences so we can provide you with a personalized experience!
-                  <Popup trigger=
-                    {<Button> Click here </Button>}
-                    position="right center">
-                    {close => (
-                      <div style={styles.popupContent}>
-                        Select your preferences
-                        {tags.map(tag => (
-                          <div key={tag}>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  name={tag}
-                                  checked={selectedTags.includes(tag)}
-                                  onChange={this.handleTagChange}
-                                />
-                              }
-                              label={tag}
-                            />
-                          </div>
-                        ))}
-
-
-
-                        <Button
-                          variant="outlined"
-                          onClick={() => {
-                            this.handleSave();
-                            close();
-                          }}
-                        >
-                          Save
-                        </Button>
-                      </div>
-                    )}
-                  </Popup>
-                </Alert>
-              </Grid>
-            </Grid>
-
-
-
-
-
-
-
-
-          </>
-        )
-      }
+                </Grid>
+                <Modal
+                  isOpen={showPopup}
+                  onRequestClose={this.handleClosePopup}
+                  contentLabel="Congratulations"
+                  style={{
+                    overlay: {
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                      width: '400px',
+                      height: '400px',
+                      margin: '0 auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: '20px',
+                      borderRadius: '8px'
+                    }
+                  }}
+                >
+                  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+                  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+                    Thank you for joining our community!
+                  </p>
+                  <img
+                    src={tuto}
+                    alt="Trophy"
+                    style={{ width: '150px', marginBottom: '20px' }}
+                  />
+                  <button onClick={this.handleClosePopup}>Close</button>
+                </Modal>
+                <Footer></Footer>
+              </div>
+            )}
+          </ThemeContext.Consumer>
+        </ThemeProviders>
+      );
     }
 
     return (

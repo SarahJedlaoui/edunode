@@ -2,9 +2,7 @@
 import React, { Component, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Button,TextField, Typography, Box } from '@mui/material';
 import CircularProgress from "@mui/material/CircularProgress"
 import { Link } from "react-router-dom"
 import { clearErrors } from "../../actions/errorActions";
@@ -313,16 +311,16 @@ class Login extends Component {
         <NavBar />
        
         <form id="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          <div>
-
-            <Typography>
-              Please choose your login method.
+        <Box display="flex" flexDirection="column" alignItems="center">
+            <Typography variant="h4" gutterBottom style={{ textAlign: 'center' }}>
+               
+               Please Choose your login method
             </Typography>
-          </div>
+
 
 
           <br></br>
-          <div style={{ width: '300px' }}>
+          <div >
             <GoogleLogin
               type="standard"
               onSuccess={credentialResponse => {
@@ -333,33 +331,15 @@ class Login extends Component {
                 const token=credentialResponse.credential
                 this.props.handleSubmit(this.handleCallBackResponse(token))
                 console.log('token ', token )
-                // auto_select
+                
               }}
               onError={() => {
                 console.log('Login Failed');
               }}
-            // useOneTap
+              style={{ width: '300px', marginBottom: '16px' }}
             />
           </div>
-
-
-
           <br></br>
-          
-          <div>
-          {/* <Button
-              style={{ width: '300px' }}
-              onClick={xBullWalletConnectHandle}
-              variant="outlined"
-            >
-
-              Login with xBull
-              
-            </Button> */}
-          </div>
-
-          <br></br>
-          
           <div>
             <Button
               style={{ width: '300px' }}
@@ -387,7 +367,7 @@ class Login extends Component {
           <br></br>
           <div>
             <Button
-              style={{ width: '300px' }}
+             style={{ width: '300px', marginBottom: '10px' }}
               onClick={albedoHandler}
               variant="outlined"
             >
@@ -408,6 +388,7 @@ class Login extends Component {
               component={this.renderTextField}
               id="email"
               value={this.state.email}
+              style={{ width: '300px', marginBottom: '16px' }}
             />
           </div>
           <div>
@@ -417,7 +398,7 @@ class Login extends Component {
               label="Password"
               component={this.renderTextField}
               id="password"
-
+              style={{ width: '300px', marginBottom: '16px' }}
               value={this.state.password}
             />
           </div>
@@ -448,6 +429,7 @@ class Login extends Component {
               Forgot your password?
             </Link>
           </div>
+          </Box>
         </form>
 
       </div>
