@@ -500,9 +500,9 @@ function VerticalLinearStepper(props) {
             onChange={(value) => handleEditorChange(value, activeStep)}
             theme="vs-dark"
           />
-          <Button variant="contained" onClick={handleOpenDialog}>
-            Show Answer
-          </Button>
+          <Button style={{ opacity: 0 }} onClick={handleOpenDialog}>
+          Show Answer
+        </Button>
           <Dialog open={openDialog} onClose={handleCloseDialog}>
           <pre>{getStepAnswer(activeStep)}</pre>
           </Dialog>

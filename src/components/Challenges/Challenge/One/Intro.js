@@ -106,6 +106,7 @@ function VerticalLinearStepper(props) {
   const [editorValues, setEditorValues] = useState(Array(steps.length).fill(''));
   const [activeStep, setActiveStep] = useState(0);
   const [grade, setGrade] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
   const navigate = useNavigate();
 
   const handleOpenDialog = () => {
@@ -126,15 +127,15 @@ function VerticalLinearStepper(props) {
     const isAnswerCorrect = validateStep(activeStep, editorValues[activeStep]);
     if (isAnswerCorrect) {
       setGrade(grade + 1);
-      
+
     } else {
       alert('Your answer incorrect. Please review it!');
     }
     if (activeStep === steps.length - 1) {
       // Last step reached
-      if (grade>3) { navigate('/challenges/101/done');}
-      else { alert( `Sorry you only have ${grade} answers right! You didn't pass the challenge! Please do it again ! `);}
-      
+      if (grade > 3) { navigate('/challenges/101/done'); }
+      else { alert(`Sorry you only have ${grade} answers right! You didn't pass the challenge! Please do it again ! `); }
+
     } else {
       setActiveStep(activeStep + 1);
     }
@@ -146,7 +147,7 @@ function VerticalLinearStepper(props) {
     setEditorValues(newEditorValues);
   }
 
-  
+
   function validateStep(stepIndex, value) {
     const validationFuncs = [
       validateStep1,
@@ -197,7 +198,7 @@ function VerticalLinearStepper(props) {
     <div className="page-container">
       <div className="split-view">
         <div className="left-panel">
-        <img src={space} style={{ width: '550px', height: '300px' }}></img>
+          <img src={space} style={{ width: '550px', height: '300px' }}></img>
 
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((label, index) => (
@@ -228,11 +229,11 @@ function VerticalLinearStepper(props) {
                   </div>
                 </StepContent>
               </Step>
-              
+
             ))}
-            
+
           </Stepper>
-          
+
         </div>
         <div className="right-panel">
           <Editor
@@ -243,11 +244,13 @@ function VerticalLinearStepper(props) {
             onChange={(value) => handleEditorChange(value, activeStep)}
             theme="vs-dark"
           />
-          <Button variant="contained" onClick={handleOpenDialog}>
-            Show Answer
-          </Button>
+         {isVisible && (
+        <Button style={{ opacity: 0 }} onClick={handleOpenDialog}>
+          Show Answer
+        </Button>
+      )}
           <Dialog open={openDialog} onClose={handleCloseDialog}>
-          <pre>{getStepAnswer(activeStep)}</pre>
+            <pre>{getStepAnswer(activeStep)}</pre>
           </Dialog>
         </div>
       </div>
@@ -312,7 +315,7 @@ function Intro(props) {
         handleBack={handleBack}
       />
 
-      
+
     </div>
   );
 }

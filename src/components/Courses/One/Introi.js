@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
-import NavBar from '../../NavBar';
+import Navbar from '../../Dashboard/Navbar1';
 
 import { connect } from 'react-redux';
 import { clearErrors } from '../../../actions/errorActions';
@@ -192,7 +192,7 @@ const Introi = (props) => {
 
   return (
     <div>
-      <NavBar></NavBar>
+      <Navbar></Navbar>
       <LinearProgressWithLabel value={10} />
       <VerticalLinearStepper onChange={console.log(state)} />
       

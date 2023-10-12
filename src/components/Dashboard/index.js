@@ -242,7 +242,10 @@ class Dashboard extends Component {
     if (isAuthenticated && !isVerified) {
       return <Navigate to="/" />;
     }
+   {/** if (isAuthenticated && user.role=== 'Admin') {
+      return <Navigate to="/Admin" />;
 
+    } */}
     if (isAuthenticated) {
 
 
@@ -260,7 +263,7 @@ class Dashboard extends Component {
                   {(preferences.length > 0 || skills.length > 0) ? (
                       <div>
                         <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                          These are your preferences and skills:
+                          These are your preferences:
                         </h1>
                         {this.state.preferences.length > 0 && (
                           <p className="card-text">

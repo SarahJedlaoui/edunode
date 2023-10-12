@@ -46,9 +46,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const TABLE_HEAD = [
-  { id: 'email', label: 'Name', alignRight: false },
-  { id: 'word', label: 'Email', alignRight: false },
-  { id: 'definition', label: 'Role', alignRight: false },
+  { id: 'email', label: 'Email', alignRight: false },
+  { id: 'word', label: 'Word', alignRight: false },
+  { id: 'definition', label: 'Definition', alignRight: false },
   { id: '' },
 ];
 

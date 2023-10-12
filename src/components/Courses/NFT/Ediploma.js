@@ -21,7 +21,8 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import Modal from 'react-modal';
-
+import Navbar1 from '../../Dashboard/Navbar1';
+import Box from '@mui/material/Box';
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
     color: theme.palette.action.disabled,
@@ -124,7 +125,7 @@ function Ediploma(props) {
     });
     setTimeout(function () {
       try {
-       // window.location.href = "/";
+        // window.location.href = "/";
       } catch (error) {
         console.log(error);
       }
@@ -156,29 +157,29 @@ function Ediploma(props) {
 
     const email = loggedInUserEmail;
 
-  fetch('https://edunode.herokuapp.com/api/certificates/increment-trophy', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email }),
-  })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Failed to increment trophy');
-      }
+    fetch('https://edunode.herokuapp.com/api/certificates/increment-trophy', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
     })
-    .then(data => {
-      console.log(data.message); // Success message from the server
-      // Perform any additional actions or display a success message on the frontend
-    })
-    .catch(error => {
-      console.error(error);
-      // Handle any errors that occurred during the request
-    });
-
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to increment trophy');
+        }
+      })
+      .then(data => {
+        console.log(data.message); // Success message from the server
+        // Perform any additional actions or display a success message on the frontend
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle any errors that occurred during the request
+      });
+    window.location.href = '/courses';
   }
 
 
@@ -193,100 +194,104 @@ function Ediploma(props) {
     setShowPopup(false);
   };
   return (
-    <div className="App">
-      <div className="Meta">
-        <h1>How did you find our Course </h1>
-        <p>Your feedback is very appreciated </p>
-        <StyledRating
-          name="highlight-selected-only"
-          value={ratingValue}
-          onChange={(event, newValue) => {
-            setRatingValue(newValue);
-          }}
-          IconContainerComponent={IconContainer}
-          getLabelText={(value) => customIcons[value].label}
-          highlightSelectedOnly
-        />
-        <p>Rating: {ratingValue}</p>
-        <br></br>
-        <input
-          type="text"
-          placeholder='Feedback'
-          value={Feedback}
-          onChange={(e) => {
-            setFeedback(e.target.value);
-          }}
-        />
-        <br></br>
-        <br></br>
-        {!props.auth.user.name && (
-          <p>Please update your name in the profile page so we can provide you with certificate !</p>
-        )}
-        
-        
-        <button onClick={handleConfirmDownload}>
-          Confirm and Download
-        </button>
-      </div>
-      <div id="downloadWrapper">
+    <Box sx={{ flexGrow: 1 }}>
+       <Navbar1 />
+      <div className="App">
+       
+        <div className="Meta">
+          <h1>How did you find our Course </h1>
+          <p>Your feedback is very appreciated </p>
+          <StyledRating
+            name="highlight-selected-only"
+            value={ratingValue}
+            onChange={(event, newValue) => {
+              setRatingValue(newValue);
+            }}
+            IconContainerComponent={IconContainer}
+            getLabelText={(value) => customIcons[value].label}
+            highlightSelectedOnly
+          />
+          <p>Rating: {ratingValue}</p>
+          <br></br>
+          <input
+            type="text"
+            placeholder='Feedback'
+            value={Feedback}
+            onChange={(e) => {
+              setFeedback(e.target.value);
+            }}
+          />
+          <br></br>
+          <br></br>
+          {!props.auth.user.name && (
+            <p>Please update your name in the profile page so we can provide you with certificate !</p>
+          )}
 
-        <div id="certificateWrapper" ref={certificateWrapper}>
-          <p>{Name}</p>
-          <img src="https://i.imgur.com/MxzEwin.png" alt="eCertificate" />
+
+          <button onClick={handleConfirmDownload}>
+            Confirm and Download
+          </button>
         </div>
+        <div id="downloadWrapper">
+
+          <div id="certificateWrapper" ref={certificateWrapper}>
+            <p>{Name}</p>
+            <img src="https://i.imgur.com/MxzEwin.png" alt="eCertificate" />
+          </div>
+        </div>
+
+
+        <Modal
+          isOpen={showPopup}
+          onRequestClose={handleClosePopup}
+          contentLabel="Congratulations"
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.5)'
+            },
+            content: {
+              width: '400px',
+              height: '400px',
+              margin: '0 auto',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '20px',
+              borderRadius: '8px'
+            }
+          }}
+        >
+          <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+          <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+            Thank you for finishing the course an claimed this trophy.
+          </p>
+          <img
+            src={growth}
+            alt="Trophy"
+            style={{ width: '150px', marginBottom: '20px' }}
+          />
+          <button onClick={handleClosePopup}>Close</button>
+        </Modal>
       </div>
-
-
-      <Modal
-  isOpen={showPopup}
-  onRequestClose={handleClosePopup}
-  contentLabel="Congratulations"
-  style={{
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    content: {
-      width: '400px',
-      height: '400px',
-      margin: '0 auto',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '20px',
-      borderRadius: '8px'
-    }
-  }}
->
-  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
-  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
-    Thank you for finishing the course an claimed this trophy.
-  </p>
-  <img
-    src={growth}
-    alt="Trophy"
-    style={{ width: '150px', marginBottom: '20px' }}
-  />
-  <button onClick={handleClosePopup}>Close</button>
-</Modal>
-    </div>
-  );
+      </Box>
+      );
 }
 
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
-  error: state.error,
+        auth: state.auth,
+      isAuthenticated: state.auth.isAuthenticated,
+      error: state.error,
 });
 
-Ediploma = connect(
-  mapStateToProps, { verifyCode, clearErrors }
-)(Ediploma);
+      Ediploma = connect(
+      mapStateToProps, {verifyCode, clearErrors}
+      )(Ediploma);
 
-export default Ediploma = reduxForm({
-  form: "",
-  fields: [""],
-  clearErrors,
-  verifyCode
+      export default Ediploma = reduxForm({
+        form: "",
+      fields: [""],
+      clearErrors,
+      verifyCode
 })(Ediploma);

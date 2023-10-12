@@ -273,7 +273,7 @@ class Certificate extends Component {
                 
                 <Grid item xs={12} sm={8} md={20}>
                   <Navbar1 />
-
+                  <br></br>
                   <div>
                     <p><h3>Welcome to your Certifications</h3></p>
                    <a>Learn more about Certifications</a> <b> <a href="about-certificates">here</a></b>
@@ -287,7 +287,7 @@ class Certificate extends Component {
                     )}
                     {certificates.length > 0 && (
                       <>
-                        <p>Here are your certificates:</p>
+                       
                         <ul>
                           {certificates.map(cert => (
                             <li key={cert.certificateNumber}>

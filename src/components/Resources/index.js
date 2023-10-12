@@ -88,24 +88,7 @@ function Resources() {
               >
                 Developer resources and community tools
               </Typography>
-              <Typography
-                variant="h5"
-                align="center"
-                color="textSecondary"
-                paragraph
-              ></Typography>
-              <div className={classes.heroButtons}>
-                <Grid container spacing={2} justify="center">
-                  <Grid item>
-                    <Button
-                      variant="contained"
-                      href="https://www.stellar.org/developers"
-                    >
-                      Learn more
-                    </Button>
-                  </Grid>
-                </Grid>
-              </div>
+            
             </Container>
           </div>
           <Container className={classes.cardGrid} maxWidth="md">

@@ -435,8 +435,8 @@ export default function UserPage() {
   <RadioGroup aria-label="role" name="role" value={selectedRole} onChange={handleRoleChange}>
     <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
     <FormControlLabel value="Student" control={<Radio />} label="Student" />
-    <FormControlLabel value="Teacher" control={<Radio />} label="Teacher" />
-    <FormControlLabel value="University" control={<Radio />} label="University" />
+    <FormControlLabel value="Teacher" control={<Radio />} label="Tutor" />
+    <FormControlLabel value="University" control={<Radio />} label="University Admin" />
   </RadioGroup>
 </FormControl>
     </Stack>

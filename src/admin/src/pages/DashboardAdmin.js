@@ -62,15 +62,15 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Number of Teacher Roles Requests" total={requestCount} icon={'bi:pass-fill'} />
+          <AppWidgetSummary title="Number of Role Requests" total={requestCount} icon={'bi:pass-fill'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Number of Approved Teacher Roles" total={acceptedCount} color="success" icon={'bi:check-circle-fill'}/>
+            <AppWidgetSummary title="Number of Approved Role Requests" total={acceptedCount} color="success" icon={'bi:check-circle-fill'}/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Number of Rejected Teacher Roles" total={rejectedCount} color="error" icon={'bi:x-circle-fill'} />
+            <AppWidgetSummary title="Number of Rejected Role Requests" total={rejectedCount} color="error" icon={'bi:x-circle-fill'} />
           </Grid>
           </Grid>
           <br></br>

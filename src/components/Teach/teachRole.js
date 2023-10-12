@@ -215,7 +215,7 @@ class Teach extends Component {
       teachingsProof: this.state.image,
     };
     try {
-      const response = await fetch("http://localhost:5001/api/tutors", {
+      const response = await fetch("https://edunode.herokuapp.com/api/tutors", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -271,7 +271,7 @@ class Teach extends Component {
               <br></br>
               <div style={{ padding: '10px' }}>
                 <Form onSubmit={this.handleSubmit}>
-                  <h4 style={{ fontSize: "2em", textAlign: "center" }}>Tutor Role Request</h4>
+                  <h4 style={{ fontSize: "2em", textAlign: "center" }}>Role Request</h4>
                   <br></br>
                   <FormGroup>
                     <Label htmlFor="title">Name:</Label>
@@ -305,7 +305,7 @@ class Teach extends Component {
                       onChange={this.handleRoleChange}
                     >
                       <FormControlLabel value="Tutor" control={<Radio />} label="Tutor" />
-                      <FormControlLabel value="University" control={<Radio />} label="University" />
+                      <FormControlLabel value="University" control={<Radio />} label="University admin" />
                     </RadioGroup>
                     {errors.role && <Alert severity="error">{errors.role}</Alert>}
                   </FormControl>

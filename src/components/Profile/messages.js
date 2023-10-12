@@ -170,7 +170,7 @@ class Messages extends Component {
     };
 
     axios
-      .post('http://localhost:5001/api/messages', messageData)
+      .post('https://edunode.herokuapp.com/api/messages', messageData)
       .then((response) => {
         const savedMessage = response.data.message;
         this.setState((prevState) => ({

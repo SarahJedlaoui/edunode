@@ -300,9 +300,7 @@ class Post extends Component {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={8} md={20}>
                 <Navbar1 />
-                <br></br>
-                <br></br>
-                <br></br>
+                
                 <div style={{ padding: '10px' }}>
                   <Form onSubmit={this.handleSubmit}>
                     <h4 style={{ fontSize: "2em", textAlign: "center" }}>Add Post</h4>

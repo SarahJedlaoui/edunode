@@ -3,7 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { clearErrors } from "../../actions/errorActions";
 import Grid from "@mui/material/Grid";
-
+import { Button } from '@mui/material';
 import Box from "@mui/material/Box";
 import { EditorState } from "draft-js";
 import PropTypes from "prop-types";
@@ -60,8 +60,8 @@ function CourseDetails(props) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [course, setCourse] = useState({});
-
-
+  const [commentImages, setCommentImages] = useState({});
+  const [commentId, setCommentId] = useState({});
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
@@ -95,13 +95,30 @@ function CourseDetails(props) {
           `https://edunode.herokuapp.com/api/cours/comments/${_id}`
         );
         setComments(res.data);
+        const uniqueEmails = Array.from(new Set(res.data.map(comment => comment.email)));
+
+        // Fetch user details for each email
+        const userImages = {};
+        const userId= {};
+        for (const email of uniqueEmails) {
+          const res = await axios.get(`https://edunode.herokuapp.com/api/users/user/${email}`);
+
+          const user = res.data;
+          userImages[email] = user.user.images;
+          userId[email] = user.user._id;
+          console.log('image', userImages)
+          console.log('user', res.data)
+        }
+
+        setCommentImages(userImages);
+        setCommentId(userId);
+
       } catch (err) {
         console.error(err);
       }
     };
     getComments();
   }, [_id]);
-
 
   const handleSubmit = async (event) => {
 
@@ -134,7 +151,7 @@ function CourseDetails(props) {
             <br></br>
             <div style={{ padding: "10px" }}>
               <div className="post">
-                <h1 style={{ fontSize: '20px', fontWeight: 'bold' }} >Titlee :</h1>
+                <h1 style={{ fontSize: '20px', fontWeight: 'bold' }} >Title :</h1>
 
                 <h2>{course.title}</h2>
                 <br></br>
@@ -158,12 +175,28 @@ function CourseDetails(props) {
                       value={newComment}
                       onChange={handleCommentChange}
                     />
-                    <button type="submit">Add Comment</button>
+                    <br></br>
+                    <Button  variant="contained" type="submit">Add Comment</Button>
                   </form>
+                  <br></br>
                   {comments.map((comment, index) => (
-                    <div key={index}>
-                      <p>{comment.text}</p>
-                      <p>Comment by: {comment.email}</p>
+                    <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                      {comment.email in commentImages &&   (
+                        <button>
+                        <img
+                          src={commentImages[comment.email]}
+                          alt="User Profile"
+                          style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '50%' }}
+                          onClick={() => {
+                            window.location.href = `/profile/${commentId[comment.email]}`;
+                          }}
+                        />
+                        </button>
+                      )}
+                      <div>
+                        <p>Comment by: {comment.email}</p>
+                        <p>{comment.text}</p>
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -163,7 +163,7 @@ class Chat extends Component {
 
         <>
           <Navbar1 />
-
+<br></br>
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>

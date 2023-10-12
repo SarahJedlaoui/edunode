@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavBar from '../NavBar';
+import Navbar1 from '../Dashboard/Navbar1';
 import Footer from '../Footer';
 import CircularIntegration from './One/Check';
 import { Form, Row, Col, Image, Card, Modal, Button } from 'react-bootstrap';
@@ -79,7 +79,7 @@ export default class index extends Component {
   render() {
     return (
       <>
-        <NavBar />
+        <Navbar1 />
         <LinearProgressWithLabel value={60} />
         <h5>
         What is required to create a Stellar account?{' '}

@@ -289,7 +289,12 @@ class NavBar1 extends Component {
               <Nav.Link href="/historyChat">Chat History</Nav.Link>
               <Nav.Link href="/badges">Badges</Nav.Link>
             <Nav.Link href="/challenges">Challenges</Nav.Link>
-            <Nav.Link href="/challengeGame"> Game Challenges</Nav.Link>
+            <Nav>
+              <NavDropdown title="Game Challenges" id="account-dropdown">
+               <NavDropdown.Item href="/challengeGame">Game Challenges</NavDropdown.Item>
+               <NavDropdown.Item href="/challengeGame/leaderBoard">Challenge LeaderBoard</NavDropdown.Item>
+             </NavDropdown>
+             </Nav>
           
           </Nav>
           
@@ -298,6 +303,7 @@ class NavBar1 extends Component {
               <NavDropdown title="Account" id="account-dropdown">
                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item href="/account">Profile Setting</NavDropdown.Item>
+                <NavDropdown.Item href="/tutor">Role Request</NavDropdown.Item>
                 <NavDropdown.Item href="/messages">Messages
                 {messageCount >= 0 && (
                 <span
@@ -385,6 +391,7 @@ class NavBar1 extends Component {
                 <NavDropdown title="Account" id="account-dropdown">
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                   <NavDropdown.Item href="/account">Profile Setting</NavDropdown.Item>
+                  <NavDropdown.Item href="/tutor">Role Request</NavDropdown.Item>
                   <NavDropdown.Item href="/messages">Messages
                   
                   {messageCount >= 0 && (

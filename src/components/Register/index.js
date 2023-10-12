@@ -19,9 +19,9 @@ import flogo from "./img/flogo.png"
 import { clearErrors } from "../../actions/errorActions";
 import { register, confirm, webThreeAuth } from "../../actions/authActions";
 import { Navigate } from "react-router-dom";
-
-
-
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode'
+import {  googleLogin, verifyGoogleUser} from "../../actions/authActions";
 
 
 
@@ -58,16 +58,20 @@ export class Register extends Component {
     super(props);
     this.state = {
       email: "",
+      name:'',
       password: "",
       confirmPassword: "",
       isLoading: false,
+      user: {},
       errors: {},
+      token: '',
+      showError: false ,
       errorMsg: null
     }
     // this.handleEmailChange = this.handleEmailChange.bind(this)
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
-
+    this.handleCallBackResponse = this.handleCallBackResponse.bind(this);
 
   }
   static propTypes = {
@@ -80,7 +84,44 @@ export class Register extends Component {
 
   }
 
+  async handleCallBackResponse(token) {
+    console.log('encoded JWT ID Token :' + token);
+    const userObject = jwt_decode(token);
+    console.log(userObject);
 
+    const email = userObject.email;
+    const name = userObject.name;
+    const image =userObject.picture;
+    console.log(email);
+    console.log(name);
+
+
+
+    const { user } = this.state;
+
+    try {
+      const newUser = {
+        email,
+        name,
+        image
+      }
+      await this.props.googleLogin(newUser);
+      console.log('googlelogin executed');
+      if (this.props.user) {
+        this.props.navigate('/dashboard');
+      }
+    } catch (error) {
+      console.log(error);
+      console.log('googlelogin failed');
+    }
+
+
+    if (this.props.user && typeof google !== 'undefined') {
+      this.props.navigate('/dashboard');
+    }
+
+
+  }
 
   componentDidUpdate(prevProps) {
     const { error } = this.props;
@@ -121,11 +162,13 @@ export class Register extends Component {
 
     const email = values.email
     const password = values.password
+    const name = values.name
 
     // create user object
     const newUser = {
       email,
       password,
+      name
     };
 
     const confirmUser = {
@@ -171,33 +214,6 @@ export class Register extends Component {
 
 
   render() {
-
-    // const handleCustomLogin = async (e) => {
-    //   e.preventDefault()
-    //   const user = await Moralis.authenticate({
-    //     provider: "web3Auth",
-    //      clientId: process.env.REACT_APP_WEBTHREEAUTH_CLIENT_ID,
-    //   theme: "light",
-    //   loginMethodsOrder: ["github", "twitter", "google", "discord", "facebook",  "reddit",  "twitch", "apple", "linkedin", "email_passwordless"]
-
-    //    })
-
-    //  const currentUser = Moralis.User.current();
-
-
-    //    try {
-
-    //    await this.props.webThreeAuth(currentUser)
-
-
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-
-
-
-
-    //   }
 
     const freighterHandler = async () => {
       if (isConnected()) {
@@ -269,7 +285,7 @@ export class Register extends Component {
             <Typography variant="h4" gutterBottom>
               Sign Up
             </Typography>
-
+{/** 
             <Button
               variant="outlined"
               onClick={albedoHandler}
@@ -284,7 +300,39 @@ export class Register extends Component {
             >
               Login with <Image style={{ width: '75px', marginLeft: '8px' }} src={flogo} />
             </Button>
-            <br></br>
+            <br></br>*/}
+   <div >
+            <GoogleLogin
+              type="standard"
+              onSuccess={credentialResponse => {
+                // axios post request to backend to store the token
+                console.log(credentialResponse);
+                console.log('login success')
+                
+                const token=credentialResponse.credential
+                this.props.handleSubmit(this.handleCallBackResponse(token))
+                console.log('token ', token )
+                
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+              style={{ width: '300px', marginBottom: '16px' }}
+            />
+          </div>
+          <br></br>
+
+            <div>
+              <Field
+                name="name"
+                type="text"
+                label="Full Name"
+                component={props => this.renderTextField(props)}
+                id="name"
+                value={this.state.name}
+                style={{ width: '300px', marginBottom: '16px' }}
+              />
+            </div>
             <div>
               <Field
                 name="email"
@@ -357,7 +405,7 @@ const mapStateToProps = state => ({
 })
 
 Register = connect(
-  mapStateToProps, { register, confirm, clearErrors, webThreeAuth }
+  mapStateToProps, { register, verifyGoogleUser, googleLogin,confirm, clearErrors, webThreeAuth }
 )(Register)
 
 export default Register = reduxForm({
@@ -365,9 +413,9 @@ export default Register = reduxForm({
   fields: ['email', 'password', "confirmPassword"],
   register,
   confirm,
+  googleLogin,
+  verifyGoogleUser,
   validate,
   clearErrors,
   webThreeAuth
 })(Register)
-
-

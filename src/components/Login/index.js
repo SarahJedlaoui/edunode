@@ -314,7 +314,7 @@ class Login extends Component {
         <Box display="flex" flexDirection="column" alignItems="center">
             <Typography variant="h4" gutterBottom style={{ textAlign: 'center' }}>
                
-               Please Choose your login method
+               Login
             </Typography>
 
 
@@ -343,20 +343,6 @@ class Login extends Component {
           <div>
             <Button
               style={{ width: '300px' }}
-              onClick={handleMetamask}
-              variant="outlined"
-            >
-
-              Login with metamask
-              {/* <Image style={{ width: '25px', display: "inline-block", margin: "20px 20px" }} src={mlogo} /> */}
-            </Button>
-
-          </div>
-          
-          <br></br>
-          <div>
-            <Button
-              style={{ width: '300px' }}
               onClick={freighterHandler}
               variant="outlined"
             >
@@ -365,21 +351,7 @@ class Login extends Component {
             </Button>
           </div>
           <br></br>
-          <div>
-            <Button
-             style={{ width: '300px', marginBottom: '10px' }}
-              onClick={albedoHandler}
-              variant="outlined"
-            >
-              Login with albedo{/* Login with <Image style={{ width: '95px', display: "inline-block", margin: "5px 5px", }} src={albedologo} /> */}
-
-            </Button>
-          </div>
-
-          <br></br>
-          <div>
-
-          </div>
+          
           <div>
             <Field
               name="email"

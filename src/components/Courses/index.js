@@ -144,9 +144,9 @@ class Courses extends Component {
             <Item><Sidebar props={email}/></Item>
           </Grid> */}
             <Grid item xs={12} sm={8} md={20}>
-            {user.role === 'Learner' && <Navbar2 />}
-            {user.role === 'Teacher' && <Navbar1 />}
-            {user.role === 'University' && <Navbar1 />}
+           
+            <Navbar1 />
+           
 
               <div style={{ padding: '10px' }}>
                 <br></br>

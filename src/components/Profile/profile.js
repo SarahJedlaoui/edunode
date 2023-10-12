@@ -21,7 +21,7 @@ import {
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
 import Navbar1 from '../Dashboard/Navbar1';
-import Footer from '../Footer';
+import Footer from '../Footer/Footer';
 import axios from 'axios';
 import add from './addcourse.png'
 import ai from './ai.png'
@@ -31,6 +31,7 @@ import community from './community.png'
 import post from './post.png'
 import { useParams } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
+import userimage from './user.png'
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class ProfilePage extends Component {
       user: this.props.user,
       posts: this.props.posts,
       courses: this.props.courses,
-      alert:false,
+      alert: false,
     };
   }
   sendFriendRequest = async (userId) => {
@@ -51,7 +52,7 @@ class ProfilePage extends Component {
       const { data } = await axios.post(`https://edunode.herokuapp.com/api/users/friend-request/${userId}`, {
         user: this.props.user,
       });
-      console.log(data.message); 
+      console.log(data.message);
       this.setState({ alert: true });
       console.log('request sent');// Friend request sent
       // Handle success message or update UI
@@ -62,7 +63,7 @@ class ProfilePage extends Component {
     }
   };
 
- 
+
 
   render() {
     const logged = localStorage.getItem('user');
@@ -100,13 +101,23 @@ class ProfilePage extends Component {
             <MDBCol lg="4">
               <MDBCard className="mb-4">
                 <MDBCardBody className="text-center d-flex justify-content-center flex-column align-items-center">
-                  <MDBCardImage
-                    src={this.state.user.images}
-                    alt="avatar"
-                    className="rounded-circle"
-                    style={{ width: '150px' }}
-                    fluid
-                  />
+                  {this.state.user.images && this.state.user.images.length > 0 ? (
+                    <MDBCardImage
+                      src={this.state.user.images}
+                      alt="avatar"
+                      className="rounded-circle"
+                      style={{ width: '150px' }}
+                      fluid
+                    />
+                  ) : (
+                    <MDBCardImage
+                      src={userimage}
+                      alt="avatar"
+                      className="rounded-circle"
+                      style={{ width: '150px' }}
+                      fluid
+                    />
+                  )}
                   <p className="text-muted mb-1">{this.state.user.name}</p>
                   {!user.friends.includes(loggedUser._id) &&
                     !user.friendRequests.find(
@@ -120,13 +131,13 @@ class ProfilePage extends Component {
                       </button>
                     )}
 
-{this.state.alert && (
-        <div>
-          <Alert severity="success">Friend Request Sent!</Alert>
-        </div>
-      )}
+                  {this.state.alert && (
+                    <div>
+                      <Alert severity="success">Friend Request Sent!</Alert>
+                    </div>
+                  )}
 
-                 
+
 
 
 
@@ -134,34 +145,7 @@ class ProfilePage extends Component {
                 </MDBCardBody>
               </MDBCard>
 
-              <MDBCard className="mb-4 mb-lg-4">
-                <MDBCardBody className="p-0">
-                  <MDBListGroup className="rounded-3">
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBIcon fas icon="globe fa-lg text-warning" />
-                      <a href={`/profile/${this.state.user._id}`}>Get you Profile link </a>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                      <MDBCardText></MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                      <MDBCardText></MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                      <MDBCardText></MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                      <MDBCardText></MDBCardText>
-                    </MDBListGroupItem>
-                  </MDBListGroup>
-                </MDBCardBody>
-              </MDBCard>
-
-              <MDBCard className="mb-4 mb-lg-4">
+              <MDBCard className="mb-4 mb-lg-4" style={{ height: "auto" }}>
                 <MDBCardBody className="p-0">
                   <MDBListGroup className="rounded-3">
                     {this.state.user.CoursesTrophy !== 0 && (
@@ -385,7 +369,7 @@ class ProfilePage extends Component {
             </MDBCol>
           </MDBRow>
         </div>
-
+       <Footer></Footer>
       </section>
     );
   }
@@ -459,5 +443,3 @@ export default reduxForm({
   form: "ReduxForm",
   fields: ["name", "email", "age", "location", "bio"],
 })(withRouter(WithParams));
-
-

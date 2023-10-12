@@ -1,11 +1,11 @@
-import React, { useRef, useState,useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
 import { connect } from "react-redux";
 import { clearErrors } from "../../../actions/errorActions";
 import { verifyCode } from "../../../actions/authActions";
 import { reduxForm } from "redux-form";
 import "./styles.css";
-
+import Navbar1 from '../../Dashboard/Navbar1';
 import axios from "axios";
 import html2canvas from 'html2canvas';
 import dep from "./2.png"
@@ -19,7 +19,7 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import Modal from 'react-modal';
-
+import Box from '@mui/material/Box';
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
     color: theme.palette.action.disabled,
@@ -68,15 +68,15 @@ function Ediploma(props) {
   const [ratingValue, setRatingValue] = useState(5);
   const [Name, setName] = useState(props.user && props.user.name ? props.user.name : '');
   const [Feedback, setFeedback] = useState('');
-  const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : ''; 
+  const loggedInUserEmail = props.auth.user.email ? props.auth.user.email : '';
   const courseId = '644bcdeee1fec0f4f55a7449';
   const [showPopup, setShowPopup] = useState(false);
 
-async function sendImageToServer(base64Image, props) {
+  async function sendImageToServer(base64Image, props) {
     try {
       if (props.auth.user.email) {
         const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma1", {
-          
+
           email: props.auth.user.email ? props.auth.user.email : null,
           name: Name
         });
@@ -84,7 +84,7 @@ async function sendImageToServer(base64Image, props) {
       } else if (props.auth.user.pkey) {
 
         const response = await axios.post("https://edunode.herokuapp.com/api/certificates/diploma1", {
-          
+
           pkey: props.auth.user.pkey,
           name: Name
         });
@@ -119,7 +119,7 @@ async function sendImageToServer(base64Image, props) {
     });
     setTimeout(function () {
       try {
-       // window.location.href = "/";
+        // window.location.href = "/";
       } catch (error) {
         console.log(error);
       }
@@ -138,7 +138,7 @@ async function sendImageToServer(base64Image, props) {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (response.ok) {
         // Handle successful submission
       } else {
@@ -183,7 +183,10 @@ async function sendImageToServer(base64Image, props) {
   };
 
   return (
+    <Box sx={{ flexGrow: 1 }}>
+       <Navbar1 />
     <div className="App">
+
       <div className="Meta">
         <h1>How did you find our Course </h1>
         <p>Your feedback is very appreciated </p>
@@ -226,39 +229,40 @@ async function sendImageToServer(base64Image, props) {
       </div>
 
       <Modal
-  isOpen={showPopup}
-  onRequestClose={handleClosePopup}
-  contentLabel="Congratulations"
-  style={{
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    content: {
-      width: '400px',
-      height: '400px',
-      margin: '0 auto',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '20px',
-      borderRadius: '8px'
-    }
-  }}
->
-  <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
-  <p style={{ marginBottom: '20px', textAlign: 'center' }}>
-    Thank you for finishing the course an claimed this trophy.
-  </p>
-  <img
-    src={growth}
-    alt="Trophy"
-    style={{ width: '150px', marginBottom: '20px' }}
-  />
-  <button onClick={handleClosePopup}>Close</button>
-</Modal>
+        isOpen={showPopup}
+        onRequestClose={handleClosePopup}
+        contentLabel="Congratulations"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          },
+          content: {
+            width: '400px',
+            height: '400px',
+            margin: '0 auto',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '20px',
+            borderRadius: '8px'
+          }
+        }}
+      >
+        <h2 style={{ marginBottom: '20px' }}>Congratulations!</h2>
+        <p style={{ marginBottom: '20px', textAlign: 'center' }}>
+          Thank you for finishing the course an claimed this trophy.
+        </p>
+        <img
+          src={growth}
+          alt="Trophy"
+          style={{ width: '150px', marginBottom: '20px' }}
+        />
+        <button onClick={handleClosePopup}>Close</button>
+      </Modal>
 
     </div>
+     </Box>
   );
 }
 

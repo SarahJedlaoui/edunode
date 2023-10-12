@@ -21,7 +21,8 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import Modal from 'react-modal';
-
+import Navbar1 from '../../../Dashboard/Navbar1';
+import Box from '@mui/material/Box';
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
     color: theme.palette.action.disabled,
@@ -202,9 +203,11 @@ async function sendImageToServer(base64Image, props) {
   
 
   return (
+    <Box sx={{ flexGrow: 1 }}>
+    <Navbar1 />
     <div className="App">
       <div className="Meta">
-        <h1>How did you find our Course </h1>
+        <h1>How did you find our Challenge </h1>
         <p>Your feedback is very appreciated </p>
         <StyledRating
           name="highlight-selected-only"
@@ -276,6 +279,7 @@ async function sendImageToServer(base64Image, props) {
   <button onClick={handleClosePopup}>Close</button>
 </Modal>
     </div>
+    </Box>
   );
 }
 

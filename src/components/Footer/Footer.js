@@ -37,7 +37,7 @@ export default function Footer() {
         </section>
 
         <section className=''>
-          <MDBContainer className=' text-md-start mt-5'>
+        <div className="py-20">
             <MDBRow className='mt-3 justify-content-center'>
               <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
                 <h6 className='text-uppercase fw-bold mb-4'>
@@ -115,7 +115,7 @@ export default function Footer() {
                 </p>*/} 
               </MDBCol>
             </MDBRow>
-          </MDBContainer>
+          </div>
         </section>
 
         <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>

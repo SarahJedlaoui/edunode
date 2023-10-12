@@ -325,9 +325,7 @@ class Teach extends Component {
             </Grid> */}
             <Grid item xs={12} sm={8} md={20}>
               <Navbar1 />
-              <br></br>
-              <br></br>
-              <br></br>
+        
               <div style={{ padding: '10px' }}>
                 <Form onSubmit={this.handleSubmit}>
                   <h4 style={{ fontSize: "2em", textAlign: "center" }}>Add Course</h4>
@@ -389,7 +387,7 @@ class Teach extends Component {
                     onEditorStateChange={this.onEditorStateChange}
                   />
                   <FormGroup>
-                    <Label htmlFor="title">Questions:</Label>
+                    <Label htmlFor="title">Questions and answers:</Label>
                     <TextField
                       name="questions"
                       multiline
